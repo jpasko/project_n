@@ -1,0 +1,17 @@
+# Ignore compiled python
+*.pyc
+*.pyo
+
+# Ignore databases.
+*.db
+
+# Ignore uploaded media and venv
+media/
+venv/
+
+# Ignore other unnecessary files
+doc/
+*.swp
+*~
+.project
+.DS_Store
