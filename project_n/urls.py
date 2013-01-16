@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^user/(\w+)/$', 'portfolios.views.portfolio'),
 
     # The about page of a user's profile.
-    url(r'^user/(\w+)/about/$', 'accounts.views.about_user'),
+    url(r'^user/(\w+)/about/$', 'portfolios.views.about'),
 
     # Users can edit their profile.
 #    url(r'^user/(\w+)/edit/$', 'accounts.views.edit_user'),

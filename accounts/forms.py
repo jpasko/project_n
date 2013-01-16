@@ -15,7 +15,6 @@ class RegistrationForm(forms.Form):
         label='Confirm password',
         widget=forms.PasswordInput()
     )
-    # User profile fields:
 
     def clean(self):
         """

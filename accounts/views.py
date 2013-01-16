@@ -7,20 +7,6 @@ from django.template import RequestContext
 from accounts.forms import RegistrationForm
 import json
 
-def about_user(request, username):
-    """
-    A user's profile and other information.
-    """
-    try:
-        user = User.objects.get(username=username)
-    except:
-        raise Http404('No account exists for user ' + username)
-    # Get the profile, and render its contents with the template.
-    profile = user.get_profile()
-    variables = RequestContext(request, {
-            'username': username, 'profile': profile})
-    return render_to_response('accounts/about_user.html', variables)
-
 @login_required
 def profile(request):
     """

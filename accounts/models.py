@@ -8,7 +8,19 @@ class UserProfile(models.Model):
     # Required to associate with a unique user.
     user = models.OneToOneField(User)
 
-    # User profile follows:
+    # The user's account type.
+    account_type = models.CharField(max_length=1)
+
+    # These are the free options.
+    fullname = models.CharField(max_length=75)
+    location = models.CharField(max_length=75)
+    email = models.EmailField()
+
+    # you must pay to use these ones.
+    about = models.TextField()
+    phone = models.CharField(max_length=20)
+    picture = models.ImageField()
+    
 
     def __unicode__(self):
         return u'Profile for %s' % self.user.username

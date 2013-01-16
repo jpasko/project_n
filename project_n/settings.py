@@ -155,14 +155,20 @@ LOGGING = {
     }
 }
 
-# The storage limit for free accounts in bytes.
-FREE_STORAGE_LIMIT = 50 * 1024 * 1024
+# The storage limits for free accounts
+FREE_IMAGE_LIMIT = 10
+FREE_MAX_SIZE = 2 * 1024 * 1024
+FREE_ACCOUNT = 'F'
 
-# The storage limit for premium accounts in bytes.
-PREMIUM_STORAGE_LIMIT = 500 * 1024 * 1024
+# The storage limits for premium accounts
+PREMIUM_IMAGE_LIMIT = 150
+PREMIUM_MAX_SIZE = 4 * 1024 * 1024
+PREMIUM_ACCOUNT = 'P'
 
-# The storage limit for professional accounts in bytes.
-PROFESSIONAL_STORAGE_LIMIT = 2000 * 1024 * 1024
+# The storage limits for professional accounts
+PROFESSIONAL_IMAGE_LIMIT = 500
+PROFESSIONAL_MAX_SIZE = 20 * 1024 * 1024
+PROFESSIONAL_ACCOUNT = 'R'
 
 # Redirect to this URL after login, and use request.user to redirect to the
 # user's profile within the view.
