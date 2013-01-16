@@ -1,4 +1,4 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect, HttpResponse
@@ -52,7 +52,10 @@ def register_user(request, account_type):
             profile = user.get_profile()
             # profile.field_1 = form.cleaned_data['field_1']
             profile.save()
-            return HttpResponseRedirect('/welcome/')
+            user = authenticate(username=request.POST['username'],
+                                password=request.POST['password1'])
+            login(request, user)
+            return HttpResponseRedirect('/accounts/profile/')
     else:
         form = RegistrationForm()
     variables = RequestContext(request, {'form': form, 'account_type': account_type})
