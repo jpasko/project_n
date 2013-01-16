@@ -47,20 +47,6 @@ def register_user(request, account_type):
     variables = RequestContext(request, {'form': form, 'account_type': account_type})
     return render_to_response('registration/register.html', variables)
 
-def list_users(request):
-    """
-    Returns a list of all usernames.
-    """
-    all_users = User.objects.all()
-    result = []
-    if all_users.count() < 1:
-        result.append('No users found')
-    else:
-        for user in all_users:
-            result.append(user.username)
-    # Convert the response to JSON.
-    return HttpResponse(json.dumps(result))
-
 def delete_user(request):
     """
     Deletes the currently authenticated user's account and all associated data.
@@ -84,3 +70,17 @@ def xhr_test(request):
     else:
         message = 'This is not an XHR request'
     return HttpResponse(message)
+
+def list_users(request):
+    """
+    Returns a list of all usernames.
+    """
+    all_users = User.objects.all()
+    result = []
+    if all_users.count() < 1:
+        result.append('No users found')
+    else:
+        for user in all_users:
+            result.append(user.username)
+    # Convert the response to JSON.
+    return HttpResponse(json.dumps(result))

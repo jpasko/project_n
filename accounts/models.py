@@ -19,7 +19,7 @@ class UserProfile(models.Model):
     # you must pay to use these ones.
     about = models.TextField()
     phone = models.CharField(max_length=20)
-    picture = models.ImageField()
+    picture = models.ImageField(upload_to='images/profile/')
     
 
     def __unicode__(self):

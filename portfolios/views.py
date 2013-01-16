@@ -23,3 +23,14 @@ def about(request, username):
     profile = user.get_profile()
     variables = RequestContext(request, {'username': username, 'profile': profile})
     return render_to_response('portfolios/about.html', variables)
+
+def edit(request):
+    """
+    Allows a user to edit their profile.
+    """
+
+def upload(request):
+    """
+    Allows a user to upload a new photo.
+    """
+
