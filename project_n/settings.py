@@ -163,3 +163,7 @@ PREMIUM_STORAGE_LIMIT = 500 * 1024 * 1024
 
 # The storage limit for professional accounts in bytes.
 PROFESSIONAL_STORAGE_LIMIT = 2000 * 1024 * 1024
+
+# Redirect to this URL after login, and use request.user to redirect to the
+# user's profile within the view.
+LOGIN_REDIRECT_URL = '/accounts/profile/'

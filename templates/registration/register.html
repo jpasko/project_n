@@ -1,10 +1,13 @@
 {% extends "site_base.html" %}
-{% block title %}New user signup{% endblock %}
+{% block title %}Sign up{% endblock %}
 {% block head %}Please signup{% endblock %}
 {% block content %}
-<form method="post" action=".">
+<div class="row">
+<h1 style="text-align: center">{{ account_type }}</h1>
+<form method="post" action="." style="text-align: center">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" value="register">
+  <input type="submit" value="register" class="btn btn-large btn-success">
 </form>
+</div>
 {% endblock %}

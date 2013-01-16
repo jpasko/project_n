@@ -4,6 +4,7 @@
   <head>
     <title>Project M | {% block title %}{% endblock %}</title>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px;
@@ -27,8 +28,14 @@
 	  <a class="brand" href="/">Home</a>
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
-	      <li><a href="/register/">sign up</a></li>	        
-	      <li><a href="/login/">login</a></li>
+	      {% if not user.is_authenticated %}
+	        <li><a href="/examples/">examples</a></li>
+	        <li><a href="/register/">sign up</a></li>	        
+	        <li><a href="/login/">login</a></li>
+              {% else %}
+		<li><a href="/user/{{ user.username }}/">profile</a></li>
+		<li><a href="/logout/">logout</a></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div>

@@ -12,7 +12,7 @@ urlpatterns = patterns('',
         {'template': 'main_page.html'}),
 
     # The user's main profile, which shows their gallery.
-#    url(r'^user/(\w+)/$', 'portfolios.views.user_page'),
+    url(r'^user/(\w+)/$', 'portfolios.views.portfolio'),
 
     # The about page of a user's profile.
     url(r'^user/(\w+)/about/$', 'accounts.views.about_user'),
@@ -31,6 +31,9 @@ urlpatterns = patterns('',
 
     # The login URL, should redirect to user/username/
     url(r'^login/$', 'django.contrib.auth.views.login'),
+
+    # Here's the redirection from login
+    url(r'^accounts/profile/$', 'accounts.views.profile'),
 
     # Logs out the user, redirects to /logout/success/
     url(r'^logout/$', 'accounts.views.logout_user'),
@@ -78,7 +81,7 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^spindrift/', include(admin.site.urls)),
 )
 
 if settings.DEBUG:

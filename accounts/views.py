@@ -1,4 +1,5 @@
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
@@ -19,6 +20,14 @@ def about_user(request, username):
     variables = RequestContext(request, {
             'username': username, 'profile': profile})
     return render_to_response('accounts/about_user.html', variables)
+
+@login_required
+def profile(request):
+    """
+    Redirects to the user's profile.  To be used following login, so that
+    we can redirect to whatever profile aspect we want.
+    """
+    return HttpResponseRedirect('/user/' + request.user.username + '/')
 
 def logout_user(request):
     """
@@ -46,7 +55,7 @@ def register_user(request, account_type):
             return HttpResponseRedirect('/welcome/')
     else:
         form = RegistrationForm()
-    variables = RequestContext(request, {'form': form})
+    variables = RequestContext(request, {'form': form, 'account_type': account_type})
     return render_to_response('registration/register.html', variables)
 
 def list_users(request):

@@ -1,24 +1,32 @@
 {% extends "site_base.html" %}
 {% block title %}Sign up{% endblock %}
-{% block header %}Sign up{% endblock %}
+{% block header %}
+{% endblock %}
 {% block content %}
 <div class="row">
-  <div class="span4">
-    <p><a href="/register/basic/">Free</a></p>
-    <p>$0 per month</p>
-    <p>30 mb limit (about 15 images)</p>
+</div>
+<div class="row">
+  <div class="span3">
   </div>
-  <div class="span4">
-    <p><a href="/register/premium/">Premium</a></p>
-    <p>$4 per month</p>
-    <p>300 mb limit (about 150 images)</p>
-    <p>All features included!</p>
+  <div class="span3">
+    <h1><a href="/register/starter/" class="btn btn-large btn-success">Starter</a></h1>
+    <h3><b>Free</b></h3>
+    <p>10 images</p>
+    <p>Maximum 2mb per image</p>
   </div>
-  <div class="span4">
-    <p><a href="/register/professional/">Professional</a></p>
-    <p>$10 per month</p>
-    <p>1 gb limit (about 500 images)</p>
-    <p>All features included!</p>
+  <div class="span3">
+    <h1><a href="/register/premium/" class="btn btn-large btn-success">Premium</a></h1>
+    <h3>$4 per month</h3>
+    <p>150 images</p>
+    <p>Maximum 4mb per image</p>
+    <p>All features unlocked!</p>
+  </div>
+  <div class="span3">
+    <h1><a href="/register/professional/" class="btn btn-large btn-success">Professional</a></h1>
+    <h3>$10 per month</h3>
+    <p>500 images</p>
+    <p>Maximum 20mb per image</p>
+    <p>All features unlocked!</p>
   </div>
 </div>
 {% endblock %}
