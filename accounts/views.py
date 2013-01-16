@@ -27,7 +27,7 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/logout/success/')
 
-def register_user(request):
+def register_user(request, account_type):
     """
     Registers a new user to the site.
     """
@@ -43,7 +43,7 @@ def register_user(request):
             profile = user.get_profile()
             # profile.field_1 = form.cleaned_data['field_1']
             profile.save()
-            return HttpResponseRedirect('/register/success/')
+            return HttpResponseRedirect('/welcome/')
     else:
         form = RegistrationForm()
     variables = RequestContext(request, {'form': form})
