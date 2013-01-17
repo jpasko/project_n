@@ -12,11 +12,18 @@ class UserProfile(models.Model):
     account_type = models.CharField(max_length=1)
 
     # These are the free options.
-    fullname = models.CharField(verbose_name='Full name', max_length=75)
-    location = models.CharField(max_length=75)
-    email = models.EmailField()
-    about = models.TextField()
-    phone = models.CharField(max_length=20)
+    fullname = models.CharField(verbose_name='name (optional)',
+                                max_length=75,
+                                blank=True)
+    location = models.CharField(verbose_name='location (optional)',
+                                max_length=75,
+                                blank=True)
+    email = models.EmailField(verbose_name='contact email (optional)',
+                              blank=True)
+    about = models.TextField(verbose_name='about (optional)',
+                             blank=True)
+    phone = models.CharField(verbose_name='phone (optional)',
+                             max_length=20, blank=True)
 
     STYLES = (
         ('D', 'Dark'),
@@ -40,7 +47,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     Method to create a UserProfile to be associated with a User.
     """
     if created:
-        UserProfile.objects.create(user=instance)
+        UserProfile.objects.create(user=instance, fullname=instance.username)
 
 # On the User save signal, create a UserProfile.
 post_save.connect(create_user_profile, sender=User)

@@ -1,6 +1,13 @@
 {% extends "portfolio_base.html" %}
-{% block title %}{{ fullname }} | Portfolio{% endblock %}
+{% block title %}{{ profile.fullname }} | Portfolio{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
+
+  {% for gallery in galleries %}
+    {% for photo in gallery.photo_set.all %}
+      <img src="/{{ photo.image.url }}">
+      <p>{{ photo.caption }}</p>
+    {% endfor %}
+  {% endfor %}
 
 {% endblock %}

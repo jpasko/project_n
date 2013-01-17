@@ -3,16 +3,15 @@ from django.contrib.auth.models import User
 
 class Gallery(models.Model):
     user = models.ForeignKey(User)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=75, blank=True)
 
     def __unicode__(self):
-        return u'Gallery for %s' % self.user.username
+        return u'User: %s, Title: %s' % (self.user.username, self.title)
 
 class Photo(models.Model):
-    #gallery = models.ForeignKey(Gallery)
-    user = models.ForeignKey(User)
-    caption = models.CharField(default='', max_length=140)
+    gallery = models.ForeignKey(Gallery)
     image = models.ImageField(upload_to='images/')
+    caption = models.CharField(max_length=140, blank=True)
 
     def __unicode__(self):
         return u'Image for %s' % self.gallery.title
