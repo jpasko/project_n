@@ -55,3 +55,8 @@ class RegistrationForm(forms.Form):
         except ObjectDoesNotExist:
             return email
         raise forms.ValidationError('Email already taken')
+
+class PaidRegistrationForm(RegistrationForm):
+    """
+    Form for accepting credit cards.
+    """

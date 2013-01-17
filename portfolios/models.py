@@ -8,17 +8,17 @@ class Gallery(models.Model):
     def __unicode__(self):
         return u'Gallery for %s' % self.user.username
 
-class Image(models.Model):
-    gallery = models.ForeignKey(Gallery)
+class Photo(models.Model):
+    #gallery = models.ForeignKey(Gallery)
+    user = models.ForeignKey(User)
     caption = models.CharField(default='', max_length=140)
-    upload_path = 'images/'
     image = models.ImageField(upload_to='images/')
 
     def __unicode__(self):
         return u'Image for %s' % self.gallery.title
 
-class ProfileImage(models.Model):
-    user = models.ForeignKey(User)
+class ProfilePhoto(models.Model):
+    user = models.OneToOneField(User)
     image = models.ImageField(upload_to='images/')
 
     def __unicode__(self):

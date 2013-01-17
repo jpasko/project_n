@@ -18,10 +18,10 @@ urlpatterns = patterns('',
     url(r'^user/(\w+)/about/$', 'portfolios.views.about'),
 
     # Users can edit their profile.
-#    url(r'^user/(\w+)/edit/$', 'portfolios.views.edit'),
+    url(r'^user/(\w+)/edit/$', 'portfolios.views.edit'),
 
     # Users can upload new photos using the upload form.
-#    url(r'^user/(\w+)/upload/$', 'portfolios.views.upload'),
+    url(r'^user/(\w+)/upload/$', 'portfolios.views.upload'),
 
     # Deletes the photo, and redirects back to the gallery.
     # If the gallery is empty after deleting the photo, the gallery

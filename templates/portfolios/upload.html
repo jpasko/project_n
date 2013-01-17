@@ -1,0 +1,9 @@
+{% extends "portfolio_base.html" %}
+{% block title %}{{ username }} | Upload{% endblock %}
+{% block content %}
+<form method="post" action="." enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="upload" class="btn btn-large btn-success">
+</form>
+{% endblock %}

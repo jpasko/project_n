@@ -12,14 +12,24 @@ class UserProfile(models.Model):
     account_type = models.CharField(max_length=1)
 
     # These are the free options.
-    fullname = models.CharField(max_length=75)
+    fullname = models.CharField(verbose_name='Full name', max_length=75)
     location = models.CharField(max_length=75)
     email = models.EmailField()
-
-    # you must pay to use these ones.
     about = models.TextField()
     phone = models.CharField(max_length=20)
-    picture = models.ImageField(upload_to='images/profile/')
+
+    STYLES = (
+        ('D', 'Dark'),
+        ('L', 'Light'),
+        ('G', 'A bit of a compromise'),
+    )
+    style = models.CharField(verbose_name='Portfolio style',
+                             max_length=1,
+                             choices=STYLES,
+                             default='D')
+
+    # you must pay to upload a custom image.
+#    picture = models.ImageField(upload_to='images/profile/')
     
 
     def __unicode__(self):

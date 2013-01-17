@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'accounts',
     'portfolios',
+    'imagekit',
 )
 
 # A sample logging configuration. The only tangible logging
