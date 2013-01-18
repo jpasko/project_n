@@ -2,33 +2,39 @@
 {% block title %}{{ profile.fullname }} | Portfolio{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
-
 {% if user.is_authenticated and user.username == username %}
 <div class="row">
-<a href="/user/{{ username }}/create_gallery/" class="btn btn-large btn-success">Create a new gallery</a>
+  <div class="span1">
+  </div>
+  <div class="span3">
+    <a href="/user/{{ username }}/create_gallery/" class="btn btn-large btn-success">Create a new gallery</a>
+  </div>
 </div>
 {% endif %}
-
 <div class="row">
-{% for gallery in galleries %}
-{% if forloop.counter|divisibleby:"4" %}
+  <div class="span1">
+  </div>
+  {% for gallery in galleries %}
+    <div class="span3">
+      {% if gallery.photo_set.all|length > 0 %}
+      <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/">
+	{% with first_photo=gallery.photo_set.all|first %}
+	<img src="/{{ first_photo.thumbnail.url }}">
+	{% endwith %}
+      </a>
+      <p><b>{{ gallery.title }}</b></p>
+      {% elif user.is_authenticated and username == user.username %}
+      <a href="/user/{{ username }}/upload/"><img src="/static/img/empty_gallery.png"></a>
+      <p><b>{{ gallery.title }}</b></p>
+      {% endif %}
+    </div>
+  {% if forloop.counter|divisibleby:"3" %}
+  </div>
+  <div class="row">
+    <div class="span1">
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
 </div>
-<div class="row">
-{% endif %}
-<div class="span4">
-  {% if gallery.photo_set.all|length > 0 %}
-  <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/">
-    {% with first_photo=gallery.photo_set.all|first %}
-    <img src="/{{ first_photo.thumbnail.url }}">
-    {% endwith %}
-  </a>
-  {% elif user.is_authenticated and username == user.username %}
-  <a href="/user/{{ username }}/upload/"><img src="/static/img/empty_gallery.png"></a>
-  {% endif %}
-  <p><b>{{ gallery.title }}</b></p>
-</div>
-{% endfor %}
-</div>
-
-
 {% endblock %}

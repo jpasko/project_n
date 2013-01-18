@@ -50,8 +50,8 @@ lightbox = new Lightbox options
     function LightboxOptions() {
       this.fileLoadingImage = '/static/img/loading.gif';
       this.fileCloseImage = '/static/img/close.png';
-      this.resizeDuration = 700;
-      this.fadeDuration = 500;
+      this.resizeDuration = 150;
+      this.fadeDuration = 250;
       this.labelImage = "Image";
       this.labelOf = "of";
     }
