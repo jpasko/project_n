@@ -4,7 +4,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from portfolios.models import Photo, ProfilePhoto, Gallery
-from portfolios.forms import UserProfileForm, UploadPhotoForm
+from portfolios.forms import *
 import json
 
 def portfolio(request, username):
@@ -50,6 +50,28 @@ def edit(request, username):
     variables = RequestContext(request, {'form': form, 'username': username})
     return render_to_response('portfolios/edit.html', variables)
 
+def create_gallery(request, username):
+    """
+    Creates a new gallery.
+    """
+    # Ensure that we cannot create galleris on other portfolio:
+    if not username == request.user.username:
+        raise Http404
+    if request.method == 'POST':
+        form = CreateGalleryForm(request.POST)
+        if form.is_valid():
+            gallery = Gallery(
+                user=request.user,
+                title=form.cleaned_data['title'],
+                description=form.cleaned_data['description']
+            )
+            gallery.save()
+            return HttpResponseRedirect('/user/' + username + '/')
+    else:
+        form = CreateGalleryForm()
+    variables = RequestContext(request, {'form': form, 'username': username})
+    return render_to_response('portfolios/create_gallery.html', variables)
+
 def upload(request, username):
     """
     Allows a user to upload a new photo.
@@ -71,3 +93,16 @@ def upload(request, username):
         form = UploadPhotoForm()
     variables = RequestContext(request, {'form': form, 'username': username})
     return render_to_response('portfolios/upload.html', variables)
+
+def gallery(request, username, gallery_id):
+    """
+    Gets all the photos from a gallery.
+    """
+    gallery = get_object_or_404(Gallery, pk=gallery_id)
+    user = get_object_or_404(User, username=username)
+    profile = user.get_profile()
+    variables = RequestContext(request, {
+            'gallery': gallery,
+            'profile': profile,
+            'username': username})
+    return render_to_response('portfolios/gallery.html', variables)

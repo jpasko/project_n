@@ -3,13 +3,32 @@
 {% block header %}{% endblock %}
 {% block content %}
 
-  {% for gallery in galleries %}
-    {% for photo in gallery.photo_set.all %}
-      <a href="/{{ photo.image.url }}">
-	<img src="/{{ photo.thumbnail.url }}">
-      </a>
-      <p>{{ photo.caption }}</p>
-    {% endfor %}
-  {% endfor %}
+{% if user.is_authenticated and user.username == username %}
+<div class="row">
+<a href="/user/{{ username }}/create_gallery/" class="btn btn-large btn-success">Create a new gallery</a>
+</div>
+{% endif %}
+
+<div class="row">
+{% for gallery in galleries %}
+{% if forloop.counter|divisibleby:"4" %}
+</div>
+<div class="row">
+{% endif %}
+<div class="span4">
+  {% if gallery.photo_set.all|length > 0 %}
+  <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/">
+    {% with first_photo=gallery.photo_set.all|first %}
+    <img src="/{{ first_photo.thumbnail.url }}">
+    {% endwith %}
+  </a>
+  {% elif user.is_authenticated and username == user.username %}
+  <a href="/user/{{ username }}/upload/"><img src="/static/img/empty_gallery.png"></a>
+  {% endif %}
+  <p><b>{{ gallery.title }}</b></p>
+</div>
+{% endfor %}
+</div>
+
 
 {% endblock %}

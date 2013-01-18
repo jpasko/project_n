@@ -11,14 +11,20 @@ urlpatterns = patterns('',
     url(r'^$', direct_to_template,
         {'template': 'main_page.html'}),
 
-    # The user's main profile, which shows their gallery.
+    # The user's main profile, which shows their galleries.
     url(r'^user/(\w+)/$', 'portfolios.views.portfolio'),
+
+    # A gallery.
+    url(r'^user/(\w+)/gallery/(\d+)/$', 'portfolios.views.gallery'),
 
     # The about page of a user's profile.
     url(r'^user/(\w+)/about/$', 'portfolios.views.about'),
 
     # Users can edit their profile.
     url(r'^user/(\w+)/edit/$', 'portfolios.views.edit'),
+
+    # Users must create a gallery to upload photos into.
+    url(r'^user/(\w+)/create_gallery/$', 'portfolios.views.create_gallery'),
 
     # Users can upload new photos using the upload form.
     url(r'^user/(\w+)/upload/$', 'portfolios.views.upload'),

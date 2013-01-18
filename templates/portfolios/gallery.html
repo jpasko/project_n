@@ -1,0 +1,27 @@
+{% extends "portfolio_base.html" %}
+
+{% block stylesheet %}
+<link href="/static/css/lightbox.css" rel="stylesheet">
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="/static/js/lightbox.js">
+</script>
+
+{% endblock %}
+
+{% block title %}{{ profile.fullname }} | {{ gallery.title }}{% endblock %}
+{% block header %}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <ul>
+    {% for photo in gallery.photo_set.all %}
+    <a href="/{{ photo.image.url }}" class="lightbox[{{ gallery.title }}]" rel="lightbox" title="{{ photo.caption }}">
+      <img src="/{{ photo.thumbnail.url }}">
+    </a>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

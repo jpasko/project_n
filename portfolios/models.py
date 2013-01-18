@@ -22,7 +22,7 @@ class Gallery(models.Model):
     description = models.TextField(blank=True)
 
     def __unicode__(self):
-        return u'User: %s, Title: %s' % (self.user.username, self.title)
+        return self.title
 
 class Photo(models.Model):
     gallery = models.ForeignKey(Gallery)
@@ -30,7 +30,7 @@ class Photo(models.Model):
                                              height=640,
                                              upscale=False)],
                                 upload_to=upload_to_photo)
-    thumbnail = ImageSpecField([ResizeToFill(50, 50)],
+    thumbnail = ImageSpecField([ResizeToFill(250, 250)],
                                image_field='image')
     caption = models.CharField(max_length=140, blank=True)
 

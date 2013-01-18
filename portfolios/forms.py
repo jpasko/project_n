@@ -30,3 +30,4 @@ class CreateGalleryForm(forms.ModelForm):
     """
     class Meta:
         model = Gallery
+        exclude = ('user')

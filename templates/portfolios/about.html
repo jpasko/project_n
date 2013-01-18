@@ -34,4 +34,17 @@
     <p>{{ profile.location }}</p>
   </div>
 </div>
+{% if user.is_authenticated and user.username == username %}
+<div class="row">
+  <div class="span1">
+  </div>
+</div>
+<div class="row">
+  <div class="span6">
+    <a href="/user/{{ username }}/edit/" class="btn btn-large btn-success">
+      Edit
+    </a>
+  </div>
+</div>
+{% endif %}
 {% endblock %}

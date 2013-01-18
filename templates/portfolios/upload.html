@@ -1,9 +1,14 @@
 {% extends "portfolio_base.html" %}
 {% block title %}{{ username }} | Upload{% endblock %}
 {% block content %}
+<p>
+  Select an existing gallery to hold this photo.<br />
+  You can also 
+  <a href="/user/{{ username }}/create_gallery/">create</a> a new gallery.
+</p>
 <form method="post" action="." enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" value="upload" class="btn btn-large btn-success">
+  <input type="submit" value="Upload photo" class="btn btn-large btn-success">
 </form>
 {% endblock %}
