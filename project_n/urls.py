@@ -35,7 +35,7 @@ urlpatterns = patterns('',
 #    url(r'^delete/photo/(\w+)/$', 'portfolios.views.delete_image'),
 
     # Deletes the gallery, and redirects back to the main profile.
-#    url(r'^delete/gallery/(\w+)/$', 'portfolios.views.delete_gallery'),
+    url(r'^user/(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),
 
     # The login URL, should redirect to user/username/
     url(r'^login/$', 'django.contrib.auth.views.login'),

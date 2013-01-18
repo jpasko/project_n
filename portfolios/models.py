@@ -20,6 +20,7 @@ class Gallery(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=75, blank=True)
     description = models.TextField(blank=True)
+    count = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.title

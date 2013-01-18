@@ -16,16 +16,16 @@
   </div>
   {% for gallery in galleries %}
     <div class="span3">
-      {% if gallery.photo_set.all|length > 0 %}
+      {% if gallery.count > 0 %}
       <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/">
 	{% with first_photo=gallery.photo_set.all|first %}
 	<img src="/{{ first_photo.thumbnail.url }}">
 	{% endwith %}
       </a>
       <p><b>{{ gallery.title }}</b></p>
-      {% elif user.is_authenticated and username == user.username %}
+      {% else %}
       <a href="/user/{{ username }}/upload/"><img src="/static/img/empty_gallery.png"></a>
-      <p><b>{{ gallery.title }}</b></p>
+      <p><b>{{ gallery.title }} (empty)</b></p>
       {% endif %}
     </div>
   {% if forloop.counter|divisibleby:"3" %}

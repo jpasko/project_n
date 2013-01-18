@@ -12,7 +12,12 @@ def portfolio(request, username):
     A user's portfolio.
     """
     user = get_object_or_404(User, username=username)
-    galleries = user.gallery_set.all()
+    # Retrieve all galleries, including empty ones, iff the user is logged in
+    if request.user.is_authenticated() and request.user.username == username:
+        galleries = user.gallery_set.all()
+    else:
+        # Only show non-empty galleries to a guest.
+        galleries = user.gallery_set.filter(count__gt=0)
     profile = user.get_profile()
     variables = RequestContext(request, {
             'username': username,
@@ -82,8 +87,12 @@ def upload(request, username):
     if request.method == 'POST':
         form = UploadPhotoForm(request.POST, request.FILES)
         if form.is_valid():
+            # Update the photo count on the gallery
+            gallery = form.cleaned_data['gallery']
+            gallery.count += 1
+            gallery.save()
             photo = Photo(
-                gallery=form.cleaned_data['gallery'],
+                gallery=gallery,
                 image=request.FILES['image'],
                 caption=form.cleaned_data['caption']
             )
@@ -106,3 +115,14 @@ def gallery(request, username, gallery_id):
             'profile': profile,
             'username': username})
     return render_to_response('portfolios/gallery.html', variables)
+
+def delete_gallery(request, username, gallery_id):
+    """
+    Deletes the gallery (and all images it contains).
+    """
+    # First, check that the user is logged in and owns the gallery.
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    gallery = get_object_or_404(Gallery, pk=gallery_id)
+    gallery.delete()
+    return HttpResponseRedirect('/user/' + username + '/')
