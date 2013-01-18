@@ -5,7 +5,9 @@
 
   {% for gallery in galleries %}
     {% for photo in gallery.photo_set.all %}
-      <img src="/{{ photo.image.url }}">
+      <a href="/{{ photo.image.url }}">
+	<img src="/{{ photo.thumbnail.url }}">
+      </a>
       <p>{{ photo.caption }}</p>
     {% endfor %}
   {% endfor %}

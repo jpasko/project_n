@@ -2,12 +2,11 @@
 {% block title %}Login{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
-<div class="row" style="padding-top: 100px">
+<div class="row">
   {% if form.errors %}
-  <p>Your username and password didn't match.<br />
-    Please try again</p>
+  <p>Your username and password didn't match.</p>
   {% endif %}
-  <form method="post" action="." style="text-align: center">
+  <form method="post" action=".">
     {% csrf_token %}
     <p><label for="id_username">Username:</label>
       {{ form.username }}</p>
