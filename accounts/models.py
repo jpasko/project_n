@@ -1,6 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from imagekit.models.fields import ProcessedImageField
+from imagekit.processors import ResizeToFit
+
+def upload_to(instance, filename):
+    """
+    Upload path for profile photos.
+    """
+    return 'images/%s/%s' % (instance.user.id, filename)
 
 # Attach a profile to the User model, and ensure that it's
 # created whenever a new user is created.
@@ -9,7 +17,14 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     # The user's account type.
-    account_type = models.CharField(max_length=1)
+    ACCOUNT_TYPES = (
+        ('F', 'Starter'),
+        ('P', 'Premium'),
+        ('R', 'Professional'),
+    )
+    account_type = models.CharField(max_length=1,
+                                    choices=ACCOUNT_TYPES,
+                                    default='F')
 
     # These are the free options.
     fullname = models.CharField(verbose_name='name (optional)',
@@ -35,10 +50,15 @@ class UserProfile(models.Model):
                              choices=STYLES,
                              default='D')
 
-    # you must pay to upload a custom image.
-#    picture = models.ImageField(upload_to='images/profile/')
-    
+    website = models.URLField(max_length=200, blank=True)
 
+    picture = ProcessedImageField([ResizeToFit(width=400,
+                                               height=400,
+                                               upscale=False)],
+                                  upload_to=upload_to,
+                                  blank=True,
+                                  verbose_name='Profile picture')
+    
     def __unicode__(self):
         return u'Profile for %s' % self.user.username
 

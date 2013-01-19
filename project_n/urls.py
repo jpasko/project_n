@@ -29,10 +29,9 @@ urlpatterns = patterns('',
     # Users can upload new photos using the upload form.
     url(r'^user/(\w+)/upload/$', 'portfolios.views.upload'),
 
-    # Deletes the photo, and redirects back to the gallery.
-    # If the gallery is empty after deleting the photo, the gallery
-    # is also deleted and they're redirected to the portfolio page.
-#    url(r'^delete/photo/(\w+)/$', 'portfolios.views.delete_image'),
+    # Deletes the photo, and redirects back to the gallery.  If
+    # the gallery is empty, redirects back to the main profile.
+    url(r'^user/(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),
 
     # Deletes the gallery, and redirects back to the main profile.
     url(r'^user/(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),
@@ -62,21 +61,21 @@ urlpatterns = patterns('',
     url(r'^welcome/$', direct_to_template,
         {'template': 'accounts/welcome.html'}),
 
-    # Password change form, redirects to success page.
-#    url(r'^password_change/$', 'django.contrib.auth.views.password_change',
-#        {'post_change_redirect': '/password_change/success/'}),
+    # Privacy policy.
+#    url(r'^privacy/$', direct_to_template,
+#        {'template': 'privacy.html'}),
 
-    # Success page for password change.
-#    url(r'^password_change/success/$', direct_to_template,
-#        {'template': 'registration/password_change_success.html'}),
+    # Terms of use, including refund policy.
+#    url(r'^terms/$', direct_to_template,
+#        {'template': 'terms.html'}),
+
+    # Password change form, redirects to login.
+    url(r'^password_change/$', 'django.contrib.auth.views.password_change',
+        {'post_change_redirect': '/login/'}),
 
     # Example portfolios, hand-curated.
 #    url(r'^examples/$', direct_to_template,
-#        {'template': 'direct/examples.html'}),
-
-    # Confirmation of delete request.
-#    url(r'^delete/confirm/$', direct_to_template,
-#        {'template': 'direct/confirm_delete.html'}),
+#        {'template': 'examples.html'}),
 
     # Deletes the user's account.
 #    url(r'^delete/$', 'accounts.views.delete'),

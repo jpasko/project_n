@@ -4,17 +4,11 @@ from imagekit.models import ImageSpecField
 from imagekit.models.fields import ProcessedImageField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
-def upload_to_photo(instance, filename):
+def upload_to(instance, filename):
     """
     Creates an upload_to path for photos.
     """
     return 'images/%s/%s' % (instance.gallery.user.id, filename)
-
-def upload_to_profile_photo(instance, filename):
-    """
-    Same, but for profile photos.
-    """
-    return 'images/%s/%s' % (instance.user.id, filename)
 
 class Gallery(models.Model):
     user = models.ForeignKey(User)
@@ -30,17 +24,11 @@ class Photo(models.Model):
     image = ProcessedImageField([ResizeToFit(width=640,
                                              height=640,
                                              upscale=False)],
-                                upload_to=upload_to_photo)
+                                upload_to=upload_to)
     thumbnail = ImageSpecField([ResizeToFill(250, 250)],
                                image_field='image')
     caption = models.CharField(max_length=140, blank=True)
+    position = models.IntegerField(default=0)
 
     def __unicode__(self):
         return u'Image for %s' % self.gallery.title
-
-class ProfilePhoto(models.Model):
-    user = models.OneToOneField(User)
-    image = models.ImageField(upload_to=upload_to_profile_photo)
-
-    def __unicode__(self):
-        return u'Profile image for %s' % self.user.username

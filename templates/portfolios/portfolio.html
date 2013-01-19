@@ -1,5 +1,19 @@
 {% extends "portfolio_base.html" %}
 {% block title %}{{ profile.fullname }} | Portfolio{% endblock %}
+{% block script %}
+<script>
+$(document).ready(function() {
+  $('a.confirm').click(function(event) {
+    event.preventDefault()
+    var url = $(this).attr('href');
+    var confirm_box = confirm('Are you sure you want to delete this gallery and all photos it contains?');
+    if (confirm_box) {
+       window.location = url;
+    }
+  });
+});
+</script>
+{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
 {% if user.is_authenticated and user.username == username %}
@@ -17,6 +31,7 @@
   {% for gallery in galleries %}
     <div class="span3">
       {% if gallery.count > 0 %}
+      <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/delete/" class="confirm">(x)</a>
       <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/">
 	{% with first_photo=gallery.photo_set.all|first %}
 	<img src="/{{ first_photo.thumbnail.url }}">
@@ -24,6 +39,7 @@
       </a>
       <p><b>{{ gallery.title }}</b></p>
       {% else %}
+      <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/delete/" class="confirm">(x)</a>
       <a href="/user/{{ username }}/upload/"><img src="/static/img/empty_gallery.png"></a>
       <p><b>{{ gallery.title }} (empty)</b></p>
       {% endif %}

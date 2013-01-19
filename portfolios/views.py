@@ -1,9 +1,10 @@
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from django.forms.models import inlineformset_factory
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from portfolios.models import Photo, ProfilePhoto, Gallery
+from portfolios.models import Photo, Gallery
 from portfolios.forms import *
 import json
 
@@ -46,7 +47,7 @@ def edit(request, username):
         raise Http404
     profile = request.user.get_profile()
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=profile)
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/user/' + username + '/about/')
@@ -126,3 +127,21 @@ def delete_gallery(request, username, gallery_id):
     gallery = get_object_or_404(Gallery, pk=gallery_id)
     gallery.delete()
     return HttpResponseRedirect('/user/' + username + '/')
+
+def delete_photo(request, username, photo_id):
+    """
+    Deletes the image and decrements the gallery count.
+    """
+    # First, check that the user is logged in and owns the gallery.
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    photo = get_object_or_404(Photo, pk=photo_id)
+    gallery = photo.gallery
+    gallery.count -= 1
+    gallery.save()
+    photo.delete()
+    redirect_url = '/user/' + username + '/'
+    if gallery.count > 0:
+        return HttpResponseRedirect(redirect_url + 'gallery/' + str(gallery.pk) + '/')
+    else:
+        return HttpResponseRedirect(redirect_url)

@@ -45,9 +45,12 @@
 		  <b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu">
-		  <li><a href="/user/{{ username }}/edit/">Edit</a></li>
-		  <li><a href="/user/{{ username }}/upload/">Upload</a></li>
-		  <li><a href="/">Upgrade</a></li>
+		  <li><a href="/user/{{ username }}/" target="_blank">View profile</a></li>
+		  <li class="divider"></li>
+		  <li><a href="/user/{{ username }}/edit/">Edit profile</a></li>
+		  <li><a href="/user/{{ username }}/upload/">Upload photo</a></li>
+		  <li><a href="/">Upgrade account</a></li>
+		  <li><a href="/password_change/">Change password</a></li>
 		  <li class="divider"></li>
 		  <li><a href="/logout/">Logout</a></li>
 		</ul>
@@ -68,11 +71,11 @@
     <script src="/static/js/bootstrap.min.js"></script>
 
     <!-- Footer -->
-    <div class="navbar navbar-fixed-bottom">
+<!--    <div class="navbar navbar-fixed-bottom">
       <div class="navbar-inner">
 	<p>&copy {% now "Y" %} <a href="/">Project M</a></p>
       </div>
-    </div>
+    </div>  -->
 
   </body>
 </html>

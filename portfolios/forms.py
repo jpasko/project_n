@@ -1,5 +1,5 @@
 from accounts.models import UserProfile
-from portfolios.models import Photo, Gallery, ProfilePhoto
+from portfolios.models import Photo, Gallery
 from django import forms
 
 class UserProfileForm(forms.ModelForm):
@@ -16,13 +16,7 @@ class UploadPhotoForm(forms.ModelForm):
     """
     class Meta:
         model = Photo
-
-class UploadProfilePhotoForm(forms.ModelForm):
-    """
-    Form to upload a profile image.
-    """
-    class Meta:
-        model = ProfilePhoto
+        exclude = ('position')
 
 class CreateGalleryForm(forms.ModelForm):
     """
