@@ -7,7 +7,7 @@
     <link href="/static/css/style.css" rel="stylesheet">
     <style>
       body {
-        background-color: #494949;
+        padding-top: 60px;
       }
     </style>
     <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -17,8 +17,7 @@
 
   <body>
 
-    <div class="container">
-    <div class="navbar navbar-inverse">
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -42,7 +41,6 @@
         </div>
       </div>
     </div>
-    </div>
 
     <div class="container">
       {% block content %}{% endblock %}
@@ -50,13 +48,6 @@
 
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/js/bootstrap.min.js"></script>
-
-    <!-- Footer -->
-    <div class="container">
-      <div class="navbar navbar-inner">
-	<p>&copy {% now "Y" %} <a href="/">Project M</a></p>
-      </div>
-    </div>
 
   </body>
 </html>
