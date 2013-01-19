@@ -2,63 +2,63 @@
 {% block title %}{{ profile.fullname }} | About{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
-{% if profile.about %}
 <div class="row">
-<div class="span6">
-<div class="row">
-  <div class="span1">
-    <p><b>About</b></p>
+  <div class="span8">
+    {% if profile.about %}
+    <div class="row">
+      <div class="span2">
+	<p><b>About</b></p>
+      </div>
+      <div class="span5">
+	<p>{{ profile.about|linebreaksbr }}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if profile.email %}
+    <div class="row">
+      <div class="span2">
+	<p><b>Email</b></p>
+      </div>
+      <div class="span6">
+	<p>{{ profile.email }}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if profile.phone %}
+    <div class="row">
+      <div class="span2">
+	<p><b>Phone</b></p>
+      </div>
+      <div class="span6">
+	<p>{{ profile.phone }}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if profile.location %}
+    <div class="row">
+      <div class="span2">
+	<p><b>Location</b></p>
+      </div>
+      <div class="span6">
+	<p>{{ profile.location }}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if profile.website %}
+    <div class="row">
+      <div class="span2">
+	<p><b>Website</b></p>
+      </div>
+      <div class="span6">
+	<a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a>
+      </div>
+    </div>
+    {% endif %}
   </div>
-  <div class="span6">
-    <p>{{ profile.about|linebreaksbr }}</p>
+  {% if profile.picture %}
+  <div class="span4">
+    <img src="/{{ profile.picture.url }}">
   </div>
-</div>
-{% endif %}
-{% if profile.email %}
-<div class="row">
-  <div class="span1">
-    <p><b>Email</b></p>
-  </div>
-  <div class="span6">
-    <p>{{ profile.email }}</p>
-  </div>
-</div>
-{% endif %}
-{% if profile.phone %}
-<div class="row">
-  <div class="span1">
-    <p><b>Phone</b></p>
-  </div>
-  <div class="span6">
-    <p>{{ profile.phone }}</p>
-  </div>
-</div>
-{% endif %}
-{% if profile.location %}
-<div class="row">
-  <div class="span1">
-    <p><b>Location</b></p>
-  </div>
-  <div class="span6">
-    <p>{{ profile.location }}</p>
-  </div>
-</div>
-{% endif %}
-{% if profile.website %}
-<div class="row">
-  <div class="span1">
-    <p><b>Website</b></p>
-  </div>
-  <div class="span6">
-    <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a>
-  </div>
-</div>
-{% endif %}
-</div>
-{% if profile.picture %}
-<div class="span6">
-  <img src="/{{ profile.picture.url }}">
-</div>
-{% endif %}
+  {% endif %}
 </div>
 {% endblock %}
