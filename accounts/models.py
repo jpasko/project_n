@@ -50,6 +50,16 @@ class UserProfile(models.Model):
                              choices=STYLES,
                              default='D')
 
+    COLUMNS = (
+        (1, 'One'),
+        (2, 'Two'),
+        (3, 'Three'),
+        (4, 'Four'),
+    )
+    columns = models.IntegerField(verbose_name='Number of columns',
+                                  choices=COLUMNS,
+                                  default=3)
+
     website = models.URLField(max_length=200, blank=True)
 
     picture = ProcessedImageField([ResizeToFit(width=400,

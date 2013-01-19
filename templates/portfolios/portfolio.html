@@ -31,7 +31,9 @@ $(document).ready(function() {
   {% for gallery in galleries %}
     <div class="span3">
       {% if gallery.count > 0 %}
+      {% if user.is_authenticated and user.username == username %}
       <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/delete/" class="confirm">(x)</a>
+      {% endif %}
       <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/">
 	{% with first_photo=gallery.photo_set.all|first %}
 	<img src="/{{ first_photo.thumbnail.url }}">
