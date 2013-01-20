@@ -27,7 +27,7 @@ class UserProfile(models.Model):
                                     default='F')
 
     # These are the free options.
-    fullname = models.CharField(verbose_name='name (optional)',
+    fullname = models.CharField(verbose_name='name',
                                 max_length=75,
                                 blank=True)
     location = models.CharField(verbose_name='location (optional)',
@@ -45,10 +45,10 @@ class UserProfile(models.Model):
         ('L', 'Light'),
         ('G', 'A bit of a compromise'),
     )
-    style = models.CharField(verbose_name='Portfolio style',
+    style = models.CharField(verbose_name='Background',
                              max_length=1,
                              choices=STYLES,
-                             default='D')
+                             default='L')
 
     COLUMNS = (
         (1, 'One'),

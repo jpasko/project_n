@@ -16,7 +16,7 @@ class UploadPhotoForm(forms.ModelForm):
     """
     class Meta:
         model = Photo
-        exclude = ('position')
+        exclude = ('order')
 
 class CreateGalleryForm(forms.ModelForm):
     """
@@ -24,4 +24,4 @@ class CreateGalleryForm(forms.ModelForm):
     """
     class Meta:
         model = Gallery
-        exclude = ('user', 'count')
+        exclude = ('user', 'count', 'order')
