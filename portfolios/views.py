@@ -88,6 +88,7 @@ def upload(request, username):
     if request.method == 'POST':
         form = UploadPhotoForm(request.POST, request.FILES)
         if form.is_valid():
+            gallery = form.cleaned_data['gallery']
             photo = Photo(
                 gallery=gallery,
                 image=request.FILES['image'],
@@ -99,7 +100,6 @@ def upload(request, username):
             profile.photo_count += 1
             profile.save()
             # Update the photo count on the gallery
-            gallery = form.cleaned_data['gallery']
             gallery.count += 1
             gallery.save()
             return HttpResponseRedirect('/user/' + username + '/')
