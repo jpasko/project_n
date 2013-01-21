@@ -8,7 +8,7 @@ class UserProfileForm(forms.ModelForm):
     """
     class Meta:
         model = UserProfile
-        exclude = ('account_type', 'user')
+        exclude = ('account_type', 'user', 'photo_count')
 
 class UploadPhotoForm(forms.ModelForm):
     """

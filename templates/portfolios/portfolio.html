@@ -30,20 +30,33 @@
     <ul class="thumbnails" id="sortable">
       {% for gallery in galleries %}
       <li>
+	<div style="position: relative; left: 0; top: 0;">
+	  {% if gallery.count > 0 %}
+	  <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/">
+	    {% with first_photo=gallery.photo_set.all|first %}
+	    <img src="/{{ first_photo.thumbnail.url }}" style="position: relative; top: 0; left: 0;">
+	    {% endwith %}
+	  </a>
+	  {% else %}
+	  <a href="/user/{{ username }}/upload/"><img src="/static/img/empty_gallery.png"></a>
+	  {% endif %}
+	  {% if user.is_authenticated and username == user.username %}
+	  <a href="http://google.com">
+	    <a href="/user/{{ username }}/upload/">
+	    <img src="/static/img/upload.png" style="position: absolute; top: 0; left: 0;"/>
+	  </a>
+	  <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/delete/" class="confirm">
+	    <img src="/static/img/delete.png" style="position: absolute; top: 0; right: 0;"/>
+	  </a>
+	  <a href="http://google.com">
+	    <img src="/static/img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
+	  </a>
+	  {% endif %}
+	</div>
 	{% if gallery.count > 0 %}
-	{% if user.is_authenticated and username == user.username %}
-	<a href="/user/{{ username }}/gallery/{{ gallery.pk }}/delete/" class="confirm">(x)</a>
-	{% endif %}
-	<a href="/user/{{ username }}/gallery/{{ gallery.pk }}/">
-	  {% with first_photo=gallery.photo_set.all|first %}
-	  <img src="/{{ first_photo.thumbnail.url }}">
-	  {% endwith %}
-	</a>
-	<p><b>{{ gallery.title }}</b></p>
+        <p><b>{{ gallery.title }}</b></p>
 	{% else %}
-	<a href="/user/{{ username }}/gallery/{{ gallery.pk }}/delete/" class="confirm">(x)</a>
-	<a href="/user/{{ username }}/upload/"><img src="/static/img/empty_gallery.png"></a>
-	<p><b>{{ gallery.title }} (empty)</b></p>
+        <p><b>{{ gallery.title }}(empty)</b></p>
 	{% endif %}
       </li>
       {% endfor %}

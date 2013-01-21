@@ -16,6 +16,9 @@ class UserProfile(models.Model):
     # Required to associate with a unique user.
     user = models.OneToOneField(User)
 
+    # The number of photos owned by this user.
+    photo_count = models.IntegerField(default=0)
+
     # The user's account type.
     ACCOUNT_TYPES = (
         ('F', 'Starter'),

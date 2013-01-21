@@ -88,16 +88,20 @@ def upload(request, username):
     if request.method == 'POST':
         form = UploadPhotoForm(request.POST, request.FILES)
         if form.is_valid():
-            # Update the photo count on the gallery
-            gallery = form.cleaned_data['gallery']
-            gallery.count += 1
-            gallery.save()
             photo = Photo(
                 gallery=gallery,
                 image=request.FILES['image'],
                 caption=form.cleaned_data['caption']
             )
             photo.save()
+            # Update the photo count on the user
+            profile = request.user.get_profile()
+            profile.photo_count += 1
+            profile.save()
+            # Update the photo count on the gallery
+            gallery = form.cleaned_data['gallery']
+            gallery.count += 1
+            gallery.save()
             return HttpResponseRedirect('/user/' + username + '/')
     else:
         form = UploadPhotoForm()
@@ -125,6 +129,10 @@ def delete_gallery(request, username, gallery_id):
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
     gallery = get_object_or_404(Gallery, pk=gallery_id)
+    # Update the photo count on the user.
+    profile = request.user.get_profile()
+    profile.photo_count -= gallery.count
+    profile.save()
     gallery.delete()
     return HttpResponseRedirect('/user/' + username + '/')
 
@@ -140,8 +148,21 @@ def delete_photo(request, username, photo_id):
     gallery.count -= 1
     gallery.save()
     photo.delete()
+    profile = request.user.get_profile()
+    profile.photo_count -= 1
+    profile.save()
     redirect_url = '/user/' + username + '/'
     if gallery.count > 0:
         return HttpResponseRedirect(redirect_url + 'gallery/' + str(gallery.pk) + '/')
     else:
         return HttpResponseRedirect(redirect_url)
+
+def change_photo_order(request):
+    """
+    Changes the order of photos within a gallery.
+    """
+
+def change_gallery_order(request):
+    """
+    Changes the order of galleries within the portfolio
+    """
