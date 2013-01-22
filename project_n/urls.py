@@ -29,6 +29,9 @@ urlpatterns = patterns('',
     # Users can upload new photos using the upload form.
     url(r'^user/(\w+)/upload/$', 'portfolios.views.upload'),
 
+    # Users can upload photos directly to a gallery as well.
+    url(r'^user/(\w+)/upload/(\d+)/$', 'portfolios.views.upload'),
+
     # Deletes the photo, and redirects back to the gallery.  If
     # the gallery is empty, redirects back to the main profile.
     url(r'^user/(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),

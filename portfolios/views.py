@@ -69,7 +69,6 @@ def create_gallery(request, username):
             gallery = Gallery(
                 user=request.user,
                 title=form.cleaned_data['title'],
-                description=form.cleaned_data['description']
             )
             gallery.save()
             return HttpResponseRedirect('/user/' + username + '/')
@@ -78,12 +77,12 @@ def create_gallery(request, username):
     variables = RequestContext(request, {'form': form, 'username': username})
     return render_to_response('portfolios/create_gallery.html', variables)
 
-def upload(request, username):
+def upload(request, username, gallery_id=None):
     """
     Allows a user to upload a new photo.
     """
     # Ensure that we cannot upload photos to another's portfolio:
-    if not username == request.user.username:
+    if username != request.user.username or not request.user.is_authenticated():
         raise Http404
     if request.method == 'POST':
         form = UploadPhotoForm(request.POST, request.FILES)
@@ -103,6 +102,8 @@ def upload(request, username):
             gallery.count += 1
             gallery.save()
             return HttpResponseRedirect('/user/' + username + '/')
+    elif gallery_id:
+        form = UploadPhotoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
     else:
         form = UploadPhotoForm()
     variables = RequestContext(request, {'form': form, 'username': username})

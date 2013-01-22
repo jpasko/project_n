@@ -2,11 +2,16 @@
 {% block title %}{{ username }} | Create Gallery{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
-
-<form method="post" action=".">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Create gallery" class="btn btn-large btn-success">
-</form>
-
+<div class="row">
+  <div class="span4">
+  </div>
+  <div class="span6">
+    <h3>Create a gallery:</h3>
+    <form method="post" action=".">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Create gallery" class="btn btn-large btn-success">
+    </form>
+  </div>
+</div>
 {% endblock %}

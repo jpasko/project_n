@@ -12,21 +12,16 @@
 {% endblock %}
 {% block title %}{{ profile.fullname }} | {{ gallery.title }}{% endblock %}
 {% block header %}{% endblock %}
+{% block navbar-text %}
+{% endblock %}
 {% block content %}
 {% if user.is_authenticated and user.username == username %}
 <div id="dialog" title="Are you sure?">
   <p>
-    <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-    The gallery and all photos it contains will be permanently deleted.</p>
+    <span class="ui-icon ui-icon-alert"></span>
+    This photo will be permanently deleted.</p>
 </div>
 {% endif %}
-<div class="row">
-  <div class="span1">
-  </div>
-  <div class="span11">
-    <h3>{{ gallery.title }}</h3>
-  </div>
-</div>
 <div class="row">
   <div class="span1">
   </div>
@@ -34,12 +29,16 @@
     <ul class="thumbnails" id="sortable">
       {% for photo in gallery.photo_set.all %}
       <li>
-	{% if user.is_authenticated and username == user.username %}
-	<a href="/user/{{ username }}/photo/{{ photo.pk }}/delete/" class="confirm">(x)</a>
-	{% endif %}
-	<a href="/{{ photo.image.url }}" class="lightbox" rel="lightbox[{{ gallery.title }}]" title="{{ photo.caption }}">
-	  <img src="/{{ photo.thumbnail.url }}">
-	</a>
+	<div style="position: relative; left: 0; top: 0;">
+	  <a href="/{{ photo.image.url }}" class="lightbox" rel="lightbox[{{ gallery.title }}]" title="{{ photo.caption }}">
+	    <img src="/{{ photo.thumbnail.url }}">
+	  </a>
+	  {% if user.is_authenticated and username == user.username %}
+	  <a href="/user/{{ username }}/photo/{{ photo.pk }}/delete/" class="confirm">
+	    <img src="/static/img/delete.png" style="position: absolute; top: 0; right: 0">
+	  </a>
+	  {% endif %}
+	</div>
 	<p>{{ photo.caption }}</p>
       </li>
       {% endfor %}

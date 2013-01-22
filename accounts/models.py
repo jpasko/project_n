@@ -46,7 +46,6 @@ class UserProfile(models.Model):
     STYLES = (
         ('D', 'Dark'),
         ('L', 'Light'),
-        ('G', 'A bit of a compromise'),
     )
     style = models.CharField(verbose_name='Background',
                              max_length=1,
@@ -55,9 +54,7 @@ class UserProfile(models.Model):
 
     COLUMNS = (
         (1, 'One'),
-        (2, 'Two'),
         (3, 'Three'),
-        (4, 'Four'),
     )
     columns = models.IntegerField(verbose_name='Number of columns',
                                   choices=COLUMNS,
