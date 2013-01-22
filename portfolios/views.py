@@ -53,7 +53,9 @@ def edit(request, username):
             return HttpResponseRedirect('/user/' + username + '/about/')
     else:
         form = UserProfileForm(instance=profile)
-    variables = RequestContext(request, {'form': form, 'username': username})
+    variables = RequestContext(request,
+                               {'form': form,
+                                'username': username})
     return render_to_response('portfolios/edit.html', variables)
 
 def create_gallery(request, username):

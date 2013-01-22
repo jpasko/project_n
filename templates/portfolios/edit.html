@@ -12,40 +12,61 @@ $(function() {
 </script>
 {% endblock %}
 {% block content %}
+<style>
+  textarea {
+    width: 100%;
+    height: 100px;
+  }
+</style>
 <div class="row">
 <div class="span3">
 </div>
 <div class="span6">
   <h3>Edit profile:</h3>
+  {% if form.errors %}
+  <p>Please correct the errors and resubmit.</p>
+  {% endif %}
   <form method="post" action="." enctype="multipart/form-data">
     {% csrf_token %}
     <div id="accordion">
       <h3>Basic</h3>
       <div>
-	<p><label for="id_fullname">Name:</label> <input id="id_fullname" type="text" name="fullname" value="jpasko" maxlength="75" /></p>
-	<p><label for="id_location">Location (optional):</label> <input id="id_location" type="text" name="location" maxlength="75" /></p>
+	{{ form.fullname.errors }}
+	<label for="id_fullname">Name:</label>
+	{{ form.fullname }}
+	{{ form.location.errors }}
+	<label for="id_location">Location (optional):</label>
+	{{ form.location }}
       </div>
       <h3>Contact</h3>
       <div>
-	<p><label for="id_email">Contact email (optional):</label> <input id="id_email" type="text" name="email" maxlength="75" /></p>
-	<p><label for="id_phone">Phone (optional):</label> <input id="id_phone" type="text" name="phone" maxlength="20" /></p>
+	{{ form.email.errors }}
+	<label for="id_email">Contact email (optional):</label>
+	{{ form.email }}
+	{{ form.phone.errors }}
+	<label for="id_phone">Phone (optional):</label>
+	{{ form.phone }}
+	{{ form.website.errors }}
+	<label for="id_website">Website:</label>
+	{{ form.website }}
       </div>
       <h3>More Information</h3>
       <div>
-	<p><label for="id_about">About (optional):</label> <textarea id="id_about" rows="10" cols="40" name="about" style="width: 450px; height: 100px;"></textarea></p>
-	<p><label for="id_picture">Profile picture:</label> <input type="file" name="picture" id="id_picture" /></p>
-	<p><label for="id_website">Website:</label> <input id="id_website" type="text" name="website" maxlength="200" /></p>
+	{{ form.about.errors }}
+	<label for="id_about">About (optional):</label>
+	{{ form.about }}
+	{{ form.picture.errors }}
+	<label for="id_picture">Profile picture:</label>
+	{{ form.picture }}
       </div>
       <h3>Customize</h3>
       <div>
-	<p><label for="id_style">Background:</label> <select name="style" id="id_style">
-	    <option value="D">Dark</option>
-	    <option value="L" selected="selected">Light</option>
-	</select></p>
-	<p><label for="id_columns">Number of columns:</label> <select name="columns" id="id_columns">
-	    <option value="1">One</option>
-	    <option value="3" selected="selected">Three</option>
-	</select></p>
+	{{ form.style.errors }}
+	<label for="id_style">Background:</label>
+	{{ form.style }}
+	{{ form.columns.errors }}
+	<label for="id_columns">Number of columns:</label>
+	{{ form.columns }}
       </div>
     </div>
     <input type="submit" value="update" class="btn btn-large btn-success" >

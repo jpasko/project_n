@@ -1,51 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
+    <meta charset="utf-8">
     <title>Project M | {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+    <style type="text/css">
+      html,
       body {
-        padding-top: 60px;
+        height: 100%;
+      }
+
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+      }
+
+      #push,
+      #footer {
+        height: 60px;
+      }
+
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 800px;
+      }
+      .container-narrow > hr {
+        //margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
       }
     </style>
     <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
     {% block script %}{% endblock %}
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
 
   <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-	  <a class="brand" href="/">Project N</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav pull-right">
-	      {% if not user.is_authenticated %}
-	        <li><a href="/register/">sign up</a></li>	        
-	        <li><a href="/login/">login</a></li>
-              {% else %}
-		<li><a href="/user/{{ user.username }}/">profile</a></li>
-		<li><a href="/logout/">logout</a></li>
-              {% endif %}
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+    <div id="wrap">
+      <div class="container-narrow">
+	<div class="masthead">
+          <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="/">Home</a></li>
+	    {% if not user.is_authenticated %}
+	    <li><a href="/register/">sign up</a></li>	        
+	    <li><a href="/login/">login</a></li>
+            {% else %}
+	    <li><a href="/user/{{ user.username }}/">profile</a></li>
+	    <li><a href="/logout/">logout</a></li>
+            {% endif %}
+          </ul>
+          <h1 class="muted">Project M</h1>
+	  <hr>
+	</div>
+	{% block content %}{% endblock %}
+      </div><!-- Container -->
+      <div id="push"></div>
+    </div><!-- Wrap -->
+ 
+    <div id="footer">
+      <div class="container-narrow">
+	<hr>
+        <p>&copy; Project N {% now "Y" %}</p>
       </div>
     </div>
-
-    <div class="container">
-      {% block content %}{% endblock %}
-    </div> <!-- /container -->
-
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/static/js/bootstrap.min.js"></script>
 
   </body>
 </html>

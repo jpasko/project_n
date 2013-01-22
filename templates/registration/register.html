@@ -3,7 +3,7 @@
 {% block head %}Please signup{% endblock %}
 {% block content %}
 <div class="row">
-<h1 style="text-align: center">{{ account_type }}</h1>
+<h3 style="text-align: center">{{ account_type }}:</h3>
 <form method="post" action="." style="text-align: center">
   {% csrf_token %}
   {{ form.as_p }}
