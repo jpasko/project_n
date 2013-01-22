@@ -1,5 +1,5 @@
 {% extends "portfolio_base.html" %}
-{% block title %}{{ username }} | Edit{% endblock %}
+{% block title %}{{ profile.fullname }} | Edit{% endblock %}
 {% block header %}{% endblock %}
 {% block script %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
@@ -22,7 +22,7 @@ $(function() {
 <div class="span3">
 </div>
 <div class="span6">
-  <h3>Edit profile:</h3>
+  <h3>Edit your profile:</h3>
   {% if form.errors %}
   <p>Please correct the errors and resubmit.</p>
   {% endif %}
