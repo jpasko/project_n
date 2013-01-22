@@ -11,34 +11,6 @@ urlpatterns = patterns('',
     url(r'^$', direct_to_template,
         {'template': 'main_page.html'}),
 
-    # The user's main profile, which shows their galleries.
-    url(r'^user/(\w+)/$', 'portfolios.views.portfolio'),
-
-    # A gallery.
-    url(r'^user/(\w+)/gallery/(\d+)/$', 'portfolios.views.gallery'),
-
-    # The about page of a user's profile.
-    url(r'^user/(\w+)/about/$', 'portfolios.views.about'),
-
-    # Users can edit their profile.
-    url(r'^user/(\w+)/edit/$', 'portfolios.views.edit'),
-
-    # Users must create a gallery to upload photos into.
-    url(r'^user/(\w+)/create_gallery/$', 'portfolios.views.create_gallery'),
-
-    # Users can upload new photos using the upload form.
-    url(r'^user/(\w+)/upload/$', 'portfolios.views.upload'),
-
-    # Users can upload photos directly to a gallery as well.
-    url(r'^user/(\w+)/upload/(\d+)/$', 'portfolios.views.upload'),
-
-    # Deletes the photo, and redirects back to the gallery.  If
-    # the gallery is empty, redirects back to the main profile.
-    url(r'^user/(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),
-
-    # Deletes the gallery, and redirects back to the main profile.
-    url(r'^user/(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),
-
     # The login URL, should redirect to user/username/
     url(r'^login/$', 'django.contrib.auth.views.login'),
 
@@ -76,22 +48,49 @@ urlpatterns = patterns('',
     url(r'^password_change/$', 'django.contrib.auth.views.password_change',
         {'post_change_redirect': '/login/'}),
 
-    # Example portfolios, hand-curated.
-#    url(r'^examples/$', direct_to_template,
-#        {'template': 'examples.html'}),
-
     # Deletes the user's account.
-#    url(r'^delete/$', 'accounts.views.delete'),
+    url(r'^delete/$', 'accounts.views.delete_user'),
 
     # Successful deletion of a user.
 #    url(r'^delete/success/$', direct_to_template,
-#        {'template': 'direct/user_delete_success.html'}),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+#        {'template': 'registration/user_delete_success.html'}),
 
     # Uncomment the next line to enable the admin:
     url(r'^spindrift/', include(admin.site.urls)),
+
+    # The user's main profile, which shows their galleries.
+    url(r'^user/(\w+)/$', 'portfolios.views.portfolio'),
+
+    # A gallery.
+    url(r'^user/(\w+)/gallery/(\d+)/$', 'portfolios.views.gallery'),
+
+    # The about page of a user's profile.
+    url(r'^user/(\w+)/about/$', 'portfolios.views.about'),
+
+    # Users can edit their profile.
+    url(r'^user/(\w+)/edit/$', 'portfolios.views.edit'),
+
+    # Users must create a gallery to upload photos into.
+    url(r'^user/(\w+)/create_gallery/$', 'portfolios.views.create_gallery'),
+
+    # Users can upload new photos using the upload form.
+    url(r'^user/(\w+)/upload/$', 'portfolios.views.upload'),
+
+    # Users can upload photos directly to a gallery as well.
+    url(r'^user/(\w+)/upload/(\d+)/$', 'portfolios.views.upload'),
+
+    # Deletes the photo, and redirects back to the gallery.  If
+    # the gallery is empty, redirects back to the main profile.
+    url(r'^user/(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),
+
+    # Deletes the gallery, and redirects back to the main profile.
+    url(r'^user/(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),
+
+    # Allows the user to change their account settings.
+    url(r'^user/(\w+)/settings/$', 'accounts.views.settings'),
+
+    # Uncomment the admin/doc line below to enable admin documentation:
+    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 )
 
 if settings.DEBUG:

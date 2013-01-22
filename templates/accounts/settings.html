@@ -1,0 +1,41 @@
+{% extends "portfolio_base.html" %}
+{% block title %}{{ profile.fullname }} | Settings{% endblock %}
+{% block header %}{% endblock %}
+{% block script %}
+<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script src="/static/js/confirm-delete.js"></script>
+<script>
+$(function() {
+  $( "#accordion" ).accordion({
+    heightStyle: "content"
+  });
+});
+</script>
+{% endblock %}
+{% block content %}
+<div id="dialog" title="Are you sure?">
+  <p>
+    <span class="ui-icon ui-icon-alert"></span>
+    Your portfolio and all photos it contains will be permanently deleted!</p>
+</div>
+<div class="row">
+  <div class="span3">
+  </div>
+  <div class="span6">
+    <h3>Your account settings</h3>
+    <div id="accordion">
+      <h3>Upgrade your account</h3>
+      <div>
+      </div>
+      <h3>Change your password</h3>
+      <div>
+      </div>
+      <h3>Delete</h3>
+      <div>
+	<p>Are you sure you want to delete your account?</p>
+	<a href="/delete/" class="btn btn-large btn-success confirm">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

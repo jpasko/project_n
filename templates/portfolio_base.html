@@ -36,7 +36,10 @@
 	  {% endif %}
 	  {% block navbar-text %}{% endblock %}
 	  {% if user.is_authenticated and user.username == username %}
-	  <p class="navbar-text pull-left">(currently using {{ user.get_profile.photo_count }} of 150 images)</p>
+	  <p class="navbar-text pull-left">
+	    (currently using {{ user.get_profile.photo_count }} of 150 images | 
+	    <a href="/user/{{ username }}/settings/">upgrade</a>)
+	  </p>
 	  {% endif %}
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
@@ -53,8 +56,8 @@
 		  <li><a href="/user/{{ username }}/upload/">Upload photo</a></li>
 		  <li class="divider"></li>
 		  <li><a href="/user/{{ username }}/edit/">Edit profile</a></li>
-		  <li><a href="/">Upgrade account</a></li>
-		  <li><a href="/password_change/">Change password</a></li>
+		  <li><a href="/user/{{ username }}/settings/">Account settings</a></li>
+		  <li><a href="/user/{{ username }}/settings/">Upgrade!</a></li>
 		  <li class="divider"></li>
 		  <li><a href="/logout/">Logout</a></li>
 		</ul>

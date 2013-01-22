@@ -54,7 +54,7 @@ def delete_user(request):
     user = request.user
     if user and user.is_authenticated() and not user.is_staff:
         User.objects.get(username=user.username).delete()
-    return HttpResponseRedirect('/delete/success/')
+    return HttpResponseRedirect('/')
         
 def xhr_test(request):
     """
@@ -71,16 +71,10 @@ def xhr_test(request):
         message = 'This is not an XHR request'
     return HttpResponse(message)
 
-def list_users(request):
+def settings(request, username):
     """
-    Returns a list of all usernames.
+    Allows the user to change their password, upgrade/downgrade account, and
+    delete their account.
     """
-    all_users = User.objects.all()
-    result = []
-    if all_users.count() < 1:
-        result.append('No users found')
-    else:
-        for user in all_users:
-            result.append(user.username)
-    # Convert the response to JSON.
-    return HttpResponse(json.dumps(result))
+    variables = RequestContext(request)
+    return render_to_response('accounts/settings.html', variables)
