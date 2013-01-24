@@ -83,8 +83,11 @@ urlpatterns = patterns('',
     # the gallery is empty, redirects back to the main profile.
     url(r'^user/(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),
 
-    # Deletes the gallery, and redirects back to the main profile.
+    # Deletes the gallery, and redirects back to the main portfolio.
     url(r'^user/(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),
+
+    # Deletes the profile photo, and redirects back to the profile (about page).
+    url(r'^user/(\w+)/about/delete_photo/$', 'portfolios.views.delete_profile_photo'),
 
     # Allows the user to change their account settings.
     url(r'^user/(\w+)/settings/$', 'accounts.views.settings'),

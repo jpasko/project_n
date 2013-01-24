@@ -161,6 +161,18 @@ def delete_photo(request, username, photo_id):
     else:
         return HttpResponseRedirect(redirect_url)
 
+def delete_profile_photo(request, username):
+    """
+    Deletes the profile photo.
+    """
+    # First, check that the user is logged in.
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    profile.picture = None
+    profile.save()
+    return HttpResponseRedirect('/user/' + username + '/about/')
+
 def change_photo_order(request):
     """
     Changes the order of photos within a gallery.
