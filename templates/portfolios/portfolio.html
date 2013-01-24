@@ -25,7 +25,7 @@
       <li>
 	<div style="position: relative; left: 0; top: 0;">
 	  {% if gallery.count > 0 %}
-	  <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/">
+	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
 	    {% with first_photo=gallery.photo_set.all|first %}
 	    <img src="/{{ first_photo.thumbnail.url }}" style="position: relative; top: 0; left: 0;">
 	    {% endwith %}
@@ -34,10 +34,10 @@
 	  <img src="/static/img/empty_gallery.png">
 	  {% endif %}
 	  {% if user.is_authenticated and username == user.username %}
-	  <a href="/user/{{ username }}/upload/{{ gallery.pk }}/">
+	  <a href="/{{ username }}/upload/{{ gallery.pk }}/">
 	    <img src="/static/img/upload.png" style="position: absolute; top: 0; left: 0;"/>
 	  </a>
-	  <a href="/user/{{ username }}/gallery/{{ gallery.pk }}/delete/" class="confirm">
+	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/delete/" class="confirm">
 	    <img src="/static/img/delete.png" style="position: absolute; top: 0; right: 0;"/>
 	  </a>
 	  <a href="http://google.com">

@@ -34,7 +34,7 @@
 	    <img src="/{{ photo.thumbnail.url }}">
 	  </a>
 	  {% if user.is_authenticated and username == user.username %}
-	  <a href="/user/{{ username }}/photo/{{ photo.pk }}/delete/" class="confirm">
+	  <a href="/{{ username }}/photo/{{ photo.pk }}/delete/" class="confirm">
 	    <img src="/static/img/delete.png" style="position: absolute; top: 0; right: 0">
 	  </a>
 	  <a href="http://google.com">

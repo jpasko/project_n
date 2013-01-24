@@ -13,7 +13,7 @@ def profile(request):
     Redirects to the user's profile.  To be used following login, so that
     we can redirect to whatever profile aspect we want.
     """
-    return HttpResponseRedirect('/user/' + request.user.username + '/')
+    return HttpResponseRedirect('/' + request.user.username + '/')
 
 def logout_user(request):
     """

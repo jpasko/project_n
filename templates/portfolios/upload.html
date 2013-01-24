@@ -9,7 +9,7 @@
     <p>
       Select an existing gallery to hold this photo.<br />
       You can also 
-      <a href="/user/{{ username }}/create_gallery/">create</a> a new gallery.
+      <a href="/{{ username }}/create_gallery/">create</a> a new gallery.
     </p>
     <form method="post" action="." enctype="multipart/form-data">
       {% csrf_token %}

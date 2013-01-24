@@ -58,39 +58,44 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^spindrift/', include(admin.site.urls)),
 
+    # Be sure to reserve all the above keywords by registering the following
+    # users:
+    # login, accounts, register, logout, welcome, password_change, delete,
+    # privacy, terms, spindrift, admin
+
     # The user's main profile, which shows their galleries.
-    url(r'^user/(\w+)/$', 'portfolios.views.portfolio'),
+    url(r'^(\w+)/$', 'portfolios.views.portfolio'),
 
     # A gallery.
-    url(r'^user/(\w+)/gallery/(\d+)/$', 'portfolios.views.gallery'),
+    url(r'^(\w+)/gallery/(\d+)/$', 'portfolios.views.gallery'),
 
     # The about page of a user's profile.
-    url(r'^user/(\w+)/about/$', 'portfolios.views.about'),
+    url(r'^(\w+)/about/$', 'portfolios.views.about'),
 
     # Users can edit their profile.
-    url(r'^user/(\w+)/edit/$', 'portfolios.views.edit'),
+    url(r'^(\w+)/edit/$', 'portfolios.views.edit'),
 
     # Users must create a gallery to upload photos into.
-    url(r'^user/(\w+)/create_gallery/$', 'portfolios.views.create_gallery'),
+    url(r'^(\w+)/create_gallery/$', 'portfolios.views.create_gallery'),
 
     # Users can upload new photos using the upload form.
-    url(r'^user/(\w+)/upload/$', 'portfolios.views.upload'),
+    url(r'^(\w+)/upload/$', 'portfolios.views.upload'),
 
     # Users can upload photos directly to a gallery as well.
-    url(r'^user/(\w+)/upload/(\d+)/$', 'portfolios.views.upload'),
+    url(r'^(\w+)/upload/(\d+)/$', 'portfolios.views.upload'),
 
     # Deletes the photo, and redirects back to the gallery.  If
     # the gallery is empty, redirects back to the main profile.
-    url(r'^user/(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),
+    url(r'^(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),
 
     # Deletes the gallery, and redirects back to the main portfolio.
-    url(r'^user/(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),
+    url(r'^(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),
 
     # Deletes the profile photo, and redirects back to the profile (about page).
-    url(r'^user/(\w+)/about/delete_photo/$', 'portfolios.views.delete_profile_photo'),
+    url(r'^(\w+)/about/delete_photo/$', 'portfolios.views.delete_profile_photo'),
 
     # Allows the user to change their account settings.
-    url(r'^user/(\w+)/settings/$', 'accounts.views.settings'),
+    url(r'^(\w+)/settings/$', 'accounts.views.settings'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

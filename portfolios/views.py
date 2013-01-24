@@ -50,7 +50,7 @@ def edit(request, username):
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/user/' + username + '/about/')
+            return HttpResponseRedirect('/' + username + '/about/')
     else:
         form = UserProfileForm(instance=profile)
     variables = RequestContext(request,
@@ -74,7 +74,7 @@ def create_gallery(request, username):
                 title=form.cleaned_data['title'],
             )
             gallery.save()
-            return HttpResponseRedirect('/user/' + username + '/')
+            return HttpResponseRedirect('/' + username + '/')
     else:
         form = CreateGalleryForm()
     variables = RequestContext(request, {'form': form, 'username': username})
@@ -104,7 +104,7 @@ def upload(request, username, gallery_id=None):
             # Update the photo count on the gallery
             gallery.count += 1
             gallery.save()
-            return HttpResponseRedirect('/user/' + username + '/')
+            return HttpResponseRedirect('/' + username + '/')
     elif gallery_id:
         form = UploadPhotoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
     else:
@@ -138,7 +138,7 @@ def delete_gallery(request, username, gallery_id):
     profile.photo_count -= gallery.count
     profile.save()
     gallery.delete()
-    return HttpResponseRedirect('/user/' + username + '/')
+    return HttpResponseRedirect('/' + username + '/')
 
 def delete_photo(request, username, photo_id):
     """
@@ -155,7 +155,7 @@ def delete_photo(request, username, photo_id):
     profile = request.user.get_profile()
     profile.photo_count -= 1
     profile.save()
-    redirect_url = '/user/' + username + '/'
+    redirect_url = '/' + username + '/'
     if gallery.count > 0:
         return HttpResponseRedirect(redirect_url + 'gallery/' + str(gallery.pk) + '/')
     else:
@@ -171,7 +171,7 @@ def delete_profile_photo(request, username):
     profile = request.user.get_profile()
     profile.picture = None
     profile.save()
-    return HttpResponseRedirect('/user/' + username + '/about/')
+    return HttpResponseRedirect('/' + username + '/about/')
 
 def change_photo_order(request):
     """
