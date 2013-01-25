@@ -7,12 +7,26 @@
     <link href="/static/css/site_style.css" rel="stylesheet">
     {% block stylesheet %}{% endblock %}
     <style>
-      body {
-        padding-top: 60px;
+      * {
+        margin: 0;
+      }
+      html, body {
+        height: 100%;
+
+      }
+      .wrapper {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        margin: 0 auto -25px;
+      }
+      .footer, .push {
+        height: 25px;
       }
     </style>
-    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
+<!--    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet"> -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
     {% block script %}{% endblock %}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -21,6 +35,8 @@
   </head>
 
   <body>
+
+    <div class="wrapper">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -36,12 +52,24 @@
 	  <a class="brand" href="/{{ username }}/">{{ username }}</a>
 	  {% endif %}
 	  {% block navbar-text %}{% endblock %}
+
 	  {% if user.is_authenticated and user.username == username %}
+	  {% with image_limit=customer.image_limit %}
+	  {% if profile.photo_count > image_limit %}
+	  <p class="navbar-text pull-left" style="color: red">
+	    (PORTFOLIO HIDDEN: currently using {{ user.get_profile.photo_count }} of {{ customer.image_limit }} images | 
+	  {% elif profile.photo_count == image_limit %}
+	  <p class="navbar-text pull-left" style="color: orange">
+	    (UPLOAD LIMIT: currently using {{ user.get_profile.photo_count }} of {{ customer.image_limit }} images | 
+	  {% else %}
 	  <p class="navbar-text pull-left">
-	    (currently using {{ user.get_profile.photo_count }} of 150 images | 
-	    <a href="/{{ username }}/settings/">upgrade</a>)
+	    (currently using {{ user.get_profile.photo_count }} of {{ customer.image_limit }} images | 
+	  {% endif %}
+	  {% endwith %}
+	  <a href="/{{ username }}/settings/" style="color: green">upgrade</a>)
 	  </p>
 	  {% endif %}
+
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
 	      <li><a href="/{{ username }}/">portfolio</a></li>
@@ -70,20 +98,20 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="padding-top: 60px">
       <h1>{% block header %}{% endblock %}</h1>
       {% block content %}{% endblock %}
     </div> <!-- /container -->
 
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/static/js/bootstrap.min.js"></script>
+    <div class="push"></div>
+    </div> <!-- wrapper -->
 
-    <!-- Footer -->
-<!--    <div class="navbar navbar-fixed-bottom">
-      <div class="navbar-inner">
-	<p>&copy {% now "Y" %} <a href="/">Project M</a></p>
+    <div class="container">
+      <div class="footer">
+	<hr style="margin: 0">
+	<p class="muted" style="text-align: right">&copy {% now "Y" %} <a href="/" target="_blank">Project M</a></p>
       </div>
-    </div>  -->
+    </div>
 
   </body>
 </html>

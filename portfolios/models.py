@@ -18,7 +18,7 @@ def upload_to_photo(instance, filename):
 
 class Gallery(models.Model):
     user = models.ForeignKey(User)
-    title = models.CharField(max_length=75, blank=True)
+    title = models.CharField(max_length=20, blank=True)
     count = models.IntegerField(default=0)
     order = models.IntegerField(null=True)
 
@@ -53,7 +53,7 @@ class Photo(models.Model):
     # Thumbnail for the 1 column layout
     thumbnail_1 = ImageSpecField([ResizeToFill(750, 250)],
                                  image_field='image')
-    caption = models.CharField(max_length=140, blank=True)
+    caption = models.CharField(max_length=100, blank=True)
     order = models.IntegerField()
 
     # Static counter variable to set a unique order

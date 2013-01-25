@@ -4,8 +4,10 @@ from django.forms.models import inlineformset_factory
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+
 from portfolios.models import Photo, Gallery
 from portfolios.forms import *
+
 import json
 
 def portfolio(request, username):
@@ -20,9 +22,11 @@ def portfolio(request, username):
         # Only show non-empty galleries to a guest.
         galleries = user.gallery_set.filter(count__gt=0)
     profile = user.get_profile()
+    customer = user.customer
     variables = RequestContext(request, {
             'username': username,
             'profile': profile,
+            'customer': customer,
             'galleries': galleries})
     return render_to_response('portfolios/portfolio.html', variables)
 
@@ -187,4 +191,14 @@ def change_photo_order(request):
 def change_gallery_order(request):
     """
     Changes the order of galleries within the portfolio
+    """
+
+def edit_photo_caption(request):
+    """
+    Allows the user to edit the photo's caption.
+    """
+
+def edit_gallery_title(request):
+    """
+    Allows the user to edit the gallery's title.
     """

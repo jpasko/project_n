@@ -82,12 +82,29 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return u'Profile for %s' % self.user.username
 
+# Create a Customer entry whenever a User is created.
+class Customer(models.Model):
+    # Required to associate with a unique user.
+    user = models.OneToOneField(User)
+
+    image_limit = models.IntegerField(default=settings.FREE_IMAGE_LIMIT)
+
+    def __unicode__(self):
+        return u'Customer record for %s' % self.user.username
+
 def create_user_profile(sender, instance, created, **kwargs):
     """
-    Method to create a UserProfile to be associated with a User.
+    Create a UserProfile to be associated with a User.
     """
     if created:
         UserProfile.objects.create(user=instance, fullname=instance.username)
+
+def create_customer(sender, instance, created, **kwargs):
+    """
+    Create a Customer associated with a User.
+    """
+    if created:
+        Customer.objects.create(user=instance)
 
 def delete_profile_picture(sender, instance, *args, **kwargs):
     """
@@ -96,8 +113,9 @@ def delete_profile_picture(sender, instance, *args, **kwargs):
     directory = join(settings.MEDIA_ROOT, 'profile_photos', str(instance.id))
     subprocess.call(['rm', '-rf', directory])
 
-# On the User save signal, create a UserProfile.
+# On the User save signal, create a UserProfile and a Customer.
 post_save.connect(create_user_profile, sender=User)
+post_save.connect(create_customer, sender=User)
 
 # When deleting a User, be sure to delete the profile picture.
 pre_delete.connect(delete_profile_picture, sender=User)
