@@ -37,12 +37,10 @@ urlpatterns = patterns('',
         {'template': 'accounts/welcome.html'}),
 
     # Privacy policy.
-#    url(r'^privacy/$', direct_to_template,
-#        {'template': 'privacy.html'}),
+    url(r'^privacy/$', direct_to_template, {'template': 'privacy.html'}),
 
     # Terms of use, including refund policy.
-#    url(r'^terms/$', direct_to_template,
-#        {'template': 'terms.html'}),
+    url(r'^terms/$', direct_to_template, {'template': 'terms.html'}),
 
     # Password change form, redirects to login.
     url(r'^password_change/$', 'django.contrib.auth.views.password_change',
