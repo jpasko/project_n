@@ -24,16 +24,6 @@ class UserProfile(models.Model):
     # The number of photos owned by this user.
     photo_count = models.IntegerField(default=0)
 
-    # The user's account type.
-    ACCOUNT_TYPES = (
-        ('F', 'Starter'),
-        ('P', 'Premium'),
-        ('R', 'Professional'),
-    )
-    account_type = models.CharField(max_length=1,
-                                    choices=ACCOUNT_TYPES,
-                                    default='F')
-
     # These are the free options.
     fullname = models.CharField(verbose_name='name',
                                 max_length=75,
@@ -86,8 +76,16 @@ class UserProfile(models.Model):
 class Customer(models.Model):
     # Required to associate with a unique user.
     user = models.OneToOneField(User)
-
     image_limit = models.IntegerField(default=settings.FREE_IMAGE_LIMIT)
+    stripe_id = models.CharField(max_length=255)
+    ACCOUNT_TYPES = (
+        ('F', 'Starter'),
+        ('P', 'Premium'),
+        ('R', 'Professional'),
+    )
+    account_type = models.CharField(max_length=1,
+                                    choices=ACCOUNT_TYPES,
+                                    default='F')
 
     def __unicode__(self):
         return u'Customer record for %s' % self.user.username

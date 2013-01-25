@@ -49,10 +49,6 @@ urlpatterns = patterns('',
     # Deletes the user's account.
     url(r'^delete/$', 'accounts.views.delete_user'),
 
-    # Successful deletion of a user.
-#    url(r'^delete/success/$', direct_to_template,
-#        {'template': 'registration/user_delete_success.html'}),
-
     # Uncomment the next line to enable the admin:
     url(r'^spindrift/', include(admin.site.urls)),
 

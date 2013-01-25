@@ -36,8 +36,10 @@ def about(request, username):
     """
     user = get_object_or_404(User, username=username)
     profile = user.get_profile()
+    customer = user.customer
     variables = RequestContext(request,
                                {'username': username,
+                                'customer': customer,
                                 'profile': profile}
     )
     return render_to_response('portfolios/about.html', variables)
@@ -50,6 +52,7 @@ def edit(request, username):
     if not username == request.user.username:
         raise Http404
     profile = request.user.get_profile()
+    customer = request.user.customer
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
@@ -60,6 +63,7 @@ def edit(request, username):
     variables = RequestContext(request,
                                {'form': form,
                                 'username': username,
+                                'customer': customer,
                                 'profile': profile})
     return render_to_response('portfolios/edit.html', variables)
 
@@ -84,6 +88,7 @@ def create_gallery(request, username):
     variables = RequestContext(request,
                                {'form': form,
                                 'username': username,
+                                'customer': request.user.customer,
                                 'profile': request.user.get_profile()})
     return render_to_response('portfolios/create_gallery.html', variables)
 
@@ -95,6 +100,7 @@ def upload(request, username, gallery_id=None):
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
     profile = request.user.get_profile()
+    customer = request.user.customer
     if request.method == 'POST':
         form = UploadPhotoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -119,6 +125,7 @@ def upload(request, username, gallery_id=None):
     variables = RequestContext(request,
                                {'form': form,
                                 'username': username,
+                                'customer': customer,
                                 'profile': profile})
     return render_to_response('portfolios/upload.html', variables)
 

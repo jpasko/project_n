@@ -2,7 +2,7 @@ import re
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django import forms
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Customer
 
 class RegistrationForm(forms.Form):
     username = forms.CharField(label='Username', max_length=30)
@@ -60,3 +60,11 @@ class PaidRegistrationForm(RegistrationForm):
     """
     Form for accepting credit cards.
     """
+
+class ChangeAccountForm(forms.ModelForm):
+    """
+    Form to upgrade/downgrade an user's account.
+    """
+    class Meta:
+        model = Customer
+        exclude = ('user', 'image_limit', 'stripe_id')

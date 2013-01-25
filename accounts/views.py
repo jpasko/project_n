@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from accounts.forms import RegistrationForm
+from accounts.forms import RegistrationForm, ChangeAccountForm
 import json
 
 @login_required
@@ -79,9 +79,20 @@ def settings(request, username):
     # Ensure that we cannot edit other user's profiles:
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
+    customer = request.user.customer
+    if request.method == 'POST':
+        change_account_form = ChangeAccountForm(request.POST)
+        if change_account_form.is_valid():
+            customer.account_type = change_account_form.cleaned_data['account_type']
+            customer.save()
+            return HttpResponseRedirect('/' + username + '/')
+    else:
+        change_account_form = ChangeAccountForm()
     profile = request.user.get_profile()
     variables = RequestContext(request,
                                {'username': username,
-                                'profile': profile}
-    )
+                                'customer': customer,
+                                'profile': profile,
+                                'change_account_form': change_account_form}
+                               )
     return render_to_response('accounts/settings.html', variables)
