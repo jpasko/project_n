@@ -76,5 +76,12 @@ def settings(request, username):
     Allows the user to change their password, upgrade/downgrade account, and
     delete their account.
     """
-    variables = RequestContext(request)
+    # Ensure that we cannot edit other user's profiles:
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    variables = RequestContext(request,
+                               {'username': username,
+                                'profile': profile}
+    )
     return render_to_response('accounts/settings.html', variables)

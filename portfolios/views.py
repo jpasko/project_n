@@ -77,7 +77,10 @@ def create_gallery(request, username):
             return HttpResponseRedirect('/' + username + '/')
     else:
         form = CreateGalleryForm()
-    variables = RequestContext(request, {'form': form, 'username': username})
+    variables = RequestContext(request,
+                               {'form': form,
+                                'username': username,
+                                'profile': request.user.get_profile()})
     return render_to_response('portfolios/create_gallery.html', variables)
 
 def upload(request, username, gallery_id=None):
@@ -87,6 +90,7 @@ def upload(request, username, gallery_id=None):
     # Ensure that we cannot upload photos to another's portfolio:
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
+    profile = request.user.get_profile()
     if request.method == 'POST':
         form = UploadPhotoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -98,7 +102,6 @@ def upload(request, username, gallery_id=None):
             )
             photo.save()
             # Update the photo count on the user
-            profile = request.user.get_profile()
             profile.photo_count += 1
             profile.save()
             # Update the photo count on the gallery
@@ -109,7 +112,10 @@ def upload(request, username, gallery_id=None):
         form = UploadPhotoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
     else:
         form = UploadPhotoForm()
-    variables = RequestContext(request, {'form': form, 'username': username})
+    variables = RequestContext(request,
+                               {'form': form,
+                                'username': username,
+                                'profile': profile})
     return render_to_response('portfolios/upload.html', variables)
 
 def gallery(request, username, gallery_id):

@@ -1,6 +1,11 @@
+import subprocess
+from os.path import join
+
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
+
 from imagekit.models.fields import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
@@ -8,7 +13,7 @@ def upload_to(instance, filename):
     """
     Upload path for profile photos.
     """
-    return 'images/%s/%s' % (instance.user.id, filename)
+    return 'profile_photos/%d/%s' % (instance.id, filename)
 
 # Attach a profile to the User model, and ensure that it's
 # created whenever a new user is created.
@@ -71,6 +76,7 @@ class UserProfile(models.Model):
                                                upscale=False)],
                                   upload_to=upload_to,
                                   blank=True,
+                                  null=True,
                                   verbose_name='Profile picture')
     
     def __unicode__(self):
@@ -83,5 +89,15 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance, fullname=instance.username)
 
+def delete_profile_picture(sender, instance, *args, **kwargs):
+    """
+    Deletes the profile pictures from the file system upon User deletion.
+    """
+    directory = join(settings.MEDIA_ROOT, 'profile_photos', str(instance.id))
+    subprocess.call(['rm', '-rf', directory])
+
 # On the User save signal, create a UserProfile.
 post_save.connect(create_user_profile, sender=User)
+
+# When deleting a User, be sure to delete the profile picture.
+pre_delete.connect(delete_profile_picture, sender=User)

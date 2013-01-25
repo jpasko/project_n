@@ -1,5 +1,11 @@
+import subprocess
+from os.path import join
+
+from django.conf import settings
 from django.db import models
+from django.db.models.signals import pre_delete
 from django.contrib.auth.models import User
+
 from imagekit.models import ImageSpecField
 from imagekit.models.fields import ProcessedImageField
 from imagekit.processors import ResizeToFill, ResizeToFit
@@ -8,7 +14,7 @@ def upload_to_photo(instance, filename):
     """
     Creates an upload_to path for photos.
     """
-    return 'images/%s/%s' % (instance.gallery.user.id, filename)
+    return 'photos/%d/%s' % (instance.gallery.id, filename)
 
 class Gallery(models.Model):
     user = models.ForeignKey(User)
@@ -68,3 +74,16 @@ class Photo(models.Model):
             self.order = Photo.i
             Photo.i += 1
         super(Photo, self).save(*args, **kwargs)
+
+def delete_photo(sender, instance, *args, **kwargs):
+    """
+    Deletes the image from the file system upon Photo deletion.
+    """
+    directory = join(settings.MEDIA_ROOT,
+                     'photos',
+                     str(instance.gallery.id),
+                     instance.image.file.name)
+    subprocess.call(['rm', '-rf', directory])
+
+# When deleting a Photo, be sure to delete the image.
+pre_delete.connect(delete_photo, sender=Photo)

@@ -1,12 +1,12 @@
 {% extends "portfolio_base.html" %}
-{% block title %}{{ username }} | Create Gallery{% endblock %}
+{% block title %}{{ profile.fullname }} | Create Gallery{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
 <div class="row">
   <div class="span4">
   </div>
   <div class="span6">
-    <h3>Create a gallery:</h3>
+    <h3 class="muted">Create a gallery:</h3>
     <form method="post" action=".">
       {% csrf_token %}
       {{ form.as_p }}
