@@ -56,9 +56,13 @@ class UserProfile(models.Model):
         (1, 'One'),
         (3, 'Three'),
     )
-    columns = models.IntegerField(verbose_name='Number of columns',
-                                  choices=COLUMNS,
-                                  default=3)
+    portfolio_columns = models.IntegerField(verbose_name='Number of columns for your portfolio',
+                                            choices=COLUMNS,
+                                            default=3)
+
+    gallery_columns = models.IntegerField(verbose_name='Number of columns within a gallery',
+                                          choices=COLUMNS,
+                                          default=3)
 
     website = models.URLField(max_length=200, blank=True)
 

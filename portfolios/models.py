@@ -41,14 +41,12 @@ class Photo(models.Model):
                                              height=640,
                                              upscale=False)],
                                 upload_to=upload_to_photo)
-    thumbnail = ImageSpecField([ResizeToFill(250, 250)],
-                               image_field='image')
     # Thumbnail for the 3 column layout.
     thumbnail_3 = ImageSpecField([ResizeToFill(250, 250)],
-                               image_field='image')
+                                 image_field='image')
     # Thumbnail for the 1 column layout
     thumbnail_1 = ImageSpecField([ResizeToFill(750, 250)],
-                               image_field='image')
+                                 image_field='image')
     caption = models.CharField(max_length=140, blank=True)
     order = models.IntegerField()
 

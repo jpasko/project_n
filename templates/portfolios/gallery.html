@@ -31,7 +31,11 @@
       <li>
 	<div style="position: relative; left: 0; top: 0;">
 	  <a href="/{{ photo.image.url }}" class="lightbox" rel="lightbox[{{ gallery.title }}]" title="{{ photo.caption }}">
-	    <img src="/{{ photo.thumbnail.url }}">
+	    {% if profile.gallery_columns == 3 %}
+	    <img src="/{{ photo.thumbnail_3.url }}">
+	    {% else %}
+	    <img src="/{{ photo.thumbnail_1.url }}">
+	    {% endif %}
 	  </a>
 	  {% if user.is_authenticated and username == user.username %}
 	  <a href="/{{ username }}/photo/{{ photo.pk }}/delete/" class="confirm">

@@ -27,7 +27,11 @@
 	  {% if gallery.count > 0 %}
 	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
 	    {% with first_photo=gallery.photo_set.all|first %}
-	    <img src="/{{ first_photo.thumbnail.url }}" style="position: relative; top: 0; left: 0;">
+	    {% if profile.portfolio_columns == 3 %}
+	    <img src="/{{ first_photo.thumbnail_3.url }}" style="position: relative; top: 0; left: 0;">
+	    {% else %}
+	    <img src="/{{ first_photo.thumbnail_1.url }}" style="position: relative; top: 0; left: 0;">
+	    {% endif %}
 	    {% endwith %}
 	  </a>
 	  {% else %}
