@@ -43,8 +43,8 @@ urlpatterns = patterns('',
     url(r'^terms/$', direct_to_template, {'template': 'terms.html'}),
 
     # Password change form, redirects to login.
-    url(r'^password_change/$', 'django.contrib.auth.views.password_change',
-        {'post_change_redirect': '/login/'}),
+#    url(r'^password_change/$', 'django.contrib.auth.views.password_change',
+#        {'post_change_redirect': '/login/'}),
 
     # Deletes the user's account.
     url(r'^delete/$', 'accounts.views.delete_user'),

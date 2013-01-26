@@ -76,16 +76,15 @@ class UserProfile(models.Model):
 class Customer(models.Model):
     # Required to associate with a unique user.
     user = models.OneToOneField(User)
-    image_limit = models.IntegerField(default=settings.FREE_IMAGE_LIMIT)
     stripe_id = models.CharField(max_length=255)
-    ACCOUNT_TYPES = (
-        ('F', 'Starter'),
-        ('P', 'Premium'),
-        ('R', 'Professional'),
+    ACCOUNT_LIMITS = (
+        (settings.FREE_IMAGE_LIMIT, 'Starter (' + str(settings.FREE_IMAGE_LIMIT) + ' image uploads)'),
+        (settings.PREMIUM_IMAGE_LIMIT, 'Premium (' + str(settings.PREMIUM_IMAGE_LIMIT) + ' image uploads)'),
+        (settings.PROFESSIONAL_IMAGE_LIMIT, 'Professional (' + str(settings.PROFESSIONAL_IMAGE_LIMIT) + ' image uploads)'),
     )
-    account_type = models.CharField(max_length=1,
-                                    choices=ACCOUNT_TYPES,
-                                    default='F')
+    account_limit = models.IntegerField(verbose_name='Account type',
+                                        choices=ACCOUNT_LIMITS,
+                                        default=settings.FREE_IMAGE_LIMIT)
 
     def __unicode__(self):
         return u'Customer record for %s' % self.user.username

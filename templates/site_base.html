@@ -12,23 +12,25 @@
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/site_style.css" rel="stylesheet">
     <style type="text/css">
-      body {
-        padding-top: 20px;
-        padding-bottom: 40px;
+      * {
+        margin: 0;
       }
-
-      #footer {
-        height: 60px;
+      html, body {
+        height: 100%;
       }
-
+      .wrapper {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        margin: 0 auto -25px;
+      }
+      .footer, .push {
+        height: 25px;
+      }
       .container-narrow {
         margin: 0 auto;
         max-width: 800px;
       }
-      .container-narrow > hr {
-        margin: 30px 0;
-      }
-
       /* Main marketing message and sign up button */
       .jumbotron {
         margin: 60px 0;
@@ -62,29 +64,39 @@
 
   <body>
 
-    <div class="container-narrow">
-      <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="/">Home</a></li>
-	  {% if not user.is_authenticated %}
-	  <li><a href="/register/">sign up</a></li>	        
-	  <li><a href="/login/">login</a></li>
-          {% else %}
-	  <li><a href="/{{ user.username }}/">profile</a></li>
-	  <li><a href="/logout/">logout</a></li>
-          {% endif %}
-        </ul>
-        <h1 class="muted">Project M</h1>
-	<hr>
-      </div>
-      {% block content %}{% endblock %}
+    <div class="wrapper">
 
-      <div id="footer">
-	<hr>
+      <div class="container-narrow" style="padding-top: 10px">
+	<div class="masthead">
+          <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="/">Home</a></li>
+	    {% if not user.is_authenticated %}
+	    <li><a href="/register/">sign up</a></li>	        
+	    <li><a href="/login/">login</a></li>
+            {% else %}
+	    <li><a href="/{{ user.username }}/">profile</a></li>
+	    <li><a href="/logout/">logout</a></li>
+            {% endif %}
+          </ul>
+          <h1 class="muted">Project M</h1>
+	  <hr>
+	</div>
+      </div>
+      
+      <div class="container-narrow">
+	{% block content %}{% endblock %}
+      </div>
+      
+      <div class="push"></div>
+
+    </div><!-- Wrapper -->
+
+    <div class="footer">    
+      <div class="container-narrow">
+	<hr style="margin: 0px">
         <p style="text-align: center;">&copy; Project N {% now "Y" %}.  
 	  All rights reserved.  <a href="/terms/">Terms</a> | <a href="/privacy/">Privacy</a></p>
       </div>
-    </div><!-- Container -->
-
+    </div>
   </body>
 </html>

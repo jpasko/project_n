@@ -4,7 +4,11 @@
     <title>{% block title %}{% endblock %}</title>
     <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/jquery-ui-1.10.0.custom.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/site_style.css" rel="stylesheet">
+    {% if profile.style == 'L' %}
+    <link href="{{ STATIC_URL }}css/light_style.css" rel="stylesheet">
+    {% else %}
+    <link href="{{ STATIC_URL }}css/dark_style.css" rel="stylesheet">
+    {% endif %}
     {% block stylesheet %}{% endblock %}
     <style>
       * {
@@ -54,16 +58,16 @@
 	  {% block navbar-text %}{% endblock %}
 
 	  {% if user.is_authenticated and user.username == username %}
-	  {% with image_limit=customer.image_limit %}
-	  {% if profile.photo_count > image_limit %}
+	  {% with account_limit=customer.account_limit %}
+	  {% if profile.photo_count > account_limit %}
 	  <p class="navbar-text pull-left" style="color: red">
-	    (PORTFOLIO HIDDEN: currently using {{ user.get_profile.photo_count }} of {{ customer.image_limit }} images | 
-	  {% elif profile.photo_count == image_limit %}
+	    (PORTFOLIO HIDDEN: currently using {{ profile.photo_count }} of {{ account_limit }} images | 
+	  {% elif profile.photo_count == account_limit %}
 	  <p class="navbar-text pull-left" style="color: orange">
-	    (UPLOAD LIMIT: currently using {{ user.get_profile.photo_count }} of {{ customer.image_limit }} images | 
+	    (UPLOAD LIMIT: currently using {{ profile.photo_count }} of {{ account_limit }} images | 
 	  {% else %}
 	  <p class="navbar-text pull-left">
-	    (currently using {{ user.get_profile.photo_count }} of {{ customer.image_limit }} images | 
+	    (currently using {{ profile.photo_count }} of {{ account_limit }} images | 
 	  {% endif %}
 	  {% endwith %}
 	  <a href="/{{ username }}/settings/">upgrade</a>)

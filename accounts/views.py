@@ -1,5 +1,6 @@
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
@@ -73,8 +74,7 @@ def xhr_test(request):
 
 def settings(request, username):
     """
-    Allows the user to change their password, upgrade/downgrade account, and
-    delete their account.
+    Allows the user to change their password and upgrade/downgrade account.
     """
     # Ensure that we cannot edit other user's profiles:
     if username != request.user.username or not request.user.is_authenticated():
@@ -82,17 +82,23 @@ def settings(request, username):
     customer = request.user.customer
     if request.method == 'POST':
         change_account_form = ChangeAccountForm(request.POST)
+        password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
         if change_account_form.is_valid():
-            customer.account_type = change_account_form.cleaned_data['account_type']
+            customer.account_limit = change_account_form.cleaned_data['account_limit']
             customer.save()
+            return HttpResponseRedirect('/' + username + '/')
+        elif password_change_form.is_valid():
+            password_change_form.save()
             return HttpResponseRedirect('/' + username + '/')
     else:
         change_account_form = ChangeAccountForm()
+        password_change_form = PasswordChangeForm(user=request.user)
     profile = request.user.get_profile()
     variables = RequestContext(request,
                                {'username': username,
                                 'customer': customer,
                                 'profile': profile,
-                                'change_account_form': change_account_form}
+                                'change_account_form': change_account_form,
+                                'password_change_form': password_change_form}
                                )
     return render_to_response('accounts/settings.html', variables)
