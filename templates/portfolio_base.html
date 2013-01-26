@@ -70,7 +70,7 @@
 	    (currently using {{ profile.photo_count }} of {{ account_limit }} images | 
 	  {% endif %}
 	  {% endwith %}
-	  <a href="/{{ username }}/settings/">upgrade</a>)
+	  <a href="/{{ username }}/settings/">upgrade!</a>)
 	  </p>
 	  {% endif %}
 
@@ -113,7 +113,8 @@
     <div class="container">
       <div class="footer">
 	<hr style="margin: 0">
-	<p class="muted" style="text-align: right">&copy {% now "Y" %} <a href="/" target="_blank">Project M</a></p>
+	<p style="float: left; margin: 0; padding: 0"><a href="/" target="_blank">Project M</a>
+	<p class="muted" style="float: right; margin: 0; padding: 0">&copy {% now "Y" %}</p>
       </div>
     </div>
 
