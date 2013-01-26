@@ -2,7 +2,7 @@
 import os.path
 PROJECT_ROOT = os.path.abspath('.')
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -16,12 +16,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_ROOT, 'sqlite3.db'),
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE':'',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -168,3 +168,9 @@ PROFESSIONAL_IMAGE_LIMIT = 500
 # Redirect to this URL after login, and use request.user to redirect to the
 # user's profile within the view.
 LOGIN_REDIRECT_URL = '/accounts/profile/'
+
+# Use development settings locally
+try:
+   from dev_settings import *
+except ImportError, e:
+   pass
