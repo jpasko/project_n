@@ -1,14 +1,14 @@
 {% extends "portfolio_base.html" %}
 {% block stylesheet %}
-<link href="/static/css/lightbox.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}css/lightbox.css" rel="stylesheet">
 {% endblock %}
 {% block script %}
 {% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-<script type="text/javascript" src="/static/js/confirm-delete.js"></script>
-<script type="text/javascript" src="/static/js/sorting.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/confirm-delete.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
 {% endif %}
-<script type="text/javascript" src="/static/js/lightbox.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox.js"></script>
 {% endblock %}
 {% block title %}{{ profile.fullname }} | {{ gallery.title }}{% endblock %}
 {% block header %}{% endblock %}
@@ -23,9 +23,7 @@
 </div>
 {% endif %}
 <div class="row">
-  <div class="span1">
-  </div>
-  <div class="span10">
+  <div class="span12">
     <ul class="thumbnails" id="sortable">
       {% for photo in gallery.photo_set.all %}
       <li>
@@ -39,10 +37,10 @@
 	  </a>
 	  {% if user.is_authenticated and username == user.username %}
 	  <a href="/{{ username }}/photo/{{ photo.pk }}/delete/" class="confirm">
-	    <img src="/static/img/delete.png" style="position: absolute; top: 0; right: 0">
+	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; right: 0">
 	  </a>
 	  <a href="http://google.com">
-	    <img src="/static/img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
+	    <img src="{{ STATIC_URL }}img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
 	  </a>
 	  {% endif %}
 	</div>
@@ -50,8 +48,6 @@
       </li>
       {% endfor %}
     </ul>
-  </div>
-  <div class="span1">
   </div>
 </div>
 {% endblock %}

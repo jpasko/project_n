@@ -136,9 +136,11 @@ def gallery(request, username, gallery_id):
     gallery = get_object_or_404(Gallery, pk=gallery_id)
     user = get_object_or_404(User, username=username)
     profile = user.get_profile()
+    customer = user.customer
     variables = RequestContext(request, {
             'gallery': gallery,
             'profile': profile,
+            'customer': customer,
             'username': username})
     return render_to_response('portfolios/gallery.html', variables)
 
