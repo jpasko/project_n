@@ -1,3 +1,5 @@
+# Used by Heroku to configure the database.
+import dj_database_url
 # Django settings for project_n project.
 import os.path
 PROJECT_ROOT = os.path.abspath('.')
@@ -14,14 +16,10 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 MANAGERS = ADMINS
 
+# Database config for Heroku
 DATABASES = {
     'default': {
-        'ENGINE':'',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
 }
 
@@ -168,6 +166,9 @@ PROFESSIONAL_IMAGE_LIMIT = 500
 # Redirect to this URL after login, and use request.user to redirect to the
 # user's profile within the view.
 LOGIN_REDIRECT_URL = '/accounts/profile/'
+
+# Database configuration for Heroku
+DATABASES['default'] = dj_database_url.config()
 
 # Use development settings locally
 try:
