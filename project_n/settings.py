@@ -61,7 +61,7 @@ ADMIN_MEDIA_PREFIX = 'http://s3.amazonaws.com/%s/static/admin/' % AWS_STORAGE_BU
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = 'http://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 
 # Additional locations of static files
 STATICFILES_DIRS = (
