@@ -1,8 +1,7 @@
 # Used by Heroku to configure the database.
 import dj_database_url
-# Django settings for project_n project.
 import os.path
-PROJECT_ROOT = os.path.abspath('.')
+PROJECT_ROOT = os.path.dirname(__file__)
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -46,30 +45,33 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
+# AWS settings.
+AWS_STORAGE_BUCKET_NAME = 'pasko'
+AWS_ACCESS_KEY_ID = 'AKIAJQXBCMVWJLI566OQ'
+AWS_SECRET_ACCESS_KEY = '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'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, '/../media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = 'media/'
+MEDIA_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_ROOT, '/../static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_ROOT, 'static'),
 )
 
@@ -123,6 +125,7 @@ INSTALLED_APPS = (
     'accounts',
     'portfolios',
     'imagekit',
+    'storages',
 )
 
 # A sample logging configuration. The only tangible logging
