@@ -1,7 +1,7 @@
 # Used by Heroku to configure the database.
 import dj_database_url
 import os.path
-PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+PROJECT_ROOT = os.path.dirname(__file__)
 
 DEBUG = True
 DEV_SETTINGS = False
