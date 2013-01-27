@@ -95,7 +95,7 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 )
 
-if settings.MEDIA_ROOT and settings.DEBUG:
+if settings.DEV_SETTINGS:
     urlpatterns += patterns('',
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.MEDIA_ROOT}),
