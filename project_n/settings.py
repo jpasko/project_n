@@ -1,7 +1,7 @@
 # Used by Heroku to configure the database.
 import dj_database_url
 import os.path
-PROJECT_ROOT = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.abspath('.')
 
 DEBUG = True
 DEV_SETTINGS = False
@@ -102,7 +102,7 @@ ROOT_URLCONF = 'project_n.urls'
 WSGI_APPLICATION = 'project_n.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, '/../templates'),
+    os.path.join(PROJECT_ROOT, 'templates'),
 )
 
 INSTALLED_APPS = (
