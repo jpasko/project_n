@@ -48,9 +48,8 @@ USE_TZ = True
 
 # AWS settings.
 AWS_STORAGE_BUCKET_NAME = 'pasko'
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_PRELOAD_METADATA = True
+DEFAULT_FILE_STORAGE = 'project_n.s3utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = 'project_n.s3utils.StaticRootS3BotoStorage'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
