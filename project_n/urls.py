@@ -52,6 +52,10 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^spindrift/', include(admin.site.urls)),
 
+    # Robots.txt directly from template.
+    url(r'^robots\.txt$', direct_to_template,
+        {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+
     # Be sure to reserve all the above keywords by registering the following
     # users:
     # login, accounts, register, logout, welcome, password_change, delete,
