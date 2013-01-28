@@ -70,7 +70,7 @@
   </div>
   {% if profile.picture %}
   <div class="span4" style="position: relative; left: 0; top: 0;">
-      <img src="/{{ profile.picture.url }}">
+      <img src="{{ profile.picture.url }}">
       {% if user.is_authenticated and username == user.username %}
       <a href="/{{ username }}/about/delete_photo/" class="confirm">
 	<img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0">
