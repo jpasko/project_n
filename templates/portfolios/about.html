@@ -16,20 +16,20 @@
 </div>
 {% endif %}
 <div class="row">
-  <div class="span8">
+  <div class="span7">
     {% if profile.about %}
     <div class="row">
-      <div class="span2">
+      <div class="span1">
 	<p><b>About</b></p>
       </div>
-      <div class="span5">
+      <div class="span6">
 	<p>{{ profile.about|linebreaksbr }}</p>
       </div>
     </div>
     {% endif %}
     {% if profile.email %}
     <div class="row">
-      <div class="span2">
+      <div class="span1">
 	<p><b>Email</b></p>
       </div>
       <div class="span6">
@@ -39,7 +39,7 @@
     {% endif %}
     {% if profile.phone %}
     <div class="row">
-      <div class="span2">
+      <div class="span1">
 	<p><b>Phone</b></p>
       </div>
       <div class="span6">
@@ -49,7 +49,7 @@
     {% endif %}
     {% if profile.location %}
     <div class="row">
-      <div class="span2">
+      <div class="span1">
 	<p><b>Location</b></p>
       </div>
       <div class="span6">
@@ -59,7 +59,7 @@
     {% endif %}
     {% if profile.website %}
     <div class="row">
-      <div class="span2">
+      <div class="span1">
 	<p><b>Website</b></p>
       </div>
       <div class="span6">
@@ -69,7 +69,7 @@
     {% endif %}
   </div>
   {% if profile.picture %}
-  <div class="span4" style="position: relative; left: 0; top: 0;">
+  <div class="span3" style="position: relative; left: 0; top: 0;">
       <img src="{{ profile.picture.url }}">
       {% if user.is_authenticated and username == user.username %}
       <a href="/{{ username }}/about/delete_photo/" class="confirm">
