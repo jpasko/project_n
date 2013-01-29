@@ -4,7 +4,7 @@ from os.path import join
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import post_save, post_delete
 
 from imagekit.models.fields import ProcessedImageField
 from imagekit.processors import ResizeToFit
@@ -105,14 +105,13 @@ def create_customer(sender, instance, created, **kwargs):
 
 def delete_profile_picture(sender, instance, *args, **kwargs):
     """
-    Deletes the profile pictures from the file system upon User deletion.
+    Deletes the profile picture from the storage system upon UserProfile deletion.
     """
-    directory = join(settings.MEDIA_ROOT, 'profile_photos', str(instance.id))
-    subprocess.call(['rm', '-rf', directory])
+    instance.picture.delete(save=False)
 
 # On the User save signal, create a UserProfile and a Customer.
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(create_customer, sender=User)
 
-# When deleting a User, be sure to delete the profile picture.
-pre_delete.connect(delete_profile_picture, sender=User)
+# When deleting a UserProfile, be sure to delete the profile picture.
+post_delete.connect(delete_profile_picture, sender=UserProfile)
