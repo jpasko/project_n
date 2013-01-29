@@ -3,7 +3,7 @@ from os.path import join
 
 from django.conf import settings
 from django.db import models
-from django.db.models.signals import pre_delete
+from django.db.models.signals import post_delete
 from django.contrib.auth.models import User
 
 from imagekit.models import ImageSpecField
@@ -79,11 +79,7 @@ def delete_photo(sender, instance, *args, **kwargs):
     """
     Deletes the image from the file system upon Photo deletion.
     """
-    directory = join(settings.MEDIA_ROOT,
-                     'photos',
-                     str(instance.gallery.id),
-                     instance.image.file.name)
-    subprocess.call(['rm', '-rf', directory])
+    instance.image.delete(save=False)
 
 # When deleting a Photo, be sure to delete the image.
-pre_delete.connect(delete_photo, sender=Photo)
+post_delete.connect(delete_photo, sender=Photo)
