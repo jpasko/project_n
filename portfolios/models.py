@@ -20,7 +20,7 @@ class Gallery(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=20, blank=True)
     count = models.IntegerField(default=0)
-    order = models.IntegerField(default=0, blank=True)
+    order = models.IntegerField(default=9999, blank=True)
 
     class Meta:
         ordering = ['order', 'pk']
@@ -41,7 +41,7 @@ class Photo(models.Model):
     thumbnail_1 = ImageSpecField([ResizeToFill(750, 250)],
                                  image_field='image')
     caption = models.CharField(max_length=100, blank=True)
-    order = models.IntegerField(default=0, blank=True)
+    order = models.IntegerField(default=9999, blank=True)
 
     class Meta:
         ordering = ['order', 'pk']
