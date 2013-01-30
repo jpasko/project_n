@@ -36,6 +36,13 @@
     <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <!--[if gte IE 9]>
+        <style type="text/css">
+          .gradient {
+          filter: none;
+        }
+    </style>
+    <![endif]-->
   </head>
 
   <body>
@@ -102,10 +109,16 @@
       </div>
     </div>
 
-    <div class="container" style="padding-top: 60px; padding-bottom: 10px;">
+    <div class="container" style="padding-top: 60px; padding-bottom: 15px;">
+      <div class="edges">
+      <div id="left" class="gradient">
+      </div>
       <div style="width: 84%; margin: 0 auto">
       <h1>{% block header %}{% endblock %}</h1>
       {% block content %}{% endblock %}
+      </div>
+      <div id="right" class="gradient">
+      </div>
       </div>
     </div> <!-- /container -->
 
