@@ -196,11 +196,31 @@ def change_photo_order(request):
     """
     Changes the order of photos within a gallery.
     """
+    results = {'success': False}
+    if request.method == 'POST':
+        if 'photos[]' in request.POST:
+            order = request.POST.getlist('photos[]')
+            for i in range(len(order)):
+                photo = get_object_or_404(Photo, pk=order[i])
+                photo.order = i
+                photo.save()
+            results = {'success': True}
+    return HttpResponse(json.dumps(results), mimetype='application/json')
 
 def change_gallery_order(request):
     """
-    Changes the order of galleries within the portfolio
+    Changes the order of galleries within the portfolio.
     """
+    results = {'success': False}
+    if request.method == 'POST':
+        if 'galleries[]' in request.POST:
+            order = request.POST.getlist('galleries[]')
+            for i in range(len(order)):
+                gallery = get_object_or_404(Gallery, pk=order[i])
+                gallery.order = i
+                gallery.save()
+            results = {'success': True}
+    return HttpResponse(json.dumps(results), mimetype='application/json')
 
 def edit_photo_caption(request):
     """

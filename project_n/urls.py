@@ -31,6 +31,12 @@ urlpatterns = patterns('',
     # Different registration forms for free vs paid accounts.
     url(r'^register/(\w+)/$', 'accounts.views.register_user'),
 
+    # Reorder the galleries displayed on a user's profile.
+    url(r'^reorder_galleries/$', 'portfolios.views.change_gallery_order'),
+
+    # Reorder the photos within a gallery.
+    url(r'^reorder_photos/$', 'portfolios.views.change_photo_order'),
+
     # Successful registration page, directs users to login and explains
     # what to do.
     url(r'^welcome/$', direct_to_template,
@@ -59,7 +65,7 @@ urlpatterns = patterns('',
     # Be sure to reserve all the above keywords by registering the following
     # users:
     # login, accounts, register, logout, welcome, password_change, delete,
-    # privacy, terms, spindrift, admin
+    # privacy, terms, spindrift, admin, reorder_galleries, reorder_photos
 
     # The user's main profile, which shows their galleries.
     url(r'^(\w+)/$', 'portfolios.views.portfolio'),

@@ -20,26 +20,13 @@ class Gallery(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=20, blank=True)
     count = models.IntegerField(default=0)
-    order = models.IntegerField(null=True)
-
-    # Static counter variable to set a unique order
-    i = 0
+    order = models.IntegerField(default=0, blank=True)
 
     class Meta:
-        ordering = ['order']
+        ordering = ['order', 'pk']
 
     def __unicode__(self):
         return self.title
-
-    def save(self, *args, **kwargs):
-        """
-        Override the save method to initialize the order field to be
-        the primary key value.
-        """
-        if not self.id:
-            self.order = Gallery.i
-            Gallery.i += 1
-        super(Gallery, self).save(*args, **kwargs)
 
 class Photo(models.Model):
     gallery = models.ForeignKey(Gallery)
@@ -54,26 +41,13 @@ class Photo(models.Model):
     thumbnail_1 = ImageSpecField([ResizeToFill(750, 250)],
                                  image_field='image')
     caption = models.CharField(max_length=100, blank=True)
-    order = models.IntegerField()
-
-    # Static counter variable to set a unique order
-    i = 0
+    order = models.IntegerField(default=0, blank=True)
 
     class Meta:
-        ordering = ['order']
+        ordering = ['order', 'pk']
 
     def __unicode__(self):
         return u'Image for %s' % self.gallery.title
-
-    def save(self, *args, **kwargs):
-        """
-        Override the save method to initialize the order field to be
-        the primary key value.
-        """
-        if not self.id:
-            self.order = Photo.i
-            Photo.i += 1
-        super(Photo, self).save(*args, **kwargs)
 
 def delete_photo(sender, instance, *args, **kwargs):
     """

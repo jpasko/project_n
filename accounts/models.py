@@ -28,14 +28,14 @@ class UserProfile(models.Model):
     fullname = models.CharField(verbose_name='name',
                                 max_length=75,
                                 blank=True)
-    location = models.CharField(verbose_name='location (optional)',
+    location = models.CharField(verbose_name='location',
                                 max_length=75,
                                 blank=True)
-    email = models.EmailField(verbose_name='contact email (optional)',
+    email = models.EmailField(verbose_name='contact email',
                               blank=True)
-    about = models.TextField(verbose_name='about (optional)',
+    about = models.TextField(verbose_name='about',
                              blank=True)
-    phone = models.CharField(verbose_name='phone (optional)',
+    phone = models.CharField(verbose_name='phone',
                              max_length=20, blank=True)
 
     STYLES = (

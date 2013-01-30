@@ -6,6 +6,7 @@
 {% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/confirm-delete.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
 {% endif %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/lightbox.js"></script>
@@ -15,18 +16,20 @@
 {% block navbar-text %}
 {% endblock %}
 {% block content %}
+<h4 class="muted" style="text-align: center">{{ gallery.title }}</h4>
 {% if user.is_authenticated and user.username == username %}
 <div id="dialog" title="Are you sure?">
   <p>
     <span class="ui-icon ui-icon-alert"></span>
     This photo will be permanently deleted.</p>
 </div>
+<p class="muted">(Rearrange photos by dragging them.)</p>
 {% endif %}
 <div class="row">
   <div class="span12">
-    <ul class="thumbnails" id="sortable">
+    <ul class="thumbnails sortable-photos">
       {% for photo in gallery.photo_set.all %}
-      <li>
+      <li id="photos_{{ photo.pk }}">
 	<div style="position: relative; left: 0; top: 0;">
 	  <a href="{{ photo.image.url }}" class="lightbox" rel="lightbox[{{ gallery.title }}]" title="{{ photo.caption }}">
 	    {% if profile.gallery_columns == 3 %}
