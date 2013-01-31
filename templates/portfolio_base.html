@@ -68,10 +68,10 @@
 	  {% with account_limit=customer.account_limit %}
 	  {% if profile.photo_count > account_limit %}
 	  <p class="navbar-text pull-left" style="color: red">
-	    (PORTFOLIO HIDDEN: currently using {{ profile.photo_count }} of {{ account_limit }} images | 
+	    (currently using {{ profile.photo_count }} of {{ account_limit }} images | 
 	  {% elif profile.photo_count == account_limit %}
 	  <p class="navbar-text pull-left" style="color: orange">
-	    (UPLOAD LIMIT: currently using {{ profile.photo_count }} of {{ account_limit }} images | 
+	    (currently using {{ profile.photo_count }} of {{ account_limit }} images | 
 	  {% else %}
 	  <p class="navbar-text pull-left">
 	    (currently using {{ profile.photo_count }} of {{ account_limit }} images | 

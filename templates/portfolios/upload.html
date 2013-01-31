@@ -1,6 +1,10 @@
 {% extends "portfolio_base.html" %}
 {% block title %}{{ profile.fullname }} | Upload{% endblock %}
 {% block content %}
+{% if profile.photo_count >= customer.account_limit %}
+<h3 class="muted">You've reached your upload limit!</h3>
+<p class="muted"><em>Either <a href="/{{ username }}/settings/">upgrade</a> your account or delete photos</em></p>
+{% else %}
 <div class="row">
   <div class="span3">
   </div>
@@ -18,4 +22,5 @@
     </form>
   </div>
 </div>
+{% endif %}
 {% endblock %}

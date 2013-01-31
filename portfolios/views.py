@@ -155,6 +155,8 @@ def delete_gallery(request, username, gallery_id):
     # Update the photo count on the user.
     profile = request.user.get_profile()
     profile.photo_count -= gallery.count
+    if profile.photo_count < 0:
+        profile.photo_count = 0
     profile.save()
     gallery.delete()
     return HttpResponseRedirect('/' + username + '/')
@@ -173,6 +175,8 @@ def delete_photo(request, username, photo_id):
     photo.delete()
     profile = request.user.get_profile()
     profile.photo_count -= 1
+    if profile.photo_count < 0:
+        profile.photo_count = 0
     profile.save()
     redirect_url = '/' + username + '/'
     if gallery.count > 0:

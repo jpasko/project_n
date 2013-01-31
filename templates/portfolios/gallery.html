@@ -23,6 +23,13 @@ $(document).ready(function(){
 {% block navbar-text %}
 {% endblock %}
 {% block content %}
+{% if user.is_authenticated and user.username == username %}
+{% if profile.photo_count > customer.account_limit %}
+<h1 style="color: red">UPLOAD LIMIT EXCEEDED</h1>
+<p style="color: orange"><em>This gallery is currently <b>hidden</b> because you've exceeded your upload limit ({{ customer.account_limit }} uploads). 
+    Please either <a href="/{{ username }}/settings">upgrade</a> your account or delete the excess 
+    photos to re-enable your public portfolio.</em></p>
+{% endif %}
 <a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
 <ul class="muted" id="directions">
   <li><em>Rearrange</em> photos by dragging and dropping them</li>
@@ -30,13 +37,13 @@ $(document).ready(function(){
   <li><em><a href="/{{ username }}/edit/">Customize</a></em> the thumbnail styling</li>
 </ul>
 <h4 class="muted" style="text-align: center">{{ gallery.title }}</h4>
-{% if user.is_authenticated and user.username == username %}
 <div id="dialog" title="Are you sure?">
   <p>
     <span class="ui-icon ui-icon-alert"></span>
     This photo will be permanently deleted.</p>
 </div>
 {% endif %}
+{% if profile.photo_count <= customer.account_limit or user.is_authenticated and username == user.username %}
 <div class="row">
   <div class="span12">
     <ul class="thumbnails sortable-photos">
@@ -64,4 +71,5 @@ $(document).ready(function(){
     </ul>
   </div>
 </div>
+{% endif %}
 {% endblock %}

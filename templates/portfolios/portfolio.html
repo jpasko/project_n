@@ -18,6 +18,12 @@ $(document).ready(function(){
 {% block header %}{% endblock %}
 {% block content %}
 {% if user.is_authenticated and user.username == username %}
+{% if profile.photo_count > customer.account_limit %}
+<h1 style="color: red">UPLOAD LIMIT EXCEEDED</h1>
+<p style="color: orange"><em>You've exceeded your upload limit ({{ customer.account_limit }} uploads), probably because you downgraded
+    your account. Please either <a href="/{{ username }}/settings">upgrade</a> your account or delete the excess 
+    photos to re-enable your public portfolio.</em></p>
+{% endif %}
 <div id="dialog" title="Are you sure?">
   <p>
     <span class="ui-icon ui-icon-alert"></span>
