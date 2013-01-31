@@ -8,6 +8,13 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/confirm-delete.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
+<script>
+$(document).ready(function(){
+  $("#toggle-directions").click(function(){
+    $("#directions").toggle(200);
+  });
+});
+</script>
 {% endif %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/lightbox.js"></script>
 {% endblock %}
@@ -16,6 +23,12 @@
 {% block navbar-text %}
 {% endblock %}
 {% block content %}
+<a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
+<ul class="muted" id="directions">
+  <li><em>Rearrange</em> photos by dragging and dropping them</li>
+  <li><em>Delete</em> a photo or <em>edit</em> the photo's caption</li>
+  <li><em><a href="/{{ username }}/edit/">Customize</a></em> the thumbnail styling</li>
+</ul>
 <h4 class="muted" style="text-align: center">{{ gallery.title }}</h4>
 {% if user.is_authenticated and user.username == username %}
 <div id="dialog" title="Are you sure?">
@@ -23,7 +36,6 @@
     <span class="ui-icon ui-icon-alert"></span>
     This photo will be permanently deleted.</p>
 </div>
-<p class="muted">(Rearrange photos by dragging them.)</p>
 {% endif %}
 <div class="row">
   <div class="span12">

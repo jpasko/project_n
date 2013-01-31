@@ -6,6 +6,13 @@
 <script src="{{ STATIC_URL }}js/confirm-delete.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
+<script>
+$(document).ready(function(){
+  $("#toggle-directions").click(function(){
+    $("#directions").toggle(200);
+  });
+});
+</script>
 {% endif %}
 {% endblock %}
 {% block header %}{% endblock %}
@@ -16,9 +23,15 @@
     <span class="ui-icon ui-icon-alert"></span>
     This gallery and all photos it contains will be permanently deleted.</p>
 </div>
-<p class="muted">(Rearrange galleries by dragging them.  Empty galleries won't be shown publicly.)</p>
+<a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
+<ul class="muted" id="directions">
+  <li><em><a href="create_gallery/">Create</a></em> a new gallery or use the <em>tools</em> drop-down menu (empty galleries won't be shown publicly)</li>
+  <li><em><a href="edit/">Edit</a></em> your settings to customize your portfolio's style and create your profile</li>
+  <li><em>Upload</em> photos into a gallery, <em>delete</em> a gallery, or <em>edit</em> the gallery's title</li>
+  <li><em>Rearrange</em> galleries by dragging and dropping them</li>
+</ul>
 {% endif %}
-<div class="row">
+<div class="row muted">
   <div class="span12">
     <ul class="thumbnails sortable-galleries">
       {% for gallery in galleries %}

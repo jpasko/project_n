@@ -22,12 +22,12 @@ $(function() {
   <div class="span10">
     <h3 class="muted">Your account settings</h3>
     <div id="accordion">
-      <h3>Upgrade your account</h3>
+      <h3>Upgrade <em>(or change)</em> your account</h3>
       <div>
 	<form method="post" action=".">
 	  {% csrf_token %}
 	  {{ change_account_form.as_p }}
-	  <input type="submit" value="Submit" class="btn btn-large btn-success">
+	  <input type="submit" value="Submit" class="btn btn-large btn-custom">
 	</form>
       </div>
       <h3>Change your password</h3>
@@ -35,14 +35,15 @@ $(function() {
 	<form method="post" action=".">
 	  {% csrf_token %}
 	  {{ password_change_form.as_p }}
-	  <input type="submit" value="Submit" class="btn btn-large btn-success">
+	  <input type="submit" value="Submit" class="btn btn-large btn-custom">
 	</form>
       </div>
       <h3>Delete your account</h3>
       <div>
-	<p>Are you <em>sure</em> you want to delete your account?
-	Your credit card will no longer be charged once you've deleted your account.</p>
-	<a href="/delete/" class="btn btn-large btn-success confirm">Delete</a>
+	<p>Are you <em>sure</em> you want to delete your account?  It's also possible to downgrade
+	  your account.</p>
+	<d class="muted"><em>Your credit card will no longer be charged once you've deleted your account.</em></p>
+	<a href="/delete/" class="btn btn-custom confirm">Delete</a>
       </div>
     </div>
   </div>

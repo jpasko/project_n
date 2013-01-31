@@ -21,7 +21,7 @@ $(function() {
 <div class="row">
 <div class="span10">
   <h3 class="muted">Edit your portfolio</h3>
-  <p class="muted">(All fields are optional)</p>
+  <p class="muted"><em>(All fields are optional)</em></p>
   {% if form.errors %}
   <p>Please correct the errors and resubmit.</p>
   {% endif %}
@@ -71,7 +71,7 @@ $(function() {
 	{{ form.gallery_columns }}
       </div>
     </div>
-    <input type="submit" value="update" class="btn btn-large btn-success btn-custom">
+    <input type="submit" value="Update portfolio" class="btn btn-large btn-success btn-custom" style="float: right; margin-top: 10px; margin-right: 50px;">
   </form>
 </div>
 </div>
