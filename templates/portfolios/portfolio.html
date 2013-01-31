@@ -55,7 +55,9 @@ $(document).ready(function(){
 	    {% endwith %}
 	  </a>
 	  {% else %}
-	  <img src="{{ STATIC_URL }}img/empty_gallery.png">
+	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
+	    <img src="{{ STATIC_URL }}img/empty_gallery.png">
+	  </a>
 	  {% endif %}
 	  {% if user.is_authenticated and username == user.username %}
 	  <a href="/{{ username }}/upload/{{ gallery.pk }}/">
