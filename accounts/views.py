@@ -23,6 +23,14 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/logout/success/')
 
+def logout_and_view(request):
+    """
+    Logs out the current user and returns to their profile.
+    """
+    username = request.user.username
+    logout(request)
+    return HttpResponseRedirect('/' + username + '/')
+
 def register_user(request, account_type):
     """
     Registers a new user to the site.

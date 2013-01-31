@@ -20,6 +20,9 @@ urlpatterns = patterns('',
     # Logs out the user, redirects to /logout/success/
     url(r'^logout/$', 'accounts.views.logout_user'),
 
+    # Logs out the user, redirects to their portfolio
+    url(r'^logout_view/$', 'accounts.views.logout_and_view'),
+
     # Successful logout.
     url(r'^logout/success/$', direct_to_template,
         {'template': 'accounts/logout_success.html'}),
