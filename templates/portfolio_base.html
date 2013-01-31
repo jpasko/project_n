@@ -6,7 +6,7 @@
     <link href="{{ STATIC_URL }}css/jquery-ui-1.10.0.custom.css" rel="stylesheet">
     {% if profile.style == 'L' %}
     <link href="{{ STATIC_URL }}css/light_style.css" rel="stylesheet">
-    {% else %}
+    {% elif profile.style == 'D' %}
     <link href="{{ STATIC_URL }}css/dark_style.css" rel="stylesheet">
     {% endif %}
     {% block stylesheet %}{% endblock %}
