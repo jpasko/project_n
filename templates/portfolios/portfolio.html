@@ -32,8 +32,9 @@ $(document).ready(function(){
 <a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
 <ul class="muted" id="directions">
   <li><em><a href="create_gallery/">Create</a></em> a new gallery or use the <em>tools</em> drop-down menu (empty galleries won't be shown publicly)</li>
+  <li><img src="{{ STATIC_URL }}img/upload.png"> photos into a gallery, <img src="{{ STATIC_URL }}img/delete.png"> a gallery, 
+    or <img src="{{ STATIC_URL }}img/edit.png"> the gallery's title</li>
   <li><em><a href="edit/">Edit</a></em> your settings to customize your portfolio's style and create your profile</li>
-  <li><em>Upload</em> photos into a gallery, <em>delete</em> a gallery, or <em>edit</em> the gallery's title</li>
   <li><em>Rearrange</em> galleries by dragging and dropping them</li>
 </ul>
 {% endif %}

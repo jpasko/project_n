@@ -33,8 +33,8 @@ $(document).ready(function(){
 <a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
 <ul class="muted" id="directions">
   <li><em>Rearrange</em> photos by dragging and dropping them</li>
-  <li><em>Delete</em> a photo or <em>edit</em> the photo's caption</li>
-  <li><em><a href="/{{ username }}/edit/">Customize</a></em> the thumbnail styling</li>
+  <li><img src="{{ STATIC_URL }}img/delete.png"> a photo or <img src="{{ STATIC_URL }}img/edit.png"> the photo's caption</li>
+  <li><em><a href="/{{ username }}/edit/">Customize</a></em> the styling</li>
 </ul>
 <h4 class="muted" style="text-align: center">{{ gallery.title }}</h4>
 <div id="dialog" title="Are you sure?">
