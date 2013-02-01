@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.views.generic.simple import direct_to_template
 import settings
@@ -31,7 +32,7 @@ urlpatterns = patterns('',
     url(r'^register/$', direct_to_template,
         {'template': 'registration/registration_options.html'}),
 
-    # Different registration forms for free vs paid accounts.
+    # User registration page.  The view will handle free vs. paid users.
     url(r'^register/(\w+)/$', 'accounts.views.register_user'),
 
     # Reorder the galleries displayed on a user's profile.
@@ -60,10 +61,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^spindrift/', include(admin.site.urls)),
-
-    # TEST PAYMENT FORM.
-    url(r'^test_payment/', direct_to_template,
-        {'template': 'payment.html'}),
 
     # Robots.txt directly from template.
     url(r'^robots\.txt$', direct_to_template,
@@ -99,8 +96,14 @@ urlpatterns = patterns('',
     # the gallery is empty, redirects back to the main profile.
     url(r'^(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),
 
-    # Deletes the gallery, and redirects back to the main portfolio.
+    # Edit a photo's caption.
+#    url(r'^(\w+)/photo/(\d+)/edit/$', 'portfolios.views.edit_photo'),
+
+    # Deletes a gallery, and redirect back to the main portfolio.
     url(r'^(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),
+
+    # Edit a gallery's title and thumbnail.
+#    url(r'^(\w+)/gallery/(\d+)/edit/$', 'portfolios.views.edit_gallery'),
 
     # Deletes the profile photo, and redirects back to the profile (about page).
     url(r'^(\w+)/about/delete_photo/$', 'portfolios.views.delete_profile_photo'),

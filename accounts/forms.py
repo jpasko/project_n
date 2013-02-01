@@ -56,15 +56,31 @@ class RegistrationForm(forms.Form):
             return email
         raise forms.ValidationError('Email already taken')
 
-class PaidRegistrationForm(RegistrationForm):
+class CardForm(forms.Form):
     """
     Form for accepting credit cards.
     """
+    last_4_digits = forms.CharField(
+        required = True,
+        min_length = 4,
+        max_length = 4,
+        widget = forms.HiddenInput()
+    )
+    
+    stripe_token = forms.CharField(
+        required = True,
+        widget = forms.HiddenInput()
+    )
 
 class ChangeAccountForm(forms.ModelForm):
     """
-    Form to upgrade/downgrade an user's account.
+    Form to upgrade/downgrade an existing user's account.
     """
     class Meta:
         model = Customer
-        exclude = ('user', 'image_limit', 'stripe_id')
+        exclude = ('user', 'stripe_id')
+
+class PaidRegistrationForm(RegistrationForm, CardForm):
+    """
+    Form for registering new users to paid accounts.
+    """

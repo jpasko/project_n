@@ -226,12 +226,12 @@ def change_gallery_order(request):
             results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')
 
-def edit_photo_caption(request):
+def edit_photo(request):
     """
     Allows the user to edit the photo's caption.
     """
 
-def edit_gallery_title(request):
+def edit_gallery(request):
     """
-    Allows the user to edit the gallery's title.
+    Allows the user to edit the gallery.
     """

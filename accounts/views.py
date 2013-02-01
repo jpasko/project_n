@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
@@ -5,8 +6,14 @@ from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+
 from accounts.forms import RegistrationForm, ChangeAccountForm
+
 import json
+
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def profile(request):
@@ -33,7 +40,8 @@ def logout_and_view(request):
 
 def register_user(request, account_type):
     """
-    Registers a new user to the site.
+    Registers a new user to the site.  Works for free and paid
+    accounts.
     """
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -110,3 +118,8 @@ def settings(request, username):
                                 'password_change_form': password_change_form}
                                )
     return render_to_response('accounts/settings.html', variables)
+
+def change_account(request, username):
+    """
+    Upgrade or downgrade the user's account.
+    """

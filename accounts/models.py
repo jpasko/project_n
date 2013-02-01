@@ -9,6 +9,8 @@ from django.db.models.signals import post_save, post_delete
 from imagekit.models.fields import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
+from zebra.models import StripeCustomer
+
 def upload_to(instance, filename):
     """
     Upload path for profile photos.
@@ -74,10 +76,9 @@ class UserProfile(models.Model):
         return u'Profile for %s' % self.user.username
 
 # Create a Customer entry whenever a User is created.
-class Customer(models.Model):
+class Customer(StripeCustomer):
     # Required to associate with a unique user.
     user = models.OneToOneField(User)
-    stripe_id = models.CharField(max_length=255)
     ACCOUNT_LIMITS = (
         (settings.FREE_IMAGE_LIMIT, 'Starter (' + str(settings.FREE_IMAGE_LIMIT) + ' image uploads)'),
         (settings.PREMIUM_IMAGE_LIMIT, 'Premium (' + str(settings.PREMIUM_IMAGE_LIMIT) + ' image uploads)'),

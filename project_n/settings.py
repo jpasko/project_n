@@ -118,6 +118,7 @@ INSTALLED_APPS = (
     'portfolios',
     'imagekit',
     'storages',
+    'zebra',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -149,14 +150,19 @@ LOGGING = {
     }
 }
 
+# Names of the accounts.
+FREE_ACCOUNT_NAME = 'basic'
+PREMIUM_ACCOUNT_NAME = 'premium'
+PROFESSIONAL_ACCOUNT_NAME = 'professional'
+
 # The storage limits for free accounts
-FREE_IMAGE_LIMIT = 10
+FREE_IMAGE_LIMIT = 20
 
 # The storage limits for premium accounts
-PREMIUM_IMAGE_LIMIT = 75
+PREMIUM_IMAGE_LIMIT = 150
 
 # The storage limits for professional accounts
-PROFESSIONAL_IMAGE_LIMIT = 500
+PROFESSIONAL_IMAGE_LIMIT = 1000
 
 # Redirect to this URL after login, and use request.user to redirect to the
 # user's profile within the view.
@@ -164,6 +170,24 @@ LOGIN_REDIRECT_URL = '/accounts/profile/'
 
 # Database configuration for Heroku
 DATABASES['default'] = dj_database_url.config()
+
+# [TEST] Stripe secret API key
+STRIPE_SECRET_KEY = 'sk_test_cW9hh0nEPFanYVaSDK4Zuq02'
+
+# [TEST] Stripe publishable API key
+STRIPE_PUBLISHABLE_KEY = 'pk_test_dyJgXQH2KaYvS3jBYyVRdJa5'
+
+# Use the default Zebra app to interact with Stripe
+ZEBRA_ENABLE_APP = True
+
+# Use Zebra to extend the Customer model
+ZEBRA_CUSTOMER_MODEL = 'accounts.models.Customer'
+
+# Untracked local variables (secret keys and the like)
+try:
+    from locals import *
+except:
+    pass
 
 # Use development settings locally
 try:
