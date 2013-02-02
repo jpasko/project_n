@@ -7,7 +7,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from accounts.forms import RegistrationForm, ChangeAccountForm, PaidRegistrationForm
+from accounts.forms import RegistrationForm, ChangeAccountForm
 from accounts.models import Customer
 
 import json
@@ -46,37 +46,51 @@ def register_user(request, account_type):
     Registers a new user to the site.  Works for free and paid
     accounts.
     """
+    zebra_form_valid = True
     if request.method == 'POST':
-        if account_type == settings.FREE_ACCOUNT_NAME:
-            form = RegistrationForm(request.POST)
-        elif account_type == settings.PREMIUM_ACCOUNT_NAME or account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
-            form = PaidRegistrationForm(request.POST)
-        else:
-            raise Http404
-        if form.is_valid():
+        user_form = RegistrationForm(request.POST)
+        if account_type == settings.PREMIUM_ACCOUNT_NAME or account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
+            zebra_form = StripePaymentForm(request.POST)
+            zebra_form_valid = zebra_form.is_valid()
+        if user_form.is_valid() and zebra_form_valid:
             user = User.objects.create_user(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password1'],
-                email=form.cleaned_data['email']
+                username=user_form.cleaned_data['username'],
+                password=user_form.cleaned_data['password1'],
+                email=user_form.cleaned_data['email']
             )
             # Now, populate the profile from the form.
             profile = user.get_profile()
             # profile.field_1 = form.cleaned_data['field_1']
             profile.save()
-            # Finally, create the Stripe customer record
-            user.customer.stripe_customer
+            # Get the customer record that was automatically created
+            customer = user.customer
+            if account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
+                customer.account_limit = settings.PROFESSIONAL_IMAGE_LIMIT
+            elif account_type == settings.PREMIUM_ACCOUNT_NAME:
+                customer.account_limit = settings.PREMIUM_IMAGE_LIMIT
+            else:
+                customer.account_limit = settings.FREE_IMAGE_LIMIT
+            # Accessing the stripe_customer attribute creates the stripe customer
+            stripe_customer = customer.stripe_customer
+            stripe_customer.email = user.email
+            # Now, subscribe the (paying) customer to the appropriate plan
+            if account_type != settings.FREE_ACCOUNT_NAME:
+                stripe_customer.card = zebra_form.cleaned_data['stripe_token']
+                stripe_customer.plan = account_type
+            # Save both the model and the stripe customer
+            customer.save()
+            stripe_customer.save()
             user = authenticate(username=request.POST['username'],
                                 password=request.POST['password1'])
             login(request, user)
             return HttpResponseRedirect('/accounts/profile/')
     else:
-        if account_type == settings.FREE_ACCOUNT_NAME:
-            form = RegistrationForm()
-        elif account_type == settings.PREMIUM_ACCOUNT_NAME or account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
-            form = PaidRegistrationForm()
+        user_form = RegistrationForm()
+        if account_type == settings.PREMIUM_ACCOUNT_NAME or account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
+            zebra_form = StripePaymentForm()
         else:
-            raise Http404
-    variables = RequestContext(request, {'form': form, 'account_type': account_type})
+            zebra_form = None
+    variables = RequestContext(request, {'user_form': user_form, 'zebra_form': zebra_form, 'account_type': account_type})
     return render_to_response('registration/register.html', variables)
 
 def delete_user(request):

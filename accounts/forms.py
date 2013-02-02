@@ -4,8 +4,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django import forms
 from accounts.models import UserProfile, Customer
 
-from zebra.forms import StripePaymentForm
-
 class RegistrationForm(forms.Form):
     username = forms.CharField(label='Username', max_length=30)
     email = forms.EmailField(label='Email')
@@ -81,8 +79,3 @@ class ChangeAccountForm(forms.ModelForm):
     class Meta:
         model = Customer
         exclude = ('user', 'stripe_id')
-
-class PaidRegistrationForm(RegistrationForm, StripePaymentForm):
-    """
-    Form for registering new users to paid accounts.
-    """

@@ -23,13 +23,18 @@ $(function() {
     <h3 class="muted">Your account settings</h3>
     <div id="accordion">
       <h3>Upgrade <em>(or change)</em> your account</h3>
-      <div>
-	<form method="post" action=".">
-	  {% csrf_token %}
-	  {{ change_account_form.as_p }}
-	  <input type="submit" value="Submit" class="btn btn-large btn-custom">
-	</form>
+      <div class="row">
+	<div class="span3">
+	  <a href="" class="btn btn-large btn-custom">Starter</a>
+	</div>
+	<div class="span3">
+	  <a href="" class="btn btn-large btn-custom">Premium</a>
+	</div>
+	<div class="span2">
+	  <a href="" class="btn btn-large btn-custom">Professional</a>
+	</div>
       </div>
+
       <h3>Change your password</h3>
       <div>
 	<form method="post" action=".">

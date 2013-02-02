@@ -80,9 +80,9 @@ class Customer(StripeCustomer):
     # Required to associate with a unique user.
     user = models.OneToOneField(User)
     ACCOUNT_LIMITS = (
-        (settings.FREE_IMAGE_LIMIT, 'Starter (' + str(settings.FREE_IMAGE_LIMIT) + ' image uploads)'),
-        (settings.PREMIUM_IMAGE_LIMIT, 'Premium (' + str(settings.PREMIUM_IMAGE_LIMIT) + ' image uploads)'),
-        (settings.PROFESSIONAL_IMAGE_LIMIT, 'Professional (' + str(settings.PROFESSIONAL_IMAGE_LIMIT) + ' image uploads)'),
+        (settings.FREE_IMAGE_LIMIT, str(settings.FREE_IMAGE_LIMIT) + ' image uploads'),
+        (settings.PREMIUM_IMAGE_LIMIT, str(settings.PREMIUM_IMAGE_LIMIT) + ' image uploads'),
+        (settings.PROFESSIONAL_IMAGE_LIMIT, str(settings.PROFESSIONAL_IMAGE_LIMIT) + ' image uploads'),
     )
     account_limit = models.IntegerField(verbose_name='Account type',
                                         choices=ACCOUNT_LIMITS,
