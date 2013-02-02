@@ -7,11 +7,14 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from accounts.forms import RegistrationForm, ChangeAccountForm
+from accounts.forms import RegistrationForm, ChangeAccountForm, PaidRegistrationForm
+from accounts.models import Customer
 
 import json
 
 import stripe
+
+from zebra.forms import StripePaymentForm
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -44,7 +47,12 @@ def register_user(request, account_type):
     accounts.
     """
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        if account_type == settings.FREE_ACCOUNT_NAME:
+            form = RegistrationForm(request.POST)
+        elif account_type == settings.PREMIUM_ACCOUNT_NAME or account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
+            form = PaidRegistrationForm(request.POST)
+        else:
+            raise Http404
         if form.is_valid():
             user = User.objects.create_user(
                 username=form.cleaned_data['username'],
@@ -55,12 +63,19 @@ def register_user(request, account_type):
             profile = user.get_profile()
             # profile.field_1 = form.cleaned_data['field_1']
             profile.save()
+            # Finally, create the Stripe customer record
+            user.customer.stripe_customer
             user = authenticate(username=request.POST['username'],
                                 password=request.POST['password1'])
             login(request, user)
             return HttpResponseRedirect('/accounts/profile/')
     else:
-        form = RegistrationForm()
+        if account_type == settings.FREE_ACCOUNT_NAME:
+            form = RegistrationForm()
+        elif account_type == settings.PREMIUM_ACCOUNT_NAME or account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
+            form = PaidRegistrationForm()
+        else:
+            raise Http404
     variables = RequestContext(request, {'form': form, 'account_type': account_type})
     return render_to_response('registration/register.html', variables)
 
@@ -88,7 +103,7 @@ def xhr_test(request):
         message = 'This is not an XHR request'
     return HttpResponse(message)
 
-def settings(request, username):
+def change_settings(request, username):
     """
     Allows the user to change their password and upgrade/downgrade account.
     """

@@ -109,7 +109,7 @@ urlpatterns = patterns('',
     url(r'^(\w+)/about/delete_photo/$', 'portfolios.views.delete_profile_photo'),
 
     # Allows the user to change their account settings.
-    url(r'^(\w+)/settings/$', 'accounts.views.settings'),
+    url(r'^(\w+)/settings/$', 'accounts.views.change_settings'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
