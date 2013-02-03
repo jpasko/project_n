@@ -75,6 +75,17 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return u'Profile for %s' % self.user.username
 
+    def save(self, *args, **kwargs):
+        """
+        Override save to delete the old picture if a new one is uploaded.
+        """
+        try:
+            this = UserProfile.objects.get(pk=self.id)
+            if this.picture and this.picture != self.picture:
+                this.picture.delete(save=False)
+        except: pass
+        super(UserProfile, self).save(*args, **kwargs)
+
 # Create a Customer entry whenever a User is created.
 class Customer(StripeCustomer):
     # Required to associate with a unique user.

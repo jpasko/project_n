@@ -21,7 +21,7 @@ def upload_to_gallery(instance, filename):
     """
     Creates an upload_to path for photos.
     """
-    return 'thumbnails/%d/%s' % (instance.id, filename)
+    return 'thumbnails/%d/%s' % (instance.user.id, filename)
 
 class Gallery(models.Model):
     user = models.ForeignKey(User)
@@ -47,6 +47,17 @@ class Gallery(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        """
+        Override save to delete the old thumbnail.
+        """
+        try:
+            this = Gallery.objects.get(pk=self.id)
+            if this.thumbnail and this.thumbnail != self.thumbnail:
+                this.thumbnail.delete(save=False)
+        except: pass
+        super(Gallery, self).save(*args, **kwargs)
 
 class Photo(models.Model):
     gallery = models.ForeignKey(Gallery)

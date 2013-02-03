@@ -75,12 +75,14 @@ def create_gallery(request, username):
     if not username == request.user.username:
         raise Http404
     if request.method == 'POST':
-        form = CreateGalleryForm(request.POST)
+        form = CreateGalleryForm(request.POST, request.FILES)
         if form.is_valid():
             gallery = Gallery(
                 user=request.user,
                 title=form.cleaned_data['title'],
             )
+            if request.FILES:
+                gallery.thumbnail = form.cleaned_data['thumbnail']
             gallery.save()
             return HttpResponseRedirect('/' + username + '/')
     else:
