@@ -35,7 +35,7 @@ class EditPhotoForm(forms.ModelForm):
     """
     class Meta:
         model = Photo
-        exclude = ('order', 'gallery', 'image', 'thumbnail_1', 'thumbnail_3')
+        exclude = ('order', 'gallery', 'image')
 
 class EditGalleryForm(forms.ModelForm):
     """

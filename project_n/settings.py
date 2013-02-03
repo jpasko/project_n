@@ -183,6 +183,12 @@ ZEBRA_ENABLE_APP = True
 # Use Zebra to extend the Customer model
 ZEBRA_CUSTOMER_MODEL = 'accounts.models.Customer'
 
+SQUARE_THUMBNAIL_DIMENSION = 250
+
+WIDE_THUMBNAIL_WIDTH = 750
+
+WIDE_THUMBNAIL_HEIGHT = 250
+
 # Untracked local variables (secret keys and the like)
 try:
     from locals import *

@@ -15,7 +15,7 @@ def upload_to(instance, filename):
     """
     Upload path for profile photos.
     """
-    return 'profile_photos/%d/%s' % (instance.id, filename)
+    return 'profiles/%d/%s' % (instance.id, filename)
 
 # Attach a profile to the User model, and ensure that it's
 # created whenever a new user is created.

@@ -226,12 +226,55 @@ def change_gallery_order(request):
             results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')
 
-def edit_photo(request):
+def edit_photo(request, username, photo_id):
     """
     Allows the user to edit the photo's caption.
     """
+    # Ensure that we cannot edit another's photo:
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    customer = request.user.customer
+    if request.method == 'POST':
+        form = EditPhotoForm(request.POST)
+        if form.is_valid():
+            photo = get_object_or_404(Photo, pk=photo_id)
+            photo.caption = form.cleaned_data['caption']
+            photo.save()
+            gallery_id = photo.gallery.pk
+            return HttpResponseRedirect('/' + username + '/gallery/' + str(gallery_id) + '/')
+    else:
+        form = EditPhotoForm()
+    variables = RequestContext(request,
+                               {'form': form,
+                                'username': username,
+                                'customer': customer,
+                                'profile': profile})
+    return render_to_response('portfolios/edit_photo.html', variables)
 
-def edit_gallery(request):
+def edit_gallery(request, username, gallery_id):
     """
     Allows the user to edit the gallery.
     """
+    # Ensure that we cannot edit another's gallery:
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    customer = request.user.customer
+    if request.method == 'POST':
+        form = EditGalleryForm(request.POST, request.FILES)
+        if form.is_valid():
+            gallery = get_object_or_404(Gallery, pk=gallery_id)
+            gallery.title = form.cleaned_data['title']
+            if request.FILES:
+                gallery.thumbnail = request.FILES['thumbnail']
+            gallery.save()
+            return HttpResponseRedirect('/' + username + '/')
+    else:
+        form = EditGalleryForm()
+    variables = RequestContext(request,
+                               {'form': form,
+                                'username': username,
+                                'customer': customer,
+                                'profile': profile})
+    return render_to_response('portfolios/edit_gallery.html', variables)

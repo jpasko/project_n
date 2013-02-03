@@ -97,13 +97,13 @@ urlpatterns = patterns('',
     url(r'^(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),
 
     # Edit a photo's caption.
-#    url(r'^(\w+)/photo/(\d+)/edit/$', 'portfolios.views.edit_photo'),
+    url(r'^(\w+)/photo/(\d+)/edit/$', 'portfolios.views.edit_photo'),
 
     # Deletes a gallery, and redirect back to the main portfolio.
     url(r'^(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),
 
     # Edit a gallery's title and thumbnail.
-#    url(r'^(\w+)/gallery/(\d+)/edit/$', 'portfolios.views.edit_gallery'),
+    url(r'^(\w+)/gallery/(\d+)/edit/$', 'portfolios.views.edit_gallery'),
 
     # Deletes the profile photo, and redirects back to the profile (about page).
     url(r'^(\w+)/about/delete_photo/$', 'portfolios.views.delete_profile_photo'),
