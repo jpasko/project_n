@@ -95,10 +95,14 @@ def register_user(request, account_type):
 
 def delete_user(request):
     """
-    Deletes the currently authenticated user's account and all associated data.
+    Deletes the currently authenticated user's account and all associated data.  Cancels their Stripe subscription, if
+    it exists.
     """
     user = request.user
     if user and user.is_authenticated() and not user.is_staff:
+        stripe_customer = stripe.Customer.retrieve(user.customer.stripe_customer_id)
+        stripe_customer.cancel_subscription()
+        stripe_customer.delete()
         User.objects.get(username=user.username).delete()
     return HttpResponseRedirect('/')
         

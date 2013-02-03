@@ -109,7 +109,8 @@ def delete_profile_picture(sender, instance, *args, **kwargs):
     """
     Deletes the profile picture from the storage system upon UserProfile deletion.
     """
-    instance.picture.delete(save=False)
+    if instance.picture:
+        instance.picture.delete(save=False)
 
 # On the User save signal, create a UserProfile and a Customer.
 post_save.connect(create_user_profile, sender=User)

@@ -53,7 +53,8 @@ def delete_photo(sender, instance, *args, **kwargs):
     """
     Deletes the image from the file system upon Photo deletion.
     """
-    instance.image.delete(save=False)
+    if instance.image:
+        instance.image.delete(save=False)
 
 # When deleting a Photo, be sure to delete the image.
 post_delete.connect(delete_photo, sender=Photo)
