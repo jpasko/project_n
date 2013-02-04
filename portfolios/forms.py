@@ -1,6 +1,7 @@
 from accounts.models import UserProfile
 from portfolios.models import Photo, Gallery
 from django import forms
+from imagekit.models.fields import ProcessedImageField
 
 class UserProfileForm(forms.ModelForm):
     """
