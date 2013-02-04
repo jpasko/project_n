@@ -263,17 +263,20 @@ def edit_gallery(request, username, gallery_id):
         raise Http404
     profile = request.user.get_profile()
     customer = request.user.customer
+    gallery = get_object_or_404(Gallery, pk=gallery_id)
     if request.method == 'POST':
         form = EditGalleryForm(request.POST, request.FILES)
         if form.is_valid():
-            gallery = get_object_or_404(Gallery, pk=gallery_id)
             gallery.title = form.cleaned_data['title']
             if request.FILES:
                 gallery.thumbnail = request.FILES['thumbnail']
+            else:
+                gallery.thumbnail = None
             gallery.save()
             return HttpResponseRedirect('/' + username + '/')
     else:
-        form = EditGalleryForm()
+        form = EditGalleryForm(initial = {'title': gallery.title,
+                                          'thumbnail': gallery.thumbnail})
     variables = RequestContext(request,
                                {'form': form,
                                 'username': username,
