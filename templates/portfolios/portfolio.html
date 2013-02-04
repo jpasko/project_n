@@ -48,15 +48,35 @@ $(document).ready(function(){
 	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
 	    {% with first_photo=gallery.photo_set.all|first %}
 	    {% if profile.portfolio_columns == 3 %}
+	    {% if gallery.thumbnail %}
+	    <img src="{{ gallery.thumbnail_3.url }}" style="position: relative; top: 0; left: 0;">
+	    {% else %}
 	    <img src="{{ first_photo.thumbnail_3.url }}" style="position: relative; top: 0; left: 0;">
+	    {% endif %}
+	    {% else %}
+	    {% if gallery.thumbnail %}
+	    <img src="{{ gallery.thumbnail_1.url }}" style="position: relative; top: 0; left: 0;">
 	    {% else %}
 	    <img src="{{ first_photo.thumbnail_1.url }}" style="position: relative; top: 0; left: 0;">
+	    {% endif %}
 	    {% endif %}
 	    {% endwith %}
 	  </a>
 	  {% else %}
 	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
-	    <img src="{{ STATIC_URL }}img/empty_gallery.png">
+	    {% if profile.portfolio_columns == 3 %}
+	    {% if gallery.thumbnail %}
+	    <img src="{{ gallery.thumbnail_3.url }}" style="position: relative; top: 0; left: 0;">
+	    {% else %}
+	    <img src="{{ STATIC_URL }}img/empty_gallery.png" style="position: relative; top: 0; left: 0;">
+	    {% endif %}
+	    {% else %}
+	    {% if gallery.thumbnail %}
+	    <img src="{{ gallery.thumbnail_1.url }}" style="position: relative; top: 0; left: 0;">
+	    {% else %}
+	    <img src="{{ STATIC_URL }}img/empty_gallery.png" style="position: relative; top: 0; left: 0;">
+	    {% endif %}
+	    {% endif %}
 	  </a>
 	  {% endif %}
 	  {% if user.is_authenticated and username == user.username %}

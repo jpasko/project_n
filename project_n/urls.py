@@ -35,6 +35,9 @@ urlpatterns = patterns('',
     # User registration page.  The view will handle free vs. paid users.
     url(r'^register/(\w+)/$', 'accounts.views.register_user'),
 
+    # Account upgrade/downgrade page.  The view will handle free vs. paid users.
+#    url(r'^upgrade/(\w+)/$', 'accounts.views.change_account'),
+
     # Reorder the galleries displayed on a user's profile.
     url(r'^reorder_galleries/$', 'portfolios.views.change_gallery_order'),
 

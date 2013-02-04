@@ -5,6 +5,13 @@
 {% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/confirm-delete.js"></script>
+<script>
+$(document).ready(function(){
+  $("#toggle-directions").click(function(){
+    $("#directions").toggle(200);
+  });
+});
+</script>
 {% endif %}
 {% endblock %}
 {% block content %}
@@ -14,6 +21,11 @@
     <span class="ui-icon ui-icon-alert"></span>
     This photo will be permanently deleted.</p>
 </div>
+<a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
+<ul class="muted" id="directions">
+  <li><em><a href="/{{ username }}/edit/">Edit</a></em> this page, or use the <em>tools</em> drop-down menu</li>
+  <li>All information is optional</li>
+</ul>
 {% endif %}
 <div class="row">
   <div class="span7">
