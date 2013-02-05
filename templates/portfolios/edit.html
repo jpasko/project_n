@@ -49,6 +49,21 @@ $(function() {
 	<label for="id_website">Website:</label>
 	{{ form.website }}
       </div>
+      <h3>Social</h3>
+      <div>
+	{{ form.twitter.errors }}
+	<label for="id_twitter">Twitter:</label>
+	{{ form.twitter }}
+	{{ form.facebook.errors }}
+	<label for="id_facebook">Facebook:</label>
+	{{ form.facebook }}
+	{{ form.google_plus.errors }}
+	<label for="id_google_plus">Google+:</label>
+	{{ form.google_plus }}
+	{{ form.linkedin.errors }}
+	<label for="id_linkedin">LinkedIn:</label>
+	{{ form.linkedin }}
+      </div>
       <h3>About and Picture</h3>
       <div>
 	{{ form.about.errors }}

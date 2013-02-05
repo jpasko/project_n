@@ -91,4 +91,26 @@ $(document).ready(function(){
   </div>
   {% endif %}
 </div>
+<div class="row">
+  <div class="span7">
+    <div class="row">
+      <div class="span1">
+      </div>
+      <div class="span6">
+	{% if profile.twitter %}
+	<a href="{{ profile.twitter }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}/img/twitter.png"></a>
+	{% endif %}
+	{% if profile.facebook %}
+	<a href="{{ profile.facebook }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}/img/facebook.png"></a>
+	{% endif %}
+	{% if profile.google_plus %}
+	<a href="{{ profile.google_plus }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}/img/gplus.png"></a>
+	{% endif %}
+	{% if profile.linkedin %}
+	<a href="{{ profile.linkedin }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}/img/linkedin.png"></a>
+	{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

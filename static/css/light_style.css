@@ -1,3 +1,6 @@
+body {
+    background-color: black;// #f6f6f6;
+}
 .btn-custom {
     background-color: hsl(0, 0%, 14%) !important;
     background-repeat: repeat-x;
@@ -53,4 +56,15 @@
     background: -ms-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.04) 100%); /* IE10+ */
     background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.04) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#0a000000',GradientType=1 ); /* IE6-8 */
+}
+div.darken {
+    display: inline-block;
+    background: black;
+    padding: 0;
+}
+div.darken img {
+    display: block;
+}
+.gallery-title {
+    display: none;
 }

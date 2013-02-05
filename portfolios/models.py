@@ -25,7 +25,7 @@ def upload_to_gallery(instance, filename):
 
 class Gallery(models.Model):
     user = models.ForeignKey(User)
-    title = models.CharField(max_length=20, blank=True)
+    title = models.CharField(max_length=75, blank=True)
     count = models.IntegerField(default=0)
     order = models.IntegerField(default=9999, blank=True)
     thumbnail = ProcessedImageField([ResizeToFit(width=settings.WIDE_THUMBNAIL_WIDTH,

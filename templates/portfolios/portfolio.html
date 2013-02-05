@@ -1,19 +1,36 @@
 {% extends "portfolio_base.html" %}
 {% block title %}{{ profile.fullname }} | Portfolio{% endblock %}
 {% block script %}
-{% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+{% if user.is_authenticated and user.username == username %}
 <script src="{{ STATIC_URL }}js/confirm-delete.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
+{% endif %}
 <script>
-$(document).ready(function(){
+  $(document).ready(function(){
   $("#toggle-directions").click(function(){
     $("#directions").toggle(200);
   });
+  $(".darken").hover(
+    function() {
+      var image = $(this).find("img");
+      var title = $(this).find(".gallery-title");
+      title.css({
+        position: 'absolute',
+        left: (image.width() - title.outerWidth()) / 2,
+        top: (image.height() - title.outerHeight()) / 2
+      });
+      image.fadeTo(75, 0.65);
+      title.show();
+    },
+    function() {
+      $(this).find("img").fadeTo(10, 1);
+      $(this).find(".gallery-title").hide();
+    }
+  );
 });
 </script>
-{% endif %}
 {% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
@@ -43,41 +60,46 @@ $(document).ready(function(){
     <ul class="thumbnails sortable-galleries">
       {% for gallery in galleries %}
       <li id="galleries_{{ gallery.pk }}">
-	<div style="position: relative; left: 0; top: 0;">
+	<div style="position: relative; left: 0; top: 0;" class="darken">
 	  {% if gallery.count > 0 %}
 	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
 	    {% with first_photo=gallery.photo_set.all|first %}
 	    {% if profile.portfolio_columns == 3 %}
 	    {% if gallery.thumbnail %}
-	    <img src="{{ gallery.thumbnail_3.url }}" style="position: relative; top: 0; left: 0;">
+	    <img src="{{ gallery.thumbnail_3.url }}">
 	    {% else %}
-	    <img src="{{ first_photo.thumbnail_3.url }}" style="position: relative; top: 0; left: 0;">
+	    <img src="{{ first_photo.thumbnail_3.url }}">
 	    {% endif %}
 	    {% else %}
 	    {% if gallery.thumbnail %}
-	    <img src="{{ gallery.thumbnail_1.url }}" style="position: relative; top: 0; left: 0;">
+	    <img src="{{ gallery.thumbnail_1.url }}">
 	    {% else %}
-	    <img src="{{ first_photo.thumbnail_1.url }}" style="position: relative; top: 0; left: 0;">
+	    <img src="{{ first_photo.thumbnail_1.url }}">
 	    {% endif %}
 	    {% endif %}
 	    {% endwith %}
 	  </a>
+          <div class="gallery-title"><h4 style="color: white">{{ gallery.title }}</h4></div>
+	  {% else %}
+	  {% if profile.portfolio_columns == 3 %}
+	  {% if gallery.thumbnail %}
+	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
+	    <img src="{{ gallery.thumbnail_3.url }}">
 	  {% else %}
 	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
-	    {% if profile.portfolio_columns == 3 %}
-	    {% if gallery.thumbnail %}
-	    <img src="{{ gallery.thumbnail_3.url }}" style="position: relative; top: 0; left: 0;">
-	    {% else %}
-	    <img src="{{ STATIC_URL }}img/empty_gallery.png" style="position: relative; top: 0; left: 0;">
-	    {% endif %}
-	    {% else %}
-	    {% if gallery.thumbnail %}
-	    <img src="{{ gallery.thumbnail_1.url }}" style="position: relative; top: 0; left: 0;">
-	    {% else %}
-	    <img src="{{ STATIC_URL }}img/empty_gallery.png" style="position: relative; top: 0; left: 0;">
-	    {% endif %}
-	    {% endif %}
+	    <img src="{{ STATIC_URL }}img/empty_gallery.png">
+	  {% endif %}
+	  {% else %}
+	  {% if gallery.thumbnail %}
+	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
+	    <img src="{{ gallery.thumbnail_1.url }}">
+	  {% else %}
+	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
+	    <img src="{{ STATIC_URL }}img/empty_gallery.png">
+	  {% endif %}
+	  {% endif %}
 	  </a>
+          <div class="gallery-title"><h4 style="color: white">{{ gallery.title }} (empty)</h4></div>
 	  {% endif %}
 	  {% if user.is_authenticated and username == user.username %}
 	  <a href="/{{ username }}/upload/{{ gallery.pk }}/">
@@ -95,11 +117,6 @@ $(document).ready(function(){
 	  </a>
 	  {% endif %}
 	</div>
-	{% if gallery.count > 0 %}
-        <p style="text-align: center"><b>{{ gallery.title }}</b></p>
-	{% else %}
-        <p style="text-align: center"><b>{{ gallery.title }}(empty)</b></p>
-	{% endif %}
       </li>
       {% endfor %}
     </ul>

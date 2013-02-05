@@ -63,6 +63,10 @@ class UserProfile(models.Model):
                                           default=3)
 
     website = models.URLField(max_length=200, blank=True)
+    twitter = models.URLField(max_length=200, blank=True)
+    facebook = models.URLField(max_length=200, blank=True)
+    google_plus = models.URLField(max_length=200, blank=True, verbose_name="Google+")
+    linkedin = models.URLField(max_length=200, blank=True, verbose_name="LinkedIn")
 
     picture = ProcessedImageField([ResizeToFit(width=200,
                                                height=250,

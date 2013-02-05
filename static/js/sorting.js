@@ -1,8 +1,3 @@
-/*$(function() {
-    $( "#sortable" ).sortable();
-    $( "#sortable" ).disableSelection();
-});*/
-
 $(document).ready(function() {
     $(".sortable-photos").sortable({
 	opacity: 0.5,
@@ -25,6 +20,6 @@ $(document).ready(function() {
 		data: order
 	    }); 
 	}   
-    }); 
+    });
 });
 
