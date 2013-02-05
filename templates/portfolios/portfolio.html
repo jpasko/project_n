@@ -16,9 +16,14 @@
     function() {
       var image = $(this).find("img");
       var title = $(this).find(".gallery-title");
+      var left = (image.width() - title.outerWidth()) / 2;
+      if (left <= 0) {
+	left = 10;
+      }
       title.css({
         position: 'absolute',
-        left: (image.width() - title.outerWidth()) / 2,
+        left: left,
+	right: left,
         top: (image.height() - title.outerHeight()) / 2
       });
       image.fadeTo(75, 0.65);
