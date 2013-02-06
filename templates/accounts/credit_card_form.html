@@ -5,7 +5,7 @@
 {% endblock %}
 {% block script %}{% endblock %}
 {% block content %}
-<div class="row">
+<div class="row muted">
   <div class="span2">
   </div>
   <div class="span8">
@@ -15,6 +15,10 @@
       {{ zebra_form.as_p }}
       <button type="submit" class="submit-button btn-custom btn-large">Update</button>
     </form>
+    {% if last_4 %}
+    <p><em>You currently have an active credit card ending in <b>{{ last_4 }}</b>.
+    Use this form to update your active card.</em></p>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

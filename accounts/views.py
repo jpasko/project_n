@@ -46,6 +46,8 @@ def register_user(request, account_type):
     Registers a new user to the site.  Works for free and paid
     accounts.
     """
+    if account_type != settings.PROFESSIONAL_ACCOUNT_NAME and account_type != settings.PREMIUM_ACCOUNT_NAME and account_type != settings.FREE_ACCOUNT_NAME:
+        raise Http404
     zebra_form_valid = True
     if request.method == 'POST':
         user_form = RegistrationForm(request.POST)
@@ -73,10 +75,12 @@ def register_user(request, account_type):
             # Accessing the stripe_customer attribute creates the stripe customer
             stripe_customer = customer.stripe_customer
             stripe_customer.email = user.email
-            # Now, subscribe the (paying) customer to the appropriate plan
+            # Now, subscribe the customer to the appropriate stripe plan
             if account_type != settings.FREE_ACCOUNT_NAME:
-                stripe_customer.card = zebra_form.cleaned_data['stripe_token']
-                stripe_customer.plan = account_type
+                card = zebra_form.cleaned_data['stripe_token']
+                stripe_customer.update_subscription(plan=account_type, card=card)
+            else:
+                stripe_customer.update_subscription(plan=account_type)
             # Save both the model and the stripe customer
             customer.save()
             stripe_customer.save()
@@ -105,21 +109,6 @@ def delete_user(request):
         stripe_customer.delete()
         User.objects.get(username=user.username).delete()
     return HttpResponseRedirect('/')
-        
-def xhr_test(request):
-    """
-    Simple test view to try XHR GET and POST.
-    """
-    if request.is_ajax():
-        if request.method == 'GET':
-            message = 'This is an XHR GET request'
-        elif request.method == 'POST':
-            message = 'This is an XHR POST request'
-            # can access the POST data here
-            print request.POST
-    else:
-        message = 'This is not an XHR request'
-    return HttpResponse(message)
 
 def change_settings(request, username):
     """
@@ -164,22 +153,19 @@ def change_account(request, username, new_account_type):
     stripe_customer = stripe.Customer.retrieve(customer.stripe_customer_id) 
     profile = user.get_profile()
     if new_account_type == settings.FREE_ACCOUNT_NAME:
-        if stripe_customer.subscription:
-            stripe_customer.cancel_subscription()
+        stripe_customer.update_subscription(plan=new_account_type, prorate=False)
         customer.account_limit = settings.FREE_IMAGE_LIMIT
         customer.save()
     elif new_account_type == settings.PREMIUM_ACCOUNT_NAME:
         if stripe_customer.active_card:
-            stripe_customer.plan = settings.PREMIUM_ACCOUNT_NAME
-            stripe_customer.save()
+            stripe_customer.update_subscription(plan=new_account_type, prorate=False)
             customer.account_limit = settings.PREMIUM_IMAGE_LIMIT
             customer.save()
         else:
             return HttpResponseRedirect('/' + username + '/accounts/' + new_account_type + '/payment/')
     elif new_account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
         if stripe_customer.active_card:
-            stripe_customer.plan = settings.PROFESSIONAL_ACCOUNT_NAME
-            stripe_customer.save()
+            stripe_customer.update_subscription(plan=new_account_type, prorate=False)
             customer.account_limit = settings.PROFESSIONAL_IMAGE_LIMIT
             customer.save()
         else:
@@ -196,7 +182,7 @@ def change_account(request, username, new_account_type):
 
 def add_credit_card(request, username, account_type):
     """
-    Adds a credit card and subscribes to the new account type.
+    Adds a credit card and subscribes to the account type.
     """
     # Ensure that we cannot edit another user's account type:
     if username != request.user.username or not request.user.is_authenticated():
@@ -205,14 +191,18 @@ def add_credit_card(request, username, account_type):
         raise Http404
     user = request.user
     customer = user.customer
-    stripe_customer = stripe.Customer.retrieve(customer.stripe_customer_id) 
+    stripe_customer = stripe.Customer.retrieve(customer.stripe_customer_id)
+    if stripe_customer.active_card:
+        last_4 = stripe_customer.active_card.last4
+    else:
+        last_4 = None
     profile = user.get_profile()
     if request.method == 'POST':
         zebra_form = StripePaymentForm(request.POST)
         if zebra_form.is_valid():
             stripe_customer.card = zebra_form.cleaned_data['stripe_token']
-            stripe_customer.plan = account_type
             stripe_customer.save()
+            stripe_customer.update_subscription(plan=account_type, prorate=False)
             if account_type == settings.PREMIUM_ACCOUNT_NAME:
                 customer.account_limit = settings.PREMIUM_IMAGE_LIMIT
             else:
@@ -231,6 +221,7 @@ def add_credit_card(request, username, account_type):
                                {'username': username,
                                 'customer': customer,
                                 'profile': profile,
+                                'last_4': last_4,
                                 'zebra_form': zebra_form}
                                )
     return render_to_response('accounts/credit_card_form.html', variables)
@@ -244,7 +235,11 @@ def change_credit_card(request, username):
         raise Http404
     user = request.user
     customer = user.customer
-    stripe_customer = stripe.Customer.retrieve(customer.stripe_customer_id) 
+    stripe_customer = stripe.Customer.retrieve(customer.stripe_customer_id)
+    if stripe_customer.active_card:
+        last_4 = stripe_customer.active_card.last4
+    else:
+        last_4 = None
     profile = user.get_profile()
     if request.method == 'POST':
         zebra_form = StripePaymentForm(request.POST)
@@ -263,6 +258,7 @@ def change_credit_card(request, username):
                                {'username': username,
                                 'customer': customer,
                                 'profile': profile,
+                                'last_4': last_4,
                                 'zebra_form': zebra_form}
                                )
     return render_to_response('accounts/credit_card_form.html', variables)

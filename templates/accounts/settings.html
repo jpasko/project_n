@@ -18,6 +18,12 @@ $(function() {
     <span class="ui-icon ui-icon-alert"></span>
     Your portfolio and all photos it contains will be permanently deleted!</p>
 </div>
+<div id="dialog-change-account" title="Are you sure you want to change your account type?">
+  <p>
+    <span class="ui-icon ui-icon-alert"></span>
+    Your new account type will take effect immediately.
+    </p>
+</div>
 <div class="row">
   <div class="span10">
     <h3 class="muted">Your account settings</h3>
@@ -29,17 +35,17 @@ $(function() {
 	</div>
 	<div class="row">
 	  <div class="span3">
-	    <a href="/{{ username }}/accounts/basic/" class="btn btn-large btn-custom">Starter</a>
+	    <a href="/{{ username }}/accounts/basic/" class="btn btn-large btn-custom confirm-change-account">Basic</a>
 	    <h4 class="muted">Free!</h4>
 	    <h4 class="muted">20 uploads</h4>
 	  </div>
 	  <div class="span3">
-	    <a href="/{{ username }}/accounts/premium/" class="btn btn-large btn-custom">Premium</a>
+	    <a href="/{{ username }}/accounts/premium/" class="btn btn-large btn-custom confirm-change-account">Premium</a>
 	    <h4 class="muted">$5.99/month</h4>
 	    <h4 class="muted">150 uploads</h4>
 	  </div>
 	  <div class="span2">
-	    <a href="/{{ username }}/accounts/professional/" class="btn btn-large btn-custom">Professional</a>
+	    <a href="/{{ username }}/accounts/professional/" class="btn btn-large btn-custom confirm-change-account">Professional</a>
 	    <h4 class="muted">$7.99/month</h4>
 	    <h4 class="muted">1000 uploads</h4>
 	  </div>
@@ -55,7 +61,7 @@ $(function() {
       </div>
       <h3>Update your credit card</h3>
       <div>
-	<p class="muted"><em>You can easily change your credit card.</em></p>
+	<p class="muted"><em>Add a credit card or change your active card.</em></p>
 	<a href="/{{ username }}/accounts/change/" class="btn btn-large btn-custom">Update</a>
       </div>
       <h3>Change your password</h3>
