@@ -92,7 +92,7 @@
 	    <img src="{{ gallery.thumbnail_3.url }}">
 	  {% else %}
 	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
-	    <img src="{{ STATIC_URL }}img/empty_gallery.png">
+	    <img src="{{ STATIC_URL }}img/empty_gallery_square.png">
 	  {% endif %}
 	  {% else %}
 	  {% if gallery.thumbnail %}
@@ -100,7 +100,7 @@
 	    <img src="{{ gallery.thumbnail_1.url }}">
 	  {% else %}
 	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
-	    <img src="{{ STATIC_URL }}img/empty_gallery.png">
+	    <img src="{{ STATIC_URL }}img/empty_gallery_wide.png">
 	  {% endif %}
 	  {% endif %}
             <div class="gallery-title"><h4 style="color: white">{{ gallery.title }} (empty)</h4></div>

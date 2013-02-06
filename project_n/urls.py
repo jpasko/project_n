@@ -35,9 +35,6 @@ urlpatterns = patterns('',
     # User registration page.  The view will handle free vs. paid users.
     url(r'^register/(\w+)/$', 'accounts.views.register_user'),
 
-    # Account upgrade/downgrade page.  The view will handle free vs. paid users.
-#    url(r'^upgrade/(\w+)/$', 'accounts.views.change_account'),
-
     # Reorder the galleries displayed on a user's profile.
     url(r'^reorder_galleries/$', 'portfolios.views.change_gallery_order'),
 
@@ -54,10 +51,6 @@ urlpatterns = patterns('',
 
     # Terms of use, including refund policy.
     url(r'^terms/$', direct_to_template, {'template': 'terms.html'}),
-
-    # Password change form, redirects to login.
-#    url(r'^password_change/$', 'django.contrib.auth.views.password_change',
-#        {'post_change_redirect': '/login/'}),
 
     # Deletes the user's account.
     url(r'^delete/$', 'accounts.views.delete_user'),
@@ -113,6 +106,15 @@ urlpatterns = patterns('',
 
     # Allows the user to change their account settings.
     url(r'^(\w+)/settings/$', 'accounts.views.change_settings'),
+
+    # Account upgrade/downgrade page.  The view will handle free vs. paid users.
+    url(r'^(\w+)/accounts/(\w+)/$', 'accounts.views.change_account'),
+
+    # Add a credit card form.
+    url(r'^(\w+)/accounts/(\w+)/payment/$', 'accounts.views.add_credit_card'),
+
+    # Change the credit card form.
+    url(r'^(\w+)/accounts/change/$', 'accounts.views.change_credit_card'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

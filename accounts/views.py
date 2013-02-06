@@ -152,7 +152,113 @@ def change_settings(request, username):
                                )
     return render_to_response('accounts/settings.html', variables)
 
-def change_account(request, username):
+def change_account(request, username, new_account_type):
     """
     Upgrade or downgrade the user's account.
     """
+    # Ensure that we cannot edit another user's account type:
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    customer = request.user.customer
+    stripe_customer = stripe.Customer.retrieve(user.customer.stripe_customer_id) 
+    profile = request.user.get_profile()
+    if new_account_type == settings.FREE_ACCOUNT_NAME:
+        stripe_customer.cancel_subscription()
+        customer.account_limit = settings.FREE_IMAGE_LIMIT
+        customer.save()
+    elif new_account_type == settings.PREMIUM_ACCOUNT_NAME:
+        if stripe_customer.active_card:
+            stripe_customer.plan = settings.PREMIUM_ACCOUNT_NAME
+            stripe_customer.save()
+            customer.account_limit = settings.PREMIUM_IMAGE_LIMIT
+            customer.save()
+        else:
+            return HttpResponseRedirect('/' + username + '/accounts/' + new_account_type + '/payment/')
+    elif new_account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
+        if stripe_customer.active_card:
+            stripe_customer.plan = settings.PROFESSIONAL_ACCOUNT_NAME
+            stripe_customer.save()
+            customer.account_limit = settings.PROFESSIONAL_IMAGE_LIMIT
+            customer.save()
+        else:
+            return HttpResponseRedirect('/' + username + '/accounts/' + new_account_type + '/payment/')
+    else:
+        raise Http404
+    variables = RequestContext(request,
+                               {'username': username,
+                                'customer': customer,
+                                'profile': profile,
+                                'account_type': new_account_type}
+                               )
+    return render_to_response('accounts/change_account_success.html', variables)
+
+def add_credit_card(request, username, account_type):
+    """
+    Adds a credit card and subscribes to the new account type.
+    """
+    # Ensure that we cannot edit another user's account type:
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    if account_type != settings.PREMIUM_ACCOUNT_NAME and account_type != settings.PROFESSIONAL_ACCOUNT_NAME:
+        raise Http404
+    customer = request.user.customer
+    stripe_customer = stripe.Customer.retrieve(user.customer.stripe_customer_id) 
+    profile = request.user.get_profile()
+    if request.method == 'POST':
+        zebra_form = StripePaymentForm(request.POST)
+        if zebra_form.is_valid():
+            stripe_customer.card = zebra_form.cleaned_data['stripe_token']
+            stripe_customer.plan = account_type
+            stripe_customer.save()
+            if account_type == settings.PREMIUM_ACCOUNT_NAME:
+                customer.account_limit = settings.PREMIUM_IMAGE_LIMIT
+            else:
+                customer.account_limit = settings.PROFESSIONAL_IMAGE_LIMIT
+            customer.save()
+            variables = RequestContext(request,
+                                       {'username': username,
+                                        'customer': customer,
+                                        'profile': profile,
+                                        'account_type': account_type}
+                                       )
+            return render_to_response('accounts/change_account_success.html', variables)
+    else:
+        zebra_form = StripePaymentForm()
+    variables = RequestContext(request,
+                               {'username': username,
+                                'customer': customer,
+                                'profile': profile,
+                                'zebra_form': zebra_form}
+                               )
+    return render_to_response('accounts/credit_card_form.html', variables)
+    
+def change_credit_card(request, username):
+    """
+    Allows the user to update their credit card information
+    """
+    # Ensure that we cannot edit another user's account type:
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    customer = request.user.customer
+    stripe_customer = stripe.Customer.retrieve(user.customer.stripe_customer_id) 
+    profile = request.user.get_profile()
+    if request.method == 'POST':
+        zebra_form = StripePaymentForm(request.POST)
+        if zebra_form.is_valid():
+            stripe_customer.card = zebra_form.cleaned_data['stripe_token']
+            stripe_customer.save()
+            variables = RequestContext(request,
+                                       {'username': username,
+                                        'customer': customer,
+                                        'profile': profile}
+                                       )
+            return render_to_response('accounts/update_card_success.html', variables)
+    else:
+        zebra_form = StripePaymentForm()
+    variables = RequestContext(request,
+                               {'username': username,
+                                'customer': customer,
+                                'profile': profile,
+                                'zebra_form': zebra_form}
+                               )
+    return render_to_response('accounts/credit_card_form.html', variables)

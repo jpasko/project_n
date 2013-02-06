@@ -1,5 +1,5 @@
 body {
-    background-color: black;// #f6f6f6;
+    background-color: ##FCFCFC;
 }
 .btn-custom {
     background-color: hsl(0, 0%, 14%) !important;
@@ -69,5 +69,5 @@ div.darken img {
     display: none;
 }
 .about-text {
-    color: white;
+    color: #565656;
 }
