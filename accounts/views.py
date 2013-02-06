@@ -159,11 +159,13 @@ def change_account(request, username, new_account_type):
     # Ensure that we cannot edit another user's account type:
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
-    customer = request.user.customer
-    stripe_customer = stripe.Customer.retrieve(user.customer.stripe_customer_id) 
-    profile = request.user.get_profile()
+    user = request.user
+    customer = user.customer
+    stripe_customer = stripe.Customer.retrieve(customer.stripe_customer_id) 
+    profile = user.get_profile()
     if new_account_type == settings.FREE_ACCOUNT_NAME:
-        stripe_customer.cancel_subscription()
+        if stripe_customer.subscription:
+            stripe_customer.cancel_subscription()
         customer.account_limit = settings.FREE_IMAGE_LIMIT
         customer.save()
     elif new_account_type == settings.PREMIUM_ACCOUNT_NAME:
@@ -201,9 +203,10 @@ def add_credit_card(request, username, account_type):
         raise Http404
     if account_type != settings.PREMIUM_ACCOUNT_NAME and account_type != settings.PROFESSIONAL_ACCOUNT_NAME:
         raise Http404
-    customer = request.user.customer
-    stripe_customer = stripe.Customer.retrieve(user.customer.stripe_customer_id) 
-    profile = request.user.get_profile()
+    user = request.user
+    customer = user.customer
+    stripe_customer = stripe.Customer.retrieve(customer.stripe_customer_id) 
+    profile = user.get_profile()
     if request.method == 'POST':
         zebra_form = StripePaymentForm(request.POST)
         if zebra_form.is_valid():
@@ -239,9 +242,10 @@ def change_credit_card(request, username):
     # Ensure that we cannot edit another user's account type:
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
-    customer = request.user.customer
-    stripe_customer = stripe.Customer.retrieve(user.customer.stripe_customer_id) 
-    profile = request.user.get_profile()
+    user = request.user
+    customer = user.customer
+    stripe_customer = stripe.Customer.retrieve(customer.stripe_customer_id) 
+    profile = user.get_profile()
     if request.method == 'POST':
         zebra_form = StripePaymentForm(request.POST)
         if zebra_form.is_valid():

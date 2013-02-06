@@ -107,14 +107,14 @@ urlpatterns = patterns('',
     # Allows the user to change their account settings.
     url(r'^(\w+)/settings/$', 'accounts.views.change_settings'),
 
+    # Change the credit card form.
+    url(r'^(\w+)/accounts/change/$', 'accounts.views.change_credit_card'),
+
     # Account upgrade/downgrade page.  The view will handle free vs. paid users.
     url(r'^(\w+)/accounts/(\w+)/$', 'accounts.views.change_account'),
 
     # Add a credit card form.
     url(r'^(\w+)/accounts/(\w+)/payment/$', 'accounts.views.add_credit_card'),
-
-    # Change the credit card form.
-    url(r'^(\w+)/accounts/change/$', 'accounts.views.change_credit_card'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
