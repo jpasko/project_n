@@ -38,7 +38,7 @@ $(document).ready(function(){
         var theHREF = $(this).attr("href");
 
         $("#dialog-change-account").dialog('option', 'buttons', {
-                "Continue" : function() {
+                "Yes" : function() {
                     window.location.href = theHREF;
                     },
                 "Cancel" : function() {

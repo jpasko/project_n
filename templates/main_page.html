@@ -1,34 +1,113 @@
 {% extends "site_base.html" %}
 {% block title %}Your free online portfolio!{% endblock %}
+{% block script %}
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#custom-carousel').carousel({
+      interval: 7000
+    });
+});
+</script>
+{% endblock %}
 {% block content %}
 <div class="container">
   <div class="jumbotron">
-    <h1><span>Simple</span> &bull; <span>Elegant</span> &bull; <span style="color: #7A0000">Free</span></h1>
-    <p class="lead">Showcase your best work.  <em>In minutes.</em></p>
-    <a class="btn btn-large btn-primary" href="/register/basic/">Sign up &bull; Free</a>
+    <h1><span>Simple</span> &bull; <span>Elegant</span> &bull; <span style="color: #0756A2">Free</span></h1>
+    <p class="lead muted">Showcase your best work. <em>In minutes.</em> <br> <b>No HTML. No CSS. No installation.</b></p>
+    <a class="btn btn-large btn-primary" href="/register/">Sign up &bull; Free</a>
   </div>
   <hr>
 </div>
 <div class="container-narrow">
-  <div class="row-fluid marketing">
-    <div class="span6">
-      <h4>Stylish</h4>
-      <p>Create your own stylish portfolio to showcase your work</p>
+  <div id="custom-carousel" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="item active">
+        <a href="/jpasko/" target="_blank">
+	  <img src="{{ STATIC_URL }}img/seattle.png" alt="">
+	</a>
+        <div class="container">
+          <div class="carousel-caption">
+            <a class="btn btn-primary" href="/jpasko/" target="_blank" style="float: right">View James Pasko's Portfolio</a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <a href="/rnoyce/" target="_blank">
+          <img src="{{ STATIC_URL }}img/seattle.png" alt="">
+	</a>
+        <div class="container">
+          <div class="carousel-caption">
+            <a class="btn btn-primary" href="/rnoyce/" target="_blank" style="float: right">View Robert Noyce's Portfolio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="left carousel-control" href="#custom-carousel" data-slide="prev">&lsaquo;</a>
+    <a class="right carousel-control" href="#custom-carousel" data-slide="next">&rsaquo;</a>
+  </div>
+</div>
 
-      <h4>Free</h4>
-      <p>Sign up for a free portfolio and discover how easy it is.  Plus, you get access to <em>all</em> the features right away.
-      Upgrade only as necessary.</p>
+<div class="container-narrow">
+  <div class="jumbotron">
+    <h1 class="muted">Why?</h1>
+  </div>
+  <div class="row-fluid marketing">
+    <div class="span6" style="border-right: 1px solid #D6D6D6;">
+      <h4 class="muted">Stylish</h4>
+      <p>Create your own stylish portfolio to showcase your work.</p>
+
+      <h4 class="muted">Free</h4>
+      <p>Sign up for a free portfolio and discover how easy it is.  Plus, you get access to <em>all</em> the features right away.</p>
     </div>
 
     <div class="span6">
-      <h4>Simple</h4>
-      <p>Easily arrange your images and customize your portfolio</p>
+      <h4 class="muted">Simple</h4>
+      <p>Easily arrange your images and customize your portfolio.</p>
 
-      <h4>Quick</h4>
-      <p>You'll be up, running, and live in minutes.  Create a profile, link to your social pages, and add contact information.
+      <h4 class="muted">Quick</h4>
+      <p>Create a profile, link to your social pages, and add contact information in minutes.
       All optional and at your discretion.</p>
 
     </div>
   </div>
+</div>
+
+<div class="container-narrow">
+
+  <div class="featurette">
+    <h2 class="featurette-heading">Photographer? <span class="muted">Show clients a stunning portfolio.</span></h2>
+    <p class="lead">You can even incorporate videos.</p>
+  </div>
+</div>
+
+<div class="container-narrow">
+  <hr class="featurette-divider">
+  <div class="featurette">
+    <h2 class="featurette-heading" style="text-align: right">Fashion model? <span class="muted">A perfect fit.</span></h2>
+    <p class="lead" style="text-align: right">Use your portfolio to get recognized.</p>
+  </div>
+</div>
+
+<div class="container-narrow">
+  <hr class="featurette-divider">
+  <div class="featurette">
+    <h2 class="featurette-heading">Affordable. <span class="muted">The free version has <em>all</em> the features.</span></h2>
+    <p class="lead">Pay only when you need more space.  Easily upgrade.  Downgrade just as easily.</p>
+  </div>
+
+</div>
+
+<div class="container-narrow">
+  <div class="jumbotron">
+    <a class="btn btn-large btn-primary" href="/register/">Sign up</a>
+ </div>
+</div>
+<div class="container-narrow" style="text-align: center">
+  <p class="muted" style="padding-bottom: 20px">
+    <a href="" class="dull-link muted"><span style="padding-right: 40px">facebook</span></a> <span style="color: #0756A2">&bull;</span>
+    <a href="" class="dull-link muted"><span style="padding-right: 40px; padding-left: 40px">twitter</span></a><span style="color: #0756A2">&bull;</span>
+    <a href="" class="dull-link muted"><span style="padding-left: 40px; padding-right: 40px">contact</span></a><span style="color: #0756A2">&bull;</span>
+    <a href="" class="dull-link muted"><span style="padding-left: 40px">about</span></a></p>
 </div>
 {% endblock %}

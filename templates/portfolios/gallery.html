@@ -17,6 +17,14 @@ $(document).ready(function(){
 </script>
 {% endif %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/lightbox.js"></script>
+{% if user.username != username %}
+<script>
+// Trigger LightBox for the first image right away
+$(document).ready(function(){
+  $("a.lightbox:first").trigger("click");
+});
+</script>
+{% endif %}
 {% endblock %}
 {% block title %}{{ profile.fullname }} | {{ gallery.title }}{% endblock %}
 {% block header %}{% endblock %}
