@@ -52,6 +52,12 @@ urlpatterns = patterns('',
     # Terms of use, including refund policy.
     url(r'^terms/$', direct_to_template, {'template': 'terms.html'}),
 
+    # About page.
+    url(r'^about/$', direct_to_template, {'template': 'about_page.html'}),
+
+    # Contact page.
+    url(r'^contact/$', direct_to_template, {'template': 'contact_page.html'}),
+
     # Deletes the user's account.
     url(r'^delete/$', 'accounts.views.delete_user'),
 
