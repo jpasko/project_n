@@ -71,7 +71,8 @@ urlpatterns = patterns('',
     # Be sure to reserve all the above keywords by registering the following
     # users:
     # login, accounts, register, logout, welcome, password_change, delete,
-    # privacy, terms, spindrift, admin, reorder_galleries, reorder_photos
+    # privacy, terms, spindrift, admin, reorder_galleries, reorder_photos,
+    # about, contact
 
     # The user's main profile, which shows their galleries.
     url(r'^(\w+)/$', 'portfolios.views.portfolio'),

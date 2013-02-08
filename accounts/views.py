@@ -51,7 +51,7 @@ def register_user(request, account_type):
     zebra_form_valid = True
     if request.method == 'POST':
         user_form = RegistrationForm(request.POST)
-        if account_type == settings.PREMIUM_ACCOUNT_NAME or account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
+        if account_type != settings.FREE_ACCOUNT_NAME:
             zebra_form = StripePaymentForm(request.POST)
             zebra_form_valid = zebra_form.is_valid()
         if user_form.is_valid() and zebra_form_valid:
@@ -90,10 +90,10 @@ def register_user(request, account_type):
             return HttpResponseRedirect('/accounts/profile/')
     else:
         user_form = RegistrationForm()
-        if account_type == settings.PREMIUM_ACCOUNT_NAME or account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
-            zebra_form = StripePaymentForm()
-        else:
-            zebra_form = None
+        zebra_form = StripePaymentForm()
+    # Make sure we don't pass a zebra form to the template if they're registering for a free account.
+    if account_type == settings.FREE_ACCOUNT_NAME:
+        zebra_form = None
     variables = RequestContext(request, {'user_form': user_form, 'zebra_form': zebra_form, 'account_type': account_type})
     return render_to_response('registration/register.html', variables)
 
