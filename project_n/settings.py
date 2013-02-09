@@ -8,7 +8,7 @@ DEV_SETTINGS = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('jpasko', 'jbpasko@gmail.com'),
+    ('jpasko', 'jbpasko@gmail.com'),
 )
 
 # Declare the user profile module
