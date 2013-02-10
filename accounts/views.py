@@ -6,8 +6,9 @@ from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.core.mail import send_mail
 
-from accounts.forms import RegistrationForm, ChangeAccountForm
+from accounts.forms import RegistrationForm, ChangeAccountForm, ContactForm
 from accounts.models import Customer
 
 import json
@@ -262,3 +263,23 @@ def change_credit_card(request, username):
                                 'zebra_form': zebra_form}
                                )
     return render_to_response('accounts/credit_card_form.html', variables)
+
+def contact(request):
+    """
+    Sends an email to me when someone submits the contact form.
+    """
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data['message']
+            sender = form.cleaned_data['sender']
+            body = 'Sender:\n' + sender + '\n\nMessage:\n' + message
+            send_mail('Someone submitted the contact form', body, 'jbpasko@gmail.com', ['jbpasko@gmail.com'])
+            return HttpResponseRedirect('/thanks/')
+
+    else:
+        form = ContactForm()
+    variables = RequestContext(request,
+                              {'form': form}
+                              )
+    return render_to_response('contact_page.html', variables)

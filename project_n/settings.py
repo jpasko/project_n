@@ -189,6 +189,10 @@ WIDE_THUMBNAIL_WIDTH = 750
 
 WIDE_THUMBNAIL_HEIGHT = 250
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+
 # Untracked local variables (secret keys and the like)
 try:
     from locals import *

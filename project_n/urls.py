@@ -56,7 +56,10 @@ urlpatterns = patterns('',
     url(r'^about/$', direct_to_template, {'template': 'about_page.html'}),
 
     # Contact page.
-    url(r'^contact/$', direct_to_template, {'template': 'contact_page.html'}),
+    url(r'^contact/$', 'accounts.views.contact'),
+
+    # Somewhat generic "thanks" page.
+    url(r'^thanks/$', direct_to_template, {'template': 'thanks_page.html'}),
 
     # Deletes the user's account.
     url(r'^delete/$', 'accounts.views.delete_user'),

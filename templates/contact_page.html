@@ -10,12 +10,14 @@
   </div>
   <div class="row-fluid marketing muted">
     <div class="span4 offset3">
-      <form method="post" action="">
+      <form method="post" action=".">
 	{% csrf_token %}
-	<p><label>Email (optional)</label>
-	  <input type="text" maxlength="30" /></p>
-	<p><label>Message</label>
-	  <textarea rows="4"></textarea></p>
+	{{ form.sender.errors }}
+	<label for="id_sender">Email (optional)</label>
+	{{ form.sender }}
+	{{ form.message.errors }}
+	<label for="id_message">Message</label>
+	{{ form.message }}
 	<input type="submit" value="Send" class="btn btn-primary" />
       </form>
     </div>
@@ -23,8 +25,7 @@
       <h4>Email</h4>
       <p>test@example.com</p>
       <h4>Location</h4>
-      <p>1112 10th Ave East <br>
-      Seattle, WA 98102</p>
+      <p>Seattle, WA</p>
     </div>
   </div>
 </div>

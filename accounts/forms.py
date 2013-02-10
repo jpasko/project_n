@@ -79,3 +79,10 @@ class ChangeAccountForm(forms.ModelForm):
     class Meta:
         model = Customer
         exclude = ('user', 'stripe_id')
+
+class ContactForm(forms.Form):
+    """
+    Form for contact page.
+    """
+    sender = forms.EmailField(required=False)
+    message = forms.CharField(widget=forms.Textarea(attrs={'rows':4}))
