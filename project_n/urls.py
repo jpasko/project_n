@@ -61,6 +61,14 @@ urlpatterns = patterns('',
     # Somewhat generic "thanks" page.
     url(r'^thanks/$', direct_to_template, {'template': 'thanks_page.html'}),
 
+    # Password reset URLs.
+    url(r'^accounts/password/reset/$', 'django.contrib.auth.views.password_reset',
+        {'post_reset_redirect' : '/accounts/password/reset/done/'}),
+    url(r'^accounts/password/reset/done/$', 'django.contrib.auth.views.password_reset_done'),
+    url(r'^accounts/password/reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', 
+        {'post_reset_redirect' : '/accounts/password/done/'}),
+    url(r'^accounts/password/done/$', 'django.contrib.auth.views.password_reset_complete'),
+
     # Deletes the user's account.
     url(r'^delete/$', 'accounts.views.delete_user'),
 
