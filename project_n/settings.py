@@ -193,6 +193,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 
+# Grab some settings from config vars in the prod environment.
+try:
+    EMAIL_HOST_USER = os.environ['GMAIL_HOST_USER']
+    EMAIL_HOST_PASSWORD = os.environ['GMAIL_HOST_PASSWORD']
+except:
+    pass
+
 # Untracked local variables (secret keys and the like)
 try:
     from locals import *
