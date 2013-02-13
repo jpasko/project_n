@@ -27,10 +27,29 @@
       .footer, .push {
         height: 25px;
       }
+      .logo {
+        text-decoration: none !important;
+      }
+      .logo-text {
+        color: #808080;
+        opacity: 0.4;
+      }
+      .logo:hover .logo-text {
+        opacity: 1.0;
+      }
     </style>
 <!--    <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet"> -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('.logo').hover(function () {
+          $(this).find('img').prop('src', '{{ STATIC_URL}}img/small_lemon.png');
+        }, function () {
+          $(this).find('img').prop('src', '{{ STATIC_URL}}img/small_lemon_dull.png');
+        });
+      });
+    </script>
     {% block script %}{% endblock %}
     {% block head %}{% endblock %}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -130,8 +149,13 @@
     <div class="container">
       <div class="footer">
 	<hr style="margin: 0">
-	<p style="float: left; margin: 0; padding: 0"><a href="/" target="_blank">citreo.us</a>
-	<p class="muted" style="float: right; margin: 0; padding: 0">&copy {% now "Y" %}</p>
+	<p style="float: right; margin: 0; padding: 0">
+	  <a class="logo" href="/" target="_blank">
+	    <img src="{{ STATIC_URL}}img/small_lemon_dull.png">
+	    <span class="logo-text">Citreo.us</span>
+	  </a>
+	</p>
+	<p class="muted" style="float: left; margin: 0; padding: 0">&copy {% now "Y" %}</p>
       </div>
     </div>
 
