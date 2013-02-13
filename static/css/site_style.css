@@ -50,5 +50,8 @@ ul {
 }
 /* Additional tweaks */
 .dull-link {
-    text-decoration: none;
+    text-decoration: none !important;
+}
+.dull-link:hover {
+    color: #0088CC !important;
 }
