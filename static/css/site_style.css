@@ -56,5 +56,10 @@ ul {
     color: #0088CC !important;
 }
 .logo {
-
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none !important;
+    color: #687887;
+}
+.logo:hover {
+    text-shadow: 0 0 2px  #fdff24, 0 0 5px #fdfec8;
 }

@@ -10,6 +10,7 @@
     <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/site_style.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet" type="text/css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% block head %}{% endblock %}
     {% block script %}{% endblock %}
@@ -34,9 +35,9 @@
 	    <li><a href="/logout/">logout</a></li>
             {% endif %}
           </ul>
-          <h1>
-	    <a href="/" class="muted dull-link logo">
-	      Citreo<img src="{{ STATIC_URL }}img/lemon.png" style="padding-left: 3px; padding-right: 3px">s
+          <h1 style="padding-left: 40px">
+	    <a href="/" class="logo">
+	      Citreo<img src="{{ STATIC_URL }}img/lemon.png" style="padding-left: 0px">s
 	    </a>
 	  </h1>
 	  <hr>
