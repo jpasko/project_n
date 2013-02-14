@@ -47,7 +47,7 @@ USE_L10N = True
 USE_TZ = True
 
 # AWS settings.
-AWS_STORAGE_BUCKET_NAME = 'pasko'
+AWS_STORAGE_BUCKET_NAME = 'citreous'
 DEFAULT_FILE_STORAGE = 'project_n.s3utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE = 'project_n.s3utils.StaticRootS3BotoStorage'
 

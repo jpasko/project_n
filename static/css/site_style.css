@@ -61,5 +61,6 @@ ul {
     color: #687887;
 }
 .logo:hover {
-    text-shadow: 0 0 2px  #fdff24, 0 0 5px #fdfec8;
+    color: #285077;
+    text-shadow: 0 0 2px  #fffe85; 0 0 5px #fffebd;
 }

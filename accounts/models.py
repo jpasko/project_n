@@ -43,12 +43,11 @@ class UserProfile(models.Model):
     STYLES = (
         ('D', 'Dark'),
         ('L', 'Light'),
-        ('M', 'Minimalist'),
     )
     style = models.CharField(verbose_name='Background',
                              max_length=1,
                              choices=STYLES,
-                             default='L')
+                             default='D')
 
     COLUMNS = (
         (3, 'Square'),
