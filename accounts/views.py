@@ -17,7 +17,7 @@ import stripe
 
 from zebra.forms import StripePaymentForm
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_key = settings.STRIPE_SECRET
 
 @login_required
 def profile(request):
