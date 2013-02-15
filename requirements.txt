@@ -7,6 +7,7 @@ distribute==0.6.24
 dj-database-url==0.2.1
 django-appconf==0.5
 django-imagekit==2.0.2
+django-ses==0.4.1
 django-storages==1.1.6
 django-zebra==0.4.3
 psycopg2==2.4.6
