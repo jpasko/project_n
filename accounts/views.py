@@ -268,6 +268,7 @@ def contact(request):
     """
     Sends an email to me when someone submits the contact form.
     """
+    print request.subdomain
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
