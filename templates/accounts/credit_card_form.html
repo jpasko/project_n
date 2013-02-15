@@ -1,5 +1,5 @@
 {% extends "portfolio_base.html" %}{% load zebra_tags %}
-{% block title %}{{ profile.fullname }} | Credit card updated{% endblock %}
+{% block title %}{{ profile.fullname }} | Credit card{% endblock %}
 {% block head %}{{ block.super }}
 {% zebra_head_and_stripe_key %}
 {% endblock %}
@@ -8,8 +8,8 @@
 <div class="row muted">
   <div class="span2">
   </div>
-  <div class="span8">
-    <h3 class="muted">Please enter your credit card information</h3>
+  <div class="span6">
+    <h3 class="muted">Enter your credit card details</h3>
     <form method="POST" action="" id="payment-form">
       {% csrf_token %}
       {{ zebra_form.as_p }}
