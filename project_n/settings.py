@@ -171,12 +171,6 @@ LOGIN_REDIRECT_URL = '/accounts/profile/'
 # Database configuration for Heroku
 DATABASES['default'] = dj_database_url.config()
 
-# [TEST] Stripe secret API key
-STRIPE_SECRET_KEY = 'sk_test_cW9hh0nEPFanYVaSDK4Zuq02'
-
-# [TEST] Stripe publishable API key
-STRIPE_PUBLISHABLE_KEY = 'pk_test_dyJgXQH2KaYvS3jBYyVRdJa5'
-
 # Use the default Zebra app to interact with Stripe
 ZEBRA_ENABLE_APP = True
 
@@ -189,16 +183,8 @@ WIDE_THUMBNAIL_WIDTH = 750
 
 WIDE_THUMBNAIL_HEIGHT = 250
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-
-# Grab some settings from config vars in the prod environment.
-try:
-    EMAIL_HOST_USER = os.environ['GMAIL_HOST_USER']
-    EMAIL_HOST_PASSWORD = os.environ['GMAIL_HOST_PASSWORD']
-except:
-    pass
+EMAIL_BACKEND = 'django_ses.SESBackend'
+AWS_SES_AUTO_THROTTLE = None
 
 # Untracked local variables (secret keys and the like)
 try:

@@ -274,7 +274,7 @@ def contact(request):
             message = form.cleaned_data['message']
             sender = form.cleaned_data['sender']
             body = 'Sender:\n' + sender + '\n\nMessage:\n' + message
-            send_mail('Someone submitted the contact form', body, 'jbpasko@gmail.com', ['jbpasko@gmail.com'])
+            send_mail('Someone submitted the contact form', body, 'submissions@citreo.us', ['jbpasko@gmail.com'])
             return HttpResponseRedirect('/thanks/')
 
     else:
