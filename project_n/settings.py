@@ -186,6 +186,13 @@ WIDE_THUMBNAIL_HEIGHT = 250
 EMAIL_BACKEND = 'django_ses.SESBackend'
 AWS_SES_AUTO_THROTTLE = None
 
+# Grab some settings from config vars in the prod environment.
+try:
+    STRIPE_SECRET = os.environ['STRIPE_SECRET']
+    STRIPE_PUBLISHABLE = os.environ['STRIPE_PUBLISHABLE']
+except:
+    pass
+
 # Untracked local variables (secret keys and the like)
 try:
     from locals import *
