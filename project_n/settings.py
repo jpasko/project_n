@@ -184,6 +184,7 @@ WIDE_THUMBNAIL_WIDTH = 750
 WIDE_THUMBNAIL_HEIGHT = 250
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
+DEFAULT_FROM_EMAIL = 'support@citreo.us'
 AWS_SES_AUTO_THROTTLE = None
 
 # Grab some settings from config vars in the prod environment.
