@@ -10,15 +10,14 @@
   </div>
   <div class="span6">
     <h3 class="muted">Enter your credit card details</h3>
+    {% if last_4 %}
+    <p>You currently have an active credit card ending in <b>{{ last_4 }}</b>.</p>
+    {% endif %}
     <form method="POST" action="" id="payment-form">
       {% csrf_token %}
       {{ zebra_form.as_p }}
       <button type="submit" class="submit-button btn-primary btn-large">Update</button>
     </form>
-    {% if last_4 %}
-    <p><em>You currently have an active credit card ending in <b>{{ last_4 }}</b>.
-    Use this form to update your active card.</em></p>
-    {% endif %}
   </div>
 </div>
 {% endblock %}

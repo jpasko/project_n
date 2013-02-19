@@ -72,6 +72,9 @@ class CardForm(forms.Form):
         widget = forms.HiddenInput()
     )
 
+    def addError(self, message):
+        self._errors[NON_FIELD_ERRORS] = self.error_class([message])
+
 class ChangeAccountForm(forms.ModelForm):
     """
     Form to upgrade/downgrade an existing user's account.

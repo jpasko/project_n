@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.mail import send_mail
 
-from accounts.forms import RegistrationForm, ChangeAccountForm, ContactForm
+from accounts.forms import RegistrationForm, ChangeAccountForm, ContactForm, CardForm
 from accounts.models import Customer
 
 import json
