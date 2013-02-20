@@ -22,8 +22,56 @@ from zebra.forms import StripePaymentForm
 stripe.api_key = settings.STRIPE_SECRET
 
 def soon():
-  soon = datetime.date.today() + datetime.timedelta(days=30)
-  return {'month': soon.month, 'year': soon.year}
+    soon = datetime.date.today() + datetime.timedelta(days=30)
+    return {'month': soon.month, 'year': soon.year}
+
+def save_stripe_customer(stripe_customer):
+    """
+    Saves the stripe customer mit dem error-handling.  Returns
+    None on success, and an error message to display to the user
+    if the save failed.  Also sends me an email when the shit
+    hits the fan.
+    """
+    message = None
+    try:
+        stripe_customer.save()
+    except stripe.CardError as e:
+        # Since it's a decline, stripe.CardError will be caught
+        body = e.json_body
+        err  = body['error']
+        code = err['code']
+        if err['message']:
+            message = err['message']
+        else:
+            message = "An error occurred while processing your card"
+        # details = "Status: %s\nType: %s\nCode: %s\nParam: %s\nMessage: %s\n" % (e.http_status, err['type'], err['code'], err['param'], err['message'])
+        # send_mail('Card Error', details, 'errors@citreo.us', ['jbpasko@gmail.com'])
+    except stripe.InvalidRequestError as e:
+        # Invalid parameters were supplied to Stripe's API
+        message = "We're having trouble processing your card.  Please try again."
+        # send_mail('Invalid Request Error', 'Check the API call', 'errors@citreo.us', ['jbpasko@gmail.com'])
+    except stripe.AuthenticationError as e:
+        # Authentication with Stripe's API failed
+        # (maybe you changed API keys recently)
+        message = "We're having trouble processing your card.  Please try again."
+        # send_mail('Authentication Error', 'Make sure the API keys are correct', 'errors@citreo.us', ['jbpasko@gmail.com'])
+    except stripe.APIConnectionError as e:
+        # Network communication with Stripe failed
+        message = "We're having trouble processing your card.  Please try again."
+        # send_mail('API Connection Error', 'Check the logs', 'errors@citreo.us', ['jbpasko@gmail.com'])
+    except stripe.StripeError as e:
+        # Display a very generic error to the user, and maybe send
+        # yourself an email
+        message = "We're having trouble processing your card.  Please try again."
+        # send_mail('Stripe Error', 'Check the logs', 'errors@citreo.us', ['jbpasko@gmail.com'])
+    except e:
+        # Something else happened, completely unrelated to Stripe
+        message = "An unexpected error occured while processing your card.  Please try again."
+        # send_mail('Unknown Error', 'Check the logs', 'errors@citreo.us', ['jbpasko@gmail.com'])
+    if stripe_customer.active_card:
+        if stripe_customer.active_card.cvc_check == 'fail':
+            message = "Your card's security code couldn't be verified"
+    return message
 
 @login_required
 def profile(request):
@@ -89,8 +137,8 @@ def register_user(request, account_type):
             else:
                 stripe_customer.update_subscription(plan=account_type)
             # Save both the model and the stripe customer
+            error = save_stripe_customer(stripe_customer)
             customer.save()
-            stripe_customer.save()
             user = authenticate(username=request.POST['username'],
                                 password=request.POST['password1'])
             login(request, user)
@@ -204,24 +252,26 @@ def add_credit_card(request, username, account_type):
     else:
         last_4 = None
     profile = user.get_profile()
+    error = None
     if request.method == 'POST':
         form = CardForm(request.POST)
         if form.is_valid():
             stripe_customer.card = form.cleaned_data['stripe_token']
-            stripe_customer.save()
-            stripe_customer.update_subscription(plan=account_type, prorate=False)
-            if account_type == settings.PREMIUM_ACCOUNT_NAME:
-                customer.account_limit = settings.PREMIUM_IMAGE_LIMIT
-            else:
-                customer.account_limit = settings.PROFESSIONAL_IMAGE_LIMIT
-            customer.save()
-            variables = RequestContext(request,
-                                       {'username': username,
-                                        'customer': customer,
-                                        'profile': profile,
-                                        'account_type': account_type}
-                                       )
-            return render_to_response('accounts/change_account_success.html', variables)
+            error = save_stripe_customer(stripe_customer)
+            if error is None:
+                stripe_customer.update_subscription(plan=account_type, prorate=False)
+                if account_type == settings.PREMIUM_ACCOUNT_NAME:
+                    customer.account_limit = settings.PREMIUM_IMAGE_LIMIT
+                else:
+                    customer.account_limit = settings.PROFESSIONAL_IMAGE_LIMIT
+                customer.save()
+                variables = RequestContext(request,
+                                           {'username': username,
+                                            'customer': customer,
+                                            'profile': profile,
+                                            'account_type': account_type}
+                                           )
+                return render_to_response('accounts/change_account_success.html', variables)
     else:
         form = CardForm()
     now = datetime.datetime.now()
@@ -234,7 +284,8 @@ def add_credit_card(request, username, account_type):
                                 'username': username,
                                 'customer': customer,
                                 'profile': profile,
-                                'last_4': last_4,}
+                                'last_4': last_4,
+                                'error': error}
                                )
     return render_to_response('accounts/credit_card_form.html', variables)
     
@@ -253,17 +304,19 @@ def change_credit_card(request, username):
     else:
         last_4 = None
     profile = user.get_profile()
+    error = None
     if request.method == 'POST':
         form = CardForm(request.POST)
         if form.is_valid():
             stripe_customer.card = form.cleaned_data['stripe_token']
-            stripe_customer.save()
-            variables = RequestContext(request,
-                                       {'username': username,
-                                        'customer': customer,
-                                        'profile': profile}
-                                       )
-            return render_to_response('accounts/update_card_success.html', variables)
+            error = save_stripe_customer(stripe_customer)
+            if error is None:
+                variables = RequestContext(request,
+                                           {'username': username,
+                                            'customer': customer,
+                                            'profile': profile}
+                                           )
+                return render_to_response('accounts/update_card_success.html', variables)
     else:
         form = CardForm()
     now = datetime.datetime.now()
@@ -276,7 +329,8 @@ def change_credit_card(request, username):
                                 'username': username,
                                 'customer': customer,
                                 'profile': profile,
-                                'last_4': last_4,}
+                                'last_4': last_4,
+                                'error': error}
                                )
     return render_to_response('accounts/credit_card_form.html', variables)
 
