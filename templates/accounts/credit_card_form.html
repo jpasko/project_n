@@ -1,22 +1,99 @@
-{% extends "portfolio_base.html" %}{% load zebra_tags %}
+{% extends "portfolio_base.html" %}
 {% block title %}{{ profile.fullname }} | Credit card{% endblock %}
-{% block head %}{{ block.super }}
-{% zebra_head_and_stripe_key %}
+{% block head %}
+<style>
+  .card-images {
+    margin: 0 0 -40px 0;
+  }
+  .cvc-image {
+    margin: -42px 0 0 0;
+    padding-bottom: 10px;
+    padding-left: 10px;
+  }
+  .payment-errors {
+    display: none;
+    border: 1px solid #ff4d42;
+    background: #ffe2d6;
+    padding: 5px;
+  }
+  #payment-form {
+
+  }
+</style>
 {% endblock %}
-{% block script %}{% endblock %}
+{% block script %}
+<script src="https://js.stripe.com/v1/" type="text/javascript"></script>
+<script type="text/javascript">
+  Stripe.setPublishableKey('{{ publishable }}');
+
+  function stripeResponseHandler(status, response) {
+    if (response.error) {
+      $('.payment-errors').text(response.error.message);
+      $('.payment-errors').show();
+      $('.submit-button').prop('disabled', false);
+    } else {
+      var $form = $('#payment-form');
+      var token = response.id;
+      $form.append($('<input type="hidden" name="stripe_token" />').val(token));
+      $form.get(0).submit();
+    }
+  }
+  
+  $(function() {
+    $('#payment-form').submit(function(event) {
+      $('.submit-button').prop('disabled', true);
+  
+      Stripe.createToken({
+        number: $('.card-number').val(),
+        cvc: $('.card-cvc').val(),
+        exp_month: $('.card-expiry-month').val(),
+        exp_year: $('.card-expiry-year').val()
+      }, stripeResponseHandler);
+
+      return false;
+    });
+  });
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="row muted">
   <div class="span2">
   </div>
   <div class="span6">
-    <h3 class="muted">Enter your credit card details</h3>
+    <h3 class="muted">Credit Card Form</h3>
+    <div style="overflow: hidden"><img src="{{ STATIC_URL }}img/cards.png" class="card-images"></div>
+    <p><em>All major cards accepted</em></p>
     {% if last_4 %}
-    <p>You currently have an active credit card ending in <b>{{ last_4 }}</b>.</p>
+    <p><em>Current card:</em> xxxx-xxxx-xxxx-<b>{{ last_4 }}</b></p>
     {% endif %}
-    <form method="POST" action="" id="payment-form">
+    <div style="padding-top: 20px"></div>
+    <span class="payment-errors"></span>
+    <form method="POST" action="" id="payment-form" style="padding-top: 10px">
       {% csrf_token %}
-      {{ zebra_form.as_p }}
-      <button type="submit" class="submit-button btn-primary btn-large">Update</button>
+      <label for="card-number-id">Card Number</label>
+      <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id"/>
+
+      <label for="cvc-id">CVC (security code)</label>
+      <div style="overflow: hidden">
+	<input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 5ex"/>
+	<img src="{{ STATIC_URL }}img/cards.png" class="cvc-image">
+      </div>
+
+      <label for="expiry_date">Expiration date</label>
+      <div class="input">
+        <select class="card-expiry-month" style="width: 7ex">
+          {% for month in months %}
+          <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
+          {% endfor %}
+        </select>
+        <select class="card-expiry-year" style="width: 10ex">
+          {% for year in years %}
+          <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="submit-button btn btn-primary btn-large">Submit</button>
     </form>
   </div>
 </div>

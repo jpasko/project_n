@@ -188,6 +188,9 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 DEFAULT_FROM_EMAIL = 'support@citreo.us'
 AWS_SES_AUTO_THROTTLE = None
 
+# [TEST] Stripe publishable API key
+STRIPE_PUBLISHABLE = 'pk_test_dyJgXQH2KaYvS3jBYyVRdJa5'
+
 # Grab some settings from config vars in the prod environment.
 try:
     STRIPE_SECRET = os.environ['STRIPE_SECRET']

@@ -15,9 +15,15 @@ import json
 
 import stripe
 
+import datetime
+
 from zebra.forms import StripePaymentForm
 
 stripe.api_key = settings.STRIPE_SECRET
+
+def soon():
+  soon = datetime.date.today() + datetime.timedelta(days=30)
+  return {'month': soon.month, 'year': soon.year}
 
 @login_required
 def profile(request):
@@ -199,9 +205,9 @@ def add_credit_card(request, username, account_type):
         last_4 = None
     profile = user.get_profile()
     if request.method == 'POST':
-        zebra_form = StripePaymentForm(request.POST)
-        if zebra_form.is_valid():
-            stripe_customer.card = zebra_form.cleaned_data['stripe_token']
+        form = CardForm(request.POST)
+        if form.is_valid():
+            stripe_customer.card = form.cleaned_data['stripe_token']
             stripe_customer.save()
             stripe_customer.update_subscription(plan=account_type, prorate=False)
             if account_type == settings.PREMIUM_ACCOUNT_NAME:
@@ -217,13 +223,18 @@ def add_credit_card(request, username, account_type):
                                        )
             return render_to_response('accounts/change_account_success.html', variables)
     else:
-        zebra_form = StripePaymentForm()
+        form = CardForm()
+    now = datetime.datetime.now()
     variables = RequestContext(request,
-                               {'username': username,
+                               {'form': form,
+                                'publishable': settings.STRIPE_PUBLISHABLE,
+                                'soon': soon(),
+                                'months': range(1, 13),
+                                'years': range(now.year, (now.year + 15)),
+                                'username': username,
                                 'customer': customer,
                                 'profile': profile,
-                                'last_4': last_4,
-                                'zebra_form': zebra_form}
+                                'last_4': last_4,}
                                )
     return render_to_response('accounts/credit_card_form.html', variables)
     
@@ -243,9 +254,9 @@ def change_credit_card(request, username):
         last_4 = None
     profile = user.get_profile()
     if request.method == 'POST':
-        zebra_form = StripePaymentForm(request.POST)
-        if zebra_form.is_valid():
-            stripe_customer.card = zebra_form.cleaned_data['stripe_token']
+        form = CardForm(request.POST)
+        if form.is_valid():
+            stripe_customer.card = form.cleaned_data['stripe_token']
             stripe_customer.save()
             variables = RequestContext(request,
                                        {'username': username,
@@ -254,13 +265,18 @@ def change_credit_card(request, username):
                                        )
             return render_to_response('accounts/update_card_success.html', variables)
     else:
-        zebra_form = StripePaymentForm()
+        form = CardForm()
+    now = datetime.datetime.now()
     variables = RequestContext(request,
-                               {'username': username,
+                               {'form': form,
+                                'publishable': settings.STRIPE_PUBLISHABLE,
+                                'soon': soon(),
+                                'months': range(1, 13),
+                                'years': range(now.year, (now.year + 15)),
+                                'username': username,
                                 'customer': customer,
                                 'profile': profile,
-                                'last_4': last_4,
-                                'zebra_form': zebra_form}
+                                'last_4': last_4,}
                                )
     return render_to_response('accounts/credit_card_form.html', variables)
 
