@@ -103,13 +103,15 @@ def register_user(request, account_type):
     """
     if account_type != settings.PROFESSIONAL_ACCOUNT_NAME and account_type != settings.PREMIUM_ACCOUNT_NAME and account_type != settings.FREE_ACCOUNT_NAME:
         raise Http404
-    zebra_form_valid = True
+    card_form_valid = True
+    error = None
+    paid = (account_type != settings.FREE_ACCOUNT_NAME)
     if request.method == 'POST':
         user_form = RegistrationForm(request.POST)
         if account_type != settings.FREE_ACCOUNT_NAME:
-            zebra_form = StripePaymentForm(request.POST)
-            zebra_form_valid = zebra_form.is_valid()
-        if user_form.is_valid() and zebra_form_valid:
+            card_form = CardForm(request.POST)
+            card_form_valid = card_form.is_valid()
+        if user_form.is_valid() and card_form_valid:
             user = User.objects.create_user(
                 username=user_form.cleaned_data['username'],
                 password=user_form.cleaned_data['password1'],
@@ -132,24 +134,37 @@ def register_user(request, account_type):
             stripe_customer.email = user.email
             # Now, subscribe the customer to the appropriate stripe plan
             if account_type != settings.FREE_ACCOUNT_NAME:
-                card = zebra_form.cleaned_data['stripe_token']
+                card = card_form.cleaned_data['stripe_token']
                 stripe_customer.update_subscription(plan=account_type, card=card)
             else:
                 stripe_customer.update_subscription(plan=account_type)
-            # Save both the model and the stripe customer
+            # If there's an error with the credit card, delete everything
+            # and display the error message on the form.  Clearly a hacky way
+            # to do this, and something I'll clean up later.
             error = save_stripe_customer(stripe_customer)
-            customer.save()
-            user = authenticate(username=request.POST['username'],
-                                password=request.POST['password1'])
-            login(request, user)
-            return HttpResponseRedirect('/accounts/profile/')
+            if error is None:
+                customer.save()
+                user = authenticate(username=request.POST['username'],
+                                    password=request.POST['password1'])
+                login(request, user)
+                return HttpResponseRedirect('/accounts/profile/')
+            else:
+                stripe_customer.cancel_subscription()
+                stripe_customer.delete()
+                user.delete()
     else:
         user_form = RegistrationForm()
-        zebra_form = StripePaymentForm()
-    # Make sure we don't pass a zebra form to the template if they're registering for a free account.
-    if account_type == settings.FREE_ACCOUNT_NAME:
-        zebra_form = None
-    variables = RequestContext(request, {'user_form': user_form, 'zebra_form': zebra_form, 'account_type': account_type})
+    now = datetime.datetime.now()
+    variables = RequestContext(request,
+                               {'user_form': user_form,
+                                'publishable': settings.STRIPE_PUBLISHABLE,
+                                'soon': soon(),
+                                'months': range(1, 13),
+                                'years': range(now.year, (now.year + 15)),
+                                'error': error,
+                                'account_type': account_type,
+                                'paid': paid}
+                               )
     return render_to_response('registration/register.html', variables)
 
 def delete_user(request):
@@ -276,8 +291,7 @@ def add_credit_card(request, username, account_type):
         form = CardForm()
     now = datetime.datetime.now()
     variables = RequestContext(request,
-                               {'form': form,
-                                'publishable': settings.STRIPE_PUBLISHABLE,
+                               {'publishable': settings.STRIPE_PUBLISHABLE,
                                 'soon': soon(),
                                 'months': range(1, 13),
                                 'years': range(now.year, (now.year + 15)),
@@ -321,8 +335,7 @@ def change_credit_card(request, username):
         form = CardForm()
     now = datetime.datetime.now()
     variables = RequestContext(request,
-                               {'form': form,
-                                'publishable': settings.STRIPE_PUBLISHABLE,
+                               {'publishable': settings.STRIPE_PUBLISHABLE,
                                 'soon': soon(),
                                 'months': range(1, 13),
                                 'years': range(now.year, (now.year + 15)),

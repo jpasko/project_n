@@ -1,26 +1,148 @@
-{% extends "site_base.html" %}{% load zebra_tags %}
+{% extends "site_base.html" %}
 {% block title %}Sign up{% endblock %}
-{% block head %}{{ block.super }}
-{% zebra_head_and_stripe_key %}
+{% block head %}
+<style>
+  .card-images {
+    margin: 0 0 -40px 0;
+  }
+  .cvc-image {
+    margin: -42px 0 0 0;
+    padding-bottom: 10px;
+    padding-left: 10px;
+  }
+  .payment-errors {
+    display: none;
+    border: 1px solid #ff4d42;
+    background: #ffe2d6;
+    padding: 5px;
+  }
+  .processing-errors {
+    display: inline-block;
+    border: 1px solid #ff4d42;
+    background: #ffe2d6;
+    padding: 5px;
+  }
+  #payment-form {
+
+  }
+</style>
+{% endblock %}
+{% block script %}
+{% if paid %}
+<script src="https://js.stripe.com/v1/" type="text/javascript"></script>
+<script type="text/javascript">
+  Stripe.setPublishableKey('{{ publishable }}');
+
+  function stripeResponseHandler(status, response) {
+    if (response.error) {
+      $('.processing-errors').hide()
+      $('.payment-errors').text(response.error.message);
+      $('.payment-errors').show();
+      $('.submit-button').prop('disabled', false);
+    } else {
+      var $form = $('#payment-form');
+      var token = response.id;
+      $form.append($('<input type="hidden" name="stripe_token" />').val(token));
+      $form.get(0).submit();
+    }
+  }
+  
+  $(function() {
+    $('#payment-form').submit(function(event) {
+      $('.submit-button').prop('disabled', true);
+  
+      Stripe.createToken({
+        number: $('.card-number').val(),
+        cvc: $('.card-cvc').val(),
+        exp_month: $('.card-expiry-month').val(),
+        exp_year: $('.card-expiry-year').val()
+      }, stripeResponseHandler);
+
+      return false;
+    });
+  });
+</script>
+{% endif %}
 {% endblock %}
 {% block content %}
-<div class="container-narrow">
-  <div class="login-box">
-    <h3 class="muted"><em>(&alpha; version)</em></h3>
+<div class="container-narrow muted">
+  <div style="text-align: center; padding: 30px 0;">
+    <h2 style="font-family: 'Raleway', sans-serif; font-size: 4em">{{ account_type }}</h2>
+  </div>
     <form method="POST" action="" id="payment-form">
       {% csrf_token %}
+      <div class="row">
+	{% if paid %}
+	<div class="span3 offset2">
+	{% else %}
+	<div class="span3 offset3" style="padding-left: 30px">
+	{% endif %}
+
+	  {% if user_form.username.errors %}
+	  <span class="processing-errors">{{ user_form.username.errors }}</span>
+	  {% endif %}
+	  <label for="id_username">Username</label>
+	  {{ user_form.username }}
+
+	  {% if user_form.email.errors %}
+	  <span class="processing-errors">{{ user_form.email.errors }}</span>
+	  {% endif %}
+	  <label for="id_email">Email</label>
+	  {{ user_form.email }}
+
+	  {% if user_form.non_field_errors %}
+	  <span class="processing-errors" style="margin-bottom: 3px">{{ user_form.non_field_errors }}</span>
+	  {% endif %}
+
+	  {% if user_form.password1.errors %}
+	  <span class="processing-errors">{{ user_form.password1.errors }}</span>
+	  {% endif %}
+	  <label for="id_password1">Password</label>
+	  {{ user_form.password1 }}
+
+	  {% if user_form.password2.errors %}
+	  <span class="processing-errors">{{ user_form.password2.errors }}</span>
+	  {% endif %}
+	  <label for="id_password2">Password (again)</label>
+	  {{ user_form.password2 }}
+	</div>
+      {% if paid %}
+	<div class="span4">
+
       <span class="payment-errors"></span>
-      <div class="muted">
-	{{ user_form.as_p }}
+      {% if error %}
+      <span class="processing-errors">{{ error }}</span>
+      {% endif %}
+      <label for="card-number-id">Card Number</label>
+      <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id"/>
+
+      <label for="cvc-id">CVC (security code)</label>
+      <div style="overflow: hidden">
+	<input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 5ex"/>
+	<img src="{{ STATIC_URL }}img/cards.png" class="cvc-image">
       </div>
-      {% if zebra_form %}
-      <div class="muted">
-	<h4>Credit card details</h4>
-	{{ zebra_form.as_p }}
+
+      <label for="expiry_date">Expiration date</label>
+      <div class="input">
+        <select class="card-expiry-month" style="width: 8ex">
+          {% for month in months %}
+          <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
+          {% endfor %}
+        </select>
+        <select class="card-expiry-year" style="width: 10ex">
+          {% for year in years %}
+          <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <p><em>We accept all major credit cards</em></p>
+      <div style="overflow: hidden"><img src="{{ STATIC_URL }}img/cards.png" class="card-images"></div>
       </div>
       {% endif %}
+      </div>
+      <div style="text-align: center; padding-top: 20px">
       <button type="submit" class="submit-button btn-primary btn-large">Sign up</button>
+      </div>
     </form>
-  </div>
 </div>
 {% endblock %}
