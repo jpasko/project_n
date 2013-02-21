@@ -3,10 +3,10 @@
 {% block head %}
 <style>
   .card-images {
-    margin: 0 0 -40px 0;
+    margin: 0 0 -32px 0;
   }
   .cvc-image {
-    margin: -42px 0 0 0;
+    margin: -63px 0 0 0;
     padding-bottom: 10px;
     padding-left: 10px;
   }
@@ -22,8 +22,12 @@
     background: #ffe2d6;
     padding: 5px;
   }
-  #payment-form {
-
+  .current-card {
+    display: inline-block;
+    border: 1px solid #4dc78e;
+    background: #a4f4ba;
+    padding: 2px;
+    margin-bottom: 10px;
   }
 </style>
 {% endblock %}
@@ -69,11 +73,14 @@
   </div>
   <div class="span4">
     <h3 class="muted">Credit Card Form</h3>
-    <div style="overflow: hidden"><img src="{{ STATIC_URL }}img/cards.png" class="card-images"></div>
-    <p><em>We accept all major credit cards</em></p>
     {% if last_4 %}
-    <p><em>Current card:</em> **** **** **** <b>{{ last_4 }}</b></p>
+    <div class="current-card">
+      <p><em>Current card:</em> **** **** **** <b>{{ last_4 }}</b></p>
+    </div>
     {% endif %}
+    <div style="overflow: hidden">
+      <img src="{{ STATIC_URL }}img/cards.png" class="card-images">
+    </div>
     <div style="padding-top: 10px"></div>
     <span class="payment-errors"></span>
     {% if error %}
@@ -81,18 +88,19 @@
     {% endif %}
     <form method="POST" action="" id="payment-form" style="padding-top: 10px">
       {% csrf_token %}
+
       <label for="card-number-id">Card Number</label>
-      <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id"/>
+      <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" style="width: 20ex"/>
 
       <label for="cvc-id">CVC (security code)</label>
       <div style="overflow: hidden">
-	<input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 5ex"/>
+	<input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 6ex"/>
 	<img src="{{ STATIC_URL }}img/cards.png" class="cvc-image">
       </div>
 
       <label for="expiry_date">Expiration date</label>
       <div class="input">
-        <select class="card-expiry-month" style="width: 8ex">
+        <select class="card-expiry-month" style="width: 9ex">
           {% for month in months %}
           <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
           {% endfor %}
