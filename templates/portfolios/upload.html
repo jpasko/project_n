@@ -3,7 +3,7 @@
 {% block content %}
 {% if profile.photo_count >= customer.account_limit %}
 <h3 class="muted">You've reached your upload limit!</h3>
-<p class="muted"><em>Either <a href="/{{ username }}/settings/">upgrade</a> your account or delete photos</em></p>
+<p class="muted"><em>Either <a href="/settings/">upgrade</a> your account or delete photos</em></p>
 {% else %}
 <div class="row muted">
   <div class="span3">
@@ -13,7 +13,7 @@
     <p>
       Select an existing gallery to hold this photo.<br />
       You can also 
-      <a href="/{{ username }}/create_gallery/">create</a> a new gallery.
+      <a href="/create_gallery/">create</a> a new gallery.
     </p>
     <form method="post" action="." enctype="multipart/form-data">
       {% csrf_token %}

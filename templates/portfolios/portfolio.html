@@ -43,7 +43,7 @@
 {% if profile.photo_count > customer.account_limit %}
 <h1 style="color: red">UPLOAD LIMIT EXCEEDED</h1>
 <p style="color: orange"><em>You've exceeded your upload limit ({{ customer.account_limit }} uploads), probably because you downgraded
-    your account. Please either <a href="/{{ username }}/settings">upgrade</a> your account or delete the excess 
+    your account. Please either <a href="/settings">upgrade</a> your account or delete the excess 
     photos to re-enable your public portfolio.</em></p>
 {% endif %}
 <div id="dialog" title="Are you sure?">
@@ -67,7 +67,7 @@
       <li id="galleries_{{ gallery.pk }}">
 	<div style="position: relative; left: 0; top: 0;" class="darken">
 	  {% if gallery.count > 0 %}
-	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
+	  <a href="/gallery/{{ gallery.pk }}/">
 	    {% with first_photo=gallery.photo_set.all|first %}
 	    {% if profile.portfolio_columns == 3 %}
 	    {% if gallery.thumbnail %}
@@ -88,18 +88,18 @@
 	  {% else %}
 	  {% if profile.portfolio_columns == 3 %}
 	  {% if gallery.thumbnail %}
-	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
+	  <a href="/gallery/{{ gallery.pk }}/">
 	    <img src="{{ gallery.thumbnail_3.url }}">
 	  {% else %}
-	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
+	  <a href="/gallery/{{ gallery.pk }}/">
 	    <img src="{{ STATIC_URL }}img/empty_gallery_square.png">
 	  {% endif %}
 	  {% else %}
 	  {% if gallery.thumbnail %}
-	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
+	  <a href="/gallery/{{ gallery.pk }}/">
 	    <img src="{{ gallery.thumbnail_1.url }}">
 	  {% else %}
-	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/">
+	  <a href="/gallery/{{ gallery.pk }}/">
 	    <img src="{{ STATIC_URL }}img/empty_gallery_wide.png">
 	  {% endif %}
 	  {% endif %}
@@ -107,17 +107,17 @@
 	  </a>
 	  {% endif %}
 	  {% if user.is_authenticated and username == user.username %}
-	  <a href="/{{ username }}/upload/{{ gallery.pk }}/">
+	  <a href="/upload/{{ gallery.pk }}/">
 	    <img src="{{ STATIC_URL }}img/upload.png" style="position: absolute; top: 0; left: 0;"/>
 	  </a>
 	  {% if gallery.count > 0 %}
-	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/delete/" class="confirm">
+	  <a href="/gallery/{{ gallery.pk }}/delete/" class="confirm">
 	  {% else %}
-	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/delete/">
+	  <a href="/gallery/{{ gallery.pk }}/delete/">
 	  {% endif %}
 	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; right: 0;"/>
 	  </a>
-	  <a href="/{{ username }}/gallery/{{ gallery.pk }}/edit/">
+	  <a href="/gallery/{{ gallery.pk }}/edit/">
 	    <img src="{{ STATIC_URL }}img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
 	  </a>
 	  {% endif %}

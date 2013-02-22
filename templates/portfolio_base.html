@@ -78,9 +78,9 @@
             <span class="icon-bar"></span>
           </a>
 	  {% if profile %}
-	  <a class="brand" href="/{{ username }}/">{{ profile.fullname }}</a>
+	  <a class="brand" href="/">{{ profile.fullname }}</a>
 	  {% else %}
-	  <a class="brand" href="/{{ username }}/">{{ username }}</a>
+	  <a class="brand" href="/">{{ username }}</a>
 	  {% endif %}
 	  {% block navbar-text %}{% endblock %}
 
@@ -97,14 +97,14 @@
 	    (currently using {{ profile.photo_count }} of {{ account_limit }} images | 
 	  {% endif %}
 	  {% endwith %}
-	  <a href="/{{ username }}/settings/">upgrade!</a>)
+	  <a href="/settings/">upgrade!</a>)
 	  </p>
 	  {% endif %}
 
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
-	      <li><a href="/{{ username }}/">portfolio</a></li>
-	      <li><a href="/{{ username }}/about/">about</a></li>
+	      <li><a href="/">portfolio</a></li>
+	      <li><a href="/about/">about</a></li>
 	      {% if user.is_authenticated and user.username == username %}
 	      <li class="dropdown" id="menu1">
 		<a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
@@ -112,12 +112,12 @@
 		  <b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu">
-		  <li><a href="/{{ username }}/create_gallery/">New gallery</a></li>
-		  <li><a href="/{{ username }}/upload/">Upload photo</a></li>
+		  <li><a href="/create_gallery/">New gallery</a></li>
+		  <li><a href="/upload/">Upload photo</a></li>
 		  <li class="divider"></li>
-		  <li><a href="/{{ username }}/edit/">Edit portfolio</a></li>
-		  <li><a href="/{{ username }}/settings/">Account settings</a></li>
-		  <li><a href="/{{ username }}/settings/">Upgrade!</a></li>
+		  <li><a href="/edit/">Edit portfolio</a></li>
+		  <li><a href="/settings/">Account settings</a></li>
+		  <li><a href="/settings/">Upgrade!</a></li>
 		  <li class="divider"></li>
 		  <li><a href="/logout_view/">Logout & View</a></li>
 		  <li><a href="/logout/">Logout</a></li>
@@ -150,7 +150,7 @@
       <div class="footer">
 	<hr style="margin: 0">
 	<p style="float: right; margin: 0; padding: 0">
-	  <a class="logo" href="/" target="_blank">
+	  <a class="logo" href="http://www.{{ DOMAIN }}/" target="_blank">
 	    <img src="{{ STATIC_URL}}img/small_lemon_dull.png">
 	    <span class="logo-text">Citreo.us</span>
 	  </a>

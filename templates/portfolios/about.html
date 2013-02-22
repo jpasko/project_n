@@ -23,7 +23,7 @@ $(document).ready(function(){
 </div>
 <a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
 <ul class="muted" id="directions">
-  <li><em><a href="/{{ username }}/edit/">Edit</a></em> this page, or use the <em>tools</em> drop-down menu</li>
+  <li><em><a href="/edit/">Edit</a></em> this page, or use the <em>tools</em> drop-down menu</li>
   <li>All information is optional</li>
 </ul>
 {% endif %}
@@ -84,7 +84,7 @@ $(document).ready(function(){
   <div class="span3" style="position: relative; left: 0; top: 0;">
       <img src="{{ profile.picture.url }}">
       {% if user.is_authenticated and username == user.username %}
-      <a href="/{{ username }}/about/delete_photo/" class="confirm">
+      <a href="/about/delete_photo/" class="confirm">
 	<img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0">
       </a>
       {% endif %}

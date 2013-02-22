@@ -35,15 +35,15 @@ $(document).ready(function(){
 {% if profile.photo_count > customer.account_limit %}
 <h1 style="color: red">UPLOAD LIMIT EXCEEDED</h1>
 <p style="color: orange"><em>This gallery is currently <b>hidden</b> because you've exceeded your upload limit ({{ customer.account_limit }} uploads). 
-    Please either <a href="/{{ username }}/settings">upgrade</a> your account or delete the excess 
+    Please either <a href="/settings">upgrade</a> your account or delete the excess 
     photos to re-enable your public portfolio.</em></p>
 {% endif %}
 <a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
 <ul class="muted" id="directions">
   <li><em>Rearrange</em> photos by dragging and dropping them</li>
   <li><img src="{{ STATIC_URL }}img/delete.png"> a photo or <img src="{{ STATIC_URL }}img/edit.png"> the photo's caption</li>
-  <li><a href="/{{ username }}/upload/{{ gallery.pk }}/"><em>Upload</em></a> a photo into this gallery</li>
-  <li><em><a href="/{{ username }}/edit/">Customize</a></em> the styling</li>
+  <li><a href="/upload/{{ gallery.pk }}/"><em>Upload</em></a> a photo into this gallery</li>
+  <li><em><a href="/edit/">Customize</a></em> the styling</li>
 </ul>
 <div id="dialog" title="Are you sure?">
   <p>
@@ -66,10 +66,10 @@ $(document).ready(function(){
 	    {% endif %}
 	  </a>
 	  {% if user.is_authenticated and username == user.username %}
-	  <a href="/{{ username }}/photo/{{ photo.pk }}/delete/" class="confirm">
+	  <a href="/photo/{{ photo.pk }}/delete/" class="confirm">
 	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; right: 0">
 	  </a>
-	  <a href="/{{ username }}/photo/{{ photo.pk }}/edit/">
+	  <a href="/photo/{{ photo.pk }}/edit/">
 	    <img src="{{ STATIC_URL }}img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
 	  </a>
 	  {% endif %}
