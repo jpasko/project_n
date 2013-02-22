@@ -79,14 +79,15 @@ def profile(request):
     Redirects to the user's profile.  To be used following login, so that
     we can redirect to whatever profile aspect we want.
     """
-    return HttpResponseRedirect('/' + request.user.username + '/')
+    return HttpResponseRedirect("http://{0}.{1}".format(request.user.username, settings.DOMAIN))
+
 
 def logout_user(request):
     """
     Logs out the current user.
     """
     logout(request)
-    return HttpResponseRedirect('/logout/success/')
+    return HttpResponseRedirect("http://www.{0}/logout/success".format(settings.DOMAIN))
 
 def logout_and_view(request):
     """
@@ -94,7 +95,7 @@ def logout_and_view(request):
     """
     username = request.user.username
     logout(request)
-    return HttpResponseRedirect('/' + username + '/')
+    return HttpResponseRedirect('/')
 
 def register_user(request, account_type):
     """
@@ -178,43 +179,38 @@ def delete_user(request):
         stripe_customer.cancel_subscription()
         stripe_customer.delete()
         User.objects.get(username=user.username).delete()
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect("http://www.{0}/".format(settings.DOMAIN))
 
-def change_settings(request, username):
+def change_settings(request):
     """
     Allows the user to change their password and upgrade/downgrade account.
     """
+    username = request.subdomain
     # Ensure that we cannot edit other user's profiles:
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
     customer = request.user.customer
     if request.method == 'POST':
-        change_account_form = ChangeAccountForm(request.POST)
         password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
-        if change_account_form.is_valid():
-            customer.account_limit = change_account_form.cleaned_data['account_limit']
-            customer.save()
-            return HttpResponseRedirect('/' + username + '/')
-        elif password_change_form.is_valid():
+        if password_change_form.is_valid():
             password_change_form.save()
-            return HttpResponseRedirect('/' + username + '/')
+            return HttpResponseRedirect('/')
     else:
-        change_account_form = ChangeAccountForm()
         password_change_form = PasswordChangeForm(user=request.user)
     profile = request.user.get_profile()
     variables = RequestContext(request,
                                {'username': username,
                                 'customer': customer,
                                 'profile': profile,
-                                'change_account_form': change_account_form,
                                 'password_change_form': password_change_form}
                                )
     return render_to_response('accounts/settings.html', variables)
 
-def change_account(request, username, new_account_type):
+def change_account(request, new_account_type):
     """
     Upgrade or downgrade the user's account.
     """
+    username = request.subdomain
     # Ensure that we cannot edit another user's account type:
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
@@ -232,14 +228,14 @@ def change_account(request, username, new_account_type):
             customer.account_limit = settings.PREMIUM_IMAGE_LIMIT
             customer.save()
         else:
-            return HttpResponseRedirect('/' + username + '/accounts/' + new_account_type + '/payment/')
+            return HttpResponseRedirect('/accounts/' + new_account_type + '/payment/')
     elif new_account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
         if stripe_customer.active_card:
             stripe_customer.update_subscription(plan=new_account_type, prorate=False)
             customer.account_limit = settings.PROFESSIONAL_IMAGE_LIMIT
             customer.save()
         else:
-            return HttpResponseRedirect('/' + username + '/accounts/' + new_account_type + '/payment/')
+            return HttpResponseRedirect('/accounts/' + new_account_type + '/payment/')
     else:
         raise Http404
     variables = RequestContext(request,
@@ -250,10 +246,11 @@ def change_account(request, username, new_account_type):
                                )
     return render_to_response('accounts/change_account_success.html', variables)
 
-def add_credit_card(request, username, account_type):
+def add_credit_card(request, account_type):
     """
     Adds a credit card and subscribes to the account type.
     """
+    username = request.subdomain
     # Ensure that we cannot edit another user's account type:
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
@@ -303,10 +300,11 @@ def add_credit_card(request, username, account_type):
                                )
     return render_to_response('accounts/credit_card_form.html', variables)
     
-def change_credit_card(request, username):
+def change_credit_card(request):
     """
     Allows the user to update their credit card information
     """
+    username = request.subdomain
     # Ensure that we cannot edit another user's account type:
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
