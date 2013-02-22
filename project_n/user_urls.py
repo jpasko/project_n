@@ -8,58 +8,17 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # The main home page.  Rendered directly from a template.
-    url(r'^$', direct_to_template,
-        {'template': 'main_page.html'}),
-
-    # The login URL, should redirect to user/username/
-    url(r'^login/$', 'django.contrib.auth.views.login'),
-
-    # Here's the redirection from login
-    url(r'^accounts/profile/$', 'accounts.views.profile'),
-
     # Logs out the user, redirects to /logout/success/
     url(r'^logout/$', 'accounts.views.logout_user'),
 
     # Logs out the user, redirects to their portfolio
     url(r'^logout_view/$', 'accounts.views.logout_and_view'),
 
-    # Successful logout.
-    url(r'^logout/success/$', direct_to_template,
-        {'template': 'accounts/logout_success.html'}),
-
-    # Page showing registration options.
-    url(r'^register/$', direct_to_template,
-        {'template': 'registration/registration_options.html'}),
-
-    # User registration page.  The view will handle free vs. paid users.
-    url(r'^register/(\w+)/$', 'accounts.views.register_user'),
-
     # Reorder the galleries displayed on a user's profile.
     url(r'^reorder_galleries/$', 'portfolios.views.change_gallery_order'),
 
     # Reorder the photos within a gallery.
     url(r'^reorder_photos/$', 'portfolios.views.change_photo_order'),
-
-    # Successful registration page, directs users to login and explains
-    # what to do.
-    url(r'^welcome/$', direct_to_template,
-        {'template': 'accounts/welcome.html'}),
-
-    # Privacy policy.
-    url(r'^privacy/$', direct_to_template, {'template': 'privacy.html'}),
-
-    # Terms of use, including refund policy.
-    url(r'^terms/$', direct_to_template, {'template': 'terms.html'}),
-
-    # About page.
-    url(r'^about/$', direct_to_template, {'template': 'about_page.html'}),
-
-    # Contact page.
-    url(r'^contact/$', 'accounts.views.contact'),
-
-    # Somewhat generic "thanks" page.
-    url(r'^thanks/$', direct_to_template, {'template': 'thanks_page.html'}),
 
     # Password reset URLs.
     url(r'^accounts/password/reset/$', 'django.contrib.auth.views.password_reset',
@@ -72,18 +31,9 @@ urlpatterns = patterns('',
     # Deletes the user's account.
     url(r'^delete/$', 'accounts.views.delete_user'),
 
-    # Uncomment the next line to enable the admin:
-    url(r'^spindrift/', include(admin.site.urls)),
-
     # Robots.txt directly from template.
     url(r'^robots\.txt$', direct_to_template,
         {'template': 'robots.txt', 'mimetype': 'text/plain'}),
-
-    # Be sure to reserve all the above keywords by registering the following
-    # users:
-    # login, accounts, register, logout, welcome, password_change, delete,
-    # privacy, terms, spindrift, admin, reorder_galleries, reorder_photos,
-    # about, contact
 
     # The user's main profile, which shows their galleries.
     url(r'^(\w+)/$', 'portfolios.views.portfolio'),

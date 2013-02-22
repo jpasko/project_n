@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.urlresolvers import resolve
 from django.http import HttpResponseRedirect
 
@@ -10,13 +11,9 @@ class SubdomainMiddleware:
         if len(host_s) > 2:
             request.subdomain = ''.join(host_s[:-2])
 
-class RedirectSubdomain:
+class SubdomainURLs:
     """
-    Redirects requests to subdomains as follows:
-    www.site.com/path:
-        passed through unaltered.
-    anything_else.site.com/path:
-        redirected to www.site.com/anything_else/path
+    Sets the subdomain and urlconf attribute on the request context.
     """
 
     def process_request(self, request):
@@ -26,4 +23,9 @@ class RedirectSubdomain:
         pieces = domain.split('.')
         subdomain = ".".join(pieces[:-2])
         if subdomain != 'www' and subdomain is not None:
-            return HttpResponseRedirect("{0}://www.test.com:8000/{1}{2}".format(scheme, subdomain, path))
+            # return HttpResponseRedirect("{0}://www.test.com:8000/{1}{2}".format(scheme, subdomain, path))
+            request.subdomain = subdomain
+            request.urlconf = settings.USER_URLS
+        else:
+            request.subdomain = None
+            request.urlconf = settings.MAIN_URLS

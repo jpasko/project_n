@@ -87,14 +87,14 @@ TEMPLATE_LOADERS = (
 
 # List of template context processors.
 TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    "context_processors.custom.domain"
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    'context_processors.custom.domain',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,7 +103,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'middleware.custom.SubdomainMiddleware',
+    'middleware.custom.SubdomainURLs',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -208,6 +208,10 @@ SESSION_COOKIE_DOMAIN = '.citreo.us'
 
 # The domain name to use in templates.
 DOMAIN = 'citreo.us'
+
+# The different URLs to use for the main content and the user subdomains.
+MAIN_URLS = 'project_n.urls'
+USER_URLS = 'project_n.user_urls'
 
 # Grab some settings from config vars in the prod environment.
 try:
