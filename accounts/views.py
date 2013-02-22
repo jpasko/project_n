@@ -68,9 +68,6 @@ def save_stripe_customer(stripe_customer):
         # Something else happened, completely unrelated to Stripe
         message = "An unexpected error occured while processing your card.  Please try again."
         # send_mail('Unknown Error', 'Check the logs', 'errors@citreo.us', ['jbpasko@gmail.com'])
-    if stripe_customer.active_card:
-        if stripe_customer.active_card.cvc_check == 'fail':
-            message = "Your card's security code couldn't be verified"
     return message
 
 @login_required
