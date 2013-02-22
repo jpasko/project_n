@@ -1,4 +1,5 @@
 import re
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django import forms
@@ -36,14 +37,15 @@ class RegistrationForm(forms.Form):
         Checks that the username is valid and unique.
         """
         username = self.cleaned_data['username']
+        if username in settings.RESERVED_TERMS:
+            raise forms.ValidationError(u'%s is prohibited. Please try a different username' % username)
         if not re.search(r'^\w+$', username):
-            raise forms.ValidationError('Username can only contain alphanumeric '
-                                        'characters')
+            raise forms.ValidationError('Username can only contain alphanumeric characters')
         try:
             User.objects.get(username=username)
         except ObjectDoesNotExist:
             return username
-        raise forms.ValidationError(u'%s already taken.' % username)
+        raise forms.ValidationError(u'%s already taken' % username)
 
     def clean_email(self):
         """

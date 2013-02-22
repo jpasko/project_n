@@ -213,6 +213,12 @@ DOMAIN = 'citreo.us'
 MAIN_URLS = 'project_n.urls'
 USER_URLS = 'project_n.user_urls'
 
+# A list of reserved terms.
+RESERVED_TERMS = ['login', 'accounts', 'register', 'logout', 'welcome',
+                  'password_change', 'delete', 'privacy', 'terms', 'spindrift',
+                  'admin', 'reorder_galleries', 'reorder_photos', 'about',
+                  'contact', 'None']
+
 # Grab some settings from config vars in the prod environment.
 try:
     STRIPE_SECRET = os.environ['STRIPE_SECRET']
