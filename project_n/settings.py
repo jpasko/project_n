@@ -191,6 +191,9 @@ AWS_SES_AUTO_THROTTLE = None
 # [TEST] Stripe publishable API key
 STRIPE_PUBLISHABLE = 'pk_test_dyJgXQH2KaYvS3jBYyVRdJa5'
 
+# Allow user sessions to exist across subdomains
+SESSION_COOKIE_DOMAIN = '.citreo.us'
+
 # Grab some settings from config vars in the prod environment.
 try:
     STRIPE_SECRET = os.environ['STRIPE_SECRET']

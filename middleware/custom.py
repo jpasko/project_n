@@ -9,7 +9,6 @@ class SubdomainMiddleware:
         host_s = host.replace('www.', '').split('.')
         if len(host_s) > 2:
             request.subdomain = ''.join(host_s[:-2])
-        print request.subdomain
 
 class RedirectSubdomain:
     """
