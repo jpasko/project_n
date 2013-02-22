@@ -85,6 +85,18 @@ TEMPLATE_LOADERS = (
     # 'django.template.loaders.eggs.Loader',
 )
 
+# List of template context processors.
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "context_processors.custom.domain"
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -193,6 +205,9 @@ STRIPE_PUBLISHABLE = 'pk_test_dyJgXQH2KaYvS3jBYyVRdJa5'
 
 # Allow user sessions to exist across subdomains
 SESSION_COOKIE_DOMAIN = '.citreo.us'
+
+# The domain name to use in templates.
+DOMAIN = 'citreo.us'
 
 # Grab some settings from config vars in the prod environment.
 try:
