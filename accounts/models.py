@@ -51,6 +51,9 @@ class UserProfile(models.Model):
                              choices=STYLES,
                              default='D')
 
+    background_color = models.CharField(max_length=6,
+                                        default='f042c2')
+
     COLUMNS = (
         (3, 'Square'),
         (1, 'Wide'),

@@ -3,11 +3,13 @@ g{% extends "portfolio_base.html" %}
 {% block header %}{% endblock %}
 {% block script %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js//jscolor.js"></script>
 <script>
 $(function() {
   $( "#accordion" ).accordion({
     heightStyle: "content"
   });
+  $("#id_background_color").addClass("color");
 });
 </script>
 {% endblock %}
@@ -87,6 +89,9 @@ $(function() {
 	{{ form.allow_contact.errors }}
 	<label for="id_style">Include contact page?</label>
 	{{ form.allow_contact }}
+	{{ form.background_color.errors }}
+	<label for="id_style">Background color</label>
+	{{ form.background_color }}
       </div>
     </div>
     <input type="submit" value="Update portfolio" class="btn btn-large btn-primary" style="float: right; margin-top: 10px; margin-right: 50px;">
