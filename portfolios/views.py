@@ -65,7 +65,7 @@ def edit(request):
             form.save()
             return HttpResponseRedirect('/about/')
     else:
-        form = UserProfileForm(instance=profile, initial={'allow_contact': True})
+        form = UserProfileForm(instance=profile, initial={'allow_contact': profile.allow_contact})
     variables = RequestContext(request,
                                {'form': form,
                                 'username': username,
