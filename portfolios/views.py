@@ -4,9 +4,12 @@ from django.forms.models import inlineformset_factory
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+from django.core.mail import send_mail
 
 from portfolios.models import Photo, Gallery
 from portfolios.forms import *
+
+from accounts.forms import ContactForm
 
 import json
 
@@ -62,7 +65,7 @@ def edit(request):
             form.save()
             return HttpResponseRedirect('/about/')
     else:
-        form = UserProfileForm(instance=profile)
+        form = UserProfileForm(instance=profile, initial={'allow_contact': True})
     variables = RequestContext(request,
                                {'form': form,
                                 'username': username,
@@ -293,3 +296,38 @@ def edit_gallery(request, gallery_id):
                                 'customer': customer,
                                 'profile': profile})
     return render_to_response('portfolios/edit_gallery.html', variables)
+
+def contact(request):
+    """
+    Sends an email to the user when someone submits the form.
+    """
+    username = request.subdomain
+    user = get_object_or_404(User, username=username)
+    profile = user.get_profile()
+    customer = user.customer
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data['message']
+            sender = form.cleaned_data['sender']
+            body = message
+            if sender:
+                body = body + '\n\nSender: ' + sender
+            send_mail('Someone contacted you!', body, 'submissions@citreo.us', [user.email])
+            variables = RequestContext(request,
+                                       {'form': ContactForm(),
+                                        'username': username,
+                                        'profile': profile,
+                                        'customer': customer,
+                                        'thanks': True}
+                                       )
+            return render_to_response('portfolios/contact_page.html', variables)
+    else:
+        form = ContactForm()
+    variables = RequestContext(request,
+                              {'form': form,
+                               'username': username,
+                               'profile': profile,
+                               'customer': customer,}
+                               )
+    return render_to_response('portfolios/contact_page.html', variables)

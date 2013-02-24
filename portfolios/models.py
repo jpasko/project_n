@@ -80,6 +80,11 @@ class Photo(models.Model):
     def __unicode__(self):
         return u'Image for %s' % self.gallery.title
 
+class Video(models.Model):
+    gallery = models.ForeignKey(Gallery)
+    url = models.URLField(max_length=500, blank=True, verbose_name="YouTube or Vimeo URL")
+    caption = models.CharField(max_length=100, blank=True)
+
 def delete_photo(sender, instance, *args, **kwargs):
     """
     Deletes the image from the file system upon Photo deletion.

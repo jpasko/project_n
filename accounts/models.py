@@ -26,7 +26,8 @@ class UserProfile(models.Model):
     # The number of photos owned by this user.
     photo_count = models.IntegerField(default=0)
 
-    # These are the free options.
+    allow_contact = models.BooleanField(default=True)
+
     fullname = models.CharField(verbose_name='name',
                                 max_length=75,
                                 blank=True)
@@ -62,11 +63,11 @@ class UserProfile(models.Model):
                                           choices=COLUMNS,
                                           default=3)
 
-    website = models.URLField(max_length=200, blank=True)
-    twitter = models.URLField(max_length=200, blank=True)
-    facebook = models.URLField(max_length=200, blank=True)
-    google_plus = models.URLField(max_length=200, blank=True, verbose_name="Google+")
-    linkedin = models.URLField(max_length=200, blank=True, verbose_name="LinkedIn")
+    website = models.URLField(max_length=500, blank=True)
+    twitter = models.URLField(max_length=500, blank=True)
+    facebook = models.URLField(max_length=500, blank=True)
+    google_plus = models.URLField(max_length=500, blank=True, verbose_name="Google+")
+    linkedin = models.URLField(max_length=500, blank=True, verbose_name="LinkedIn")
 
     picture = ProcessedImageField([ResizeToFit(width=200,
                                                height=250,
@@ -75,6 +76,14 @@ class UserProfile(models.Model):
                                   blank=True,
                                   null=True,
                                   verbose_name='Profile picture')
+
+    banner = ProcessedImageField([ResizeToFit(width=500,
+                                              height=100,
+                                              upscale=False)],
+                                 upload_to=upload_to,
+                                 blank=True,
+                                 null=True,
+                                 verbose_name='Banner')
     
     def __unicode__(self):
         return u'Profile for %s' % self.user.username
@@ -120,16 +129,19 @@ def create_customer(sender, instance, created, **kwargs):
     if created:
         Customer.objects.create(user=instance)
 
-def delete_profile_picture(sender, instance, *args, **kwargs):
+def delete_banner_picture(sender, instance, *args, **kwargs):
     """
-    Deletes the profile picture from the storage system upon UserProfile deletion.
+    Deletes the profile picture and banner from the storage system upon
+    UserProfile deletion.
     """
     if instance.picture:
         instance.picture.delete(save=False)
+    if instance.banner:
+        instance.banner.delete(save=False)
 
 # On the User save signal, create a UserProfile and a Customer.
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(create_customer, sender=User)
 
 # When deleting a UserProfile, be sure to delete the profile picture.
-post_delete.connect(delete_profile_picture, sender=UserProfile)
+post_delete.connect(delete_banner_picture, sender=UserProfile)

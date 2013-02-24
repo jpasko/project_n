@@ -38,9 +38,9 @@ class RegistrationForm(forms.Form):
         """
         username = self.cleaned_data['username']
         if username in settings.RESERVED_TERMS:
-            raise forms.ValidationError(u'%s is prohibited. Please try a different username' % username)
+            raise forms.ValidationError(u'Please try a different username')
         if not re.search(r'^\w+$', username):
-            raise forms.ValidationError('Username can only contain alphanumeric characters')
+            raise forms.ValidationError(u'Username can only contain alphanumeric characters')
         try:
             User.objects.get(username=username)
         except ObjectDoesNotExist:

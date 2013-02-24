@@ -1,5 +1,5 @@
 {% extends "portfolio_base.html" %}
-{% block title %}{{ profile.fullname }} | Portfolio{% endblock %}
+{% block title %}{{ profile.fullname }}{% endblock %}
 {% block script %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 {% if user.is_authenticated and user.username == username %}

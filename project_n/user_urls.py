@@ -17,6 +17,9 @@ urlpatterns = patterns('',
     # The about page of a user's profile.
     url(r'^about/$', 'portfolios.views.about'),
 
+    # The contact page containing a contact form.
+    url(r'^contact/$', 'portfolios.views.contact'),
+
     # Users can edit their profile.
     url(r'^edit/$', 'portfolios.views.edit'),
 
