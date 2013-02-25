@@ -35,9 +35,6 @@ div.darken img {
 .gallery-title {
     display: none;
 }
-.about-text {
-    color: #565656;
-}
 #left, #right {
     position: fixed;
     width: 35px;
