@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core.mail import send_mail
 
-from portfolios.models import Photo, Gallery
+from portfolios.models import Item, Photo, Video, Gallery
 from portfolios.forms import *
 
 from accounts.forms import ContactForm
@@ -139,6 +139,12 @@ def upload(request, gallery_id=None):
                                 'profile': profile})
     return render_to_response('portfolios/upload.html', variables)
 
+def upload_video(request, gallery_id=None):
+    """
+    Allows a user to upload a new video.
+    """
+    pass
+
 def gallery(request, gallery_id):
     """
     Gets all the photos from a gallery.
@@ -186,6 +192,29 @@ def delete_photo(request, photo_id):
     gallery.count -= 1
     gallery.save()
     photo.delete()
+    profile = request.user.get_profile()
+    profile.photo_count -= 1
+    if profile.photo_count < 0:
+        profile.photo_count = 0
+    profile.save()
+    if gallery.count > 0:
+        return HttpResponseRedirect('/gallery/' + str(gallery.pk) + '/')
+    else:
+        return HttpResponseRedirect('/')
+
+def delete_item(request, item_id):
+    """
+    Deletes the gallery item and decrements the gallery count.
+    """
+    username = request.subdomain
+    # First, check that the user is logged in and owns the gallery.
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    item = get_object_or_404(Item, pk=item_id)
+    gallery = item.gallery
+    gallery.count -= 1
+    gallery.save()
+    item.delete()
     profile = request.user.get_profile()
     profile.photo_count -= 1
     if profile.photo_count < 0:
