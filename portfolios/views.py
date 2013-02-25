@@ -103,7 +103,7 @@ def create_gallery(request):
 
 def upload(request, gallery_id=None):
     """
-    Allows a user to upload a new photo.
+    Allows a user to upload a photo or video.
     """
     username = request.subdomain
     # Ensure that we cannot upload photos to another's portfolio:
@@ -112,13 +112,13 @@ def upload(request, gallery_id=None):
     profile = request.user.get_profile()
     customer = request.user.customer
     if request.method == 'POST':
-        form = UploadPhotoForm(request.POST, request.FILES)
-        if form.is_valid():
-            gallery = form.cleaned_data['gallery']
+        photo_form = UploadPhotoForm(request.POST, request.FILES)
+        if photo_form.is_valid():
+            gallery = photo_form.cleaned_data['gallery']
             photo = Photo(
                 gallery=gallery,
                 image=request.FILES['image'],
-                caption=form.cleaned_data['caption']
+                caption=photo_form.cleaned_data['caption']
             )
             photo.save()
             # Update the photo count on the user
@@ -129,11 +129,11 @@ def upload(request, gallery_id=None):
             gallery.save()
             return HttpResponseRedirect('/')
     elif gallery_id:
-        form = UploadPhotoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
+        photo_form = UploadPhotoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
     else:
-        form = UploadPhotoForm()
+        photo_form = UploadPhotoForm()
     variables = RequestContext(request,
-                               {'form': form,
+                               {'photo_form': photo_form,
                                 'username': username,
                                 'customer': customer,
                                 'profile': profile})

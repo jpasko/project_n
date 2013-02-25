@@ -17,7 +17,7 @@
     </p>
     <form method="post" action="." enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ photo_form.as_p }}
       <input type="submit" value="Upload photo" class="btn btn-large btn-primary">
     </form>
   </div>
