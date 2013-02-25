@@ -3,8 +3,11 @@
 {% block head %}
 <style>
   .form-errors {
-    color: #E60000;
-    text-align: center;
+    border: 1px solid #ff4d42;
+    border-radius: 5px;
+    background: #ffe2d6;
+    padding: 3px;
+    display: inline-block;
   }
   .message-success {
     color: #4fc46f;
@@ -19,7 +22,6 @@
   background-image: -o-linear-gradient(top, #EDF0F2, #A3AEB3);
   background-image: linear-gradient(top, #EDF0F2, #A3AEB3);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#EDF0F2, endColorstr=#A3AEB3);
 }
-
 .btn-contact:hover {
   border:1px solid #b2bfc7; background-color: #cfd7dd;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfd7dd), color-stop(100%, #87959c));
@@ -33,23 +35,24 @@
 {% endblock %}
 {% block content %}
 <div class="container-narrow muted">
-  <div>
-    {% if thanks %}
-    <h3 class="message-success">Your message has been sent</h3>
-    {% endif %}
-    {% if form.sender.errors %}
-    <h3 class="form-errors">That's an invalid email address</h3>
-    {% elif form.message.errors %}
-    <h3 class="form-errors">Your message couldn't be sent</h3>
-    {% endif %}
-  </div>
+  {% if thanks %}
+  <h3 class="message-success">Your message has been sent</h3>
+  {% endif %}
   <div class="row-fluid marketing">
     <div class="span4 offset3">
       <form method="post" action=".">
 	{% csrf_token %}
+
 	<label for="id_sender">Your email (optional)</label>
+	{% if form.sender.errors %}
+	<p class="form-errors">Invalid email address</p>
+	{% endif %}
 	{{ form.sender }}
+
 	<label for="id_message">Message</label>
+	{% if form.message.errors %}
+	<p class="form-errors">Write a message before sending</p>
+	{% endif %}
 	{{ form.message }}
 	<input type="submit" value="Send Message" class="btn-contact" />
       </form>

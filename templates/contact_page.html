@@ -1,6 +1,26 @@
 {% extends "site_base.html" %}
 {% block title %}Contact{% endblock %}
-{% block header %}
+{% block head %}
+<style>
+.btn-contact {
+  border:1px solid #ccd5da; -webkit-border-radius: 10px; -moz-border-radius: 10px;border-radius: 10px; padding: 8px 8px 8px 8px; font-weight:bold; text-align: center; color: #212121; background-color: #EDF0F2;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EDF0F2), color-stop(100%, #A3AEB3));
+  background-image: -webkit-linear-gradient(top, #EDF0F2, #A3AEB3);
+  background-image: -moz-linear-gradient(top, #EDF0F2, #A3AEB3);
+  background-image: -ms-linear-gradient(top, #EDF0F2, #A3AEB3);
+  background-image: -o-linear-gradient(top, #EDF0F2, #A3AEB3);
+  background-image: linear-gradient(top, #EDF0F2, #A3AEB3);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#EDF0F2, endColorstr=#A3AEB3);
+}
+.btn-contact:hover {
+  border:1px solid #b2bfc7; background-color: #cfd7dd;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfd7dd), color-stop(100%, #87959c));
+  background-image: -webkit-linear-gradient(top, #cfd7dd, #87959c);
+  background-image: -moz-linear-gradient(top, #cfd7dd, #87959c);
+  background-image: -ms-linear-gradient(top, #cfd7dd, #87959c);
+  background-image: -o-linear-gradient(top, #cfd7dd, #87959c);
+  background-image: linear-gradient(top, #cfd7dd, #87959c);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#cfd7dd, endColorstr=#87959c);
+}
+</style>
 {% endblock %}
 {% block content %}
 <div class="container-narrow">
@@ -18,7 +38,7 @@
 	{{ form.message.errors }}
 	<label for="id_message">Message</label>
 	{{ form.message }}
-	<input type="submit" value="Send" class="btn btn-primary" />
+	<input type="submit" value="Send Message" class="btn-contact" />
       </form>
     </div>
     <div class="span3"  style="border-left: 1px solid #D6D6D6; padding-left: 30px">

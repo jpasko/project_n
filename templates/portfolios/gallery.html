@@ -1,7 +1,15 @@
 {% extends "portfolio_base.html" %}
 {% block stylesheet %}
-<link href="{{ STATIC_URL }}css/lightbox.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ STATIC_URL }}js/galleria/themes/classic/galleria.classic.css">
 {% endblock %}
+
+{% block head %}
+<style>
+    #galleria{ width: 100%; height: 550px; background: #000 }
+    body .galleria-container{ background:#{{ profile.background_color }}; }
+</style>
+{% endblock %}
+
 {% block script %}
 {% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
@@ -16,21 +24,14 @@ $(document).ready(function(){
 });
 </script>
 {% endif %}
-<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox.js"></script>
-{% if user.username != username %}
-<script>
-// Trigger LightBox for the first image right away
-$(document).ready(function(){
-  $("a.lightbox:first").trigger("click");
-});
-</script>
-{% endif %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/galleria/galleria-1.2.9.min.js"></script>
+<script src="{{ STATIC_URL }}js/galleria/themes/classic/galleria.classic.min.js"></script>
 {% endblock %}
+
 {% block title %}{{ profile.fullname }} | {{ gallery.title }}{% endblock %}
-{% block header %}{% endblock %}
-{% block navbar-text %}
-{% endblock %}
+
 {% block content %}
+
 {% if user.is_authenticated and user.username == username %}
 {% if profile.photo_count > customer.account_limit %}
 <h1 style="color: red">UPLOAD LIMIT EXCEEDED</h1>
@@ -51,33 +52,41 @@ $(document).ready(function(){
     This photo will be permanently deleted.</p>
 </div>
 {% endif %}
-{% if profile.photo_count <= customer.account_limit or user.is_authenticated and username == user.username %}
+
+{% if user.is_authenticated and username == user.username %}
+<!-- Edit mode -->
 <div class="row">
   <div class="span12">
     <ul class="thumbnails sortable-photos">
       {% for photo in gallery.photo_set.all %}
       <li id="photos_{{ photo.pk }}">
 	<div style="position: relative; left: 0; top: 0;">
-	  <a href="{{ photo.image.url }}" class="lightbox" rel="lightbox[{{ gallery.title }}]" title="{{ photo.caption }}">
-	    {% if profile.gallery_columns == 3 %}
+	  <a href="{{ photo.image.url }}">
 	    <img src="{{ photo.thumbnail_3.url }}">
-	    {% else %}
-	    <img src="{{ photo.thumbnail_1.url }}">
-	    {% endif %}
 	  </a>
-	  {% if user.is_authenticated and username == user.username %}
 	  <a href="/photo/{{ photo.pk }}/delete/" class="confirm">
 	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; right: 0">
 	  </a>
 	  <a href="/photo/{{ photo.pk }}/edit/">
 	    <img src="{{ STATIC_URL }}img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
 	  </a>
-	  {% endif %}
 	</div>
       </li>
       {% endfor %}
     </ul>
   </div>
 </div>
+{% elif profile.photo_count <= customer.account_limit %}
+<!-- Display mode -->
+<div id="galleria">
+  {% for photo in gallery.photo_set.all %}
+  <!-- <img src="{{ photo.image.url }}"> -->
+  <a href="{{ photo.image.url }}"><img src="{{ photo.thumbnail_3.url }}" data-title="{{ photo.caption }}"></a>
+  {% endfor %}
+</div>
+<script>
+  Galleria.run('#galleria');
+</script>
 {% endif %}
+
 {% endblock %}

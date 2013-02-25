@@ -59,6 +59,12 @@ class Gallery(models.Model):
         except: pass
         super(Gallery, self).save(*args, **kwargs)
 
+class Item(models.Model):
+    gallery = models.ForeignKey(Gallery)
+    is_photo = models.BooleanField()
+    caption = models.CharField(max_length=100, blank=True)
+    order = models.IntegerField(default=9999, blank=True)
+
 class Photo(models.Model):
     gallery = models.ForeignKey(Gallery)
     image = ProcessedImageField([ResizeToFit(width=750,
