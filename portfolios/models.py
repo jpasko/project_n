@@ -65,6 +65,9 @@ class Item(models.Model):
     caption = models.CharField(max_length=100, blank=True)
     order = models.IntegerField(default=9999, blank=True)
 
+    class Meta:
+        ordering = ['order', 'pk']
+
 class Photo(models.Model):
     gallery = models.ForeignKey(Gallery)
     image = ProcessedImageField([ResizeToFit(width=750,
