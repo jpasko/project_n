@@ -85,7 +85,9 @@ $(document).ready(function(){
   {% endfor %}
 </div>
 <script>
-  Galleria.run('#galleria');
+  Galleria.run('#galleria', {
+    debug: false
+});
 </script>
 {% endif %}
 
