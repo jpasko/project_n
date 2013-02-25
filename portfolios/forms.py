@@ -1,5 +1,5 @@
 from accounts.models import UserProfile
-from portfolios.models import Photo, Gallery
+from portfolios.models import Item, Photo, Video, Gallery
 from django import forms
 from imagekit.models.fields import ProcessedImageField
 
@@ -14,6 +14,14 @@ class UserProfileForm(forms.ModelForm):
             'picture': forms.FileInput(),
         }
 
+class UploadItemForm(forms.ModelForm):
+    """
+    Form to upload a generic item.
+    """
+    class Meta:
+        model = Item
+        exclude = ('order', 'is_photo')
+
 class UploadPhotoForm(forms.ModelForm):
     """
     Form to upload a photo into a gallery.
@@ -21,6 +29,12 @@ class UploadPhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
         exclude = ('order')
+
+class UploadVideoForm(UploadItemForm):
+    """
+    Form to upload a video.
+    """
+    url = forms.URLField()
 
 class CreateGalleryForm(forms.ModelForm):
     """

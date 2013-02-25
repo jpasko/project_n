@@ -113,6 +113,7 @@ def upload(request, gallery_id=None):
     customer = request.user.customer
     if request.method == 'POST':
         photo_form = UploadPhotoForm(request.POST, request.FILES)
+        video_form = UploadVideoForm(request.POST)
         if photo_form.is_valid():
             gallery = photo_form.cleaned_data['gallery']
             photo = Photo(
@@ -130,10 +131,13 @@ def upload(request, gallery_id=None):
             return HttpResponseRedirect('/')
     elif gallery_id:
         photo_form = UploadPhotoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
+        video_form = UploadVideoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
     else:
         photo_form = UploadPhotoForm()
+        video_form = UploadVideoForm()
     variables = RequestContext(request,
                                {'photo_form': photo_form,
+                                'video_form': video_form,
                                 'username': username,
                                 'customer': customer,
                                 'profile': profile})

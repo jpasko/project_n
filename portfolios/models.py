@@ -90,9 +90,8 @@ class Photo(models.Model):
         return u'Image for %s' % self.gallery.title
 
 class Video(models.Model):
-    gallery = models.ForeignKey(Gallery)
-    url = models.URLField(max_length=500, blank=True, verbose_name="YouTube, Vimeo, or Dailymotion URL")
-    caption = models.CharField(max_length=100, blank=True)
+    item = models.ForeignKey(Item)
+    url = models.URLField(verbose_name="YouTube, Vimeo, or Dailymotion URL")
 
 def delete_photo(sender, instance, *args, **kwargs):
     """

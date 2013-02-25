@@ -52,7 +52,7 @@ class UserProfile(models.Model):
                              default='D')
 
     background_color = models.CharField(max_length=6,
-                                        default='FFFFFF')
+                                        default='000000')
 
     COLUMNS = (
         (3, 'Square'),
