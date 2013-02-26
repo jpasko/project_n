@@ -6,6 +6,10 @@
 <style>
     #galleria{ width: 100%; height: 550px; background: #000 }
     body .galleria-container{ background:#{{ profile.background_color }}; }
+    .gallery-thumbnail {
+      height: {{ GALLERY_THUMBNAIL_DIMENSION }}px;
+      width: {{ GALLERY_THUMBNAIL_DIMENSION }}px;
+    }
 </style>
 {% endblock %}
 
@@ -15,6 +19,8 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/confirm-delete.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/get-thumbnail.js"></script>
+
 <script>
 $(document).ready(function(){
   $("#toggle-directions").click(function(){
@@ -62,11 +68,11 @@ $(document).ready(function(){
 	<div style="position: relative; left: 0; top: 0;">
 	  {% if item.is_photo %}
 	  <a href="{{ item.photo.image.url }}" target="_blank">
-	    <img src="{{ item.photo.thumbnail_3.url }}">
+	    <img class="gallery-thumbnail" src="{{ item.photo.thumbnail_3.url }}">
 	  </a>
 	  {% else %}
-	  <a href="{{ item.video.url }}" target="_blank">
-	    <img src="{{ STATIC_URL }}img/empty_gallery_square.png">
+	  <a class="video-thumbnail" href="{{ item.video.url }}" target="_blank">
+	    <img class="gallery-thumbnail" src="{{ STATIC_URL }}img/empty_gallery_square.png">
 	  </a>
 	  {% endif %}
 	  <a href="/item/{{ item.pk }}/delete/" class="confirm">

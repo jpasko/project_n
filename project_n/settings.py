@@ -95,6 +95,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'context_processors.custom.domain',
+    'context_processors.custom.thumbnail_dimensions',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -195,6 +196,8 @@ SQUARE_THUMBNAIL_DIMENSION = 250
 WIDE_THUMBNAIL_WIDTH = 750
 
 WIDE_THUMBNAIL_HEIGHT = 250
+
+GALLERY_THUMBNAIL_DIMENSION = 100
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
 DEFAULT_FROM_EMAIL = 'support@citreo.us'
