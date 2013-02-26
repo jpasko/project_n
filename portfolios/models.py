@@ -61,7 +61,7 @@ class Gallery(models.Model):
 
 class Item(models.Model):
     gallery = models.ForeignKey(Gallery)
-    is_photo = models.BooleanField()
+    is_photo = models.BooleanField(default=True)
     caption = models.CharField(max_length=100, blank=True)
     order = models.IntegerField(default=9999, blank=True)
 
@@ -69,7 +69,12 @@ class Item(models.Model):
         ordering = ['order', 'pk']
 
 class Photo(models.Model):
+    # Get rid of these fields:
     gallery = models.ForeignKey(Gallery)
+    caption = models.CharField(max_length=100, blank=True)
+    order = models.IntegerField(default=9999, blank=True)
+
+    item = models.OneToOneField(Item)
     image = ProcessedImageField([ResizeToFit(width=750,
                                              height=750,
                                              upscale=False)],
@@ -80,17 +85,12 @@ class Photo(models.Model):
     # Thumbnail for the 1 column layout
     thumbnail_1 = ImageSpecField([ResizeToFill(settings.WIDE_THUMBNAIL_WIDTH, settings.WIDE_THUMBNAIL_HEIGHT)],
                                  image_field='image')
-    caption = models.CharField(max_length=100, blank=True)
-    order = models.IntegerField(default=9999, blank=True)
 
     class Meta:
         ordering = ['order', 'pk']
 
-    def __unicode__(self):
-        return u'Image for %s' % self.gallery.title
-
 class Video(models.Model):
-    item = models.ForeignKey(Item)
+    item = models.OneToOneField(Item)
     url = models.URLField(verbose_name="YouTube, Vimeo, or Dailymotion URL")
 
 def delete_photo(sender, instance, *args, **kwargs):
@@ -107,6 +107,6 @@ def delete_gallery(sender, instance, *args, **kwargs):
     if instance.thumbnail:
         instance.thumbnail.delete(save=False)
 
-# When deleting a Photo, be sure to delete the image.
+# Connect the delete methods to the post_delete signals.
 post_delete.connect(delete_photo, sender=Photo)
 post_delete.connect(delete_gallery, sender=Gallery)

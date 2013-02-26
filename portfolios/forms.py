@@ -28,7 +28,7 @@ class UploadPhotoForm(forms.ModelForm):
     """
     class Meta:
         model = Photo
-        exclude = ('order')
+        exclude = ('order', 'item')
 
 class UploadVideoForm(UploadItemForm):
     """

@@ -10,6 +10,11 @@
       body {
         background-color: #{{ profile.background_color }} !important;
       }
+      .house img {
+        display: none;
+        padding-bottom: 4px;
+        padding-left: 2px;
+      }
     </style>
 <!--    <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet"> -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -20,6 +25,11 @@
           $(this).find('img').prop('src', '{{ STATIC_URL}}img/small_lemon.png');
         }, function () {
           $(this).find('img').prop('src', '{{ STATIC_URL}}img/small_lemon_dull.png');
+        });
+        $('.house').hover(function () {
+          $(this).find('img').show();
+        }, function () {
+          $(this).find('img').hide();
         });
       });
     </script>
@@ -51,9 +61,9 @@
             <span class="icon-bar"></span>
           </a>
 	  {% if profile.fullname %}
-	  <a class="brand" href="/">{{ profile.fullname }}</a>
+	  <a class="house brand" href="/">{{ profile.fullname }}<img src="{{ STATIC_URL }}img/house_light.png"></a>
 	  {% else %}
-	  <a class="brand" href="/">{{ username }}</a>
+	  <a class="house brand" href="/">{{ username }}<img src="{{ STATIC_URL }}img/house_light.png"></a>
 	  {% endif %}
 	  {% block navbar-text %}{% endblock %}
 
