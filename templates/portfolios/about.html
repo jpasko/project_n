@@ -1,6 +1,13 @@
 {% extends "portfolio_base.html" %}
 {% block title %}{{ profile.fullname }} | About{% endblock %}
-{% block header %}{% endblock %}
+{% block head %}
+<style>
+  .pencil img {
+    display: none;
+    padding-left: 2px;
+  }
+</style>
+{% endblock %}
 {% block script %}
 {% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
@@ -9,6 +16,11 @@
 $(document).ready(function(){
   $("#toggle-directions").click(function(){
     $("#directions").toggle(200);
+  });
+  $('.pencil').hover(function () {
+    $(this).find('img').show();
+  }, function () {
+    $(this).find('img').hide();
   });
 });
 </script>
@@ -32,7 +44,7 @@ $(document).ready(function(){
     {% if profile.about %}
     <div class="row">
       <div class="span1">
-	<p><b>About</b></p>
+	<p class="pencil"><b>About</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
       </div>
       <div class="span6">
 	<p>{{ profile.about|linebreaksbr }}</p>
@@ -42,7 +54,7 @@ $(document).ready(function(){
     {% if profile.email %}
     <div class="row">
       <div class="span1">
-	<p><b>Email</b></p>
+	<p class="pencil"><b>Email</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
       </div>
       <div class="span6">
 	<p>{{ profile.email }}</p>
@@ -52,7 +64,7 @@ $(document).ready(function(){
     {% if profile.phone %}
     <div class="row">
       <div class="span1">
-	<p><b>Phone</b></p>
+	<p class="pencil"><b>Phone</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
       </div>
       <div class="span6">
 	<p>{{ profile.phone }}</p>
@@ -62,7 +74,7 @@ $(document).ready(function(){
     {% if profile.location %}
     <div class="row">
       <div class="span1">
-	<p><b>Location</b></p>
+	<p class="pencil"><b>Location</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
       </div>
       <div class="span6">
 	<p>{{ profile.location }}</p>
@@ -72,7 +84,7 @@ $(document).ready(function(){
     {% if profile.website %}
     <div class="row">
       <div class="span1">
-	<p><b>Website</b></p>
+	<p class="pencil"><b>Website</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
       </div>
       <div class="span6">
 	<a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a>
@@ -91,10 +103,13 @@ $(document).ready(function(){
   </div>
   {% endif %}
 </div>
-<div class="row">
+<div class="row muted">
   <div class="span7">
     <div class="row">
       <div class="span1">
+	{% if user.is_authenticated and username == user.username %}
+	<p class="pencil"><b>Social</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
+	{% endif %}
       </div>
       <div class="span6">
 	{% if profile.twitter %}

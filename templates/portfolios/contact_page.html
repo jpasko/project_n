@@ -33,7 +33,7 @@
 
 	<label for="id_message">Message</label>
 	{% if form.message.errors %}
-	<p class="form-errors">Write a message before sending</p>
+	<p class="form-errors">Please write a message first</p>
 	{% endif %}
 	{{ form.message }}
 	<input type="submit" value="Send Message" class="btn-contact" />
