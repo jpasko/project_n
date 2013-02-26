@@ -38,8 +38,8 @@ urlpatterns = patterns('',
     # Reorder the galleries displayed on a user's profile.
     url(r'^reorder_galleries/$', 'portfolios.views.change_gallery_order'),
 
-    # Reorder the photos within a gallery.
-    url(r'^reorder_photos/$', 'portfolios.views.change_photo_order'),
+    # Reorder the items within a gallery.
+    url(r'^reorder_items/$', 'portfolios.views.change_item_order'),
 
     # Successful registration page, directs users to login and explains
     # what to do.
@@ -100,12 +100,12 @@ urlpatterns = patterns('',
     # Users can upload photos directly to a gallery as well.
     url(r'^(\w+)/upload/(\d+)/$', 'portfolios.views.upload'),
 
-    # Deletes the photo, and redirects back to the gallery.  If
+    # Deletes the item, and redirects back to the gallery.  If
     # the gallery is empty, redirects back to the main profile.
-    url(r'^(\w+)/photo/(\d+)/delete/$', 'portfolios.views.delete_photo'),
+    url(r'^(\w+)/item/(\d+)/delete/$', 'portfolios.views.delete_item'),
 
-    # Edit a photo's caption.
-    url(r'^(\w+)/photo/(\d+)/edit/$', 'portfolios.views.edit_photo'),
+    # Edit an item's caption.
+    url(r'^(\w+)/item/(\d+)/edit/$', 'portfolios.views.edit_item'),
 
     # Deletes a gallery, and redirect back to the main portfolio.
     url(r'^(\w+)/gallery/(\d+)/delete/$', 'portfolios.views.delete_gallery'),

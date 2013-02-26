@@ -44,13 +44,13 @@ class CreateGalleryForm(forms.ModelForm):
         model = Gallery
         exclude = ('user', 'count', 'order')
 
-class EditPhotoForm(forms.ModelForm):
+class EditItemForm(forms.ModelForm):
     """
-    Allows the user to edit the caption on their photo.
+    Allows the user to edit the caption on their item.
     """
     class Meta:
-        model = Photo
-        exclude = ('order', 'gallery', 'image')
+        model = Item
+        exclude = ('order', 'gallery', 'is_photo')
 
 class EditGalleryForm(forms.ModelForm):
     """

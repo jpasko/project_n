@@ -2,7 +2,6 @@
 {% block stylesheet %}
 <link rel="stylesheet" href="{{ STATIC_URL }}js/galleria/themes/classic/galleria.classic.css">
 {% endblock %}
-
 {% block head %}
 <style>
     #galleria{ width: 100%; height: 550px; background: #000 }
@@ -49,7 +48,7 @@ $(document).ready(function(){
 <div id="dialog" title="Are you sure?">
   <p>
     <span class="ui-icon ui-icon-alert"></span>
-    This photo will be permanently deleted.</p>
+    This photo or video will be permanently deleted.</p>
 </div>
 {% endif %}
 
@@ -57,17 +56,23 @@ $(document).ready(function(){
 <!-- Edit mode -->
 <div class="row">
   <div class="span12">
-    <ul class="thumbnails sortable-photos">
-      {% for photo in gallery.photo_set.all %}
-      <li id="photos_{{ photo.pk }}">
+    <ul class="thumbnails sortable-items">
+      {% for item in gallery.item_set.all %}
+      <li id="items_{{ item.pk }}">
 	<div style="position: relative; left: 0; top: 0;">
-	  <a href="{{ photo.image.url }}">
-	    <img src="{{ photo.thumbnail_3.url }}">
+	  {% if item.is_photo %}
+	  <a href="{{ item.photo.image.url }}" target="_blank">
+	    <img src="{{ item.photo.thumbnail_3.url }}">
 	  </a>
-	  <a href="/photo/{{ photo.pk }}/delete/" class="confirm">
+	  {% else %}
+	  <a href="{{ item.video.url }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/empty_gallery_square.png">
+	  </a>
+	  {% endif %}
+	  <a href="/item/{{ item.pk }}/delete/" class="confirm">
 	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; right: 0">
 	  </a>
-	  <a href="/photo/{{ photo.pk }}/edit/">
+	  <a href="/item/{{ item.pk }}/edit/">
 	    <img src="{{ STATIC_URL }}img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
 	  </a>
 	</div>
@@ -79,9 +84,12 @@ $(document).ready(function(){
 {% elif profile.photo_count <= customer.account_limit %}
 <!-- Display mode -->
 <div id="galleria">
-  {% for photo in gallery.photo_set.all %}
-  <!-- <img src="{{ photo.image.url }}"> -->
-  <a href="{{ photo.image.url }}"><img src="{{ photo.thumbnail_3.url }}" data-title="{{ photo.caption }}"></a>
+  {% for item in gallery.item_set.all %}
+  {% if item.is_photo %}
+  <a href="{{ item.photo.image.url }}"><img src="{{ item.photo.thumbnail_3.url }}" data-title="{{ item.caption }}"></a>
+  {% else %}
+  <a href="{{ item.video.url }}"><span class="video" data-title="{{ item.caption }}"></span></a>
+  {% endif %}
   {% endfor %}
 </div>
 <script>

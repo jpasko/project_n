@@ -261,29 +261,6 @@ def delete_gallery(request, gallery_id):
     gallery.delete()
     return HttpResponseRedirect('/')
 
-def delete_photo(request, photo_id):
-    """
-    Deletes the image and decrements the gallery count.
-    """
-    username = request.subdomain
-    # First, check that the user is logged in and owns the gallery.
-    if username != request.user.username or not request.user.is_authenticated():
-        raise Http404
-    photo = get_object_or_404(Photo, pk=photo_id)
-    gallery = photo.gallery
-    gallery.count -= 1
-    gallery.save()
-    photo.delete()
-    profile = request.user.get_profile()
-    profile.photo_count -= 1
-    if profile.photo_count < 0:
-        profile.photo_count = 0
-    profile.save()
-    if gallery.count > 0:
-        return HttpResponseRedirect('/gallery/' + str(gallery.pk) + '/')
-    else:
-        return HttpResponseRedirect('/')
-
 def delete_item(request, item_id):
     """
     Deletes the gallery item and decrements the gallery count.
@@ -320,18 +297,18 @@ def delete_profile_photo(request):
     profile.save()
     return HttpResponseRedirect('/about/')
 
-def change_photo_order(request):
+def change_item_order(request):
     """
-    Changes the order of photos within a gallery.
+    Changes the order of items within a gallery.
     """
     results = {'success': False}
     if request.method == 'POST':
-        if 'photos[]' in request.POST:
-            order = request.POST.getlist('photos[]')
+        if 'items[]' in request.POST:
+            order = request.POST.getlist('items[]')
             for i in range(len(order)):
-                photo = get_object_or_404(Photo, pk=order[i])
-                photo.order = i
-                photo.save()
+                item = get_object_or_404(Item, pk=order[i])
+                item.order = i
+                item.save()
             results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')
 
@@ -350,9 +327,9 @@ def change_gallery_order(request):
             results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')
 
-def edit_photo(request, photo_id):
+def edit_item(request, item_id):
     """
-    Allows the user to edit the photo's caption.
+    Allows the user to edit the item's caption.
     """
     username = request.subdomain
     # Ensure that we cannot edit another's photo:
@@ -361,15 +338,15 @@ def edit_photo(request, photo_id):
     profile = request.user.get_profile()
     customer = request.user.customer
     if request.method == 'POST':
-        form = EditPhotoForm(request.POST)
+        form = EditItemForm(request.POST)
         if form.is_valid():
-            photo = get_object_or_404(Photo, pk=photo_id)
-            photo.caption = form.cleaned_data['caption']
-            photo.save()
-            gallery_id = photo.gallery.pk
+            item = get_object_or_404(Item, pk=item_id)
+            item.caption = form.cleaned_data['caption']
+            item.save()
+            gallery_id = item.gallery.pk
             return HttpResponseRedirect('/gallery/' + str(gallery_id) + '/')
     else:
-        form = EditPhotoForm()
+        form = EditItemForm()
     variables = RequestContext(request,
                                {'form': form,
                                 'username': username,

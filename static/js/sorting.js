@@ -1,11 +1,11 @@
 $(document).ready(function() {
-    $(".sortable-photos").sortable({
+    $(".sortable-items").sortable({
 	opacity: 0.5,
 	update : function (){
 	    var order = $(this).sortable("serialize");
 	    $.ajax({
 		type: "POST",
-		url: "/reorder_photos/",
+		url: "/reorder_items/",
 		data: order
 	    }); 
 	}   
