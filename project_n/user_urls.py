@@ -26,11 +26,11 @@ urlpatterns = patterns('',
     # Users must create a gallery to upload photos into.
     url(r'^create_gallery/$', 'portfolios.views.create_gallery'),
 
-    # Users can upload new photos using the upload form.
-    url(r'^upload/$', 'portfolios.views.upload'),
+    # Upload an image into the gallery.
+    url(r'^upload/image/(\d+)/$', 'portfolios.views.upload_image'),
 
-    # Users can upload photos directly to a gallery as well.
-    url(r'^upload/(\d+)/$', 'portfolios.views.upload'),
+    # Upload a video into the gallery.
+    url(r'^upload/video/(\d+)/$', 'portfolios.views.upload_video'),
 
     # Deletes the item, and redirects back to the gallery.  If
     # the gallery is empty, redirects back to the main profile.

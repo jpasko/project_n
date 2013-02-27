@@ -71,13 +71,13 @@
 	  {% with account_limit=customer.account_limit %}
 	  {% if profile.photo_count > account_limit %}
 	  <p class="navbar-text pull-left" style="color: red">
-	    (currently using {{ profile.photo_count }} of {{ account_limit }} images | 
+	    (currently using {{ profile.photo_count }} of {{ account_limit }} uploads | 
 	  {% elif profile.photo_count == account_limit %}
 	  <p class="navbar-text pull-left" style="color: orange">
-	    (currently using {{ profile.photo_count }} of {{ account_limit }} images | 
+	    (currently using {{ profile.photo_count }} of {{ account_limit }} uploads | 
 	  {% else %}
 	  <p class="navbar-text pull-left">
-	    (currently using {{ profile.photo_count }} of {{ account_limit }} images | 
+	    (currently using {{ profile.photo_count }} of {{ account_limit }} uploads | 
 	  {% endif %}
 	  {% endwith %}
 	  <a href="/settings/">upgrade!</a>)
@@ -97,12 +97,9 @@
 		  <b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu">
-<!--		  <li><a href="/create_gallery/">New gallery</a></li>
-		  <li><a href="/upload/">Upload photo</a></li>
-		  <li class="divider"></li>
--->
 		  <li><a href="/edit/">Customize</a></li>
 		  <li><a href="/settings/">Settings</a></li>
+		  <li><a href="/settings/">Help</a></li>
 		  <li class="divider"></li>
 		  <li><a href="/logout_view/">View portfolio</a></li>
 		  <li class="divider"></li>

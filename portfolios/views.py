@@ -101,9 +101,9 @@ def create_gallery(request):
                                 'profile': request.user.get_profile()})
     return render_to_response('portfolios/create_gallery.html', variables)
 
-def upload(request, gallery_id=None):
+def upload_image(request, gallery_id):
     """
-    Allows a user to upload a photo or video.
+    Allows a user to upload an image.
     """
     username = request.subdomain
     # Ensure that we cannot upload photos to another's portfolio:
@@ -114,9 +114,8 @@ def upload(request, gallery_id=None):
     if request.method == 'POST':
         photo_form = UploadPhotoForm(request.POST, request.FILES)
         item_form = UploadItemForm(request.POST)
-        video_form = UploadVideoForm(request.POST)
         if photo_form.is_valid() and item_form.is_valid():
-            gallery = item_form.cleaned_data['gallery']
+            gallery = get_object_or_404(Gallery, pk=gallery_id)
             item = Item(
                 gallery=gallery,
                 caption=item_form.cleaned_data['caption'],
@@ -134,59 +133,20 @@ def upload(request, gallery_id=None):
             # Update the photo count on the gallery
             gallery.count += 1
             gallery.save()
-            return HttpResponseRedirect('/')
-        elif video_form.is_valid():
-            gallery = video_form.cleaned_data['gallery']
-            item = Item(
-                gallery=gallery,
-                caption=video_form.cleaned_data['caption'],
-                is_photo=False
-                )
-            item.save()
-            video = Video(
-                item=item,
-                url=video_form.cleaned_data['url']
-                )
-            video.save()
-            # Update the upload count on the user
-            profile.photo_count += 1
-            profile.save()
-            # Update the count on the gallery
-            gallery.count += 1
-            gallery.save()
-            return HttpResponseRedirect('/')
-        # Only one form will contain valid errors...that is the form that
-        # has changed due to user-submitted inputs (even though those inputs
-        # did not pass validation.
-        if photo_form.has_changed() or item_form.has_changed():
-            if gallery_id:
-                video_form = UploadVideoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
-            else:
-                video_form = UploadVideoForm()
-        elif video_form.has_changed():
-            photo_form = UploadPhotoForm()
-            if gallery_id:
-                item_form = UploadItemForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
-            else:
-                item_form = UploadItemForm()            
-    elif gallery_id:
-        item_form = UploadItemForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
-        photo_form = UploadPhotoForm()
-        video_form = UploadVideoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
+            return HttpResponseRedirect('/gallery/' + gallery_id + '/')
     else:
         item_form = UploadItemForm()
         photo_form = UploadPhotoForm()
-        video_form = UploadVideoForm()
     variables = RequestContext(request,
                                {'item_form': item_form,
                                 'photo_form': photo_form,
-                                'video_form': video_form,
+                                'video_form': None,
                                 'username': username,
                                 'customer': customer,
                                 'profile': profile})
     return render_to_response('portfolios/upload.html', variables)
 
-def upload_video(request, gallery_id=None):
+def upload_video(request, gallery_id):
     """
     Allows a user to upload a new video.
     """
@@ -199,7 +159,7 @@ def upload_video(request, gallery_id=None):
     if request.method == 'POST':
         video_form = UploadVideoForm(request.POST)
         if video_form.is_valid():
-            gallery = video_form.cleaned_data['gallery']
+            gallery = get_object_or_404(Gallery, pk=gallery_id)
             item = Item(
                 gallery=gallery,
                 caption=video_form.cleaned_data['caption'],
@@ -217,13 +177,12 @@ def upload_video(request, gallery_id=None):
             # Update the count on the gallery
             gallery.count += 1
             gallery.save()
-            return HttpResponseRedirect('/')
-    elif gallery_id:
-        video_form = UploadVideoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
+            return HttpResponseRedirect('/gallery/' + gallery_id + '/')
     else:
         video_form = UploadVideoForm()
     variables = RequestContext(request,
-                               {'photo_form': None,
+                               {'item_form': None,
+                                'photo_form': None,
                                 'video_form': video_form,
                                 'username': username,
                                 'customer': customer,

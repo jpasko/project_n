@@ -9,14 +9,9 @@
   <div class="span3">
   </div>
   <div class="span6">
-    <h3>Upload a photo</h3>
-    <p>
-      Select an existing gallery to hold this item.<br />
-      You can also 
-      <a href="/create_gallery/">create</a> a new gallery.
-    </p>
 
     {% if photo_form and item_form %}
+    <h3>Upload an Image</h3>
     <form method="post" action="." enctype="multipart/form-data">
       {% csrf_token %}
       {{ item_form.as_p }}
@@ -27,6 +22,7 @@
     {% endif %}
 
     {% if video_form %}
+    <h3>Upload a Video</h3>
     <form method="post" action=".">
       {% csrf_token %}
       {{ video_form.as_p }}
