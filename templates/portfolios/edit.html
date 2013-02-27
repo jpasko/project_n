@@ -32,9 +32,6 @@ $(function() {
     <div id="accordion">
       <h3>Basic</h3>
       <div>
-	{{ form.fullname.errors }}
-	<label for="id_fullname">Name (or portfolio title)</label>
-	{{ form.fullname }}
 	{{ form.location.errors }}
 	<label for="id_location">Location</label>
 	{{ form.location }}
@@ -77,6 +74,9 @@ $(function() {
       </div>
       <h3>Customize</h3>
       <div>
+	{{ form.fullname.errors }}
+	<label for="id_fullname">Portfolio Title</label>
+	{{ form.fullname }}
 	{{ form.portfolio_columns.errors }}
 	<label for="id_columns">Thumbnail style</label>
 	{{ form.portfolio_columns }}
