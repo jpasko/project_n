@@ -50,6 +50,11 @@
     This gallery and all photos and videos it contains will be permanently deleted.</p>
 </div>
 {% endif %}
+{% if user.is_authenticated and user.username == username %}
+<div class="row" style="padding-bottom: 25px">
+  <a class="btn-green btn-green-link" href="/create_gallery/" style="margin-left: 20px">Create Gallery</a>
+</div>
+{% endif %}
 <div class="row muted">
   <div class="span12">
     <ul class="thumbnails sortable-galleries">

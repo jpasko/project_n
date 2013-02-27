@@ -6,11 +6,12 @@
   <div class="span3">
   </div>
   <div class="span6">
-    <h3 class="muted">Edit title and thumbnail</h3>
+    <h3 class="muted">Edit Gallery</h3>
     <form method="post" action="." enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
-      <input type="submit" value="Save" class="btn btn-large btn-primary">
+      <input type="submit" value="Save Changes" class="btn-green">
+      <a class="btn-contact btn-link" href="/" style="margin-left: 10px">Cancel</a>
     </form>
   </div>
 </div>

@@ -45,6 +45,10 @@
 
 {% if user.is_authenticated and username == user.username %}
 <!-- Edit mode -->
+<div class="row" style="padding-bottom: 25px">
+  <a class="btn-green btn-green-link" href="/upload/{{ gallery.pk }}/" style="margin-left: 20px">Upload Image</a>
+  <a class="btn-green btn-green-link" href="/upload/{{ gallery.pk }}/" style="margin-left: 5px">Upload Video</a>
+</div>
 <div class="row">
   <div class="span12">
     <ul class="thumbnails sortable-items">
