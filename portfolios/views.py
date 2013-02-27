@@ -422,3 +422,21 @@ def contact(request):
                                'customer': customer,}
                                )
     return render_to_response('portfolios/contact_page.html', variables)
+
+def toggle_contact(request):
+    """
+    Toggles the display of the contact page.
+    """
+    username = request.subdomain
+    # Ensure that we cannot toggle the contact page of a different user.
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    results = {'success': False}
+    if request.method == 'POST':
+        if 'enable' in request.POST:
+            enable = request.POST.get('enable') == 'True'
+            profile.allow_contact = enable
+            profile.save()
+            results = {'success': True}
+    return HttpResponse(json.dumps(results), mimetype='application/json')

@@ -87,7 +87,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
 	      <li><a href="/about/">about</a></li>
-	      {% if profile.allow_contact %}
+	      {% if profile.allow_contact or user.is_authenticated and user.username == username %}
 	      <li><a href="/contact/">contact</a></li>
 	      {% endif %}
 	      {% if user.is_authenticated and user.username == username %}

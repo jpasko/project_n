@@ -75,6 +75,9 @@ urlpatterns = patterns('',
     # Deletes the user's account.
     url(r'^delete/$', 'accounts.views.delete_user'),
 
+    # POST to this URL to toggle the display of the contact page.
+    url(r'^toggle_contact_page/$', 'portfolios.views.toggle_contact'),
+
     # Robots.txt directly from template.
     url(r'^robots\.txt$', direct_to_template,
         {'template': 'robots.txt', 'mimetype': 'text/plain'}),

@@ -3,8 +3,13 @@
 {% block head %}
 <style>
   .pencil img {
-    display: none;
     padding-left: 2px;
+  }
+  .pencil {
+    text-decoration: none;
+  }
+  .pencil:hover {
+    text-decoration: none;
   }
 </style>
 {% endblock %}
@@ -15,9 +20,9 @@
 <script>
 $(document).ready(function(){
   $('.pencil').hover(function () {
-    $(this).find('img').show();
+    $(this).find('img').prop('src', '{{ STATIC_URL}}img/pencil.png');
   }, function () {
-    $(this).find('img').hide();
+    $(this).find('img').prop('src', '{{ STATIC_URL}}img/pencil_dull.png');
   });
 });
 </script>
@@ -33,74 +38,117 @@ $(document).ready(function(){
 {% endif %}
 <div class="row muted">
   <div class="span7">
-    {% if profile.about %}
-    <div class="row">
-      <div class="span1">
-	<p class="pencil"><b>About</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
-      </div>
-      <div class="span6">
-	<p>{{ profile.about|linebreaksbr }}</p>
-      </div>
-    </div>
-    {% endif %}
-    {% if profile.email %}
-    <div class="row">
-      <div class="span1">
-	<p class="pencil"><b>Email</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
-      </div>
-      <div class="span6">
-	<p>{{ profile.email }}</p>
-      </div>
-    </div>
-    {% endif %}
-    {% if profile.phone %}
-    <div class="row">
-      <div class="span1">
-	<p class="pencil"><b>Phone</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
-      </div>
-      <div class="span6">
-	<p>{{ profile.phone }}</p>
-      </div>
-    </div>
-    {% endif %}
-    {% if profile.location %}
-    <div class="row">
-      <div class="span1">
-	<p class="pencil"><b>Location</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
-      </div>
-      <div class="span6">
-	<p>{{ profile.location }}</p>
-      </div>
-    </div>
-    {% endif %}
-    {% if profile.website %}
-    <div class="row">
-      <div class="span1">
-	<p class="pencil"><b>Website</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
-      </div>
-      <div class="span6">
-	<a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a>
-      </div>
-    </div>
-    {% endif %}
-  </div>
-  {% if profile.picture %}
-  <div class="span3" style="position: relative; left: 0; top: 0;">
-      <img src="{{ profile.picture.url }}">
-      {% if user.is_authenticated and username == user.username %}
-      <a href="/about/delete_photo/" class="confirm">
-	<img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0">
-      </a>
-      {% endif %}
-  </div>
-  {% endif %}
-</div>
-<div class="row muted">
-  <div class="span7">
+
     <div class="row">
       <div class="span1">
 	{% if user.is_authenticated and username == user.username %}
-	<p class="pencil"><b>Social</b><img src="{{ STATIC_URL }}img/pencil.png"></p>
+	<a class="pencil muted" href="/edit/"><b>About</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	{% elif profile.about %}
+	<p><b>About</b></p>
+	{% endif %}
+      </div>
+      <div class="span6">
+	{% if user.is_authenticated and username == user.username %}
+	{% if profile.about %}
+	<p>{{ profile.about|linebreaksbr }}</p>
+	{% else %}
+	<p><em>Currently empty</em></p>
+	{% endif %}
+	{% elif profile.about %}
+	<p>{{ profile.about|linebreaksbr }}</p>
+	{% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span1">
+	{% if user.is_authenticated and username == user.username %}
+	<a class="pencil muted" href="/edit/"><b>Email</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	{% elif profile.email %}
+	<p><b>Email</b></p>
+	{% endif %}
+      </div>
+      <div class="span6">
+	{% if user.is_authenticated and username == user.username %}
+	{% if profile.email %}
+	<p>{{ profile.email }}</p>
+	{% else %}
+	<p><em>Currently empty</em></p>
+	{% endif %}
+	{% elif profile.email %}
+	<p>{{ profile.email }}</p>
+	{% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span1">
+	{% if user.is_authenticated and username == user.username %}
+	<a class="pencil muted" href="/edit/"><b>Phone</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	{% elif profile.phone %}
+	<p><b>Phone</b></p>
+	{% endif %}
+      </div>
+      <div class="span6">
+	{% if user.is_authenticated and username == user.username %}
+	{% if profile.phone %}
+	<p>{{ profile.phone }}</p>
+	{% else %}
+	<p><em>Currently empty</em></p>
+	{% endif %}
+	{% elif profile.phone %}
+	<p>{{ profile.phone }}</p>
+	{% endif %}
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="span1">
+	{% if user.is_authenticated and username == user.username %}
+	<a class="pencil muted" href="/edit/"><b>Location</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	{% elif profile.location %}
+	<p><b>Location</b></p>
+	{% endif %}
+      </div>
+      <div class="span6">
+	{% if user.is_authenticated and username == user.username %}
+	{% if profile.location %}
+	<p>{{ profile.location }}</p>
+	{% else %}
+	<p><em>Currently empty</em></p>
+	{% endif %}
+	{% elif profile.location %}
+	<p>{{ profile.location }}</p>
+	{% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span1">
+	{% if user.is_authenticated and username == user.username %}
+	<a class="pencil muted" href="/edit/"><b>Website</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	{% elif profile.website %}
+	<p><b>Website</b></p>
+	{% endif %}
+      </div>
+      <div class="span6">
+	{% if user.is_authenticated and username == user.username %}
+	{% if profile.website %}
+	<a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a>
+	{% else %}
+	<p><em>Currently empty</em></p>
+	{% endif %}
+	{% elif profile.website %}
+	<a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a>
+	{% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span1">
+	{% if user.is_authenticated and username == user.username %}
+	<a class="pencil muted" href="/edit/"><b>Social</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% endif %}
       </div>
       <div class="span6">
@@ -116,8 +164,25 @@ $(document).ready(function(){
 	{% if profile.linkedin %}
 	<a href="{{ profile.linkedin }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}img/linkedin.png"></a>
 	{% endif %}
+	
+	{% if user.is_authenticated and username == user.username %}
+	{% if not profile.twitter and not profile.facebook and not profile.google_plus and not profile.linkedin %}
+	<p><em>Currently empty</em></p>
+	{% endif %}
+	{% endif %}
       </div>
     </div>
   </div>
+
+  {% if profile.picture %}
+  <div class="span3" style="position: relative; left: 0; top: 0;">
+      <img src="{{ profile.picture.url }}">
+      {% if user.is_authenticated and username == user.username %}
+      <a href="/about/delete_photo/" class="confirm">
+	<img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0">
+      </a>
+      {% endif %}
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

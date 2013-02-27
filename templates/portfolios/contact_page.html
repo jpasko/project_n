@@ -15,8 +15,37 @@
   }
 </style>
 {% endblock %}
+
+{% block script %}
+{% if user.is_authenticated and user.username == username %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
+<script>
+$(document).ready(function() {
+  $("button.btn").on("click", function(){
+    $.ajax({
+      type: "POST",
+      url: "/toggle_contact_page/",
+      data: {'enable': $(this).val()}
+    }); 
+  });
+});
+</script>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="container-narrow muted">
+  {% if user.is_authenticated and user.username == username %}
+  <div class="btn-group" data-toggle="buttons-radio" style="display: inline">
+    {% if profile.allow_contact %}
+    <button type="button" class="btn btn-primary active" value="True"><i class="icon-ok"></i></button>
+    <button type="button" class="btn btn-primary" value="False"><i class="icon-remove"></i></button>
+    {% else %}
+    <button type="button" class="btn btn-primary" value="True"><i class="icon-ok"></i></button>
+    <button type="button" class="btn btn-primary active" value="False"><i class="icon-remove"></i></button>
+    {% endif %}
+  </div>
+  {% endif %}
   {% if thanks %}
   <h3 class="message-success">Your message has been sent</h3>
   {% endif %}
