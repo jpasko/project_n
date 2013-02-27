@@ -113,20 +113,19 @@ def upload(request, gallery_id=None):
     customer = request.user.customer
     if request.method == 'POST':
         photo_form = UploadPhotoForm(request.POST, request.FILES)
+        item_form = UploadItemForm(request.POST)
         video_form = UploadVideoForm(request.POST)
-        if photo_form.is_valid():
-            gallery = photo_form.cleaned_data['gallery']
+        if photo_form.is_valid() and item_form.is_valid():
+            gallery = item_form.cleaned_data['gallery']
             item = Item(
                 gallery=gallery,
-                caption=photo_form.cleaned_data['caption'],
+                caption=item_form.cleaned_data['caption'],
                 is_photo=True
                 )
             item.save()
             photo = Photo(
                 item=item,
-                gallery=gallery,
                 image=request.FILES['image'],
-                caption=photo_form.cleaned_data['caption']
                 )
             photo.save()
             # Update the photo count on the user
@@ -159,24 +158,28 @@ def upload(request, gallery_id=None):
         # Only one form will contain valid errors...that is the form that
         # has changed due to user-submitted inputs (even though those inputs
         # did not pass validation.
-        if photo_form.has_changed():
+        if photo_form.has_changed() or item_form.has_changed():
             if gallery_id:
                 video_form = UploadVideoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
             else:
                 video_form = UploadVideoForm()
         elif video_form.has_changed():
+            photo_form = UploadPhotoForm()
             if gallery_id:
-                photo_form = UploadPhotoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
+                item_form = UploadItemForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
             else:
-                photo_form = UploadPhotoForm()            
+                item_form = UploadItemForm()            
     elif gallery_id:
-        photo_form = UploadPhotoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
+        item_form = UploadItemForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
+        photo_form = UploadPhotoForm()
         video_form = UploadVideoForm(initial = {'gallery': get_object_or_404(Gallery, pk=gallery_id)})
     else:
+        item_form = UploadItemForm()
         photo_form = UploadPhotoForm()
         video_form = UploadVideoForm()
     variables = RequestContext(request,
-                               {'photo_form': photo_form,
+                               {'item_form': item_form,
+                                'photo_form': photo_form,
                                 'video_form': video_form,
                                 'username': username,
                                 'customer': customer,

@@ -15,6 +15,14 @@ $(document).ready(function(){
 	success = success.bindExecutionScope(this);
 	processURL(url, success);
     });
+   $('.video-thumbnail-img').each(function() {
+	var url = $(this).attr("data-url");
+	var success = function(image) {
+	    $(this).attr('src', image);
+	};
+	success = success.bindExecutionScope(this);
+	processURL(url, success);
+    });
 });
 
 function processURL(url, success){

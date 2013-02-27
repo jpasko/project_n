@@ -2,6 +2,7 @@
 {% block title %}{{ profile.fullname }}{% endblock %}
 {% block script %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/get-thumbnail.js"></script>
 {% if user.is_authenticated and user.username == username %}
 <script src="{{ STATIC_URL }}js/confirm-delete.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
@@ -9,9 +10,6 @@
 {% endif %}
 <script>
   $(document).ready(function(){
-  $("#toggle-directions").click(function(){
-    $("#directions").toggle(200);
-  });
   $(".darken").hover(
     function() {
       var image = $(this).find("img");
@@ -51,14 +49,6 @@
     <span class="ui-icon ui-icon-alert"></span>
     This gallery and all photos and videos it contains will be permanently deleted.</p>
 </div>
-<a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
-<ul class="muted" id="directions">
-  <li><em><a href="create_gallery/">Create</a></em> a new gallery or use the <em>tools</em> drop-down menu (empty galleries won't be shown publicly)</li>
-  <li><img src="{{ STATIC_URL }}img/upload.png"> photos into a gallery, <img src="{{ STATIC_URL }}img/delete.png"> a gallery, 
-    or <img src="{{ STATIC_URL }}img/edit.png"> the gallery's title</li>
-  <li><em><a href="edit/">Edit</a></em> your settings to customize your portfolio's style and create your profile</li>
-  <li><em>Rearrange</em> galleries by dragging and dropping them</li>
-</ul>
 {% endif %}
 <div class="row muted">
   <div class="span12">
@@ -68,18 +58,28 @@
 	<div style="position: relative; left: 0; top: 0;" class="darken">
 	  {% if gallery.count > 0 %}
 	  <a href="/gallery/{{ gallery.pk }}/">
-	    {% with first_photo=gallery.photo_set.all|first %}
+	    {% with first_item=gallery.item_set.all|first %}
 	    {% if profile.portfolio_columns == 3 %}
 	    {% if gallery.thumbnail %}
 	    <img src="{{ gallery.thumbnail_3.url }}">
 	    {% else %}
-	    <img src="{{ first_photo.thumbnail_3.url }}">
+	    {% if first_item.is_photo %}
+	    <img src="{{ first_item.photo.thumbnail_3.url }}">
+	    {% else %}
+	    <!-- Get the video thumbnail here -->
+	    <img class="video-thumbnail-img" src="{{ STATIC_URL }}img/empty_gallery_square.png" data-url="{{ first_item.video.url }}" style="height: {{ SQUARE_THUMBNAIL_DIMENSION }}px; width: {{ SQUARE_THUMBNAIL_DIMENSION }}px">
+	    {% endif %}
 	    {% endif %}
 	    {% else %}
 	    {% if gallery.thumbnail %}
 	    <img src="{{ gallery.thumbnail_1.url }}">
 	    {% else %}
-	    <img src="{{ first_photo.thumbnail_1.url }}">
+	    {% if first_item.is_photo %}
+	    <img src="{{ first_item.photo.thumbnail_1.url }}">
+	    {% else %}
+	    <!-- Get the video thumbnail here -->
+	    <img class="video-thumbnail-img" src="{{ STATIC_URL }}img/empty_gallery_wide.png" data-url="{{ first_item.video.url }}" style="height: {{ WIDE_THUMBNAIL_HEIGHT }}px; width: {{ WIDE_THUMBNAIL_WIDTH }}px">
+	    {% endif %}
 	    {% endif %}
 	    {% endif %}
 	    {% endwith %}

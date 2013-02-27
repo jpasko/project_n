@@ -20,14 +20,6 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/get-thumbnail.js"></script>
-
-<script>
-$(document).ready(function(){
-  $("#toggle-directions").click(function(){
-    $("#directions").toggle(200);
-  });
-});
-</script>
 {% endif %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/galleria/galleria-1.2.9.min.js"></script>
 <script src="{{ STATIC_URL }}js/galleria/themes/classic/galleria.classic.min.js"></script>
@@ -44,13 +36,6 @@ $(document).ready(function(){
     Please either <a href="/settings">upgrade</a> your account or delete the excess 
     photos to re-enable your public portfolio.</em></p>
 {% endif %}
-<a id="toggle-directions" style="cursor: pointer"><b>Toggle directions</b></a>
-<ul class="muted" id="directions">
-  <li><em>Rearrange</em> photos by dragging and dropping them</li>
-  <li><img src="{{ STATIC_URL }}img/delete.png"> a photo or <img src="{{ STATIC_URL }}img/edit.png"> the photo's caption</li>
-  <li><a href="/upload/{{ gallery.pk }}/"><em>Upload</em></a> a photo into this gallery</li>
-  <li><em><a href="/edit/">Customize</a></em> the styling</li>
-</ul>
 <div id="dialog" title="Are you sure?">
   <p>
     <span class="ui-icon ui-icon-alert"></span>

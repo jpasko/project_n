@@ -15,7 +15,7 @@ def upload_to_photo(instance, filename):
     """
     Creates an upload_to path for photos.
     """
-    return 'photos/%d/%s' % (instance.gallery.id, filename)
+    return 'photos/%d/%s' % (instance.item.gallery.id, filename)
 
 def upload_to_gallery(instance, filename):
     """
@@ -69,11 +69,6 @@ class Item(models.Model):
         ordering = ['order', 'pk']
 
 class Photo(models.Model):
-    # Get rid of these fields:
-    gallery = models.ForeignKey(Gallery)
-    caption = models.CharField(max_length=100, blank=True)
-    order = models.IntegerField(default=9999, blank=True)
-
     item = models.OneToOneField(Item)
     image = ProcessedImageField([ResizeToFit(width=750,
                                              height=750,
@@ -85,9 +80,6 @@ class Photo(models.Model):
     # Thumbnail for the 1 column layout
     thumbnail_1 = ImageSpecField([ResizeToFill(settings.WIDE_THUMBNAIL_WIDTH, settings.WIDE_THUMBNAIL_HEIGHT)],
                                  image_field='image')
-
-    class Meta:
-        ordering = ['order', 'pk']
 
 class Video(models.Model):
     item = models.OneToOneField(Item)

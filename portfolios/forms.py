@@ -1,7 +1,6 @@
 from accounts.models import UserProfile
 from portfolios.models import Item, Photo, Video, Gallery
 from django import forms
-from imagekit.models.fields import ProcessedImageField
 
 class UserProfileForm(forms.ModelForm):
     """
@@ -28,7 +27,7 @@ class UploadPhotoForm(forms.ModelForm):
     """
     class Meta:
         model = Photo
-        exclude = ('order', 'item')
+        exclude = ('item')
 
 class UploadVideoForm(UploadItemForm):
     """
