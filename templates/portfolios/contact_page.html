@@ -21,23 +21,34 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script>
 $(document).ready(function() {
-  $("button.btn").on("click", function(){
-    if ($(".enable-contact").hasClass("btn-success")) {
-      $(".enable-contact").removeClass("btn-success");
-      $(".enable-contact").addClass("btn-default");
-      $(".disable-contact").removeClass("btn-default");
-      $(".disable-contact").addClass("btn-danger");
-    } else {
-      $(".enable-contact").removeClass("btn-default");
-      $(".enable-contact").addClass("btn-success");
-      $(".disable-contact").removeClass("btn-danger");
+  $(".enable-contact").on("click", function() {
+    if (!$(this).hasClass("active")) {
+      $(this).removeClass("btn-default");
+      $(this).addClass("btn-success active");
+      $(".disable-contact").removeClass("btn-danger active");
       $(".disable-contact").addClass("btn-default");
+
+      $.ajax({
+        type: "POST",
+        url: "/toggle_contact_page/",
+        data: {'enable': 'True'}
+      });
     }
-    $.ajax({
-      type: "POST",
-      url: "/toggle_contact_page/",
-      data: {'enable': $(this).val()}
-    }); 
+  });
+
+  $(".disable-contact").on("click", function() {
+    if (!$(this).hasClass("active")) {
+      $(this).removeClass("btn-default");
+      $(this).addClass("btn-danger active");
+      $(".enable-contact").removeClass("btn-success active");
+      $(".enable-contact").addClass("btn-default");
+
+      $.ajax({
+        type: "POST",
+        url: "/toggle_contact_page/",
+        data: {'enable': 'False'}
+      });
+    }
   });
 });
 </script>
@@ -56,11 +67,11 @@ $(document).ready(function() {
       <p class="muted">Enable this page?</p>
       <div class="btn-group" data-toggle="buttons-radio" style="display: inline">
 	{% if profile.allow_contact %}
-	<button type="button" class="btn btn-success enable-contact" value="True"><i class="icon-ok"></i></button>
+	<button type="button" class="btn btn-success enable-contact active" value="True"><i class="icon-ok"></i></button>
 	<button type="button" class="btn btn-default disable-contact" value="False"><i class="icon-remove"></i></button>
 	{% else %}
 	<button type="button" class="btn btn-default enable-contact" value="True"><i class="icon-ok"></i></button>
-	<button type="button" class="btn btn-danger disable-contact" value="False"><i class="icon-remove"></i></button>
+	<button type="button" class="btn btn-danger disable-contact active" value="False"><i class="icon-remove"></i></button>
 	{% endif %}
       </div>
     </div>
