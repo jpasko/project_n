@@ -23,7 +23,6 @@ class UserProfile(models.Model):
     # Required to associate with a unique user.
     user = models.OneToOneField(User)
 
-    # The number of photos owned by this user.
     photo_count = models.IntegerField(default=0)
 
     allow_contact = models.BooleanField(default=True)
@@ -41,16 +40,6 @@ class UserProfile(models.Model):
     phone = models.CharField(verbose_name='phone',
                              max_length=20, blank=True)
 
-    STYLES = (
-        ('D', 'Dark'),
-        ('L', 'Light'),
-        ('M', 'Minimalist'),
-    )
-    style = models.CharField(verbose_name='Background',
-                             max_length=1,
-                             choices=STYLES,
-                             default='D')
-
     background_color = models.CharField(max_length=6,
                                         default='000000')
 
@@ -58,15 +47,13 @@ class UserProfile(models.Model):
         (3, 'Square'),
         (1, 'Wide'),
     )
-    portfolio_columns = models.IntegerField(verbose_name='Portfolio thumbnail style',
+    portfolio_columns = models.IntegerField(verbose_name='Thumbnail style',
                                             choices=COLUMNS,
                                             default=3)
 
-    gallery_columns = models.IntegerField(verbose_name='Gallery thumbnail style',
-                                          choices=COLUMNS,
-                                          default=3)
-
     website = models.URLField(max_length=500, blank=True)
+    blog = models.URLField(max_length=500, blank=True)
+
     twitter = models.URLField(max_length=500, blank=True)
     facebook = models.URLField(max_length=500, blank=True)
     google_plus = models.URLField(max_length=500, blank=True, verbose_name="Google+")

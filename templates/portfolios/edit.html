@@ -77,18 +77,12 @@ $(function() {
       </div>
       <h3>Customize</h3>
       <div>
-	{{ form.style.errors }}
-	<label for="id_style">Background</label>
-	{{ form.style }}
 	{{ form.portfolio_columns.errors }}
-	<label for="id_columns">Portfolio thumbnail style</label>
+	<label for="id_columns">Thumbnail style</label>
 	{{ form.portfolio_columns }}
-	{{ form.gallery_columns.errors }}
-	<label for="id_columns">Gallery thumbnail style</label>
-	{{ form.gallery_columns }}
-	{{ form.allow_contact.errors }}
-	<label for="id_style">Include contact page?</label>
-	{{ form.allow_contact }}
+	{{ form.blog.errors }}
+	<label for="id_style">Blog URL (optional)</label>
+	{{ form.blog }}
 	{{ form.background_color.errors }}
 	<label for="id_style">Background color</label>
 	{{ form.background_color }}
