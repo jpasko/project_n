@@ -141,6 +141,7 @@ def upload_image(request, gallery_id):
                                {'item_form': item_form,
                                 'photo_form': photo_form,
                                 'video_form': None,
+                                'gallery_id': gallery_id,
                                 'username': username,
                                 'customer': customer,
                                 'profile': profile})
@@ -184,6 +185,7 @@ def upload_video(request, gallery_id):
                                {'item_form': None,
                                 'photo_form': None,
                                 'video_form': video_form,
+                                'gallery_id': gallery_id,
                                 'username': username,
                                 'customer': customer,
                                 'profile': profile})

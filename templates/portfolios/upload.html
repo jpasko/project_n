@@ -17,7 +17,7 @@
       {{ item_form.as_p }}
       {{ photo_form.as_p }}
       <input type="submit" value="Upload Photo" class="btn-green">
-      <a class="btn-contact btn-link" onClick="javascript:history.go(-1);" style="margin-left: 10px">Cancel</a>
+      <a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/" style="margin-left: 10px">Cancel</a>
     </form>
     {% endif %}
 
@@ -27,7 +27,7 @@
       {% csrf_token %}
       {{ video_form.as_p }}
       <input type="submit" value="Upload Video" class="btn-green">
-      <a class="btn-contact btn-link" onClick="javascript:history.go(-1);" style="margin-left: 10px">Cancel</a>
+      <a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/" style="margin-left: 10px">Cancel</a>
     </form>
     {% endif %}
 
