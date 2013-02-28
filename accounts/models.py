@@ -27,6 +27,8 @@ class UserProfile(models.Model):
 
     allow_contact = models.BooleanField(default=True)
 
+    allow_about = models.BooleanField(default=True)
+
     fullname = models.CharField(verbose_name='name',
                                 max_length=75,
                                 blank=True)

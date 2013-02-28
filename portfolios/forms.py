@@ -8,7 +8,7 @@ class UserProfileForm(forms.ModelForm):
     """
     class Meta:
         model = UserProfile
-        exclude = ('account_type', 'user', 'photo_count', 'allow_contact')
+        exclude = ('account_type', 'user', 'photo_count', 'allow_contact', 'allow_about')
         widgets = {
             'picture': forms.FileInput(),
         }

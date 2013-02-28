@@ -86,7 +86,9 @@
 
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
+	      {% if profile.allow_about or user.is_authenticated and user.username == username %}
 	      <li><a href="/about/">about</a></li>
+	      {% endif %}
 	      {% if profile.blog %}
 	      <li><a href="{{ profile.blog }}" target="_blank">blog</a></li>
 	      {% endif %}

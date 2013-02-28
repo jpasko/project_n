@@ -78,6 +78,9 @@ urlpatterns = patterns('',
     # POST to this URL to toggle the display of the contact page.
     url(r'^toggle_contact_page/$', 'portfolios.views.toggle_contact'),
 
+    # POST to this URL to toggle the display of the about page.
+    url(r'^toggle_about_page/$', 'portfolios.views.toggle_about'),
+
     # Robots.txt directly from template.
     url(r'^robots\.txt$', direct_to_template,
         {'template': 'robots.txt', 'mimetype': 'text/plain'}),

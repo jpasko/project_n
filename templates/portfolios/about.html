@@ -16,6 +16,7 @@
 {% block script %}
 {% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/confirm-delete.js"></script>
 <script>
 $(document).ready(function(){
@@ -23,6 +24,36 @@ $(document).ready(function(){
     $(this).find('img').prop('src', '{{ STATIC_URL}}img/pencil.png');
   }, function () {
     $(this).find('img').prop('src', '{{ STATIC_URL}}img/pencil_dull.png');
+  });
+
+  $(".enable-about").on("click", function() {
+    if (!$(this).hasClass("active")) {
+      $(this).removeClass("btn-default");
+      $(this).addClass("btn-success active");
+      $(".disable-about").removeClass("btn-danger active");
+      $(".disable-about").addClass("btn-default");
+
+      $.ajax({
+        type: "POST",
+        url: "/toggle_about_page/",
+        data: {'enable': 'True'}
+      });
+    }
+  });
+
+  $(".disable-about").on("click", function() {
+    if (!$(this).hasClass("active")) {
+      $(this).removeClass("btn-default");
+      $(this).addClass("btn-danger active");
+      $(".enable-about").removeClass("btn-success active");
+      $(".enable-about").addClass("btn-default");
+
+      $.ajax({
+        type: "POST",
+        url: "/toggle_about_page/",
+        data: {'enable': 'False'}
+      });
+    }
   });
 });
 </script>
@@ -38,7 +69,24 @@ $(document).ready(function(){
 {% endif %}
 <div class="row muted">
   <div class="span7">
-
+    {% if user.is_authenticated and username == user.username %}
+    <div class="row" style="padding-bottom: 10px">
+      <div class="span1">
+	<p><b>Enable?</b></p>
+      </div>
+      <div class="span6">
+	<div class="btn-group" data-toggle="buttons-radio" style="display: inline">
+	  {% if profile.allow_about %}
+	  <button type="button" class="btn btn-success enable-about active" value="True"><i class="icon-ok"></i></button>
+	  <button type="button" class="btn btn-default disable-about" value="False"><i class="icon-remove"></i></button>
+	  {% else %}
+	  <button type="button" class="btn btn-default enable-about" value="True"><i class="icon-ok"></i></button>
+	  <button type="button" class="btn btn-danger disable-about active" value="False"><i class="icon-remove"></i></button>
+	  {% endif %}
+	</div>
+      </div>
+    </div>
+    {% endif %}
     <div class="row">
       <div class="span1">
 	{% if user.is_authenticated and username == user.username %}

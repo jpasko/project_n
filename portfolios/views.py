@@ -399,3 +399,21 @@ def toggle_contact(request):
             profile.save()
             results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')
+
+def toggle_about(request):
+    """
+    Toggles the display of the about page.
+    """
+    username = request.subdomain
+    # Ensure that we cannot toggle the contact page of a different user.
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    results = {'success': False}
+    if request.method == 'POST':
+        if 'enable' in request.POST:
+            enable = request.POST.get('enable') == 'True'
+            profile.allow_about = enable
+            profile.save()
+            results = {'success': True}
+    return HttpResponse(json.dumps(results), mimetype='application/json')

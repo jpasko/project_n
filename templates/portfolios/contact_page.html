@@ -64,7 +64,7 @@ $(document).ready(function() {
 
     {% if user.is_authenticated and user.username == username %}
     <div class="span3">
-      <p class="muted">Enable this page?</p>
+      <p class="muted"><b>Enable this page?</b></p>
       <div class="btn-group" data-toggle="buttons-radio" style="display: inline">
 	{% if profile.allow_contact %}
 	<button type="button" class="btn btn-success enable-contact active" value="True"><i class="icon-ok"></i></button>
