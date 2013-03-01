@@ -49,9 +49,9 @@ def about(request):
     )
     return render_to_response('portfolios/about.html', variables)
 
-def edit(request):
+def customize(request):
     """
-    Allows a user to edit their profile.
+    Allows a user to customize their portfolio's style.
     """
     username = request.subdomain
     # Ensure that we cannot edit other user's profiles:
@@ -433,6 +433,38 @@ def update_profile(request):
     if request.method == 'POST':
         if 'about' in request.POST:
             profile.about = request.POST.get('about')
+            profile.save()
+            results = {'success': True}
+        elif 'email' in request.POST:
+            profile.email = request.POST.get('email')
+            profile.save()
+            results = {'success': True}
+        elif 'phone' in request.POST:
+            profile.phone = request.POST.get('phone')
+            profile.save()
+            results = {'success': True}
+        elif 'location' in request.POST:
+            profile.location = request.POST.get('location')
+            profile.save()
+            results = {'success': True}
+        elif 'website' in request.POST:
+            profile.website = request.POST.get('website')
+            profile.save()
+            results = {'success': True}
+        elif 'twitter' in request.POST:
+            profile.twitter = request.POST.get('twitter')
+            profile.save()
+            results = {'success': True}
+        elif 'facebook' in request.POST:
+            profile.facebook = request.POST.get('facebook')
+            profile.save()
+            results = {'success': True}
+        elif 'google_plus' in request.POST:
+            profile.google_plus = request.POST.get('google_plus')
+            profile.save()
+            results = {'success': True}
+        elif 'linkedin' in request.POST:
+            profile.linkedin = request.POST.get('linkedin')
             profile.save()
             results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')

@@ -233,6 +233,12 @@ $(document).ready(function(){
     </div>
   </div>
 
+  {% if user.is_authenticated and username == user.username %}
+  <div class="span3" style="margin-bottom: 15px">
+    <a href="/customize/" class="btn-green btn-green-link"><i class="icon-plus icon-white"></i>Profile picture</a>
+  </div>
+  {% endif %}
+
   {% if profile.picture %}
   <div class="span3" style="position: relative; left: 0; top: 0;">
       <img src="{{ profile.picture.url }}">

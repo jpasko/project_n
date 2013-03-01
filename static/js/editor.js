@@ -8,7 +8,6 @@ $(document).ready(function(){
 	}
 	$("#about-textarea").show();
 	resizeTextArea($("#about-textarea"));
-	$("#about-textarea").select();
 	$("#save-about").show();
 	$("#cancel-about").show();
     });

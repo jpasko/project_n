@@ -20,8 +20,8 @@ urlpatterns = patterns('',
     # The contact page containing a contact form.
     url(r'^contact/$', 'portfolios.views.contact'),
 
-    # Users can edit their profile.
-    url(r'^edit/$', 'portfolios.views.edit'),
+    # Users can customize their portfolio.
+    url(r'^customize/$', 'portfolios.views.customize'),
 
     # Users must create a gallery to upload photos into.
     url(r'^create_gallery/$', 'portfolios.views.create_gallery'),
