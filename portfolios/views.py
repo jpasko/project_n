@@ -468,3 +468,20 @@ def update_profile(request):
             profile.save()
             results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')
+
+def help(request):
+    """
+    Simple help page for users to refer to.
+    """
+    username = request.subdomain
+    # Ensure that the help page is only available to its owner.
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    customer = request.user.customer
+    variables = RequestContext(request,
+                              {'username': username,
+                               'profile': profile,
+                               'customer': customer,}
+                               )
+    return render_to_response('portfolios/help.html', variables)

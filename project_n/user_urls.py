@@ -84,6 +84,9 @@ urlpatterns = patterns('',
     # POST to this URL to update the profile with AJAX.
     url(r'^update/$', 'portfolios.views.update_profile'),
 
+    # A help page.
+    url(r'^help/$', 'portfolios.views.help'),
+
     # Robots.txt directly from template.
     url(r'^robots\.txt$', direct_to_template,
         {'template': 'robots.txt', 'mimetype': 'text/plain'}),

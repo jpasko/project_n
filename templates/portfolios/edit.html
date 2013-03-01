@@ -2,13 +2,10 @@ g{% extends "portfolio_base.html" %}
 {% block title %}{{ profile.fullname }} | Edit{% endblock %}
 {% block header %}{% endblock %}
 {% block script %}
-<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js//jscolor.js"></script>
+<!--<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>-->
+<script type="text/javascript" src="{{ STATIC_URL }}js/jscolor.js"></script>
 <script>
 $(function() {
-  $( "#accordion" ).accordion({
-    heightStyle: "content"
-  });
   $("#id_background_color").addClass("color");
   $("#id_text_color").addClass("color");
   $("#id_text_color_hover").addClass("color");
@@ -23,22 +20,21 @@ $(function() {
   }
 </style>
 <div class="row">
-<div class="span10">
-  <h3 class="muted">Edit your portfolio</h3>
-  <p class="muted"><em>(All fields are optional)</em></p>
+<div class="span10 offset2">
+  <h3 class="muted" style="padding-left: 150px">Customize</h3>
   {% if form.errors %}
-  <p>Please correct the errors and resubmit.</p>
+  <p class="muted">Please correct the errors and resubmit.</p>
   {% endif %}
-  <form method="post" action="." enctype="multipart/form-data">
+  <form method="post" action="." enctype="multipart/form-data" class="form-horizontal muted">
     {% csrf_token %}
-    <div id="accordion">
-      <h3>Basic</h3>
+
+<!--
       <div>
 	{{ form.location.errors }}
 	<label for="id_location">Location</label>
 	{{ form.location }}
       </div>
-      <h3>Contact</h3>
+
       <div>
 	{{ form.email.errors }}
 	<label for="id_email">Contact email</label>
@@ -50,7 +46,7 @@ $(function() {
 	<label for="id_website">Website</label>
 	{{ form.website }}
       </div>
-      <h3>Social</h3>
+
       <div>
 	{{ form.twitter.errors }}
 	<label for="id_twitter">Twitter</label>
@@ -65,7 +61,7 @@ $(function() {
 	<label for="id_linkedin">LinkedIn</label>
 	{{ form.linkedin }}
       </div>
-      <h3>About and Picture</h3>
+
       <div>
 	{{ form.about.errors }}
 	<label for="id_about">About</label>
@@ -74,42 +70,74 @@ $(function() {
 	<label for="id_picture">Profile picture</label>
 	{{ form.picture }}
       </div>
-      <h3>Customize</h3>
-      <div>
+-->
+      <div class="control-group">
 	{{ form.fullname.errors }}
-	<label for="id_fullname">Portfolio Title</label>
-	{{ form.fullname }}
-
-	{{ form.picture.errors }}
-	<label for="id_picture">Profile picture</label>
-	{{ form.picture }}
-
-	{{ form.banner.errors }}
-	<label for="id_banner">Banner image</label>
-	{{ form.banner }}
-
-	{{ form.portfolio_columns.errors }}
-	<label for="id_columns">Thumbnail style</label>
-	{{ form.portfolio_columns }}
-
-	{{ form.blog.errors }}
-	<label for="id_blog">Blog URL (optional)</label>
-	{{ form.blog }}
-
-	{{ form.background_color.errors }}
-	<label for="id_background_color">Background color</label>
-	{{ form.background_color }}
-
-	{{ form.text_color.errors }}
-	<label for="id_text_color">Text color</label>
-	{{ form.text_color }}
-
-	{{ form.text_color_hover.errors }}
-	<label for="id_text_color_hover">Text hover color</label>
-	{{ form.text_color_hover }}
+	<label class="control-label" for="id_fullname">Portfolio Title</label>
+	<div class="controls">
+	  {{ form.fullname }}
+	</div>
       </div>
-    </div>
-    <input type="submit" value="Update portfolio" class="btn btn-large btn-primary" style="float: right; margin-top: 10px; margin-right: 50px;">
+
+      <div class="control-group">
+	{{ form.picture.errors }}
+	<label class="control-label" for="id_picture">Profile picture</label>
+	<div class="controls">
+	  {{ form.picture }}
+	</div>
+      </div>
+
+      <div class="control-group">
+	{{ form.banner.errors }}
+	<label class="control-label" for="id_banner">Banner image</label>
+	<div class="controls">
+	  {{ form.banner }}
+	</div>
+      </div>
+
+      <div class="control-group">
+	{{ form.portfolio_columns.errors }}
+	<label class="control-label" for="id_columns">Thumbnail style</label>
+	<div class="controls">
+	  {{ form.portfolio_columns }}
+	</div>
+      </div>
+
+      <div class="control-group">
+	{{ form.blog.errors }}
+	<label class="control-label" for="id_blog">Blog URL (optional)</label>
+	<div class="controls">
+	  {{ form.blog }}
+	</div>
+      </div>
+      
+      <div class="control-group">
+	{{ form.background_color.errors }}
+	<label class="control-label" for="id_background_color">Background color</label>
+	<div class="controls">
+	  {{ form.background_color }}
+	</div>
+      </div>
+      
+      <div class="control-group">
+	{{ form.text_color.errors }}
+	<label class="control-label" for="id_text_color">Text color</label>
+	<div class="controls">
+	  {{ form.text_color }}
+	</div>
+      </div>
+      
+      <div class="control-group">
+	{{ form.text_color_hover.errors }}
+	<label class="control-label" for="id_text_color_hover">Text hover color</label>
+	<div class="controls">
+	  {{ form.text_color_hover }}
+	</div>
+      </div>
+      
+
+      <input type="submit" value="Update portfolio" class="btn-green" style="margin-left: 150px">
+      <a class="btn-contact btn-link" href="/" style="margin-left: 10px">Cancel</a>
   </form>
 </div>
 </div>

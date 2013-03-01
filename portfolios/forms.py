@@ -11,6 +11,7 @@ class UserProfileForm(forms.ModelForm):
         exclude = ('account_type', 'user', 'photo_count', 'allow_contact', 'allow_about')
         widgets = {
             'picture': forms.FileInput(),
+            'banner': forms.FileInput(),
         }
 
 class UploadItemForm(forms.ModelForm):
