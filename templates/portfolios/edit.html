@@ -10,6 +10,7 @@ $(function() {
     heightStyle: "content"
   });
   $("#id_background_color").addClass("color");
+  $("#id_text_color").addClass("color");
 });
 </script>
 {% endblock %}
@@ -77,15 +78,21 @@ $(function() {
 	{{ form.fullname.errors }}
 	<label for="id_fullname">Portfolio Title</label>
 	{{ form.fullname }}
+	{{ form.picture.errors }}
+	<label for="id_picture">Profile picture</label>
+	{{ form.picture }}
 	{{ form.portfolio_columns.errors }}
 	<label for="id_columns">Thumbnail style</label>
 	{{ form.portfolio_columns }}
 	{{ form.blog.errors }}
-	<label for="id_style">Blog URL (optional)</label>
+	<label for="id_blog">Blog URL (optional)</label>
 	{{ form.blog }}
 	{{ form.background_color.errors }}
-	<label for="id_style">Background color</label>
+	<label for="id_background_color">Background color</label>
 	{{ form.background_color }}
+	{{ form.text_color.errors }}
+	<label for="id_text_color">Text color</label>
+	{{ form.text_color }}
       </div>
     </div>
     <input type="submit" value="Update portfolio" class="btn btn-large btn-primary" style="float: right; margin-top: 10px; margin-right: 50px;">
