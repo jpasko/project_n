@@ -46,7 +46,10 @@ class UserProfile(models.Model):
                                         default='000000')
 
     text_color = models.CharField(max_length=6,
-                                        default='999999')
+                                  default='999999')
+
+    text_color_hover = models.CharField(max_length=6,
+                                        default='D4D4D4')
 
     COLUMNS = (
         (3, 'Square'),
@@ -73,7 +76,7 @@ class UserProfile(models.Model):
                                   verbose_name='Profile picture')
 
     banner = ProcessedImageField([ResizeToFit(width=500,
-                                              height=100,
+                                              height=36,
                                               upscale=False)],
                                  upload_to=upload_to,
                                  blank=True,

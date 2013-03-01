@@ -13,10 +13,12 @@
       .muted {
         color: #{{ profile.text_color }} !important;
       }
-      .house img {
+      a.muted:hover {
+        color: #{{ profile.text_color_hover }} !important;
+      }
+      .house .house-logo {
         display: none;
         padding-bottom: 4px;
-        padding-left: 2px;
       }
     </style>
 <!--    <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet"> -->
@@ -30,9 +32,9 @@
           $(this).find('img').prop('src', '{{ STATIC_URL}}img/small_lemon_dull.png');
         });
         $('.house').hover(function () {
-          $(this).find('img').show();
+          $(this).find('.house-logo').show();
         }, function () {
-          $(this).find('img').hide();
+          $(this).find('.house-logo').hide();
         });
       });
     </script>
@@ -54,7 +56,6 @@
   <body>
 
     <div class="wrapper">
-
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -63,23 +64,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-	  {% if profile.fullname %}
-	  <a class="house brand" href="/">{{ profile.fullname }}<img src="{{ STATIC_URL }}img/house_light.png"></a>
+	  {% if profile.banner %}
+	  <a class="house brand" style="padding-top: 2px; padding-bottom: 2px" href="/">
+	    <img class="banner" src="{{ profile.banner.url }}">
+	    <img class="house-logo" style="padding: 0" src="{{ STATIC_URL }}img/house_light.png">
+	  </a>
+	  {% elif profile.fullname %}
+	  <a class="house brand muted" href="/">{{ profile.fullname }}
+	    <img class="house-logo" src="{{ STATIC_URL }}img/house_light.png">
+	  </a>
 	  {% else %}
-	  <a class="house brand" href="/">{{ username }}<img src="{{ STATIC_URL }}img/house_light.png"></a>
+	  <a class="house brand muted" href="/">{{ username }}
+	    <img class="house-logo" src="{{ STATIC_URL }}img/house_light.png">
+	  </a>
 	  {% endif %}
 	  {% block navbar-text %}{% endblock %}
 
 	  {% if user.is_authenticated and user.username == username %}
 	  {% with account_limit=customer.account_limit %}
 	  {% if profile.photo_count > account_limit %}
-	  <p class="navbar-text pull-left" style="color: red">
+	  <p class="navbar-text pull-left muted" style="color: red">
 	    (currently using {{ profile.photo_count }} of {{ account_limit }} uploads | 
 	  {% elif profile.photo_count == account_limit %}
-	  <p class="navbar-text pull-left" style="color: orange">
+	  <p class="navbar-text pull-left muted" style="color: orange">
 	    (currently using {{ profile.photo_count }} of {{ account_limit }} uploads | 
 	  {% else %}
-	  <p class="navbar-text pull-left">
+	  <p class="navbar-text pull-left muted">
 	    (currently using {{ profile.photo_count }} of {{ account_limit }} uploads | 
 	  {% endif %}
 	  {% endwith %}
@@ -90,17 +100,17 @@
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
 	      {% if profile.allow_about or user.is_authenticated and user.username == username %}
-	      <li><a href="/about/">about</a></li>
+	      <li><a class="muted" href="/about/">about</a></li>
 	      {% endif %}
 	      {% if profile.blog %}
-	      <li><a href="{{ profile.blog }}" target="_blank">blog</a></li>
+	      <li><a class="muted" href="{{ profile.blog }}" target="_blank">blog</a></li>
 	      {% endif %}
 	      {% if profile.allow_contact or user.is_authenticated and user.username == username %}
-	      <li><a href="/contact/">contact</a></li>
+	      <li><a class="muted" href="/contact/">contact</a></li>
 	      {% endif %}
 	      {% if user.is_authenticated and user.username == username %}
 	      <li class="dropdown" id="menu1">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+		<a class="dropdown-toggle muted" data-toggle="dropdown" href="#menu1">
 		  tools
 		  <b class="caret"></b>
 		</a>
