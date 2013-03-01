@@ -419,3 +419,20 @@ def toggle_about(request):
             profile.save()
             results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')
+
+def update_profile(request):
+    """
+    Responds to AJAX POSTs to update the profile.
+    """
+    username = request.subdomain
+    # Ensure that we cannot toggle the contact page of a different user.
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    results = {'success': False}
+    if request.method == 'POST':
+        if 'about' in request.POST:
+            profile.about = request.POST.get('about')
+            profile.save()
+            results = {'success': True}
+    return HttpResponse(json.dumps(results), mimetype='application/json')

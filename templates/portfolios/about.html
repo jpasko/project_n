@@ -18,6 +18,7 @@
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/confirm-delete.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/editor.js"></script>
 <script>
 $(document).ready(function(){
   $('.pencil').hover(function () {
@@ -87,21 +88,31 @@ $(document).ready(function(){
       </div>
     </div>
     {% endif %}
+
     <div class="row">
       <div class="span1">
 	{% if user.is_authenticated and username == user.username %}
-	<a class="pencil muted" href="/edit/"><b>About</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	<a class="pencil muted" id="trigger-editable-about" href="#"><b>About</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.about %}
 	<p><b>About</b></p>
 	{% endif %}
       </div>
       <div class="span6">
 	{% if user.is_authenticated and username == user.username %}
-	{% if profile.about %}
-	<p>{{ profile.about|linebreaksbr }}</p>
-	{% else %}
-	<p><em>Currently empty</em></p>
-	{% endif %}
+	<div id="editable-about">
+	  {% if profile.about %}
+	  <p id="valid-about">{{ profile.about|linebreaksbr }}</p>
+	  {% else %}
+	  <p id="empty-about"><em>Currently empty</em></p>
+	  {% endif %}
+	  <textarea id="about-textarea" style="display: none; width: 100%"></textarea>
+	</div>
+	<button type="button" class="btn btn-success" id="save-about" style="display: none; margin-top: 3px; margin-bottom: 5px">
+	  <b>Save</b>
+	</button>
+	<button type="button" class="btn btn-default" id="cancel-about" style="display: none; margin-top: 3px; margin-bottom: 5px">
+	  <i class="icon-remove"></i>
+	</button>
 	{% elif profile.about %}
 	<p>{{ profile.about|linebreaksbr }}</p>
 	{% endif %}
