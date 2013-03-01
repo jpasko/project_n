@@ -24,9 +24,6 @@
     padding: 5px;
     border-radius: 5px;
   }
-  #payment-form {
-
-  }
 </style>
 {% endblock %}
 {% block script %}
@@ -36,32 +33,32 @@
   Stripe.setPublishableKey('{{ publishable }}');
 
   function stripeResponseHandler(status, response) {
-    if (response.error) {
-      $('.processing-errors').hide()
-      $('.payment-errors').text(response.error.message);
-      $('.payment-errors').show();
-      $('.submit-button').prop('disabled', false);
-    } else {
-      var $form = $('#payment-form');
-      var token = response.id;
-      $form.append($('<input type="hidden" name="stripe_token" />').val(token));
-      $form.get(0).submit();
-    }
+  if (response.error) {
+  $('.processing-errors').hide()
+  $('.payment-errors').text(response.error.message);
+  $('.payment-errors').show();
+  $('.submit-button').prop('disabled', false);
+  } else {
+  var $form = $('#payment-form');
+  var token = response.id;
+  $form.append($('<input type="hidden" name="stripe_token" />').val(token));
+  $form.get(0).submit();
+  }
   }
   
   $(function() {
-    $('#payment-form').submit(function(event) {
-      $('.submit-button').prop('disabled', true);
+  $('#payment-form').submit(function(event) {
+  $('.submit-button').prop('disabled', true);
   
-      Stripe.createToken({
-        number: $('.card-number').val(),
-        cvc: $('.card-cvc').val(),
-        exp_month: $('.card-expiry-month').val(),
-        exp_year: $('.card-expiry-year').val()
-      }, stripeResponseHandler);
+  Stripe.createToken({
+  number: $('.card-number').val(),
+  cvc: $('.card-cvc').val(),
+  exp_month: $('.card-expiry-month').val(),
+  exp_year: $('.card-expiry-year').val()
+  }, stripeResponseHandler);
 
-      return false;
-    });
+  return false;
+  });
   });
 </script>
 {% endif %}
@@ -71,20 +68,20 @@
   <div style="text-align: center; padding: 30px 0;">
     <h2 style="font-family: 'Raleway', sans-serif; font-size: 4em">{{ account_type }}</h2>
   </div>
-    <form method="POST" action="" id="payment-form">
-      {% csrf_token %}
-      <div class="row">
-	{% if paid %}
-	<div class="span3 offset2">
+  <form method="POST" action="" id="payment-form">
+    {% csrf_token %}
+    <div class="row">
+      {% if paid %}
+      <div class="span4 offset1">
 	{% else %}
-	<div class="span3 offset3" style="padding-left: 30px">
-	{% endif %}
+	<div class="span4 offset3" style="padding-left: 30px">
+	  {% endif %}
 
 	  {% if user_form.username.errors %}
 	  <span class="processing-errors">{{ user_form.username.errors }}</span>
 	  {% endif %}
 	  <label for="id_username">Username</label>
-	  {{ user_form.username }}
+	  {{ user_form.username }}<span style="display: inline">.citreo.us</span>
 
 	  {% if user_form.email.errors %}
 	  <span class="processing-errors">{{ user_form.email.errors }}</span>
@@ -108,43 +105,43 @@
 	  <label for="id_password2">Password (again)</label>
 	  {{ user_form.password2 }}
 	</div>
-      {% if paid %}
+	{% if paid %}
 	<div class="span4">
 
-      <span class="payment-errors"></span>
-      {% if error %}
-      <span class="processing-errors">{{ error }}</span>
-      {% endif %}
-      <label for="card-number-id">Card Number</label>
-      <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id"/>
+	  <span class="payment-errors"></span>
+	  {% if error %}
+	  <span class="processing-errors">{{ error }}</span>
+	  {% endif %}
+	  <label for="card-number-id">Card Number</label>
+	  <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id"/>
 
-      <label for="cvc-id">CVC (security code)</label>
-      <div style="overflow: hidden">
-	<input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 5ex"/>
-	<img src="{{ STATIC_URL }}img/cards.png" class="cvc-image">
-      </div>
+	  <label for="cvc-id">CVC (security code)</label>
+	  <div style="overflow: hidden">
+	    <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 5ex"/>
+	    <img src="{{ STATIC_URL }}img/cards.png" class="cvc-image">
+	  </div>
 
-      <label for="expiry_date">Expiration date</label>
-      <div class="input">
-        <select class="card-expiry-month" style="width: 8ex">
-          {% for month in months %}
-          <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
-          {% endfor %}
-        </select>
-        <select class="card-expiry-year" style="width: 10ex">
-          {% for year in years %}
-          <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
-          {% endfor %}
-        </select>
-      </div>
+	  <label for="expiry_date">Expiration date</label>
+	  <div class="input">
+            <select class="card-expiry-month" style="width: 8ex">
+              {% for month in months %}
+              <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
+              {% endfor %}
+            </select>
+            <select class="card-expiry-year" style="width: 10ex">
+              {% for year in years %}
+              <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
+              {% endfor %}
+            </select>
+	  </div>
 
-      <div style="overflow: hidden"><img src="{{ STATIC_URL }}img/cards.png" class="card-images"></div>
-      </div>
-      {% endif %}
+	  <div style="overflow: hidden"><img src="{{ STATIC_URL }}img/cards.png" class="card-images"></div>
+	</div>
+	{% endif %}
       </div>
       <div style="text-align: center; padding-top: 20px">
-      <button type="submit" class="submit-button btn-primary btn-large">Sign up</button>
+	<button type="submit" class="submit-button btn-primary btn-large">Sign up</button>
       </div>
-    </form>
-</div>
-{% endblock %}
+  </form>
+  </div>
+  {% endblock %}
