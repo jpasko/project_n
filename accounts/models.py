@@ -38,6 +38,9 @@ class UserProfile(models.Model):
     ga_2 = models.IntegerField(null=True,
                                blank=True)
 
+    copy_text = models.CharField(verbose_name='copyright text',
+                                max_length=100,
+                                blank=True)
     fullname = models.CharField(verbose_name='name',
                                 max_length=100,
                                 blank=True)
