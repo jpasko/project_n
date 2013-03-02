@@ -234,19 +234,17 @@ $(document).ready(function(){
   </div>
 
   {% if user.is_authenticated and username == user.username %}
-  <div class="span3" style="margin-bottom: 15px">
+  <div class="span3" style="margin-bottom: 15px; float: right">
     <a href="/customize/" class="btn-green btn-green-link"><i class="icon-plus icon-white"></i>Profile picture</a>
+    {% if profile.picture %}
+    <a href="/about/delete_photo/" class="confirm btn btn-danger"><i class="icon-remove icon-white"></i></a>
+    {% endif %}
   </div>
   {% endif %}
 
   {% if profile.picture %}
-  <div class="span3" style="position: relative; left: 0; top: 0;">
+  <div class="span3" style="position: relative; left: 0; top: 0; float: right">
       <img src="{{ profile.picture.url }}">
-      {% if user.is_authenticated and username == user.username %}
-      <a href="/about/delete_photo/" class="confirm">
-	<img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0">
-      </a>
-      {% endif %}
   </div>
   {% endif %}
 </div>

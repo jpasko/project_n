@@ -112,15 +112,17 @@
 	  </a>
 	  {% endif %}
 	  {% if user.is_authenticated and username == user.username %}
+	  <!--
 	  <a href="/upload/image/{{ gallery.pk }}/">
 	    <img src="{{ STATIC_URL }}img/upload.png" style="position: absolute; top: 0; left: 0;"/>
 	  </a>
+	  -->
 	  {% if gallery.count > 0 %}
 	  <a href="/gallery/{{ gallery.pk }}/delete/" class="confirm">
 	  {% else %}
 	  <a href="/gallery/{{ gallery.pk }}/delete/">
 	  {% endif %}
-	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; right: 0;"/>
+	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0;"/>
 	  </a>
 	  <a href="/gallery/{{ gallery.pk }}/edit/">
 	    <img src="{{ STATIC_URL }}img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>

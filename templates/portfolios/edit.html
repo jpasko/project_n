@@ -1,5 +1,5 @@
 g{% extends "portfolio_base.html" %}
-{% block title %}{{ profile.fullname }} | Edit{% endblock %}
+{% block title %}{{ profile.fullname }} | Customize{% endblock %}
 {% block header %}{% endblock %}
 {% block script %}
 <!--<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>-->
@@ -9,136 +9,271 @@ $(function() {
   $("#id_background_color").addClass("color");
   $("#id_text_color").addClass("color");
   $("#id_text_color_hover").addClass("color");
+  $("#id_page_width_display").val($("#id_page_width").val());
+  $("#id_page_width").change(function() {
+    $("#id_page_width_display").val($("#id_page_width").val());
+  });
+  $('#id_picture').change(function() {
+    $('#id_picture_styled').val($(this).val().replace("C:\\fakepath\\", ""));
+  });
+  $('#id_banner').change(function() {
+    $('#id_banner_styled').val($(this).val().replace("C:\\fakepath\\", ""));
+  });
+  $("#full_width_navbar_radio").find(".btn").each(function() {
+    $(this).bind("click", function() {
+      $(this).addClass("btn-success active");
+      $(this).removeClass("btn-default");
+      $(this).siblings().addClass("btn-default");
+      $(this).siblings().removeClass("btn-success active");
+      $("#id_full_width_navbar").val($(this).val());
+    });
+  });
+  $("#portfolio_columns_radio").find(".btn").each(function() {
+    $(this).bind("click", function() {
+      $(this).addClass("btn-success active");
+      $(this).removeClass("btn-default");
+      $(this).siblings().addClass("btn-default");
+      $(this).siblings().removeClass("btn-success active");
+      $("#id_portfolio_columns").val($(this).val());
+    });
+  });
 });
 </script>
 {% endblock %}
+
 {% block content %}
 <style>
   textarea {
     width: 100%;
     height: 100px;
   }
+  #id_fullname, #id_blog, #id_background_color, #id_text_color, #id_text_color_hover, #id_picture_styled, #id_banner_styled, #id_ga_1, #id_ga_2 {
+    height: 30px;
+  }
+  #id_portfolio_columns, .pretty_file_input {
+    width: 206px;
+  }
+  #id_picture_styled, #id_banner_styled {
+    width: 125px;
+  }
+  #id_banner, #id_picture {
+    display: none;
+  }
+  .form-errors {
+    display: inline-block;
+    border: 1px solid #ff4d42;
+    border-radius: 5px;
+    background: #ffe2d6;
+    padding: 5px;
+  }
+  #id_page_width {
+    display: inline-block;
+    width: 152px;
+  }
+  #id_page_width_display {
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+  }
+  #id_ga_1 {
+    display: inline-block;
+    width: 120px;
+  }
+  #id_ga_2 {
+    display: inline-block;
+    width: 45px;
+  }
 </style>
 <div class="row">
-<div class="span10 offset2">
-  <h3 class="muted" style="padding-left: 150px">Customize</h3>
-  {% if form.errors %}
-  <p class="muted">Please correct the errors and resubmit.</p>
-  {% endif %}
-  <form method="post" action="." enctype="multipart/form-data" class="form-horizontal muted">
-    {% csrf_token %}
+  <div class="span6 offset2">
+    <form method="post" action="." enctype="multipart/form-data" class="form-horizontal muted">
+      {% csrf_token %}
+      <!--
+	  <div>
+	    {{ form.location.errors }}
+	    <label for="id_location">Location</label>
+	    {{ form.location }}
+	  </div>
 
-<!--
-      <div>
-	{{ form.location.errors }}
-	<label for="id_location">Location</label>
-	{{ form.location }}
-      </div>
+	  <div>
+	    {{ form.email.errors }}
+	    <label for="id_email">Contact email</label>
+	    {{ form.email }}
+	    {{ form.phone.errors }}
+	    <label for="id_phone">Phone</label>
+	    {{ form.phone }}
+	    {{ form.website.errors }}
+	    <label for="id_website">Website</label>
+	    {{ form.website }}
+	  </div>
 
-      <div>
-	{{ form.email.errors }}
-	<label for="id_email">Contact email</label>
-	{{ form.email }}
-	{{ form.phone.errors }}
-	<label for="id_phone">Phone</label>
-	{{ form.phone }}
-	{{ form.website.errors }}
-	<label for="id_website">Website</label>
-	{{ form.website }}
-      </div>
+	  <div>
+	    {{ form.twitter.errors }}
+	    <label for="id_twitter">Twitter</label>
+	    {{ form.twitter }}
+	    {{ form.facebook.errors }}
+	    <label for="id_facebook">Facebook</label>
+	    {{ form.facebook }}
+	    {{ form.google_plus.errors }}
+	    <label for="id_google_plus">Google+</label>
+	    {{ form.google_plus }}
+	    {{ form.linkedin.errors }}
+	    <label for="id_linkedin">LinkedIn</label>
+	    {{ form.linkedin }}
+	  </div>
 
-      <div>
-	{{ form.twitter.errors }}
-	<label for="id_twitter">Twitter</label>
-	{{ form.twitter }}
-	{{ form.facebook.errors }}
-	<label for="id_facebook">Facebook</label>
-	{{ form.facebook }}
-	{{ form.google_plus.errors }}
-	<label for="id_google_plus">Google+</label>
-	{{ form.google_plus }}
-	{{ form.linkedin.errors }}
-	<label for="id_linkedin">LinkedIn</label>
-	{{ form.linkedin }}
-      </div>
-
-      <div>
-	{{ form.about.errors }}
-	<label for="id_about">About</label>
-	{{ form.about }}
-	{{ form.picture.errors }}
-	<label for="id_picture">Profile picture</label>
-	{{ form.picture }}
-      </div>
--->
+	  <div>
+	    {{ form.about.errors }}
+	    <label for="id_about">About</label>
+	    {{ form.about }}
+	    {{ form.picture.errors }}
+	    <label for="id_picture">Profile picture</label>
+	    {{ form.picture }}
+	  </div>
+	  -->
       <div class="control-group">
-	{{ form.fullname.errors }}
 	<label class="control-label" for="id_fullname">Portfolio Title</label>
 	<div class="controls">
+	  {{ form.fullname.errors }}
 	  {{ form.fullname }}
 	</div>
       </div>
 
       <div class="control-group">
-	{{ form.picture.errors }}
 	<label class="control-label" for="id_picture">Profile picture</label>
 	<div class="controls">
-	  {{ form.picture }}
+	  {% if form.picture.errors %}
+	  <p class="form-errors">Choose a valid image</p>
+	  {% endif %}
+	  <input type="file" name="picture" id="id_picture" />
+	  <div class="pretty_file_input">
+	    <input id="id_picture_styled" type="text" onclick="$('#id_picture').click();">
+	    <a class="btn btn-success" onclick="$('#id_picture').click();"><b>Browse</b></a>
+	  </div>
+	  <!--{{ form.picture }}-->
 	</div>
       </div>
 
       <div class="control-group">
-	{{ form.banner.errors }}
 	<label class="control-label" for="id_banner">Banner image</label>
 	<div class="controls">
-	  {{ form.banner }}
+	  {% if form.banner.errors %}
+	  <p class="form-errors">Choose a valid image</p>
+	  {% endif %}
+	  <input type="file" name="banner" id="id_banner" />
+	  <div class="pretty_file_input">
+	    <input id="id_banner_styled" type="text" onclick="$('#id_banner').click();">
+	    <a class="btn btn-success" onclick="$('#id_banner').click();"><b>Browse</b></a>
+	  </div>
+	  <!--{{ form.banner }}-->
 	</div>
       </div>
 
       <div class="control-group">
-	{{ form.portfolio_columns.errors }}
-	<label class="control-label" for="id_columns">Thumbnail style</label>
+	<label class="control-label" for="id_portfolio_columns">Thumbnail style</label>
 	<div class="controls">
-	  {{ form.portfolio_columns }}
+	  <input type="hidden" name="portfolio_columns" value="{{ profile.portfolio_columns }}" id="id_portfolio_columns" />
+	  <div class="btn-group" data-toggle="buttons-radio" id="portfolio_columns_radio">
+	    {% if profile.portfolio_columns == 1 %}
+	    <button type="button" class="btn btn-default" value="3"><b>Square</b></button>
+	    <button type="button" class="btn btn-success active" style="width: 132px" value="1"><b>Wide</b></button>
+	    {% else %}
+	    <button type="button" class="btn btn-success active" value="3"><b>Square</b></button>
+	    <button type="button" class="btn btn-default" style="width: 132px" value="1"><b>Wide</b></button>
+	    {% endif %}
+	  </div>
 	</div>
       </div>
 
       <div class="control-group">
-	{{ form.blog.errors }}
 	<label class="control-label" for="id_blog">Blog URL (optional)</label>
 	<div class="controls">
+	  {% if form.blog.errors %}
+	  <p class="form-errors">Enter a valid URL</p>
+	  {% endif %}
 	  {{ form.blog }}
 	</div>
       </div>
       
       <div class="control-group">
-	{{ form.background_color.errors }}
+	<label class="control-label" for="id_page_width">Page width (pixels)</label>
+	<div class="controls">
+	  <input id="id_page_width" name="page_width" type="range" value="{{ profile.page_width }}" min="940" max="1200" />
+	  <input id="id_page_width_display" type="text" value="" />
+	</div>
+      </div>
+
+      <div class="control-group">
+	<label class="control-label" for="id_full_width_navbar">Navigation bar</label>
+	<div class="controls">
+	  <input type="hidden" name="full_width_navbar" value="{{ profile.full_width_navbar }}" id="id_full_width_navbar" />
+	  <div class="btn-group" data-toggle="buttons-radio" id="full_width_navbar_radio">
+	    {% if profile.full_width_navbar %}
+	    <button type="button" class="btn btn-default" value="False"><b>Default</b></button>
+	    <button type="button" class="btn btn-success active" style="width: 132px" value="True"><b>Full-width</b></button>
+	    {% else %}
+	    <button type="button" class="btn btn-success active" value="False"><b>Default</b></button>
+	    <button type="button" class="btn btn-default" style="width: 132px" value="True"><b>Full-width</b></button>
+	    {% endif %}
+	  </div>
+	</div>
+      </div>
+
+     <div class="control-group">
 	<label class="control-label" for="id_background_color">Background color</label>
 	<div class="controls">
+	  {{ form.background_color.errors }}
 	  {{ form.background_color }}
 	</div>
       </div>
       
       <div class="control-group">
-	{{ form.text_color.errors }}
 	<label class="control-label" for="id_text_color">Text color</label>
 	<div class="controls">
+	  {{ form.text_color.errors }}
 	  {{ form.text_color }}
 	</div>
       </div>
       
       <div class="control-group">
-	{{ form.text_color_hover.errors }}
 	<label class="control-label" for="id_text_color_hover">Text hover color</label>
 	<div class="controls">
+	  {{ form.text_color_hover.errors }}
 	  {{ form.text_color_hover }}
 	</div>
       </div>
-      
 
-      <input type="submit" value="Update portfolio" class="btn-green" style="margin-left: 150px">
-      <a class="btn-contact btn-link" href="/" style="margin-left: 10px">Cancel</a>
-  </form>
-</div>
+      <div class="control-group">
+	<label class="control-label" for="id_ga">Google Analytics</label>
+	<div class="controls">
+	  {% if form.ga_1.errors or form.ga_2.errors %}
+	  <p class="form-errors">Invalid value: integers only</p>
+	  {% endif %}
+	  <div class="google-analytics">
+	    <b>UA-</b>
+	    {% if profile.ga_1 %}
+	    <input type="text" id="id_ga_1" name="ga_1" value="{{ profile.ga_1 }}" />
+	    {% else %}
+	    <input type="text" id="id_ga_1" name="ga_1" value="" />
+	    {% endif %}
+	    <b>-</b>
+	    {% if profile.ga_2 %}
+	    <input type="text" id="id_ga_2" name="ga_2" value="{{ profile.ga_2 }}" />
+	    {% else %}
+	    <input type="text" id="id_ga_2" name="ga_2" value="" />
+	    {% endif %}
+	  </div>
+	</div>
+      </div>
+      
+      <div class="control-group">
+	<div class="controls">
+	  <input type="submit" value="Update portfolio" class="btn-green">
+	  <a class="btn-contact btn-link" href="/" style="margin-left: 5px">Cancel</a>
+	</div>
+      </div>
+
+    </form>
+  </div>
 </div>
 {% endblock %}

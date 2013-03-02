@@ -63,7 +63,7 @@ def customize(request):
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/about/')
+            return HttpResponseRedirect('/customize/')
     else:
         form = UserProfileForm(instance=profile)
     variables = RequestContext(request,
