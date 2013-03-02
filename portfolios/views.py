@@ -5,6 +5,8 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core.mail import send_mail
+from django.core.validators import validate_email, URLValidator
+from django.core.exceptions import ValidationError
 
 from portfolios.models import Item, Photo, Video, Gallery
 from portfolios.forms import *
@@ -41,6 +43,9 @@ def about(request):
     username = request.subdomain
     user = get_object_or_404(User, username=username)
     profile = user.get_profile()
+    if not profile.allow_about:
+        if username != request.user.username or not request.user.is_authenticated():
+            raise Http404
     customer = user.customer
     variables = RequestContext(request,
                                {'username': username,
@@ -356,6 +361,9 @@ def contact(request):
     username = request.subdomain
     user = get_object_or_404(User, username=username)
     profile = user.get_profile()
+    if not profile.allow_contact:
+        if username != request.user.username or not request.user.is_authenticated():
+            raise Http404
     customer = user.customer
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -425,48 +433,71 @@ def update_profile(request):
     Responds to AJAX POSTs to update the profile.
     """
     username = request.subdomain
-    # Ensure that we cannot toggle the contact page of a different user.
+    # Ensure that we cannot edit the profile of another user.
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
     profile = request.user.get_profile()
-    results = {'success': False}
+    results = {'message': 'Failure'}
     if request.method == 'POST':
         if 'about' in request.POST:
             profile.about = request.POST.get('about')
             profile.save()
-            results = {'success': True}
+            results = {'message': 'success'}
         elif 'email' in request.POST:
-            profile.email = request.POST.get('email')
-            profile.save()
-            results = {'success': True}
+            email = request.POST.get('email')
+            try:
+                validate_email(email)
+            except ValidationError:
+                if email == '':
+                    profile.email = ''
+                    profile.save()
+                    results = {'message': 'success'}
+                else:
+                    results = {'message': 'Invalid email'}
+            else:
+                profile.email = email
+                profile.save()
+                results = {'message': 'success'}
         elif 'phone' in request.POST:
             profile.phone = request.POST.get('phone')
             profile.save()
-            results = {'success': True}
+            results = {'message': 'success'}
         elif 'location' in request.POST:
             profile.location = request.POST.get('location')
             profile.save()
-            results = {'success': True}
+            results = {'message': 'success'}
         elif 'website' in request.POST:
-            profile.website = request.POST.get('website')
-            profile.save()
-            results = {'success': True}
+            validate = URLValidator()
+            url = request.POST.get('website')
+            try:
+                validate(url)
+            except ValidationError:
+                if url == '':
+                    profile.website = ''
+                    profile.save()
+                    results = {'message': 'success'}
+                else:
+                    results = {'message': 'Invalid URL'}
+            else:
+                profile.website = url
+                profile.save()
+                results = {'message': 'success'}
         elif 'twitter' in request.POST:
             profile.twitter = request.POST.get('twitter')
             profile.save()
-            results = {'success': True}
+            results = {'message': 'success'}
         elif 'facebook' in request.POST:
             profile.facebook = request.POST.get('facebook')
             profile.save()
-            results = {'success': True}
+            results = {'message': 'success'}
         elif 'google_plus' in request.POST:
             profile.google_plus = request.POST.get('google_plus')
             profile.save()
-            results = {'success': True}
+            results = {'message': 'success'}
         elif 'linkedin' in request.POST:
             profile.linkedin = request.POST.get('linkedin')
             profile.save()
-            results = {'success': True}
+            results = {'message': 'success'}
     return HttpResponse(json.dumps(results), mimetype='application/json')
 
 def help(request):

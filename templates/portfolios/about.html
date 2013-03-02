@@ -122,20 +122,29 @@ $(document).ready(function(){
     <div class="row">
       <div class="span1">
 	{% if user.is_authenticated and username == user.username %}
-	<a class="pencil muted" href="/edit/"><b>Email</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	<a class="pencil muted" id="trigger-editable-email" href="#"><b>Email</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.email %}
 	<p><b>Email</b></p>
 	{% endif %}
       </div>
       <div class="span6">
 	{% if user.is_authenticated and username == user.username %}
-	{% if profile.email %}
-	<p>{{ profile.email }}</p>
-	{% else %}
-	<p><em>Currently empty</em></p>
-	{% endif %}
+	<div id="editable-email">
+	  {% if profile.email %}
+	  <p id="valid-email">{{ profile.email }}</p>
+	  {% else %}
+	  <p id="empty-email"><em>Currently empty</em></p>
+	  {% endif %}
+	  <input id="email-input" type="text" style="display: none"></input>
+	</div>
+	<button type="button" class="btn btn-success" id="save-email" style="display: none; margin-bottom: 10px">
+	  <b>Save</b>
+	</button>
+	<button type="button" class="btn btn-default" id="cancel-email" style="display: none; margin-bottom: 10px">
+	  <i class="icon-remove"></i>
+	</button>
 	{% elif profile.email %}
-	<p>{{ profile.email }}</p>
+	<a href="mailto:{{ profile.email }}" style="text-decoration: none">{{ profile.email }}</a>
 	{% endif %}
       </div>
     </div>
@@ -143,18 +152,27 @@ $(document).ready(function(){
     <div class="row">
       <div class="span1">
 	{% if user.is_authenticated and username == user.username %}
-	<a class="pencil muted" href="/edit/"><b>Phone</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	<a class="pencil muted" id="trigger-editable-phone" href="#"><b>Phone</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.phone %}
 	<p><b>Phone</b></p>
 	{% endif %}
       </div>
       <div class="span6">
 	{% if user.is_authenticated and username == user.username %}
-	{% if profile.phone %}
-	<p>{{ profile.phone }}</p>
-	{% else %}
-	<p><em>Currently empty</em></p>
-	{% endif %}
+	<div id="editable-phone">
+	  {% if profile.phone %}
+	  <p id="valid-phone">{{ profile.phone }}</p>
+	  {% else %}
+	  <p id="empty-phone"><em>Currently empty</em></p>
+	  {% endif %}
+	  <input id="phone-input" type="text" style="display: none" maxlength="100"></input>
+	</div>
+	<button type="button" class="btn btn-success" id="save-phone" style="display: none; margin-bottom: 10px">
+	  <b>Save</b>
+	</button>
+	<button type="button" class="btn btn-default" id="cancel-phone" style="display: none; margin-bottom: 10px">
+	  <i class="icon-remove"></i>
+	</button>
 	{% elif profile.phone %}
 	<p>{{ profile.phone }}</p>
 	{% endif %}
@@ -165,18 +183,27 @@ $(document).ready(function(){
     <div class="row">
       <div class="span1">
 	{% if user.is_authenticated and username == user.username %}
-	<a class="pencil muted" href="/edit/"><b>Location</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	<a class="pencil muted" id="trigger-editable-location" href="#"><b>Location</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.location %}
 	<p><b>Location</b></p>
 	{% endif %}
       </div>
       <div class="span6">
 	{% if user.is_authenticated and username == user.username %}
-	{% if profile.location %}
-	<p>{{ profile.location }}</p>
-	{% else %}
-	<p><em>Currently empty</em></p>
-	{% endif %}
+	<div id="editable-location">
+	  {% if profile.location %}
+	  <p id="valid-location">{{ profile.location }}</p>
+	  {% else %}
+	  <p id="empty-location"><em>Currently empty</em></p>
+	  {% endif %}
+	  <input id="location-input" type="text" style="display: none" maxlength="100"></input>
+	</div>
+	<button type="button" class="btn btn-success" id="save-location" style="display: none; margin-bottom: 10px">
+	  <b>Save</b>
+	</button>
+	<button type="button" class="btn btn-default" id="cancel-location" style="display: none; margin-bottom: 10px">
+	  <i class="icon-remove"></i>
+	</button>
 	{% elif profile.location %}
 	<p>{{ profile.location }}</p>
 	{% endif %}
@@ -186,18 +213,27 @@ $(document).ready(function(){
     <div class="row">
       <div class="span1">
 	{% if user.is_authenticated and username == user.username %}
-	<a class="pencil muted" href="/edit/"><b>Website</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	<a class="pencil muted" id="trigger-editable-website" href="#"><b>Website</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.website %}
 	<p><b>Website</b></p>
 	{% endif %}
       </div>
       <div class="span6">
 	{% if user.is_authenticated and username == user.username %}
-	{% if profile.website %}
-	<a href="{{ profile.website }}" target="_blank" style="text-decoration: none">{{ profile.website }}</a>
-	{% else %}
-	<p><em>Currently empty</em></p>
-	{% endif %}
+	<div id="editable-website">
+	  {% if profile.website %}
+	  <a id="valid-website" href="{{ profile.website }}" target="_blank" style="text-decoration: none">{{ profile.website }}</a>
+	  {% else %}
+	  <p id="empty-website"><em>Currently empty</em></p>
+	  {% endif %}
+	  <input id="website-input" type="text" style="display: none" maxlength="500"></input>
+	</div>
+	<button type="button" class="btn btn-success" id="save-website" style="display: none; margin-bottom: 10px">
+	  <b>Save</b>
+	</button>
+	<button type="button" class="btn btn-default" id="cancel-website" style="display: none; margin-bottom: 10px">
+	  <i class="icon-remove"></i>
+	</button>
 	{% elif profile.website %}
 	<a href="{{ profile.website }}" target="_blank" style="text-decoration: none">{{ profile.website }}</a>
 	{% endif %}

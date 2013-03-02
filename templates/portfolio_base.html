@@ -57,11 +57,12 @@
         });
       });
     </script>
+
     {% if profile.ga_1 and profile.ga_2 %}
     <script type="text/javascript">
       var _gaq = _gaq || [];
-
-      _gaq.push(['b._setAccount', 'UA-{{ profile.ga_1 }}-{{ profile.ga_2 }}'], ['b._trackPageview']);
+      _gaq.push(['_setAccount', 'UA-{{ profile.ga_1 }}-{{ profile.ga_2 }}']);
+      _gaq.push(['_trackPageview']);
 
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -70,6 +71,7 @@
       })();
     </script>
     {% endif %}
+
     {% block script %}{% endblock %}
     {% block head %}{% endblock %}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->

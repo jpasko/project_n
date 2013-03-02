@@ -21,10 +21,6 @@ class UserProfileForm(forms.ModelForm):
                    'facebook',
                    'google_plus',
                    'linkedin',)
-        widgets = {
-            'picture': forms.FileInput(),
-            'banner': forms.FileInput(),
-        }
 
 class UploadItemForm(forms.ModelForm):
     """

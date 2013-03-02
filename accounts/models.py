@@ -39,17 +39,17 @@ class UserProfile(models.Model):
                                blank=True)
 
     fullname = models.CharField(verbose_name='name',
-                                max_length=75,
+                                max_length=100,
                                 blank=True)
     location = models.CharField(verbose_name='location',
-                                max_length=75,
+                                max_length=100,
                                 blank=True)
     email = models.EmailField(verbose_name='contact email',
                               blank=True)
     about = models.TextField(verbose_name='about',
                              blank=True)
     phone = models.CharField(verbose_name='phone',
-                             max_length=20, blank=True)
+                             max_length=100, blank=True)
 
     background_color = models.CharField(max_length=6,
                                         default='000000')
