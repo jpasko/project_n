@@ -56,15 +56,11 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-<div class="container-narrow muted">
-  {% if thanks %}
-  <h3 class="message-success">Your message has been sent</h3>
-  {% endif %}
-  <div class="row-fluid marketing">
-
-    {% if user.is_authenticated and user.username == username %}
-    <div class="span3">
-      <p class="muted"><b>Enable this page?</b></p>
+<div class="muted">
+  {% if user.is_authenticated and user.username == username %}
+  <div class="row-fluid" style="padding-bottom: 20px">
+    <div class="span3 offset4">
+      <p class="muted" style="float: left; padding-right: 10px"><b>Enable this page?</b></p>
       <div class="btn-group" data-toggle="buttons-radio" style="display: inline">
 	{% if profile.allow_contact %}
 	<button type="button" class="btn btn-success enable-contact active" value="True"><i class="icon-ok"></i></button>
@@ -75,11 +71,14 @@ $(document).ready(function() {
 	{% endif %}
       </div>
     </div>
-    <div class="span4">
-    {% else %}
-    <div class="span4 offset3">
-    {% endif %}
+  </div>
+  {% endif %}
 
+  {% if thanks %}
+  <h3 class="message-success">Your message has been sent</h3>
+  {% endif %}
+  <div class="row-fluid marketing">
+    <div class="span3 offset4">
       <form method="post" action=".">
 	{% csrf_token %}
 
@@ -94,7 +93,7 @@ $(document).ready(function() {
 	<p class="form-errors">Please write a message first</p>
 	{% endif %}
 	{{ form.message }}
-	<input type="submit" value="Send Message" class="btn-contact" />
+	<input type="submit" value="Send Message" class="btn-contact" style="display: block" />
       </form>
     </div>
     <div class="span3"  style="padding-left: 30px">
