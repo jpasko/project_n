@@ -11,6 +11,9 @@
   .pencil:hover {
     text-decoration: none;
   }
+  a:hover {
+    text-decoration: none;
+  }
 </style>
 {% endblock %}
 {% block script %}
@@ -258,22 +261,22 @@ $(document).ready(function(){
 	<span id="linkedin-img" class="hide">{{ STATIC_URL }}img/linkedin.png</span>
 	<div id="editable-social">
 	  {% if profile.twitter %}
-	  <a id="valid-social-twitter" href="{{ profile.twitter }}" target="_blank" style="padding-right: 15px">
+	  <a id="valid-social-twitter" href="{{ profile.twitter }}" target="_blank" style="margin-right: 15px">
 	    <img src="{{ STATIC_URL }}img/twitter.png">
 	  </a>
 	  {% endif %}
 	  {% if profile.facebook %}
-	  <a id="valid-social-facebook" href="{{ profile.facebook }}" target="_blank" style="padding-right: 15px">
+	  <a id="valid-social-facebook" href="{{ profile.facebook }}" target="_blank" style="margin-right: 15px">
 	    <img src="{{ STATIC_URL }}img/facebook.png">
 	  </a>
 	  {% endif %}
 	  {% if profile.google_plus %}
-	  <a id="valid-social-google_plus" href="{{ profile.google_plus }}" target="_blank" style="padding-right: 15px">
+	  <a id="valid-social-google_plus" href="{{ profile.google_plus }}" target="_blank" style="margin-right: 15px">
 	    <img src="{{ STATIC_URL }}img/gplus.png">
 	  </a>
 	  {% endif %}
 	  {% if profile.linkedin %}
-	  <a id="valid-social-linkedin" href="{{ profile.linkedin }}" target="_blank" style="padding-right: 15px">
+	  <a id="valid-social-linkedin" href="{{ profile.linkedin }}" target="_blank">
 	    <img src="{{ STATIC_URL }}img/linkedin.png">
 	  </a>
 	  {% endif %}
@@ -308,16 +311,16 @@ $(document).ready(function(){
 	</button>
 	{% else %}
 	{% if profile.twitter %}
-	<a href="{{ profile.twitter }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}img/twitter.png"></a>
+	<a href="{{ profile.twitter }}" target="_blank" style="margin-right: 15px"><img src="{{ STATIC_URL }}img/twitter.png"></a>
 	{% endif %}
 	{% if profile.facebook %}
-	<a href="{{ profile.facebook }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}img/facebook.png"></a>
+	<a href="{{ profile.facebook }}" target="_blank" style="margin-right: 15px"><img src="{{ STATIC_URL }}img/facebook.png"></a>
 	{% endif %}
 	{% if profile.google_plus %}
-	<a href="{{ profile.google_plus }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}img/gplus.png"></a>
+	<a href="{{ profile.google_plus }}" target="_blank" style="margin-right: 15px"><img src="{{ STATIC_URL }}img/gplus.png"></a>
 	{% endif %}
 	{% if profile.linkedin %}
-	<a href="{{ profile.linkedin }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}img/linkedin.png"></a>
+	<a href="{{ profile.linkedin }}" target="_blank" style="margin-right: 15px"><img src="{{ STATIC_URL }}img/linkedin.png"></a>
 	{% endif %}
 	{% endif %}
       </div>

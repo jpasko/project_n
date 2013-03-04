@@ -479,7 +479,8 @@ def update_profile(request):
                         profile.save()
                         results['success'] = True
                     else:
-                        results['message'] = 'Invalid website URL\n'
+                        results['success'] = False
+                        results['message'] = 'Invalid website URL.  Begin URL with \"http://\" or \"https://\".\n'
                 else:
                     profile.website = url
                     profile.save()
@@ -495,7 +496,8 @@ def update_profile(request):
                         if not results['message']:
                             results['success'] = True
                     else:
-                        results['message'] = results['message'] + 'Invalid Twitter URL\n'
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Twitter URL.  Begin URL with \"http://\" or \"https://\".\n'
                 else:
                     profile.twitter = url
                     profile.save()
@@ -512,7 +514,8 @@ def update_profile(request):
                         if not results['message']:
                             results ['success'] = True
                     else:
-                        results['message'] = results['message'] + 'Invalid Facebook URL\n'
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Facebook URL.  Begin URL with \"http://\" or \"https://\".\n'
                 else:
                     profile.facebook = url
                     profile.save()
@@ -529,7 +532,8 @@ def update_profile(request):
                         if not results['message']:
                             results ['success'] = True
                     else:
-                        results['message'] = results['message'] + 'Invalid Google+ URL\n'
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Google+ URL.  Begin URL with \"http://\" or \"https://\".\n'
                 else:
                     profile.google_plus = url
                     profile.save()
@@ -546,7 +550,8 @@ def update_profile(request):
                         if not results['message']:
                             results ['success'] = True
                     else:
-                        results['message'] = results['message'] + 'Invalid LinkedIn URL'
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid LinkedIn URL.  Begin URL with \"http://\" or \"https://\".'
                 else:
                     profile.linkedin = url
                     profile.save()

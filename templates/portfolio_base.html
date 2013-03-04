@@ -23,6 +23,11 @@
         display: none;
         padding-bottom: 4px;
       }
+      {% if profile.full_width_navbar %}
+      .brand {
+        padding-left: 25px !important;
+      }
+      {% endif %}
       .navbar-inverse .nav li.dropdown.open>.dropdown-toggle {
         background-color: #{{ profile.background_color }} !important;
       }

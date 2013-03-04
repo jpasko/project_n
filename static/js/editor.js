@@ -47,7 +47,7 @@ $(document).ready(function(){
 		$("#ajax-alert > p").remove();
 		if (!data.success) {
 		    $("#ajax-alert").show();
-		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		    $("#ajax-alert").append("<p><strong>Error: </strong>" + data['message'] + "</p>");
 		} else {
 		    $("#ajax-alert").hide();
 		}
@@ -102,7 +102,7 @@ $(document).ready(function(){
 		$("#ajax-alert > p").remove();
 		if (!data.success) {
 		    $("#ajax-alert").show();
-		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		    $("#ajax-alert").append("<p><strong>Error: </strong>" + data['message'] + "</p>");
 		} else {
 		    $("#ajax-alert").hide();
 		}
@@ -157,7 +157,7 @@ $(document).ready(function(){
 		$("#ajax-alert > p").remove();
 		if (!data.success) {
 		    $("#ajax-alert").show();
-		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		    $("#ajax-alert").append("<p><strong>Error: </strong>" + data['message'] + "</p>");
 		} else {
 		    $("#ajax-alert").hide();
 		}
@@ -212,7 +212,7 @@ $(document).ready(function(){
 		$("#ajax-alert > p").remove();
 		if (!data.success) {
 		    $("#ajax-alert").show();
-		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		    $("#ajax-alert").append("<p><strong>Error: </strong>" + data['message'] + "</p>");
 		} else {
 		    $("#ajax-alert").hide();
 		}
@@ -269,7 +269,7 @@ $(document).ready(function(){
 		$("#ajax-alert > p").remove();
 		if (!data.success) {
 		    $("#ajax-alert").show();
-		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		    $("#ajax-alert").append("<p><strong>Error: </strong>" + data['message'] + "</p>");
 		} else {
 		    $("#ajax-alert").hide();
 		}
@@ -327,7 +327,7 @@ $(document).ready(function(){
 		$("#empty-social").remove();
 	    }
 	    if (!$("#valid-social-twitter").length) {
-		$("#editable-social").append('<a id="valid-social-twitter" target="_blank" style="padding-right: 15px"><img id="appended-twitter"></a>');
+		$("#editable-social").append('<a id="valid-social-twitter" target="_blank" style="margin-right: 15px"><img id="appended-twitter"></a>');
 	    }
 	    $("#valid-social-twitter").show();
 	    $("#valid-social-twitter").attr('href', $("#twitter-input").val());
@@ -341,7 +341,7 @@ $(document).ready(function(){
 		$("#empty-social").remove();
 	    }
 	    if (!$("#valid-social-facebook").length) {
-		$("#editable-social").append('<a id="valid-social-facebook" target="_blank" style="padding-right: 15px"><img id="appended-facebook"></a>');
+		$("#editable-social").append('<a id="valid-social-facebook" target="_blank" style="margin-right: 15px"><img id="appended-facebook"></a>');
 	    }
 	    $("#valid-social-facebook").show();
 	    $("#valid-social-facebook").attr('href', $("#facebook-input").val());
@@ -355,7 +355,7 @@ $(document).ready(function(){
 		$("#empty-social").remove();
 	    }
 	    if (!$("#valid-social-google_plus").length) {
-		$("#editable-social").append('<a id="valid-social-google_plus" target="_blank" style="padding-right: 15px"><img id="appended-google_plus"></a>');
+		$("#editable-social").append('<a id="valid-social-google_plus" target="_blank" style="margin-right: 15px"><img id="appended-google_plus"></a>');
 	    }
 	    $("#valid-social-google_plus").show();
 	    $("#valid-social-google_plus").attr('href', $("#google_plus-input").val());
@@ -369,7 +369,7 @@ $(document).ready(function(){
 		$("#empty-social").remove();
 	    }
 	    if (!$("#valid-social-linkedin").length) {
-		$("#editable-social").append('<a id="valid-social-linkedin" target="_blank" style="padding-right: 15px"><img id="appended-linkedin"></a>');
+		$("#editable-social").append('<a id="valid-social-linkedin" target="_blank"><img id="appended-linkedin"></a>');
 	    }
 	    $("#valid-social-linkedin").show();
 	    $("#valid-social-linkedin").attr('href', $("#linkedin-input").val());
@@ -407,7 +407,7 @@ $(document).ready(function(){
 		$("#ajax-alert > p").remove();
 		if (!data.success) {
 		    $("#ajax-alert").show();
-		    $("#ajax-alert").append("<p>" + formatAsHTML(data['message']) + "</p>");
+		    $("#ajax-alert").append("<p><strong>Error: </strong>" + formatAsHTML(data['message']) + "</p>");
 		} else {
 		    $("#ajax-alert").hide();
 		}
