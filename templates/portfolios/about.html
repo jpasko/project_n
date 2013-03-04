@@ -14,6 +14,10 @@
   a:hover {
     text-decoration: none;
   }
+  #email-link {
+    color: #{{ profile.text_color }};
+    text-decoration: none;
+  }
 </style>
 {% endblock %}
 {% block script %}
@@ -75,14 +79,14 @@ $(document).ready(function(){
   <p></p>
 </div>
 {% endif %}
-<div class="row muted">
-  <div class="span7">
+<div class="row-fluid muted">
+  <div class="span9">
     {% if user.is_authenticated and username == user.username %}
-    <div class="row" style="padding-bottom: 10px">
-      <div class="span1">
+    <div class="row-fluid" style="padding-bottom: 10px">
+      <div class="span2">
 	<p><b>Enable?</b></p>
       </div>
-      <div class="span6">
+      <div class="span7">
 	<div class="btn-group" data-toggle="buttons-radio" style="display: inline">
 	  {% if profile.allow_about %}
 	  <button type="button" class="btn btn-success enable-about active" value="True"><i class="icon-ok"></i></button>
@@ -96,15 +100,15 @@ $(document).ready(function(){
     </div>
     {% endif %}
 
-    <div class="row">
-      <div class="span1">
+    <div class="row-fluid">
+      <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-about" href="#"><b>About</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.about %}
 	<p><b>About</b></p>
 	{% endif %}
       </div>
-      <div class="span6">
+      <div class="span10">
 	{% if user.is_authenticated and username == user.username %}
 	<div id="editable-about">
 	  {% if profile.about %}
@@ -126,15 +130,15 @@ $(document).ready(function(){
       </div>
     </div>
 
-    <div class="row">
-      <div class="span1">
+    <div class="row-fluid">
+      <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-email" href="#"><b>Email</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.email %}
 	<p><b>Email</b></p>
 	{% endif %}
       </div>
-      <div class="span6">
+      <div class="span10">
 	{% if user.is_authenticated and username == user.username %}
 	<div id="editable-email">
 	  {% if profile.email %}
@@ -151,20 +155,20 @@ $(document).ready(function(){
 	  <i class="icon-remove"></i>
 	</button>
 	{% elif profile.email %}
-	<a href="mailto:{{ profile.email }}" style="text-decoration: none">{{ profile.email }}</a>
+	<a id="email-link" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
 	{% endif %}
       </div>
     </div>
 
-    <div class="row">
-      <div class="span1">
+    <div class="row-fluid">
+      <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-phone" href="#"><b>Phone</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.phone %}
 	<p><b>Phone</b></p>
 	{% endif %}
       </div>
-      <div class="span6">
+      <div class="span10">
 	{% if user.is_authenticated and username == user.username %}
 	<div id="editable-phone">
 	  {% if profile.phone %}
@@ -187,15 +191,15 @@ $(document).ready(function(){
     </div>
 
 
-    <div class="row">
-      <div class="span1">
+    <div class="row-fluid">
+      <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-location" href="#"><b>Location</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.location %}
 	<p><b>Location</b></p>
 	{% endif %}
       </div>
-      <div class="span6">
+      <div class="span10">
 	{% if user.is_authenticated and username == user.username %}
 	<div id="editable-location">
 	  {% if profile.location %}
@@ -217,15 +221,15 @@ $(document).ready(function(){
       </div>
     </div>
 
-    <div class="row">
-      <div class="span1">
+    <div class="row-fluid">
+      <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-website" href="#"><b>Website</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.website %}
 	<p><b>Website</b></p>
 	{% endif %}
       </div>
-      <div class="span6">
+      <div class="span10">
 	{% if user.is_authenticated and username == user.username %}
 	<div id="editable-website">
 	  {% if profile.website %}
@@ -247,13 +251,13 @@ $(document).ready(function(){
       </div>
     </div>
 
-    <div class="row">
-      <div class="span1">
+    <div class="row-fluid" style="padding-top: 8px">
+      <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-social" href="#"><b>Social</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% endif %}
       </div>
-      <div class="span6">
+      <div class="span10">
 	{% if user.is_authenticated and username == user.username %}
 	<span id="twitter-img" class="hide">{{ STATIC_URL }}img/twitter.png</span>
 	<span id="facebook-img" class="hide">{{ STATIC_URL }}img/facebook.png</span>
@@ -327,19 +331,22 @@ $(document).ready(function(){
     </div>
   </div>
 
-  {% if user.is_authenticated and username == user.username %}
-  <div class="span3" style="margin-bottom: 15px; float: right">
-    <a href="/customize/" class="btn-green btn-green-link"><i class="icon-plus icon-white"></i>Profile picture</a>
+  <div class="span3">
+    {% if user.is_authenticated and username == user.username %}
+    <div class="row-fluid" style="padding-bottom: 10px">
+      <a href="/customize/" class="btn-green btn-green-link"><i class="icon-plus icon-white"></i>Profile picture</a>
+      {% if profile.picture %}
+      <a href="/about/delete_photo/" class="confirm btn btn-danger"><i class="icon-remove icon-white"></i></a>
+      {% endif %}
+    </div>
+    {% endif %}
+
     {% if profile.picture %}
-    <a href="/about/delete_photo/" class="confirm btn btn-danger"><i class="icon-remove icon-white"></i></a>
+    <div class="row-fluid">
+      <img src="{{ profile.picture.url }}">
+    </div>
     {% endif %}
   </div>
-  {% endif %}
 
-  {% if profile.picture %}
-  <div class="span3" style="position: relative; left: 0; top: 0; float: right">
-      <img src="{{ profile.picture.url }}">
-  </div>
-  {% endif %}
 </div>
 {% endblock %}

@@ -13,6 +13,10 @@
     color: #4fc46f;
     text-align: center;
   }
+  #email-link {
+    color: #{{ profile.text_color }};
+    text-decoration: none;
+  }
 </style>
 {% endblock %}
 
@@ -99,7 +103,7 @@ $(document).ready(function() {
     <div class="span3"  style="padding-left: 30px">
       {% if profile.email %}
       <h4>Email</h4>
-      <p style="padding-bottom: 10px">{{ profile.email }}</p>
+      <a id="email-link" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
       {% endif %}
       {% if profile.phone %}
       <h4>Phone</h4>
