@@ -67,6 +67,10 @@ $(document).ready(function(){
     <span class="ui-icon ui-icon-alert"></span>
     This photo will be permanently deleted.</p>
 </div>
+<div class="alert alert-error hide" id="ajax-alert">
+  <a class="close" data-dismiss="alert" href="#">&times;</a>
+  <p></p>
+</div>
 {% endif %}
 <div class="row muted">
   <div class="span7">
@@ -243,10 +247,66 @@ $(document).ready(function(){
     <div class="row">
       <div class="span1">
 	{% if user.is_authenticated and username == user.username %}
-	<a class="pencil muted" href="/edit/"><b>Social</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
+	<a class="pencil muted" id="trigger-editable-social" href="#"><b>Social</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% endif %}
       </div>
       <div class="span6">
+	{% if user.is_authenticated and username == user.username %}
+	<span id="twitter-img" class="hide">{{ STATIC_URL }}img/twitter.png</span>
+	<span id="facebook-img" class="hide">{{ STATIC_URL }}img/facebook.png</span>
+	<span id="google_plus-img" class="hide">{{ STATIC_URL }}img/gplus.png</span>
+	<span id="linkedin-img" class="hide">{{ STATIC_URL }}img/linkedin.png</span>
+	<div id="editable-social">
+	  {% if profile.twitter %}
+	  <a id="valid-social-twitter" href="{{ profile.twitter }}" target="_blank" style="padding-right: 15px">
+	    <img src="{{ STATIC_URL }}img/twitter.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.facebook %}
+	  <a id="valid-social-facebook" href="{{ profile.facebook }}" target="_blank" style="padding-right: 15px">
+	    <img src="{{ STATIC_URL }}img/facebook.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.google_plus %}
+	  <a id="valid-social-google_plus" href="{{ profile.google_plus }}" target="_blank" style="padding-right: 15px">
+	    <img src="{{ STATIC_URL }}img/gplus.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.linkedin %}
+	  <a id="valid-social-linkedin" href="{{ profile.linkedin }}" target="_blank" style="padding-right: 15px">
+	    <img src="{{ STATIC_URL }}img/linkedin.png">
+	  </a>
+	  {% endif %}
+	  {% if not profile.twitter and not profile.facebook and not profile.google_plus and not profile.linkedin %}
+	  <p id="empty-social"><em>Currently empty</em></p>
+	  {% endif %}
+	  <div class="hide" id="twitter-group">
+	    <label for="twitter-input" class="control-label">Twitter</label>
+	    <input id="twitter-input" type="text" maxlength="500"></input>
+	  </div>
+
+	  <div class="hide" id="facebook-group">
+	    <label for="facebook-input" class="control-label">Facebook</label>
+	    <input id="facebook-input" type="text" maxlength="500"></input>
+	  </div>
+
+	  <div class="hide" id="google_plus-group">
+	    <label for="google_plus_input" class="control-label">Google+</label>
+	    <input id="google_plus-input" type="text" maxlength="500"></input>
+	  </div>
+
+	  <div class="hide" id="linkedin-group">
+	    <label for="linkedin-input" class="control-label">LinkedIn</label>
+	    <input id="linkedin-input" type="text" maxlength="500"></input>
+	  </div>
+	</div>
+	<button type="button" class="btn btn-success" id="save-social" style="display: none; margin-bottom: 10px">
+	  <b>Save</b>
+	</button>
+	<button type="button" class="btn btn-default" id="cancel-social" style="display: none; margin-bottom: 10px">
+	  <i class="icon-remove"></i>
+	</button>
+	{% else %}
 	{% if profile.twitter %}
 	<a href="{{ profile.twitter }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}img/twitter.png"></a>
 	{% endif %}
@@ -258,11 +318,6 @@ $(document).ready(function(){
 	{% endif %}
 	{% if profile.linkedin %}
 	<a href="{{ profile.linkedin }}" target="_blank" style="padding-right: 15px"><img src="{{ STATIC_URL }}img/linkedin.png"></a>
-	{% endif %}
-	
-	{% if user.is_authenticated and username == user.username %}
-	{% if not profile.twitter and not profile.facebook and not profile.google_plus and not profile.linkedin %}
-	<p><em>Currently empty</em></p>
 	{% endif %}
 	{% endif %}
       </div>

@@ -437,12 +437,13 @@ def update_profile(request):
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
     profile = request.user.get_profile()
-    results = {'message': 'Failure'}
+    results = {'success': False,
+               'message': ''}
     if request.method == 'POST':
         if 'about' in request.POST:
             profile.about = request.POST.get('about')
             profile.save()
-            results = {'message': 'success'}
+            results['success'] = True
         elif 'email' in request.POST:
             email = request.POST.get('email')
             try:
@@ -451,53 +452,106 @@ def update_profile(request):
                 if email == '':
                     profile.email = ''
                     profile.save()
-                    results = {'message': 'success'}
+                    results['success'] = True
                 else:
-                    results = {'message': 'Invalid email'}
+                    results['message'] = 'Invalid email address'
             else:
                 profile.email = email
                 profile.save()
-                results = {'message': 'success'}
+                results['success'] = True
         elif 'phone' in request.POST:
             profile.phone = request.POST.get('phone')
             profile.save()
-            results = {'message': 'success'}
+            results['success'] = True
         elif 'location' in request.POST:
             profile.location = request.POST.get('location')
             profile.save()
-            results = {'message': 'success'}
-        elif 'website' in request.POST:
+            results['success'] = True
+        else:
             validate = URLValidator()
-            url = request.POST.get('website')
-            try:
-                validate(url)
-            except ValidationError:
-                if url == '':
-                    profile.website = ''
-                    profile.save()
-                    results = {'message': 'success'}
+            if 'website' in request.POST:
+                url = request.POST.get('website')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.website = ''
+                        profile.save()
+                        results['success'] = True
+                    else:
+                        results['message'] = 'Invalid website URL\n'
                 else:
-                    results = {'message': 'Invalid URL'}
-            else:
-                profile.website = url
-                profile.save()
-                results = {'message': 'success'}
-        elif 'twitter' in request.POST:
-            profile.twitter = request.POST.get('twitter')
-            profile.save()
-            results = {'message': 'success'}
-        elif 'facebook' in request.POST:
-            profile.facebook = request.POST.get('facebook')
-            profile.save()
-            results = {'message': 'success'}
-        elif 'google_plus' in request.POST:
-            profile.google_plus = request.POST.get('google_plus')
-            profile.save()
-            results = {'message': 'success'}
-        elif 'linkedin' in request.POST:
-            profile.linkedin = request.POST.get('linkedin')
-            profile.save()
-            results = {'message': 'success'}
+                    profile.website = url
+                    profile.save()
+                    results['success'] = True
+            if 'twitter' in request.POST:
+                url = request.POST.get('twitter')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.twitter = ''
+                        profile.save()
+                        if not results['message']:
+                            results['success'] = True
+                    else:
+                        results['message'] = results['message'] + 'Invalid Twitter URL\n'
+                else:
+                    profile.twitter = url
+                    profile.save()
+                    if not results['message']:
+                        results['success'] = True
+            if 'facebook' in request.POST:
+                url = request.POST.get('facebook')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.facebook = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['message'] = results['message'] + 'Invalid Facebook URL\n'
+                else:
+                    profile.facebook = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'google_plus' in request.POST:
+                url = request.POST.get('google_plus')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.google_plus = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['message'] = results['message'] + 'Invalid Google+ URL\n'
+                else:
+                    profile.google_plus = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'linkedin' in request.POST:
+                url = request.POST.get('linkedin')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.linkedin = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['message'] = results['message'] + 'Invalid LinkedIn URL'
+                else:
+                    profile.linkedin = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
     return HttpResponse(json.dumps(results), mimetype='application/json')
 
 def help(request):

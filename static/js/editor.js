@@ -42,7 +42,16 @@ $(document).ready(function(){
 	$.ajax({
 	    type: "POST",
 	    url: "/update/",
-	    data: {'about': $("#about-textarea").val()}
+	    data: {'about': $("#about-textarea").val()},
+	    success: function(data) {
+		$("#ajax-alert > p").remove();
+		if (!data.success) {
+		    $("#ajax-alert").show();
+		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		} else {
+		    $("#ajax-alert").hide();
+		}
+	    }
 	});
     });
 
@@ -88,7 +97,16 @@ $(document).ready(function(){
 	$.ajax({
 	    type: "POST",
 	    url: "/update/",
-	    data: {'email': $("#email-input").val()}
+	    data: {'email': $("#email-input").val()},
+	    success: function(data) {
+		$("#ajax-alert > p").remove();
+		if (!data.success) {
+		    $("#ajax-alert").show();
+		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		} else {
+		    $("#ajax-alert").hide();
+		}
+	    }
 	});
     });
 
@@ -134,7 +152,16 @@ $(document).ready(function(){
 	$.ajax({
 	    type: "POST",
 	    url: "/update/",
-	    data: {'phone': $("#phone-input").val()}
+	    data: {'phone': $("#phone-input").val()},
+	    success: function(data) {
+		$("#ajax-alert > p").remove();
+		if (!data.success) {
+		    $("#ajax-alert").show();
+		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		} else {
+		    $("#ajax-alert").hide();
+		}
+	    }
 	});
     });
 
@@ -180,7 +207,16 @@ $(document).ready(function(){
 	$.ajax({
 	    type: "POST",
 	    url: "/update/",
-	    data: {'location': $("#location-input").val()}
+	    data: {'location': $("#location-input").val()},
+	    success: function(data) {
+		$("#ajax-alert > p").remove();
+		if (!data.success) {
+		    $("#ajax-alert").show();
+		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		} else {
+		    $("#ajax-alert").hide();
+		}
+	    }
 	});
     });
 
@@ -228,7 +264,154 @@ $(document).ready(function(){
 	$.ajax({
 	    type: "POST",
 	    url: "/update/",
-	    data: {'website': $("#website-input").val()}
+	    data: {'website': $("#website-input").val()},
+	    success: function(data) {
+		$("#ajax-alert > p").remove();
+		if (!data.success) {
+		    $("#ajax-alert").show();
+		    $("#ajax-alert").append("<p>" + data['message'] + "</p>");
+		} else {
+		    $("#ajax-alert").hide();
+		}
+	    }
+	});
+    });
+
+    $("#trigger-editable-social").on("click", function() {
+	if ($("#valid-social-twitter").length) {
+	    $("#valid-social-twitter").hide();
+	    $("#twitter-input").val($("#valid-social-twitter").attr('href'));
+	}
+	if ($("#valid-social-facebook").length) {
+	    $("#valid-social-facebook").hide();
+	    $("#facebook-input").val($("#valid-social-facebook").attr('href'));
+	}
+	if ($("#valid-social-google_plus").length) {
+	    $("#valid-social-google_plus").hide();
+	    $("#google_plus-input").val($("#valid-social-google_plus").attr('href'));
+	}
+	if ($("#valid-social-linkedin").length) {
+	    $("#valid-social-linkedin").hide();
+	    $("#linkedin-input").val($("#valid-social-linkedin").attr('href'));
+	}
+	if ($("#empty-social").length){
+	    $("#empty-social").hide()
+	}
+	$("#twitter-group").show();
+	$("#facebook-group").show();
+	$("#google_plus-group").show();
+	$("#linkedin-group").show();
+	$("#save-social").show();
+	$("#cancel-social").show();
+    });
+    $("#cancel-social").on("click", function() {
+	$("#twitter-group").hide();
+	$("#facebook-group").hide();
+	$("#google_plus-group").hide();
+	$("#linkedin-group").hide();
+	$("#save-social").hide();
+	$("#cancel-social").hide();
+	$("#editable-social").find("p").show();
+	$("#editable-social").find("a").show();
+    });
+    $("#save-social").on("click", function() {
+	$("#twitter-group").hide();
+	$("#facebook-group").hide();
+	$("#google_plus-group").hide();
+	$("#linkedin-group").hide();
+	$("#save-social").hide();
+	$("#cancel-social").hide();
+	var twitter, facebook, google_plus, linkedin;
+	if ($("#twitter-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-twitter").length) {
+		$("#editable-social").append('<a id="valid-social-twitter" target="_blank" style="padding-right: 15px"><img id="appended-twitter"></a>');
+	    }
+	    $("#valid-social-twitter").show();
+	    $("#valid-social-twitter").attr('href', $("#twitter-input").val());
+	    $("#appended-twitter").attr('src', $("#twitter-img").text());
+	    twitter = $("#twitter-input").val();
+	} else {
+	    twitter = '';
+	}
+	if ($("#facebook-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-facebook").length) {
+		$("#editable-social").append('<a id="valid-social-facebook" target="_blank" style="padding-right: 15px"><img id="appended-facebook"></a>');
+	    }
+	    $("#valid-social-facebook").show();
+	    $("#valid-social-facebook").attr('href', $("#facebook-input").val());
+	    $("#appended-facebook").attr('src', $("#facebook-img").text());
+	    facebook = $("#facebook-input").val();
+	} else {
+	    facebook = '';
+	}
+	if ($("#google_plus-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-google_plus").length) {
+		$("#editable-social").append('<a id="valid-social-google_plus" target="_blank" style="padding-right: 15px"><img id="appended-google_plus"></a>');
+	    }
+	    $("#valid-social-google_plus").show();
+	    $("#valid-social-google_plus").attr('href', $("#google_plus-input").val());
+	    $("#appended-google_plus").attr('src', $("#google_plus-img").text());
+	    google_plus = $("#google_plus-input").val();
+	} else {
+	    google_plus = $("#google_plus-input").val();
+	}
+	if ($("#linkedin-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-linkedin").length) {
+		$("#editable-social").append('<a id="valid-social-linkedin" target="_blank" style="padding-right: 15px"><img id="appended-linkedin"></a>');
+	    }
+	    $("#valid-social-linkedin").show();
+	    $("#valid-social-linkedin").attr('href', $("#linkedin-input").val());
+	    $("#appended-linkedin").attr('src', $("#linkedin-img").text());
+	    linkedin = $("#linkedin-input").val();
+	} else {
+	    linkedin = '';
+	}
+	if (!$("#twitter-input").val() && !$("#facebook-input").val() && !$("#google_plus-input").val() && !$("#linkedin-input").val()) {
+	    if (!$("#empty-social").length) {
+		$("#editable-social").append('<p id="empty-social"><em>Currently empty</em></p>');
+	    }
+	    if ($("#valid-social-twitter").length) {
+		$("#valid-social-twitter").remove();
+	    }
+	    if ($("#valid-social-facebook").length) {
+		$("#valid-social-facebook").remove();
+	    }
+	    if ($("#valid-social-google_plus").length) {
+		$("#valid-social-google_plus").remove();
+	    }
+	    if ($("#valid-social-linkedin").length) {
+		$("#valid-social-linkedin").remove();
+	    }
+	    $("#empty-social").show();
+	}
+	$.ajax({
+	    type: "POST",
+	    url: "/update/",
+	    data: {'twitter': twitter,
+		   'facebook': facebook,
+		   'google_plus': google_plus,
+		   'linkedin': linkedin},
+	    success: function(data) {
+		$("#ajax-alert > p").remove();
+		if (!data.success) {
+		    $("#ajax-alert").show();
+		    $("#ajax-alert").append("<p>" + formatAsHTML(data['message']) + "</p>");
+		} else {
+		    $("#ajax-alert").hide();
+		}
+	    }
 	});
     });
 
