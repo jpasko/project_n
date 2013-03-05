@@ -124,10 +124,10 @@
 	  {% if user.is_authenticated and user.username == username %}
 	  {% with account_limit=customer.account_limit %}
 	  {% if profile.photo_count > account_limit %}
-	  <p class="navbar-text pull-left muted" style="color: red">
+	  <p class="navbar-text pull-left muted" style="color: red !important">
 	    (currently using {{ profile.photo_count }} of {{ account_limit }} uploads | 
 	  {% elif profile.photo_count == account_limit %}
-	  <p class="navbar-text pull-left muted" style="color: orange">
+	  <p class="navbar-text pull-left muted" style="color: orange !important">
 	    (currently using {{ profile.photo_count }} of {{ account_limit }} uploads | 
 	  {% else %}
 	  <p class="navbar-text pull-left muted">

@@ -54,11 +54,8 @@
 </div>
 {% endif %}
 {% if user.is_authenticated and user.username == username %}
-<div class="row" style="padding-bottom: 25px">
-  <!--
-  <a class="btn-green btn-green-link" href="/create_gallery/" style="margin-left: 20px"><i class="icon-plus icon-white"></i> Create Gallery</a>
-  -->
-  <a class="btn-green btn-green-link" role="button" data-toggle="modal" href="#create-gallery-modal" style="margin-left: 20px">
+<div class="row-fluid" style="padding-bottom: 25px">
+  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#create-gallery-modal" style="margin-left: 20px">
     <i class="icon-plus icon-white"></i> Create Gallery
   </a>
 </div>
@@ -85,7 +82,7 @@
   </div>
 </div>
 {% endif %}
-<div class="row muted">
+<div class="row-fluid muted">
   <div class="span12">
     <ul class="thumbnails sortable-galleries">
       {% for gallery in galleries %}

@@ -10,6 +10,10 @@
     padding: 5px;
     color: #424242;
   }
+  .centered-box {
+    margin: 0 auto;
+    width: 300px;
+  }
 </style>
 {% endblock %}
 {% block script %}
@@ -26,47 +30,43 @@ $(function() {
 <h3 class="muted">You've reached your upload limit!</h3>
 <p class="muted"><em>Either <a href="/settings/">upgrade</a> your account or delete photos</em></p>
 {% else %}
-<div class="row-fluid muted">
-  <div class="span4 offset4">
+<div class="centered-box muted">
+  {% if photo_form and item_form %}
+  <h3>Upload Image</h3>
 
-    {% if photo_form and item_form %}
-    <h3>Upload Image</h3>
+  {% if photo_form.image.errors %}
+  <p class="form-errors"><strong>Error: </strong>choose a valid image file</p>
+  {% endif %}
+  <form method="post" action="." enctype="multipart/form-data">
+    {% csrf_token %}
+    <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+    <input type="file" name="image" id="id_image" class="hide"/>
+    <div class="pretty_file_input">
+      <input id="id_image_styled" type="text" onclick="$('#id_image').click();" placeholder="Image" style="width: 204px">
+      <a class="btn btn-default" onclick="$('#id_image').click();" style="margin-bottom: 10px"><b>Browse</b></a>
+    </div>
+    <div style="display: block">
+      <input type="submit" value="Upload" class="btn-green">
+      <a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/">Cancel</a>
+    </div>
+  </form>
+  {% endif %}
 
-    {% if photo_form.image.errors %}
-    <p class="form-errors"><strong>Error: </strong>choose a valid image file</p>
-    {% endif %}
-    <form method="post" action="." enctype="multipart/form-data">
-      {% csrf_token %}
-      <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
-      <input type="file" name="image" id="id_image" class="hide"/>
-      <div class="pretty_file_input">
-	<input id="id_image_styled" type="text" onclick="$('#id_image').click();" placeholder="Image" style="width: 204px">
-	<a class="btn btn-default" onclick="$('#id_image').click();" style="margin-bottom: 10px"><b>Browse</b></a>
-      </div>
-      <div style="display: block">
-	<input type="submit" value="Upload" class="btn-green">
-	<a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/" style="margin-left: 10px">Cancel</a>
-      </div>
-    </form>
-    {% endif %}
-
-    {% if video_form %}
-    <h3>Upload Video</h3>
-    {% if video_form.errors %}
-    <p class="form-errors"><strong>Error: </strong>URL must begin with http:// or https://</p>
-    {% endif %}
-    <form method="post" action=".">
-      {% csrf_token %}
-      <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
-      <input type="text" name="url" id="id_url" placeholder="YouTube, Vimeo, or Dailymotion URL" style="width: 286px"/>
-      <div style="display: block">
-	<input type="submit" value="Upload" class="btn-green">
-	<a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/" style="margin-left: 10px">Cancel</a>
-      </div>
-    </form>
-    {% endif %}
-
-  </div>
+  {% if video_form %}
+  <h3>Upload Video</h3>
+  {% if video_form.errors %}
+  <p class="form-errors"><strong>Error: </strong>URL must begin with http:// or https://</p>
+  {% endif %}
+  <form method="post" action=".">
+    {% csrf_token %}
+    <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+    <input type="text" name="url" id="id_url" placeholder="YouTube, Vimeo, or Dailymotion URL" style="width: 286px"/>
+    <div style="display: block">
+      <input type="submit" value="Upload" class="btn-green">
+      <a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/">Cancel</a>
+    </div>
+  </form>
+  {% endif %}
 </div>
 {% endif %}
 {% endblock %}

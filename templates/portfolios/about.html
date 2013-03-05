@@ -24,7 +24,6 @@
 {% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/confirm-delete.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/editor.js"></script>
 <script>
 $(document).ready(function(){
@@ -72,17 +71,12 @@ $(document).ready(function(){
 {% endblock %}
 {% block content %}
 {% if user.is_authenticated and user.username == username %}
-<div id="dialog" title="Are you sure?">
-  <p>
-    <span class="ui-icon ui-icon-alert"></span>
-    This photo will be permanently deleted.</p>
-</div>
 <div class="alert alert-error hide" id="ajax-alert">
   <a class="close" data-dismiss="alert" href="#">&times;</a>
   <p></p>
 </div>
 <!-- Modal for uploading a profile picture -->
-<div class="modal hide fade" role="dialog" tabindex="-1" id="profile-picture-modal" arialabelledby="profile-picture-heading">
+<div class="modal hide" role="dialog" tabindex="-1" id="profile-picture-modal" arialabelledby="profile-picture-heading">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
     <h3 id="profile-picture-heading" style="color: #424242">Profile Picture</h3>
@@ -100,6 +94,19 @@ $(document).ready(function(){
 	<button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>
       </div>
     </form>
+  </div>
+</div>
+<!-- Modal for removing the profile picture -->
+<div class="modal hide" role="dialog" tabindex="-1" id="delete-profile-picture" arialabelledby="delete-picture-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="delete-picture-heading" style="color: #424242">Delete profile picture?</h3>
+  </div>
+  <div class="modal-body">
+    <div style="padding-top: 15px">
+      <a href="/about/delete_photo/" class="btn btn-danger btn-large">Delete</a>
+      <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    </div>
   </div>
 </div>
 <!-- End modal -->
@@ -359,11 +366,11 @@ $(document).ready(function(){
   <div class="span3">
     {% if user.is_authenticated and username == user.username %}
     <div class="row-fluid" style="padding-bottom: 10px">
-      <a href="#profile-picture-modal" role="button" data-toggle="modal" class="btn-green btn-green-link">
-	<i class="icon-plus icon-white"></i>Profile picture
+      <a href="#profile-picture-modal" role="button" data-toggle="modal" class="btn btn-success">
+	<i class="icon-plus icon-white"></i><strong>Profile picture</strong>
       </a>
       {% if profile.picture %}
-      <a href="/about/delete_photo/" class="confirm btn btn-danger" style="margin-left: 3px">
+      <a href="#delete-profile-picture" role="button" data-toggle="modal" class="btn btn-danger">
 	<i class="icon-remove icon-white"></i>
       </a>
       {% endif %}

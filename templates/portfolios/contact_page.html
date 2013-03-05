@@ -89,13 +89,13 @@ $(document).ready(function() {
 
 	<label for="id_sender">Your email (optional)</label>
 	{% if form.sender.errors %}
-	<p class="form-errors">Invalid email address</p>
+	<p class="form-errors"><strong>Error: </strong>this email address isn't valid</p>
 	{% endif %}
 	{{ form.sender }}
 
 	<label for="id_message">Message</label>
 	{% if form.message.errors %}
-	<p class="form-errors">Please write a message first</p>
+	<p class="form-errors"><strong>Error: </strong>please write a message first</p>
 	{% endif %}
 	{{ form.message }}
 	<input type="submit" value="Send Message" class="btn-contact" style="display: block" />

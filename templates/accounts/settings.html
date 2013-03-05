@@ -1,31 +1,105 @@
 {% extends "portfolio_base.html" %}
 {% block title %}{{ profile.fullname }} | Settings{% endblock %}
-{% block header %}{% endblock %}
-{% block script %}
-<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-<script src="{{ STATIC_URL }}js/confirm-delete.js"></script>
-<script>
-$(function() {
-  $( "#accordion" ).accordion({
-    heightStyle: "content"
-  });
-});
-</script>
+{% block head %}
+<style>
+ .form-errors {
+    border: 1px solid #ff4d42;
+    border-radius: 5px;
+    background: #ffe2d6;
+    padding: 3px;
+    display: inline-block;
+    color: #424242;
+  }
+</style>
 {% endblock %}
 {% block content %}
-<div id="dialog" title="Are you absolutely sure?">
-  <p>
-    <span class="ui-icon ui-icon-alert"></span>
-    Your portfolio and all photos it contains will be permanently deleted!</p>
-</div>
-<div id="dialog-change-account" title="Change your account type">
-  <p>
-    <span class="ui-icon ui-icon-alert"></span>
-    Are you sure you want to change your account type?
+<!-- Modals -->
+<div class="modal hide" role="dialog" tabindex="-1" id="delete-account" arialabelledby="delete-account-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="delete-account-heading" style="color: #424242">Are you sure?</h3>
+  </div>
+  <div class="modal-body">
+    <p style="color: #424242">
+      We're very sorry to see you leave.  If you have any concerns you'd like to share, please
+      <a href="http://{{ DOMAIN }}/contact/" target="_blank">contact</a> us.
     </p>
+    <div style="padding-top: 15px">
+      <a href="/delete/" class="btn btn-danger btn-large">Delete</a>
+      <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    </div>
+  </div>
 </div>
+<div class="modal hide" role="dialog" tabindex="-1" id="upgrade-account" arialabelledby="upgrade-account-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="upgrade-account-heading" style="color: #424242">Upgrade your account</h3>
+  </div>
+  <div class="modal-body">
+    <p style="color: #424242"><em>Your current upload limit is <strong>{{ customer.account_limit }}</strong> uploads</em></p>
+    <hr>
+    <p style="color: #424242">20 uploads</p>
+    <a href="/accounts/basic/" class="btn btn-primary btn-large">Free</a>
+    <hr>
+    <p style="color: #424242">150 uploads</p>
+    <a href="/accounts/premium/" class="btn btn-primary btn-large">$5.99/month</a>
+    <hr>
+    <p style="color: #424242">1000 uploads</p>
+    <a href="/accounts/professional/" class="btn btn-primary btn-large">$7.99/month</a>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-large" data-dismiss="modal">Close</button>
+  </div>
+</div>
+<!-- End modals -->
+
+<div class="row-fluid muted">
+  <div class="span6">
+    <h3>Upgrade your account</h3>
+    <p style="margin-bottom: 20px">You can also downgrade your account</p>
+    <p><a href="#upgrade-account"  role="button" data-toggle="modal" class="btn-green btn-green-link btn-large">Upgrade</a></p>
+  </div>
+  <div class="span6">
+    <h3>Update your credit card</h3>
+    <p style="margin-bottom: 20px">Add a credit card or change your active card.</p>
+    <a href="/accounts/change/" class="btn-green btn-green-link btn-large">Update</a>
+  </div>
+</div>
+<hr style="border-top: none; border-bottom: 1px solid #{{ profile.text_color }}">
+<div class="row-fluid muted">
+  <div class="span6">
+    <h3>Change your password</h3>
+    {% if password_change_form.errors %}
+    <p class="form-errors"><strong>Error: </strong>
+    {% if password_change_form.old_password.errors %}
+      <br>Your old password was entered incorrectly.
+    {% endif %}
+    {% if password_change_form.new_password1.errors or password_change_form.new_password2.errors %}
+      <br>The new passwords didn't match.
+    {% endif %}
+    </p>
+    {% endif %}
+    <form method="post" action=".">
+      {% csrf_token %}
+      <input type="password" name="old_password" id="id_old_password" placeholder="Password" style="display: block"/>
+      <input type="password" name="new_password1" id="id_new_password1" placeholder="New password" style="display: block"/>
+      <input type="password" name="new_password2" id="id_new_password2" placeholder="New password (again)" style="display: block"/>
+      <input type="submit" value="Change" class="btn-green btn-large">
+    </form>
+  </div>
+  <div class="span6">
+    <h3>Delete your account</h3>
+    <a href="#delete-account" role="button" data-toggle="modal" class="btn btn-default">Delete</a>
+  </div>
+</div>
+
+
+<!--
+
+
 <div class="row">
   <div class="span10">
+
     <h3 class="muted">Your account settings</h3>
     <div id="accordion">
       <h3>Upgrade <em>(or change)</em> your account</h3>
@@ -33,6 +107,9 @@ $(function() {
 	<div class="row">
 	  <p class="muted"><em>Your current upload limit is <b>{{ customer.account_limit }}</b> images</em></p>
 	</div>
+
+
+
 	<div class="row">
 	  <div class="span3">
 	    <a href="/accounts/basic/" class="btn btn-large btn-primary confirm-change-account" style="color: white">Basic</a>
@@ -50,14 +127,6 @@ $(function() {
 	    <h4 class="muted">$7.99/month</h4>
 	  </div>
 	</div>
-<!--
-	<div class="row">
-	  <p class="muted"><em>If you decide to downgrade your account, it's best to delete images first so that you don't
-	      exceed the new upload limit.  If you're over the upload limit, your public portfolio will
-	      appear to be empty.  All your galleries, photos, and management tools will still be available, as will your
-	      "about" page.</em></p>
-	</div>
--->
       </div>
       <h3>Update your credit card</h3>
       <div>
@@ -77,9 +146,10 @@ $(function() {
 	<p>Are you <em>sure</em> you want to delete your account?  It's also possible to downgrade
 	  your account.</p>
 	<d class="muted"><em>If you have a paid account, your credit card will no longer be charged once you've deleted your account.</em></p>
-	<a href="/delete/" class="btn btn-large btn-primary confirm" style="color: white">Delete</a>
+	<a href="#delete-account" role="button" data-toggle="modal" class="btn btn-default btn-large">Delete</a>
       </div>
     </div>
   </div>
 </div>
+-->
 {% endblock %}
