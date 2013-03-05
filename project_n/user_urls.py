@@ -87,6 +87,9 @@ urlpatterns = patterns('',
     # A help page.
     url(r'^help/$', 'portfolios.views.help'),
 
+    # Edit the profile picture
+    url(r'^edit_profile_picture/$', 'portfolios.views.edit_profile_picture'),
+
     # Robots.txt directly from template.
     url(r'^robots\.txt$', direct_to_template,
         {'template': 'robots.txt', 'mimetype': 'text/plain'}),

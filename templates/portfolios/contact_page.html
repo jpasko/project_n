@@ -63,8 +63,8 @@ $(document).ready(function() {
 <div class="muted">
   {% if user.is_authenticated and user.username == username %}
   <div class="row-fluid" style="padding-bottom: 20px">
-    <div class="span3 offset4">
-      <p class="muted" style="float: left; padding-right: 10px"><b>Enable this page?</b></p>
+    <div class="span3 offset3">
+      <p class="muted" style="float: left; padding-right: 10px"><b>Enable?</b></p>
       <div class="btn-group" data-toggle="buttons-radio" style="display: inline">
 	{% if profile.allow_contact %}
 	<button type="button" class="btn btn-success enable-contact active" value="True"><i class="icon-ok"></i></button>
@@ -82,7 +82,7 @@ $(document).ready(function() {
   <h3 class="message-success">Your message has been sent</h3>
   {% endif %}
   <div class="row-fluid marketing">
-    <div class="span3 offset4">
+    <div class="span3 offset3">
       <form method="post" action=".">
 	{% csrf_token %}
 

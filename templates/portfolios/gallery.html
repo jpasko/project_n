@@ -20,6 +20,13 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/get-thumbnail.js"></script>
+<script>
+$(document).ready(function(){
+  $('#id_image').change(function() {
+    $('#id_image_styled').val($(this).val().replace("C:\\fakepath\\", ""));
+  });
+});
+</script>
 {% endif %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/galleria/galleria-1.2.9.min.js"></script>
 <script src="{{ STATIC_URL }}js/galleria/themes/classic/galleria.classic.min.js"></script>
@@ -46,13 +53,55 @@
 {% if user.is_authenticated and username == user.username %}
 <!-- Edit mode -->
 <div class="row" style="padding-bottom: 25px">
-  <a class="btn-green btn-green-link" href="/upload/image/{{ gallery.pk }}/" style="margin-left: 20px">
+  <a class="btn-green btn-green-link" role="button" data-toggle="modal" href="#upload-photo-modal" style="margin-left: 20px">
     <i class="icon-arrow-up icon-white"></i>Upload Image
   </a>
-  <a class="btn-green btn-green-link" href="/upload/video/{{ gallery.pk }}/" style="margin-left: 5px">
+  <a class="btn-green btn-green-link" role="button" data-toggle="modal" href="#upload-video-modal" style="margin-left: 5px">
     <i class="icon-arrow-up icon-white"></i>Upload Video
   </a>
 </div>
+<!-- Upload modals -->
+<!-- Upload photo -->
+<div class="modal hide fade" role="dialog" tabindex="-1" id="upload-photo-modal" arialabelledby="upload-photo-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="upload-photo-heading" style="color: #424242">Upload Image</h3>
+  </div>
+  <div class="modal-body">
+    <form method="post" action="/upload/image/{{ gallery.pk }}/" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+      <input type="file" name="image" id="id_image" class="hide"/>
+      <div class="pretty_file_input">
+	<input id="id_image_styled" type="text" onclick="$('#id_image').click();" placeholder="Image">
+	<a class="btn btn-default" onclick="$('#id_image').click();" style="margin-bottom: 10px"><strong>Browse</strong></a>
+      </div>
+      <div style="padding-top: 15px">
+	   <input type="submit" value="Upload" class="btn btn-primary btn-large">
+	   <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Upload video -->
+<div class="modal hide fade" role="dialog" tabindex="-1" id="upload-video-modal" arialabelledby="upload-video-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="upload-video-heading" style="color: #424242">Upload Video</h3>
+  </div>
+  <div class="modal-body">
+    <form method="post" action="/upload/video/{{ gallery.pk }}/">
+      {% csrf_token %}
+      <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+      <input type="text" name="url" id="id_url" placeholder="YouTube, Vimeo, or Dailymotion URL" style="width: 286px"/>
+      <div style="padding-top: 15px">
+	<input type="submit" value="Upload" class="btn btn-primary btn-large">
+	<button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- end modals -->
 <div class="row">
   <div class="span10">
     <ul class="thumbnails sortable-items">

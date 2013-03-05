@@ -63,6 +63,9 @@ $(document).ready(function(){
       });
     }
   });
+  $('#id_picture').change(function() {
+    $('#id_picture_styled').val($(this).val().replace("C:\\fakepath\\", ""));
+  });
 });
 </script>
 {% endif %}
@@ -78,6 +81,28 @@ $(document).ready(function(){
   <a class="close" data-dismiss="alert" href="#">&times;</a>
   <p></p>
 </div>
+<!-- Modal for uploading a profile picture -->
+<div class="modal hide fade" role="dialog" tabindex="-1" id="profile-picture-modal" arialabelledby="profile-picture-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="profile-picture-heading" style="color: #424242">Profile Picture</h3>
+  </div>
+  <div class="modal-body">
+    <form method="post" action="/edit_profile_picture/" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="picture" id="id_picture" class="hide"/>
+      <div class="pretty_file_input">
+	<input id="id_picture_styled" type="text" onclick="$('#id_picture').click();" placeholder="Image">
+	<a class="btn btn-default" onclick="$('#id_picture').click();" style="margin-bottom: 10px"><b>Browse</b></a>
+      </div>
+      <div style="padding-top: 15px">
+	<input type="submit" value="Upload" class="btn btn-primary btn-large">
+	<button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- End modal -->
 {% endif %}
 <div class="row-fluid muted">
   <div class="span9">
@@ -334,9 +359,13 @@ $(document).ready(function(){
   <div class="span3">
     {% if user.is_authenticated and username == user.username %}
     <div class="row-fluid" style="padding-bottom: 10px">
-      <a href="/customize/" class="btn-green btn-green-link"><i class="icon-plus icon-white"></i>Profile picture</a>
+      <a href="#profile-picture-modal" role="button" data-toggle="modal" class="btn-green btn-green-link">
+	<i class="icon-plus icon-white"></i>Profile picture
+      </a>
       {% if profile.picture %}
-      <a href="/about/delete_photo/" class="confirm btn btn-danger"><i class="icon-remove icon-white"></i></a>
+      <a href="/about/delete_photo/" class="confirm btn btn-danger" style="margin-left: 3px">
+	<i class="icon-remove icon-white"></i>
+      </a>
       {% endif %}
     </div>
     {% endif %}

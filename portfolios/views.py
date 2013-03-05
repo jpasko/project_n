@@ -575,3 +575,18 @@ def help(request):
                                'customer': customer,}
                                )
     return render_to_response('portfolios/help.html', variables)
+
+def edit_profile_picture(request):
+    """
+    Allows the user to upload a new picture, or delete the current one.
+    """
+    username = request.subdomain
+    # Ensure that we cannot toggle the contact page of a different user.
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    if request.method == 'POST':
+        form = ProfilePictureForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+    return HttpResponseRedirect('/about/')

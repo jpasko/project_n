@@ -22,6 +22,38 @@ class UserProfileForm(forms.ModelForm):
                    'google_plus',
                    'linkedin',)
 
+class ProfilePictureForm(forms.ModelForm):
+    """
+    Form to edit or delete the profile picture.
+    """
+    class Meta:
+        model = UserProfile
+        exclude = ('user',
+                   'photo_count',
+                   'allow_contact',
+                   'allow_about',
+                   'full_width_navbar',
+                   'page_width',
+                   'ga_1',
+                   'ga_2',
+                   'copy_text',
+                   'fullname',
+                   'location',
+                   'email',
+                   'about',
+                   'phone',
+                   'background_color',
+                   'text_color',
+                   'text_color_hover',
+                   'portfolio_columns',
+                   'website',
+                   'blog',
+                   'twitter',
+                   'facebook',
+                   'google_plus',
+                   'linkedin',
+                   'banner',)
+
 class UploadItemForm(forms.ModelForm):
     """
     Form to upload a generic item.
