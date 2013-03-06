@@ -32,6 +32,7 @@ class ProfilePictureForm(forms.ModelForm):
                    'photo_count',
                    'allow_contact',
                    'allow_about',
+                   'enable_banner',
                    'full_width_navbar',
                    'page_width',
                    'ga_1',

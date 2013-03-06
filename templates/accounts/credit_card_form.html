@@ -15,12 +15,16 @@
     border: 1px solid #ff4d42;
     background: #ffe2d6;
     padding: 5px;
+    border-radius: 5px;
+    color: #424242;
   }
   .processing-errors {
     display: inline-block;
     border: 1px solid #ff4d42;
     background: #ffe2d6;
+    border-radius: 5px;
     padding: 5px;
+    color: #424242;
   }
   .current-card {
     display: inline-block;
@@ -28,6 +32,10 @@
     background: #a4f4ba;
     padding: 2px;
     margin-bottom: 10px;
+  }
+  .centered-box {
+    margin: 0 auto;
+    width: 300px;
   }
 </style>
 {% endblock %}
@@ -68,51 +76,48 @@
 {% endblock %}
 
 {% block content %}
-<div class="row muted">
-  <div class="span3">
+<div class="centered-box muted">
+  <h3>Credit Card Form</h3>
+  {% if last_4 %}
+  <div class="current-card">
+    <p><em>Current card:</em> **** **** **** <b>{{ last_4 }}</b></p>
   </div>
-  <div class="span4">
-    <h3 class="muted">Credit Card Form</h3>
-    {% if last_4 %}
-    <div class="current-card">
-      <p><em>Current card:</em> **** **** **** <b>{{ last_4 }}</b></p>
-    </div>
-    {% endif %}
+  {% endif %}
+  <div style="overflow: hidden">
+    <img src="{{ STATIC_URL }}img/cards.png" class="card-images">
+  </div>
+  <div style="padding-top: 10px"></div>
+  <span class="payment-errors"></span>
+  {% if error %}
+  <span class="processing-errors">{{ error }}</span>
+  {% endif %}
+  <form method="POST" action="" id="payment-form" style="padding-top: 10px">
+    {% csrf_token %}
+
+<!--    <label for="card-number-id">Card Number</label> -->
+    <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" style="width: 20ex" placeholder="Card Number"/>
+
+<!--    <label for="cvc-id">CVC (security code)</label> -->
     <div style="overflow: hidden">
-      <img src="{{ STATIC_URL }}img/cards.png" class="card-images">
+      <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 6ex" placeholder="CVC"/>
+      <img src="{{ STATIC_URL }}img/cards.png" class="cvc-image">
     </div>
-    <div style="padding-top: 10px"></div>
-    <span class="payment-errors"></span>
-    {% if error %}
-    <span class="processing-errors">{{ error }}</span>
-    {% endif %}
-    <form method="POST" action="" id="payment-form" style="padding-top: 10px">
-      {% csrf_token %}
 
-      <label for="card-number-id">Card Number</label>
-      <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" style="width: 20ex"/>
-
-      <label for="cvc-id">CVC (security code)</label>
-      <div style="overflow: hidden">
-	<input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 6ex"/>
-	<img src="{{ STATIC_URL }}img/cards.png" class="cvc-image">
-      </div>
-
-      <label for="expiry_date">Expiration date</label>
-      <div class="input">
-        <select class="card-expiry-month" style="width: 9ex">
-          {% for month in months %}
-          <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
-          {% endfor %}
-        </select>
-        <select class="card-expiry-year" style="width: 10ex">
-          {% for year in years %}
-          <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <button type="submit" class="submit-button btn btn-primary btn-large">Submit</button>
-    </form>
-  </div>
+    <label for="expiry_date">Expiration date (Month/Year)</label>
+    <div class="input">
+      <select class="card-expiry-month" style="width: 9ex">
+        {% for month in months %}
+        <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
+        {% endfor %}
+      </select>
+      <select class="card-expiry-year" style="width: 10ex">
+        {% for year in years %}
+        <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="submit-button btn-green btn-large">Submit</button>
+    <a class="btn-contact btn-link" href="/settings/">Cancel</a>
+  </form>
 </div>
 {% endblock %}

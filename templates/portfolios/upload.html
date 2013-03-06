@@ -55,7 +55,7 @@ $(function() {
   {% if video_form %}
   <h3>Upload Video</h3>
   {% if video_form.errors %}
-  <p class="form-errors"><strong>Error: </strong>URL must begin with http:// or https://</p>
+  <p class="form-errors"><strong>Error: </strong>that URL doesn't look valid</p>
   {% endif %}
   <form method="post" action=".">
     {% csrf_token %}

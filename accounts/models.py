@@ -29,6 +29,8 @@ class UserProfile(models.Model):
 
     allow_about = models.BooleanField(default=True)
 
+    enable_banner = models.BooleanField(default=True)
+
     full_width_navbar = models.BooleanField(default=False)
 
     page_width = models.IntegerField(default=940)
