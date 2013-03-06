@@ -25,7 +25,6 @@
   .processing-errors {
     width: 200px;
     margin: 0 auto;
-    display: inline-block;
     border: 1px solid #ff4d42;
     background: #ffe2d6;
     border-radius: 5px;
@@ -33,11 +32,14 @@
     color: #424242;
   }
   .current-card {
-    display: inline-block;
+    width: 200px;
+    margin: 0 auto;
     border: 1px solid #4dc78e;
     background: #a4f4ba;
     padding: 2px;
+    border-radius: 5px;
     margin-bottom: 10px;
+    color: #424242;
   }
   .centered-box {
     margin: 0 auto;
@@ -52,7 +54,7 @@
 
   function stripeResponseHandler(status, response) {
     if (response.error) {
-      $('.processing-errors').hide()
+      $('.processing-errors').hide();
       $('.payment-errors').text(response.error.message);
       $('.payment-errors').show();
       $('.submit-button').prop('disabled', false);
@@ -84,11 +86,6 @@
 {% block content %}
 <div class="centered-box muted">
   <h3 style="text-align: center">Credit Card Details</h3>
-  {% if last_4 %}
-  <div class="current-card">
-    <p><em>Current card:</em> **** **** **** <b>{{ last_4 }}</b></p>
-  </div>
-  {% endif %}
   <div style="margin: 0 auto; width: 290px">
     <div style="overflow: hidden; display: inline-block">
       <img src="{{ STATIC_URL }}img/cards.png" class="card-images-first">
@@ -99,6 +96,11 @@
   </div>
   <p style="text-align: center; padding-top: 10px"><i class="icon-ok icon-white"></i><em>All major cards accepted</em></p>
   <hr style="border-top: none; border-bottom: 1px solid #424242; width: 225px; margin: 0 auto; margin-bottom: 20px">
+  {% if last_4 %}
+  <div class="current-card">
+    <p><em>Current card:</em> **** **** **** <b>{{ last_4 }}</b></p>
+  </div>
+  {% endif %}
   <p class="payment-errors"></p>
   {% if error %}
   <p class="processing-errors">{{ error }}</p>

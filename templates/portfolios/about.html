@@ -132,6 +132,7 @@ $(document).ready(function(){
     </div>
     {% endif %}
 
+    {% if user.is_authenticated and username == user.username or profile.about %}
     <div class="row-fluid">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
@@ -161,7 +162,9 @@ $(document).ready(function(){
 	{% endif %}
       </div>
     </div>
+    {% endif %}
 
+    {% if user.is_authenticated and username == user.username or profile.email %}
     <div class="row-fluid">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
@@ -191,7 +194,9 @@ $(document).ready(function(){
 	{% endif %}
       </div>
     </div>
+    {% endif %}
 
+    {% if user.is_authenticated and username == user.username or profile.phone %}
     <div class="row-fluid">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
@@ -221,8 +226,9 @@ $(document).ready(function(){
 	{% endif %}
       </div>
     </div>
+    {% endif %}
 
-
+    {% if user.is_authenticated and username == user.username or profile.location %}
     <div class="row-fluid">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
@@ -252,7 +258,9 @@ $(document).ready(function(){
 	{% endif %}
       </div>
     </div>
+    {% endif %}
 
+    {% if user.is_authenticated and username == user.username or profile.website %}
     <div class="row-fluid">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
@@ -282,8 +290,9 @@ $(document).ready(function(){
 	{% endif %}
       </div>
     </div>
+    {% endif %}
 
-    <div class="row-fluid" style="padding-top: 8px">
+    <div class="row-fluid">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-social" href="#"><b>Social</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
