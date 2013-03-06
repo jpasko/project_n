@@ -2,15 +2,19 @@
 {% block title %}{{ profile.fullname }} | Credit card{% endblock %}
 {% block head %}
 <style>
-  .card-images {
-    margin: 0 0 -32px 0;
+  .card-images-first {
+    margin: 0 0 -64px 0;
+  }
+  .card-images-second {
+    margin: -32px 0 -32px 0;
   }
   .cvc-image {
     margin: -63px 0 0 0;
     padding-bottom: 10px;
-    padding-left: 10px;
   }
   .payment-errors {
+    width: 200px;
+    margin: 0 auto;
     display: none;
     border: 1px solid #ff4d42;
     background: #ffe2d6;
@@ -19,6 +23,8 @@
     color: #424242;
   }
   .processing-errors {
+    width: 200px;
+    margin: 0 auto;
     display: inline-block;
     border: 1px solid #ff4d42;
     background: #ffe2d6;
@@ -35,7 +41,7 @@
   }
   .centered-box {
     margin: 0 auto;
-    width: 300px;
+    width: 450px;
   }
 </style>
 {% endblock %}
@@ -77,47 +83,49 @@
 
 {% block content %}
 <div class="centered-box muted">
-  <h3>Credit Card Form</h3>
+  <h3 style="text-align: center">Credit Card Details</h3>
   {% if last_4 %}
   <div class="current-card">
     <p><em>Current card:</em> **** **** **** <b>{{ last_4 }}</b></p>
   </div>
   {% endif %}
-  <div style="overflow: hidden">
-    <img src="{{ STATIC_URL }}img/cards.png" class="card-images">
+  <div style="margin: 0 auto; width: 290px">
+    <div style="overflow: hidden; display: inline-block">
+      <img src="{{ STATIC_URL }}img/cards.png" class="card-images-first">
+    </div>
+    <div style="overflow: hidden; display: inline-block">
+      <img src="{{ STATIC_URL }}img/cards.png" class="card-images-second">
+    </div>
   </div>
-  <div style="padding-top: 10px"></div>
-  <span class="payment-errors"></span>
+  <p style="text-align: center; padding-top: 10px"><i class="icon-ok icon-white"></i><em>All major cards accepted</em></p>
+  <hr style="border-top: none; border-bottom: 1px solid #424242; width: 225px; margin: 0 auto; margin-bottom: 20px">
+  <p class="payment-errors"></p>
   {% if error %}
-  <span class="processing-errors">{{ error }}</span>
+  <p class="processing-errors">{{ error }}</p>
   {% endif %}
-  <form method="POST" action="" id="payment-form" style="padding-top: 10px">
+  <form method="POST" action="" id="payment-form" style="padding-top: 10px; padding-left: 70px; width: 290px; margin: 0 auto; overflow: hidden">
     {% csrf_token %}
-
-<!--    <label for="card-number-id">Card Number</label> -->
-    <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" style="width: 20ex" placeholder="Card Number"/>
-
-<!--    <label for="cvc-id">CVC (security code)</label> -->
+    <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" style="width: 203px" placeholder="Card Number"/>
     <div style="overflow: hidden">
-      <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 6ex" placeholder="CVC"/>
+      <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 127px" placeholder="CVC (security code)"/>
       <img src="{{ STATIC_URL }}img/cards.png" class="cvc-image">
     </div>
-
-    <label for="expiry_date">Expiration date (Month/Year)</label>
-    <div class="input">
-      <select class="card-expiry-month" style="width: 9ex">
-        {% for month in months %}
-        <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
-        {% endfor %}
-      </select>
-      <select class="card-expiry-year" style="width: 10ex">
-        {% for year in years %}
-        <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
-        {% endfor %}
-      </select>
+    <div style="display: inline-block">
+      <label for="expiry_date">Expiration date</label>
+      <div class="input">
+	<select class="card-expiry-month" style="width: 50px">
+          {% for month in months %}
+          <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
+          {% endfor %}
+	</select>
+	<select class="card-expiry-year" style="width: 73px">
+          {% for year in years %}
+          <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
+          {% endfor %}
+	</select>
+      </div>
     </div>
-    <button type="submit" class="submit-button btn-green btn-large">Submit</button>
-    <a class="btn-contact btn-link" href="/settings/">Cancel</a>
+    <button type="submit" class="submit-button btn-green btn-large" style="display: inline-block; margin-top: -20px; margin-left: 5px">Submit</button>
   </form>
 </div>
 {% endblock %}
