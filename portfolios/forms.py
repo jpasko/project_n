@@ -97,6 +97,7 @@ class EditGalleryForm(forms.ModelForm):
     """
     Allows the user to edit their gallery.
     """
+    delete_current_thumbnail = forms.CharField()
     class Meta:
         model = Gallery
         exclude = ('user', 'count', 'order')

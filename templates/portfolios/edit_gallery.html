@@ -14,6 +14,12 @@
     margin: 0 auto;
     width: 300px;
   }
+  #thumbnail-img {
+    width: 40px;
+    height: 40px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+  }
 </style>
 {% endblock %}
 {% block script %}
@@ -21,6 +27,21 @@
 $(function() {
   $('#id_thumbnail').change(function() {
     $('#id_thumbnail_styled').val($(this).val().replace("C:\\fakepath\\", ""));
+  });
+  $('#delete-current').click(function() {
+    if (!$(this).hasClass('active')) {
+      $(this).addClass('active btn-danger');
+      $(this).removeClass('btn-default');
+      $(this).find('i').addClass('icon-white');
+      $('#id_thumbnail').val('');
+      $('#id_thumbnail_styled').val('');
+      $('#input-delete-current').val('True');
+    } else {
+      $(this).addClass('btn-default');
+      $(this).removeClass('active btn-danger');
+      $(this).find('i').removeClass('icon-white');
+      $('#input-delete-current').val('False');
+    }
   });
 });
 </script>
@@ -33,12 +54,27 @@ $(function() {
   {% endif %}
   <form method="post" action="." enctype="multipart/form-data">
     {% csrf_token %}
-    <input id="id_title" type="text" name="title" maxlength="75" placeholder="Title (optional)" style="width: 286px"/>
+    <input id="id_title" type="text" name="title" maxlength="75" placeholder="Title (optional)" style="width: 286px" {% if gallery.title %}value="{{ gallery.title }}"{% endif %}/>
+
     <input type="file" name="thumbnail" id="id_thumbnail" class="hide"/>
+    <input tyle="hidden" name="delete_current_thumbnail" id="input-delete-current" class="hide" value="False" />
+
+    {% if gallery.thumbnail %}
+    <div class="pretty_file_input">
+      <input id="id_thumbnail_styled" type="text" onclick="$('#id_thumbnail').click();" placeholder="Change thumbnail (optional)" style="width: 202px">
+      <a class="btn btn-default" onclick="$('#id_thumbnail').click();" style="margin-bottom: 10px"><b>Change</b></a>
+    </div>
+    <div>
+      <img id="thumbnail-img" src="{{ gallery.thumbnail.url }}">
+      <button type="button" class="btn btn-default" id="delete-current"><i class="icon-remove"></i></button>
+    </div>
+    {% else %}
     <div class="pretty_file_input">
       <input id="id_thumbnail_styled" type="text" onclick="$('#id_thumbnail').click();" placeholder="Thumbnail (optional)" style="width: 204px">
       <a class="btn btn-default" onclick="$('#id_thumbnail').click();" style="margin-bottom: 10px"><b>Browse</b></a>
     </div>
+    {% endif %}
+
     <div style="display: block">
       <input type="submit" value="Save Changes" class="btn-green">
       <a class="btn-contact btn-link" href="/">Cancel</a>

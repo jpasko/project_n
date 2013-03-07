@@ -248,10 +248,7 @@ def delete_item(request, item_id):
     if profile.photo_count < 0:
         profile.photo_count = 0
     profile.save()
-    if gallery.count > 0:
-        return HttpResponseRedirect('/gallery/' + str(gallery.pk) + '/')
-    else:
-        return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/gallery/' + str(gallery.pk) + '/')
 
 def delete_profile_photo(request):
     """
@@ -340,16 +337,16 @@ def edit_gallery(request, gallery_id):
             gallery.title = form.cleaned_data['title']
             if request.FILES:
                 gallery.thumbnail = request.FILES['thumbnail']
-            else:
+            elif form.cleaned_data['delete_current_thumbnail'] == 'True':
                 gallery.thumbnail = None
             gallery.save()
             return HttpResponseRedirect('/')
     else:
-        form = EditGalleryForm(initial = {'title': gallery.title,
-                                          'thumbnail': gallery.thumbnail})
+        form = EditGalleryForm()
     variables = RequestContext(request,
                                {'form': form,
                                 'username': username,
+                                'gallery': gallery,
                                 'customer': customer,
                                 'profile': profile})
     return render_to_response('portfolios/edit_gallery.html', variables)
