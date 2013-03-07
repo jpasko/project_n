@@ -26,7 +26,6 @@
 {% block script %}
 {% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/confirm-delete.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/get-thumbnail.js"></script>
@@ -53,11 +52,6 @@ $(document).ready(function(){
     Please either <a href="/settings">upgrade</a> your account or delete the excess 
     photos to re-enable your public portfolio.</em></p>
 {% endif %}
-<div id="dialog" title="Are you sure?">
-  <p>
-    <span class="ui-icon ui-icon-alert"></span>
-    This photo or video will be permanently deleted.</p>
-</div>
 {% endif %}
 
 {% if user.is_authenticated and username == user.username %}
@@ -171,7 +165,7 @@ $(document).ready(function(){
 	    <img class="gallery-thumbnail" src="{{ STATIC_URL }}img/empty_gallery_square.png">
 	  </a>
 	  {% endif %}
-	  <a href="/item/{{ item.pk }}/delete/" class="confirm">
+	  <a href="/item/{{ item.pk }}/delete/">
 	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0">
 	  </a>
 	  <a href="/item/{{ item.pk }}/edit/">
