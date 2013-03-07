@@ -340,7 +340,7 @@ def edit_gallery(request, gallery_id):
             elif form.cleaned_data['delete_current_thumbnail'] == 'True':
                 gallery.thumbnail = None
             gallery.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/gallery/' + str(gallery_id) + '/')
     else:
         form = EditGalleryForm()
     variables = RequestContext(request,
