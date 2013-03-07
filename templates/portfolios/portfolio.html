@@ -4,7 +4,6 @@
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/get-thumbnail.js"></script>
 {% if user.is_authenticated and user.username == username %}
-<script src="{{ STATIC_URL }}js/confirm-delete.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sorting.js"></script>
 {% endif %}
@@ -47,11 +46,6 @@
     your account. Please either <a href="/settings">upgrade</a> your account or delete the extra 
     photos to re-enable your public portfolio.</em></p>
 {% endif %}
-<div id="dialog" title="Are you sure?">
-  <p>
-    <span class="ui-icon ui-icon-alert"></span>
-    This gallery and all photos and videos it contains will be permanently deleted.</p>
-</div>
 {% endif %}
 {% if user.is_authenticated and user.username == username %}
 <div class="row-fluid" style="padding-bottom: 25px">
@@ -115,7 +109,9 @@
 	    {% endif %}
 	    {% endif %}
 	    {% endwith %}
-            <div class="gallery-title"><h4 style="color: white">{{ gallery.title }}</h4></div>
+            <div class="gallery-title">
+	      <h4 style="color: white">{{ gallery.title }}</h4>
+	    </div>
 	  </a>
 	  {% else %}
 	  {% if profile.portfolio_columns == 3 %}
@@ -136,20 +132,6 @@
 	  {% endif %}
 	  {% endif %}
             <div class="gallery-title"><h4 style="color: white">{{ gallery.title }} (empty)</h4></div>
-	  </a>
-	  {% endif %}
-	  {% if user.is_authenticated and username == user.username %}
-	  <!--
-	  <a href="/upload/image/{{ gallery.pk }}/">
-	    <img src="{{ STATIC_URL }}img/upload.png" style="position: absolute; top: 0; left: 0;"/>
-	  </a>
-	  -->
-	  {% if gallery.count > 0 %}
-	  <a href="/gallery/{{ gallery.pk }}/delete/" class="confirm">
-	  {% else %}
-	  <a href="/gallery/{{ gallery.pk }}/delete/">
-	  {% endif %}
-	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0;"/>
 	  </a>
 	  {% endif %}
 	</div>

@@ -1,5 +1,5 @@
 {% extends "portfolio_base.html" %}
-{% block title %}{{ profile.fullname }} | Edit Caption{% endblock %}
+{% block title %}{{ profile.fullname }} | Edit Item{% endblock %}
 {% block head %}
 <style>
   .centered-box {
@@ -10,12 +10,16 @@
 {% endblock %}
 {% block content %}
 <div class="centered-box muted">
-  <h3>Edit Caption</h3>
+  <h3>Edit Item</h3>
   <form method="post" action=".">
     {% csrf_token %}
+    {% if item.caption %}
+    <input id="id_caption" type="text" name="caption" maxlength="100" value="{{ item.caption }}" style="width: 286px"/>
+    {% else %}
     <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+    {% endif %}
     <input type="submit" value="Save" class="btn-green">
-    <a class="btn-contact btn-link" onClick="javascript:history.go(-1);">Cancel</a>
+    <a class="btn-contact btn-link" href="/gallery/{{ item.gallery.pk }}/">Cancel</a>
   </form>
 </div>
 {% endblock %}

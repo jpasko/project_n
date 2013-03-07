@@ -96,7 +96,7 @@ def create_gallery(request):
             if request.FILES:
                 gallery.thumbnail = form.cleaned_data['thumbnail']
             gallery.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/gallery/' + str(gallery.pk) + '/')
     else:
         form = CreateGalleryForm()
     variables = RequestContext(request,
@@ -301,12 +301,12 @@ def edit_item(request, item_id):
     # Ensure that we cannot edit another's photo:
     if username != request.user.username or not request.user.is_authenticated():
         raise Http404
+    item = get_object_or_404(Item, pk=item_id)
     profile = request.user.get_profile()
     customer = request.user.customer
     if request.method == 'POST':
         form = EditItemForm(request.POST)
         if form.is_valid():
-            item = get_object_or_404(Item, pk=item_id)
             item.caption = form.cleaned_data['caption']
             item.save()
             gallery_id = item.gallery.pk
@@ -315,6 +315,7 @@ def edit_item(request, item_id):
         form = EditItemForm()
     variables = RequestContext(request,
                                {'form': form,
+                                'item': item,
                                 'username': username,
                                 'customer': customer,
                                 'profile': profile})
