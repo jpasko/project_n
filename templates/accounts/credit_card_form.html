@@ -1,15 +1,27 @@
 {% extends "portfolio_base.html" %}
-{% block title %}{{ profile.fullname }} | Credit card{% endblock %}
+{% block title %}{{ profile.fullname }} | Billing Information{% endblock %}
 {% block head %}
 <style>
-  .card-images-first {
-    margin: 0 0 -63px 0;
+
+  .card-images-amex {
+    margin: -126px 0 -32px 0;
   }
-  .card-images-second {
-    margin: -31px 0 -32px 0;
+  .card-images-visa {
+    margin: -62px 0 -96px 0;
+  }
+  .card-images-mastercard {
+    margin: 0 0 -158px 0;
+  }
+  .card-images-discover {
+    margin: -158px 0 0 0;
+  }
+  .card-images-jcb {
+    margin: -95px 0 -64px 0;
+  }
+  .card-images-diners {
+    margin: -32px 0 -128px 0;
   }
   .cvc-image {
-    margin: -63px 0 0 0;
     padding-bottom: 10px;
   }
   .payment-errors {
@@ -21,6 +33,7 @@
     padding: 5px;
     border-radius: 5px;
     color: #424242;
+    margin-top: 10px;
   }
   .processing-errors {
     width: 200px;
@@ -30,12 +43,13 @@
     border-radius: 5px;
     padding: 5px;
     color: #424242;
+    margin-top: 10px;
   }
   .current-card {
     width: 200px;
     margin: 0 auto;
-    border: 1px solid #4dc78e;
-    background: #a4f4ba;
+    border: 1px solid #82a6c9;
+    background: #a6c7e8;
     padding: 2px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -43,8 +57,21 @@
   }
   .centered-box {
     margin: 0 auto;
-    width: 450px;
+    width: 400px;
+    border: 2px solid #1d4772;
+    border-radius: 2px;
+    padding-bottom: 20px;
+    background-color: #FCFCFC;
   }
+  img.grayscale {
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+  }
+  img.grayscale:hover {
+    filter: none;
+    -webkit-filter: grayscale(0%);
+}
 </style>
 {% endblock %}
 {% block script %}
@@ -67,6 +94,7 @@
   }
   
   $(function() {
+    $('#id_name').focus();
     $('#payment-form').submit(function(event) {
       $('.submit-button').prop('disabled', true);
   
@@ -84,50 +112,68 @@
 {% endblock %}
 
 {% block content %}
-<div class="centered-box muted">
-  <h3 style="text-align: center">Credit Card Details</h3>
-  <div style="margin: 0 auto; width: 290px">
+<div class="centered-box">
+  <h3 style="text-align: center; color: #0054a8">Billing Information</h3>
+  <hr style="border-top: none; border-bottom: 1px solid #d6d6d6; margin: 0 auto; margin-bottom: 20px">
+  <div style="margin: 0 auto; width: 300px">
     <div style="overflow: hidden; display: inline-block">
-      <img src="{{ STATIC_URL }}img/cards.png" class="card-images-first">
+      <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-amex grayscale">
     </div>
     <div style="overflow: hidden; display: inline-block">
-      <img src="{{ STATIC_URL }}img/cards.png" class="card-images-second">
+      <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-visa grayscale">
+    </div>
+    <div style="overflow: hidden; display: inline-block">
+      <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-mastercard grayscale">
+    </div>
+    <div style="overflow: hidden; display: inline-block">
+      <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-discover grayscale">
+    </div>
+    <div style="overflow: hidden; display: inline-block">
+      <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-jcb grayscale">
+    </div>
+    <div style="overflow: hidden; display: inline-block">
+      <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-diners grayscale">
     </div>
   </div>
-  <p style="text-align: center; padding-top: 10px"><i class="icon-ok icon-white"></i><em>All major cards accepted</em></p>
-  <hr style="border-top: none; border-bottom: 1px solid #424242; width: 225px; margin: 0 auto; margin-bottom: 20px">
+  <p style="text-align: center; padding-top: 10px"><i class="icon-ok"></i><em>All major cards accepted</em></p>
   {% if last_4 %}
   <div class="current-card">
     <p><em>Current card:</em> **** **** **** <b>{{ last_4 }}</b></p>
   </div>
   {% endif %}
+  <hr style="border-top: none; border-bottom: 1px solid #d6d6d6; margin: 0 auto; padding-top: 10px; margin-bottom: 20px">
   <p class="payment-errors"></p>
   {% if error %}
   <p class="processing-errors">{{ error }}</p>
   {% endif %}
   <form method="POST" action="" id="payment-form" style="padding-top: 10px; padding-left: 70px; width: 290px; margin: 0 auto; overflow: hidden">
     {% csrf_token %}
-    <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" style="width: 203px" placeholder="Card Number"/>
+    <input type="text" style="width: 215px" placeholder="Cardholder's Name" id="id_name"/>
+    <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" style="width: 215px" placeholder="Card Number"/>
     <div style="overflow: hidden">
       <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 127px" placeholder="CVC (security code)"/>
-      <img src="{{ STATIC_URL }}img/cards.png" class="cvc-image">
+      <img src="{{ STATIC_URL }}img/cvc.png" class="cvc-image">
     </div>
     <div style="display: inline-block">
-      <label for="expiry_date">Expiration date</label>
-      <div class="input">
-	<select class="card-expiry-month" style="width: 50px">
+
+      <div class="input" style="display: inline-block">
+	<select class="card-expiry-month" style="width: 45px">
           {% for month in months %}
           <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
           {% endfor %}
 	</select>
-	<select class="card-expiry-year" style="width: 73px">
+	<select class="card-expiry-year" style="width: 70px">
           {% for year in years %}
           <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
           {% endfor %}
 	</select>
       </div>
+      <label for="expiry_date" style="display: inline-block; font-size: 1.2em">Expiration Date</label>
     </div>
-    <button type="submit" class="submit-button btn-green btn-large" style="display: inline-block; margin-top: -10px; margin-left: 5px">Submit</button>
+    <hr style="border-top: none; border-bottom: 1px solid #d6d6d6; width: 240px; margin-bottom: 50px">
+    <button type="submit" class="submit-button btn btn-primary btn-large" style="display: block; margin-top: 10px; border-radius: 2px">
+      Update Billing Information
+    </button>
   </form>
 </div>
 {% endblock %}

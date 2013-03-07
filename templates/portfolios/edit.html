@@ -121,7 +121,7 @@ $(function() {
 	  <input type="file" name="banner" id="id_banner" class="hide" />
 	  {% if profile.banner %}
 	  <div class="pretty_file_input">
-	    <img id="banner-img" src="{{ profile.banner.url }}" style="background: white; border-radius: 3px">
+	    <img id="banner-img" src="{{ profile.banner.url }}" style="background: white">
 	    <a class="btn btn-default" onclick="$('#id_banner').click();"><b>Change</b></a>
 	  </div>
 	  {% else %}
