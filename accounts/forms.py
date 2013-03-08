@@ -6,15 +6,15 @@ from django import forms
 from accounts.models import UserProfile, Customer
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(label='Username', max_length=30)
-    email = forms.EmailField(label='Email')
+    username = forms.CharField(label='Username', max_length=30, widget=forms.TextInput(attrs={'placeholder':'Username'}))
+    email = forms.EmailField(label='Email', widget=forms.TextInput(attrs={'placeholder':'Email'}))
     password1 = forms.CharField(
         label='Password',
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={'placeholder':'Password'})
     )
     password2 = forms.CharField(
         label='Confirm password',
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={'placeholder':'Password (again)'})
     )
 
     def clean(self):

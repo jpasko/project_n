@@ -4,7 +4,20 @@
 <style>
   .inline-popover {
     display: inline-block;
-    padding-bottom: 18px;
+  }
+  #portfolio-url-popover,#username-popover {
+    position: relative;
+    padding-bottom: 22px;
+  }
+  #email-popover {
+    position: relative;
+    padding-bottom: 10px;
+  }
+  #password-popover {
+    position: relative;
+  }
+  .popover-title {
+    display: none;
   }
   form {
     border-left: 1px solid #c4c4c4;
@@ -95,11 +108,30 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 <script>
   $(function() {
     $('#id_username').focus();
+
     $('#id_username').change(function() {
-      var url = $('#id_username').val() + ".{{ DOMAIN }}"
-      $('#portfolio-url-popover').popover({content: url});
-      $('#portfolio-url-popover').popover('show');
+      $('#username-popover').popover('destroy');
+      $('#portfolio-url-popover').popover('destroy');
+      if ($('#id_username').val()) {
+        var url = $('#id_username').val() + ".{{ DOMAIN }}";
+        $('#portfolio-url-popover').popover({content: url});
+        $('#portfolio-url-popover').popover('show');
+      }
     });
+
+    $('#username-popover').popover('show');
+    $('#email-popover').popover('show');
+    $('#password-popover').popover('show');
+    $('#id_email').change(function() {
+      $('#email-popover').popover('destroy');
+    });
+    $('#id_password1').change(function() {
+      $('#password-popover').popover('destroy');
+    });
+    $('#id_password2').change(function() {
+      $('#password-popover').popover('destroy');
+    });
+
     $("#payment-form").submit(function(e) {
       if(!$('#terms-of-service').prop('checked')) {
         e.preventDefault();
@@ -130,11 +162,30 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   
   $(function() {
     $('#id_username').focus();
+
     $('#id_username').change(function() {
-      var url = $('#id_username').val() + ".{{ DOMAIN }}"
-      $('#portfolio-url-popover').popover({content: url});
-      $('#portfolio-url-popover').popover('show');
+      $('#username-popover').popover('destroy');
+      $('#portfolio-url-popover').popover('destroy');
+      if ($('#id_username').val()) {
+        var url = $('#id_username').val() + ".{{ DOMAIN }}";
+        $('#portfolio-url-popover').popover({content: url});
+        $('#portfolio-url-popover').popover('show');
+      }
     });
+
+    $('#username-popover').popover('show');
+    $('#email-popover').popover('show');
+    $('#password-popover').popover('show');
+    $('#id_email').change(function() {
+      $('#email-popover').popover('destroy');
+    });
+    $('#id_password1').change(function() {
+      $('#password-popover').popover('destroy');
+    });
+    $('#id_password2').change(function() {
+      $('#password-popover').popover('destroy');
+    });
+
     $('#payment-form').submit(function(event) {
       if(!$('#terms-of-service').prop('checked')) {
         event.preventDefault();
@@ -164,54 +215,45 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     <h3 id="modal-prevent-heading" style="color: #424242">Hold on!</h3>
   </div>
   <div class="modal-body">
-    <p style="color: #424242">Please indicate that you agree with the <a href="/terms" target="_blank">terms of service</a></p>
-    <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Dismiss</button>
+    <p style="color: #424242">Please indicate that you agree with the <a href="/terms" target="_blank">Terms of Service</a></p>
+    <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">OK</button>
   </div>
 </div>
 <!-- End modals -->
+<div class="signup-title muted">
+  {% if not paid %}
+  <h2>Free &bull; 20 uploads <a href="http://{{ DOMAIN }}/register/" style="font-size: 0.5em; text-decoration: none">(want more?)</a></h2>
+  {% elif account_type == "premium" %}
+  <h2>$5.99/mo &bull; 150 uploads</h2>
+  {% else %}
+  <h2>$7.99/mo &bull; 1000 uploads</h2>
+  {% endif %}
+</div>
 <div class="centered-box">
-  <div class="signup-title muted">
-    {% if not paid %}
-    <h2>20 uploads &bull; Free</h2>
-    {% elif account_type == "premium" %}
-    <h2>150 uploads &bull; $5.99</h2>
-    {% else %}
-    <h2>1000 uploads &bull; $7.99/mo</h2>
-    {% endif %}
-  </div>
-
   <form method="POST" action="" id="payment-form" style="width: 400px;">
     {% csrf_token %}
     <div class="form-title">
-      <h3>Account information</h3>
+      <h3>Your Account</h3>
     </div>
 
     <div class="form-body" style="padding-bottom: 20px">
+
+      {{ user_form.username }}
+      <span class="inline-popover" id="portfolio-url-popover" data-toggle="popover"></span>
       {% if user_form.username.errors %}
-      <p class="processing-errors">Try a different username; that one's taken!</p>
+      <span class="inline-popover" id="username-popover" data-toggle="popover" data-content="That one's taken"></span>
       {% endif %}
-      <input id="id_username" type="text" name="username" maxlength="30" placeholder="Username"/>
-      <span class="inline-popover" id="portfolio-url-popover" data-toggle="popover" title="Your portfolio's URL"></span>
 
-      <div style="display: block; color: #b3b3b3; padding-bottom: 5px">
-	<p id="portfolio-url" style="display: inline; font-size: 1.2em"></p>
-      </div>
-
+      {{ user_form.email }}
       {% if user_form.email.errors %}
-      <p class="processing-errors">Your email is either invalid or already taken</p>
-      {% endif %}
-      <input type="text" name="email" id="id_email" placeholder="Email" />
-
-      {% if user_form.non_field_errors %}
-      <p class="processing-errors" style="margin-bottom: 3px">Something went wrong; please try again</p>
+      <span class="inline-popover" id="email-popover" data-toggle="popover" data-content="This email won't work"></span>
       {% endif %}
 
-      {% if user_form.password1.errors or user_form.password2.errors %}
-      <p class="processing-errors">Your passwords didn't match</p>
+      {{ user_form.password1 }}
+      {% if user_form.password1.errors or user_form.password2.errors or user_form.non_field_errors %}
+      <span class="inline-popover" id="password-popover" data-toggle="popover" data-content="Passwords must match"></span>
       {% endif %}
-
-      <input type="password" name="password1" id="id_password1" placeholder="Password"/>
-      <input type="password" name="password2" id="id_password2" placeholder="Password (again)"/>
+      {{ user_form.password2 }}
     </div>
 
     {% if paid %}
@@ -241,12 +283,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     <p style="text-align: center; padding-top: 10px"><i class="icon-ok"></i><em>All major cards accepted</em></p>
 
     <div class="form-body" style="padding-top: 20px">
+
+    <input type="text" placeholder="Cardholder's Name" id="id_name"/>
+
     <p class="payment-errors" style="display: none"></p>
     {% if error %}
     <p class="processing-errors">{{ error }}</p>
     {% endif %}
 
-    <input type="text" placeholder="Cardholder's Name" id="id_name"/>
     <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" placeholder="Card Number"/>
     <div style="overflow: hidden">
       <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 135px" placeholder="CVC (security code)"/>
@@ -274,7 +318,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     <hr style="border-top: none; border-bottom: 1px solid #d6d6d6; width: 100%">
     <div style="text-align: center">
       <input type="checkbox" id="terms-of-service" style="display: inline; margin: 0">
-      <p style="display: inline">I agree to the <a href="/terms/" target="_blank">terms of service</a></p>
+      <p style="display: inline">I agree to the <a href="/terms/" target="_blank">Terms of Service</a></p>
     </div>
     <button type="submit" class="submit-button btn btn-primary btn-large" style="display: block; margin: 20px auto; border-radius: 2px">
       Get Started Now!
