@@ -222,7 +222,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 <!-- End modals -->
 <div class="signup-title muted">
   {% if not paid %}
-  <h2>Free &bull; 20 uploads <a href="http://{{ DOMAIN }}/register/" style="font-size: 0.5em; text-decoration: none">(want more?)</a></h2>
+  <h2 style="display: inline-block">Free &bull; 20 uploads</h2>
+  <p style="display: inline; font-size: 0.6em; padding-left: 10px">
+    <a href="http://{{ DOMAIN }}/register/" style="text-decoration: none">want more?</a>
+  </p>
   {% elif account_type == "premium" %}
   <h2>$5.99/mo &bull; 150 uploads</h2>
   {% else %}
@@ -251,7 +254,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
       {{ user_form.password1 }}
       {% if user_form.password1.errors or user_form.password2.errors or user_form.non_field_errors %}
-      <span class="inline-popover" id="password-popover" data-toggle="popover" data-content="Passwords must match"></span>
+      <span class="inline-popover" id="password-popover" data-toggle="popover" data-content="These passwords must match"></span>
       {% endif %}
       {{ user_form.password2 }}
     </div>
@@ -280,7 +283,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	<img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-diners grayscale">
       </div>
     </div>
-    <p style="text-align: center; padding-top: 10px"><i class="icon-ok"></i><em>All major cards accepted</em></p>
+    <p style="text-align: center; padding-top: 10px"><i class="icon-ok"></i><em> We accept all major cards</em></p>
 
     <div class="form-body" style="padding-top: 20px">
 

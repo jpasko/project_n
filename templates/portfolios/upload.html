@@ -22,6 +22,14 @@ $(function() {
   $('#id_image').change(function() {
     $('#id_image_styled').val($(this).val().replace("C:\\fakepath\\", ""));
   });
+  $('#image-form').submit(function(event) {
+    $('#submit-image').prop('disabled', true);
+    return true;
+  });
+  $('#video-form').submit(function(event) {
+    $('#submit-video').prop('disabled', true);
+    return true;
+  });
 });
 </script>
 {% endblock %}
@@ -37,7 +45,7 @@ $(function() {
   {% if photo_form.image.errors %}
   <p class="form-errors"><strong>Error: </strong>choose a valid image file</p>
   {% endif %}
-  <form method="post" action="." enctype="multipart/form-data">
+  <form method="post" action="." enctype="multipart/form-data" id="image-form">
     {% csrf_token %}
     <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
     <input type="file" name="image" id="id_image" class="hide"/>
@@ -46,7 +54,7 @@ $(function() {
       <a class="btn btn-default" onclick="$('#id_image').click();" style="margin-bottom: 10px"><b>Browse</b></a>
     </div>
     <div style="display: block">
-      <input type="submit" value="Upload" class="btn-green">
+      <input type="submit" value="Upload" class="btn-green" id="submit-image">
       <a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/">Cancel</a>
     </div>
   </form>
@@ -57,12 +65,12 @@ $(function() {
   {% if video_form.errors %}
   <p class="form-errors"><strong>Error: </strong>that URL doesn't look valid</p>
   {% endif %}
-  <form method="post" action=".">
+  <form method="post" action="." id="video-form">
     {% csrf_token %}
     <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
     <input type="text" name="url" id="id_url" placeholder="YouTube, Vimeo, or Dailymotion URL" style="width: 286px"/>
     <div style="display: block">
-      <input type="submit" value="Upload" class="btn-green">
+      <input type="submit" value="Upload" class="btn-green" id="submit-video">
       <a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/">Cancel</a>
     </div>
   </form>
