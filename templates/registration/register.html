@@ -2,6 +2,10 @@
 {% block title %}Sign up{% endblock %}
 {% block head %}
 <style>
+  .inline-popover {
+    display: inline-block;
+    padding-bottom: 18px;
+  }
   form {
     border-left: 1px solid #c4c4c4;
     border-right: 1px solid #c4c4c4;
@@ -10,11 +14,9 @@
   .signup-title {
     text-align: center;
     font-size: 2em;
-    height: 50px;
-    background-color: white;
   }
   .form-title h3 {
-    margin: auto auto;
+    margin: 5px auto auto auto;
     font-size: 1em;
   }
   .form-title {
@@ -25,16 +27,16 @@
     height: 40px;
     margin-bottom: 20px;
     padding-bottom: 10px;
-  background: rgb(255,255,255); /* Old browsers */
-  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNWU1ZTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
-  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-8 */
+background: rgb(255,255,255); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ3JSIgc3RvcC1jb2xvcj0iI2ZiZmJmYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmN2Y3ZjciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(251,251,251,1) 47%, rgba(247,247,247,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(47%,rgba(251,251,251,1)), color-stop(100%,rgba(247,247,247,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(251,251,251,1) 47%,rgba(247,247,247,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(251,251,251,1) 47%,rgba(247,247,247,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(251,251,251,1) 47%,rgba(247,247,247,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(251,251,251,1) 47%,rgba(247,247,247,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 ); /* IE6-8 */
   }
   .form-body {
     text-align: center;
@@ -62,6 +64,7 @@
   }
   .cvc-image {
     padding-bottom: 10px;
+    padding-left: 5px;
   }
   .processing-errors, .payment-errors {
     width: 220px;
@@ -88,15 +91,25 @@
 </style>
 {% endblock %}
 {% block script %}
+{% if not paid %}
 <script>
   $(function() {
     $('#id_username').focus();
     $('#id_username').change(function() {
-      $('#portfolio-url').text($('#id_username').val() + ".citreo.us");
+      var url = $('#id_username').val() + ".{{ DOMAIN }}"
+      $('#portfolio-url-popover').popover({content: url});
+      $('#portfolio-url-popover').popover('show');
+    });
+    $("#payment-form").submit(function(e) {
+      if(!$('#terms-of-service').prop('checked')) {
+        e.preventDefault();
+        $('#modal-prevent').modal('show')
+      }
+      return true;
     });
   });
 </script>
-{% if paid %}
+{% else %}
 <script src="https://js.stripe.com/v1/" type="text/javascript"></script>
 <script type="text/javascript">
   Stripe.setPublishableKey('{{ publishable }}');
@@ -116,16 +129,26 @@
   }
   
   $(function() {
+    $('#id_username').focus();
+    $('#id_username').change(function() {
+      var url = $('#id_username').val() + ".{{ DOMAIN }}"
+      $('#portfolio-url-popover').popover({content: url});
+      $('#portfolio-url-popover').popover('show');
+    });
     $('#payment-form').submit(function(event) {
-      $('.submit-button').prop('disabled', true);
-  
-      Stripe.createToken({
-        number: $('.card-number').val(),
-        cvc: $('.card-cvc').val(),
-        exp_month: $('.card-expiry-month').val(),
-        exp_year: $('.card-expiry-year').val()
-      }, stripeResponseHandler);
+      if(!$('#terms-of-service').prop('checked')) {
+        event.preventDefault();
+        $('#modal-prevent').modal('show')
+      } else {
+        $('.submit-button').prop('disabled', true);
 
+        Stripe.createToken({
+          number: $('.card-number').val(),
+          cvc: $('.card-cvc').val(),
+          exp_month: $('.card-expiry-month').val(),
+          exp_year: $('.card-expiry-year').val()
+        }, stripeResponseHandler);
+      }
       return false;
     });
   });
@@ -134,31 +157,41 @@
 {% endblock %}
 
 {% block content %}
+<!-- Modals -->
+<div class="modal hide" role="dialog" tabindex="-1" id="modal-prevent" arialabelledby="modal-prevent-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="modal-prevent-heading" style="color: #424242">Hold on!</h3>
+  </div>
+  <div class="modal-body">
+    <p style="color: #424242">Please indicate that you agree with the <a href="/terms" target="_blank">terms of service</a></p>
+    <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Dismiss</button>
+  </div>
+</div>
+<!-- End modals -->
 <div class="centered-box">
-  <div class="signup-title">
+  <div class="signup-title muted">
     {% if not paid %}
-    <h2 style="display: inline; padding-right: 10px">20 uploads</h2>
-    <p style="display: inline"><strong>Free</strong></p>
+    <h2>20 uploads &bull; Free</h2>
     {% elif account_type == "premium" %}
-    <h2 style="display: inline; padding-right: 10px">150 uploads</h2>
-    <p style="display: inline"><strong>$5.99/mo</strong></p>
+    <h2>150 uploads &bull; $5.99</h2>
     {% else %}
-    <h2 style="display: inline; padding-right: 10px">1000 uploads</h2>
-    <p style="display: inline"><strong>$7.99/mo</strong></p>
+    <h2>1000 uploads &bull; $7.99/mo</h2>
     {% endif %}
   </div>
 
   <form method="POST" action="" id="payment-form" style="width: 400px;">
     {% csrf_token %}
     <div class="form-title">
-      <h3>The Basics</h3>
+      <h3>Account information</h3>
     </div>
 
-    <div class="form-body">
+    <div class="form-body" style="padding-bottom: 20px">
       {% if user_form.username.errors %}
       <p class="processing-errors">Try a different username; that one's taken!</p>
       {% endif %}
       <input id="id_username" type="text" name="username" maxlength="30" placeholder="Username"/>
+      <span class="inline-popover" id="portfolio-url-popover" data-toggle="popover" title="Your portfolio's URL"></span>
 
       <div style="display: block; color: #b3b3b3; padding-bottom: 5px">
 	<p id="portfolio-url" style="display: inline; font-size: 1.2em"></p>
@@ -179,8 +212,6 @@
 
       <input type="password" name="password1" id="id_password1" placeholder="Password"/>
       <input type="password" name="password2" id="id_password2" placeholder="Password (again)"/>
-
-
     </div>
 
     {% if paid %}
@@ -208,21 +239,22 @@
       </div>
     </div>
     <p style="text-align: center; padding-top: 10px"><i class="icon-ok"></i><em>All major cards accepted</em></p>
-    <hr style="border-top: none; border-bottom: 1px solid #d6d6d6; margin: 0 auto; padding-top: 10px; margin-bottom: 20px">
-    <p class="payment-errors"></p>
+
+    <div class="form-body" style="padding-top: 20px">
+    <p class="payment-errors" style="display: none"></p>
     {% if error %}
     <p class="processing-errors">{{ error }}</p>
     {% endif %}
 
-    <input type="text" style="width: 215px" placeholder="Cardholder's Name" id="id_name"/>
-    <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" style="width: 215px" placeholder="Card Number"/>
+    <input type="text" placeholder="Cardholder's Name" id="id_name"/>
+    <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" placeholder="Card Number"/>
     <div style="overflow: hidden">
-      <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 127px" placeholder="CVC (security code)"/>
+      <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 135px" placeholder="CVC (security code)"/>
       <img src="{{ STATIC_URL }}img/cvc.png" class="cvc-image">
     </div>
     <div style="display: inline-block">
 
-      <div class="input" style="display: inline-block">
+      <div class="input" style="display: inline-block; padding-left: 15px">
 	<select class="card-expiry-month" style="width: 45px">
           {% for month in months %}
           <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
@@ -236,12 +268,12 @@
       </div>
       <label for="expiry_date" style="display: inline-block; font-size: 1.2em">Expiration Date</label>
     </div>
+    </div>
     <!-- End if paid -->
     {% endif %}
-
     <hr style="border-top: none; border-bottom: 1px solid #d6d6d6; width: 100%">
     <div style="text-align: center">
-      <input type="checkbox" name="terms-of-service" value="" style="display: inline; margin: 0 3px 0 20px">
+      <input type="checkbox" id="terms-of-service" style="display: inline; margin: 0">
       <p style="display: inline">I agree to the <a href="/terms/" target="_blank">terms of service</a></p>
     </div>
     <button type="submit" class="submit-button btn btn-primary btn-large" style="display: block; margin: 20px auto; border-radius: 2px">
