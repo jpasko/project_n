@@ -19,7 +19,7 @@
     {% endif %}
     <form method="post" action="">
       {% csrf_token %}
-      <label for="id_username">Username</label>
+      <label for="id_username">Username or Email</label>
 	{{ form.username }}
       <label for="id_password" style="float: left">Password</label>
       <span style="padding-left: 3px">(<a href="/accounts/password/reset/">forgot?</a>)</span>

@@ -34,6 +34,10 @@
   $('#id_thumbnail').change(function() {
     $('#id_thumbnail_styled').val($(this).val().replace("C:\\fakepath\\", ""));
   });
+  $('#gallery-form').submit(function(event) {
+    $('#create-gallery').prop('disabled', true);
+    return true;
+  });
 });
 </script>
 {% endblock %}
@@ -60,7 +64,7 @@
     <h3 id="create-gallery-heading" style="color: #424242">New Gallery</h3>
   </div>
   <div class="modal-body">
-    <form method="post" action="/create_gallery/" enctype="multipart/form-data">
+    <form method="post" action="/create_gallery/" enctype="multipart/form-data" id="gallery-form">
       {% csrf_token %}
       <input id="id_title" type="text" name="title" maxlength="75" placeholder="Title (optional)" style="width: 286px"/>
       <input type="file" name="thumbnail" id="id_thumbnail" class="hide"/>
@@ -69,7 +73,7 @@
 	<a class="btn btn-default" onclick="$('#id_thumbnail').click();" style="margin-bottom: 10px"><b>Browse</b></a>
       </div>
       <div style="padding-top: 15px">
-	   <input type="submit" value="Create" class="btn btn-primary btn-large">
+	   <input type="submit" value="Create" class="btn btn-primary btn-large" id="create-gallery">
 	   <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>
       </div>
     </form>

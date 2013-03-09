@@ -222,6 +222,13 @@ RESERVED_TERMS = ['login', 'accounts', 'register', 'logout', 'welcome',
                   'admin', 'reorder_galleries', 'reorder_photos', 'about',
                   'contact', 'None']
 
+# Custom backend to allow users to log in with their email addresses as well.
+# Requires that email addresses uniquely identify a user.
+AUTHENTICATION_BACKENDS = (
+    'accounts.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # Grab some settings from config vars in the prod environment.
 try:
     STRIPE_SECRET = os.environ['STRIPE_SECRET']

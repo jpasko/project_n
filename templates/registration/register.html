@@ -222,14 +222,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 <!-- End modals -->
 <div class="signup-title muted">
   {% if not paid %}
-  <h2 style="display: inline-block">Free &bull; 20 uploads</h2>
-  <p style="display: inline; font-size: 0.6em; padding-left: 10px">
-    <a href="http://{{ DOMAIN }}/register/" style="text-decoration: none">want more?</a>
-  </p>
+  <h3 style="display: inline-block; color: #575757">20 uploads. For free.  Want 
+    <a href="http://{{ DOMAIN }}/register/" style="text-decoration: none; color: 1369be">more?</a>
+  </h3>
   {% elif account_type == "premium" %}
-  <h2>$5.99/mo &bull; 150 uploads</h2>
+  <h3 style="color: #575757">350 uploads &bull; $6 <span style="font-size: 0.7em">per month</span></h3>
   {% else %}
-  <h2>$7.99/mo &bull; 1000 uploads</h2>
+  <h3 style="color: #575757">1000 uploads &bull; $7 <span style="font-size: 0.7em">per month</span></h3>
   {% endif %}
 </div>
 <div class="centered-box">
