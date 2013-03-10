@@ -145,7 +145,11 @@
 	      <li><a class="muted" href="/about/">About</a></li>
 	      {% endif %}
 	      {% if profile.blog %}
-	      <li><a class="muted" href="{{ profile.blog }}" target="_blank">Blog</a></li>
+	      <li>
+		<a class="muted" href="{{ profile.blog }}" target="_blank">
+		  {% if profile.blog_name %}{{ profile.blog_name }}{% else %}Blog{% endif %}
+		</a>
+	      </li>
 	      {% endif %}
 	      {% if profile.allow_contact or user.is_authenticated and user.username == username %}
 	      <li><a class="muted" href="/contact/">Contact</a></li>

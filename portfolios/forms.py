@@ -8,6 +8,10 @@ class UserProfileForm(forms.ModelForm):
     """
     class Meta:
         model = UserProfile
+        widgets = { 
+            'blog': forms.TextInput(attrs={'placeholder': 'URL'}),
+            'blog_name': forms.TextInput(attrs={'placeholder': 'Name'}),
+        }  
         exclude = ('user',
                    'photo_count',
                    'allow_contact',
@@ -48,9 +52,9 @@ class ProfilePictureForm(forms.ModelForm):
                    'text_color',
                    'text_color_hover',
                    'domain',
-                   'portfolio_columns',
                    'website',
                    'blog',
+                   'blog_name',
                    'twitter',
                    'facebook',
                    'google_plus',

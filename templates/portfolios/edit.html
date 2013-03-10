@@ -33,15 +33,6 @@ $(function() {
       $("#id_full_width_navbar").val($(this).val());
     });
   });
-  $("#portfolio_columns_radio").find(".btn").each(function() {
-    $(this).bind("click", function() {
-      $(this).addClass("btn-success active");
-      $(this).removeClass("btn-default");
-      $(this).siblings().addClass("btn-default");
-      $(this).siblings().removeClass("btn-success active");
-      $("#id_portfolio_columns").val($(this).val());
-    });
-  });
   $("#enable_banner_radio").find(".btn").each(function() {
     $(this).bind("click", function() {
       $(this).addClass("btn-success active");
@@ -60,10 +51,16 @@ $(function() {
     width: 100%;
     height: 100px;
   }
-  #id_fullname, #id_blog, #id_background_color, #id_text_color, #id_text_color_hover, #banner-img, #id_banner_styled, #id_ga_1, #id_ga_2, #id_copy_text {
+  #id_fullname, #id_blog, #id_blog_name, #id_background_color, #id_text_color, #id_text_color_hover, #banner-img, #id_banner_styled, #id_ga_1, #id_ga_2, #id_copy_text {
     height: 30px;
   }
-  #id_portfolio_columns, .pretty_file_input {
+  #id_blog {
+    width: 126px;
+  }
+  #id_blog_name {
+    width: 80px;
+  }
+  .pretty_file_input {
     width: 206px;
   }
   #id_banner_styled, #banner-img {
@@ -157,22 +154,6 @@ $(function() {
     <div class="span6">
       <h3 style="text-align: center">Dimensions</h3>
       <div class="control-group">
-	<label class="control-label" for="id_portfolio_columns">Thumbnail style</label>
-	<div class="controls">
-	  <input type="hidden" name="portfolio_columns" value="{{ profile.portfolio_columns }}" id="id_portfolio_columns" />
-	  <div class="btn-group" data-toggle="buttons-radio" id="portfolio_columns_radio">
-	    {% if profile.portfolio_columns == 1 %}
-	    <button type="button" class="btn btn-default" value="3"><b>Square</b></button>
-	    <button type="button" class="btn btn-success active" style="width: 132px" value="1"><b>Rectangle</b></button>
-	    {% else %}
-	    <button type="button" class="btn btn-success active" value="3"><b>Square</b></button>
-	    <button type="button" class="btn btn-default" style="width: 132px" value="1"><b>Rectangle</b></button>
-	    {% endif %}
-	  </div>
-	</div>
-      </div>
-
-      <div class="control-group">
 	<label class="control-label" for="id_page_width">Page width (pixels)</label>
 	<div class="controls">
 	  <input id="id_page_width" name="page_width" type="range" value="{{ profile.page_width }}" min="800" max="1200" />
@@ -183,7 +164,7 @@ $(function() {
       <div class="control-group">
 	<label class="control-label" for="id_thumbnail_dimension">Thumbnail width (pixels)</label>
 	<div class="controls">
-	  <input id="id_thumbnail_dimension" name="thumbnail_dimension" type="range" value="{{ profile.thumbnail_dimension }}" min="65" max="1200" />
+	  <input id="id_thumbnail_dimension" name="thumbnail_dimension" type="range" value="{{ profile.thumbnail_dimension }}" min="65" max="590" />
 	  <input id="id_thumbnail_dimension_display" type="text" value="" />
 	</div>
       </div>
@@ -238,12 +219,13 @@ $(function() {
       <h3 style="text-align: center">Miscellaneous</h3>
 
       <div class="control-group">
-	<label class="control-label" for="id_blog">Blog URL (optional)</label>
+	<label class="control-label" for="id_blog">Blog</label>
 	<div class="controls">
 	  {% if form.blog.errors %}
 	  <p class="form-errors">Enter a valid URL</p>
 	  {% endif %}
 	  {{ form.blog }}
+	  {{ form.blog_name }}
 	  <!--<input type="text" placeholder="Name"/>-->
 	</div>
       </div>

@@ -69,16 +69,9 @@ class UserProfile(models.Model):
 
     domain = models.CharField(max_length=500, blank=True)
 
-    COLUMNS = (
-        (3, 'Square'),
-        (1, 'Wide'),
-    )
-    portfolio_columns = models.PositiveIntegerField(verbose_name='Thumbnail style',
-                                                    choices=COLUMNS,
-                                                    default=3)
-
     website = models.URLField(max_length=500, blank=True)
     blog = models.URLField(max_length=500, blank=True)
+    blog_name = models.CharField(max_length=75, blank=True, default='Blog')
 
     twitter = models.URLField(max_length=500, blank=True)
     facebook = models.URLField(max_length=500, blank=True)
