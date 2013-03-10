@@ -11,6 +11,13 @@
   }
 </style>
 {% endblock %}
+{% block script %}
+<script>
+  $(function() {
+    $('#id_username').focus();
+  });
+</script>
+{% endblock %}
 {% block content %}
 <div class="container-narrow muted">
   <div class="login-box">

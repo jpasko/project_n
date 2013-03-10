@@ -41,19 +41,29 @@
 });
 </script>
 {% endblock %}
-{% block header %}{% endblock %}
+{% block head %}
+<style>
+  .thumbnails > li {
+    margin: 1px 3px 0 3px;
+  }
+  .thumbnail-img {
+    height: {{ profile.thumbnail_dimension }}px;
+    width: {{ profile.thumbnail_dimension }}px;
+  }
+</style>
+{% endblock %}
 {% block content %}
 {% if user.is_authenticated and user.username == username %}
 {% if profile.photo_count > customer.account_limit %}
 <h1 style="color: red">UPLOAD LIMIT EXCEEDED</h1>
-<p style="color: orange"><em>You've exceeded your upload limit ({{ customer.account_limit }} uploads), probably because you downgraded
-    your account. Please either <a href="/settings">upgrade</a> your account or delete the extra 
-    photos to re-enable your public portfolio.</em></p>
+<p style="color: orange"><em>You've exceeded your upload limit ({{ customer.account_limit }} uploads)!  
+    Please either <a href="/settings">upgrade</a> your account or delete the extra uploads 
+    to re-enable your public portfolio.</em></p>
 {% endif %}
 {% endif %}
 {% if user.is_authenticated and user.username == username %}
 <div class="row-fluid" style="padding-bottom: 25px">
-  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#create-gallery-modal" style="margin-left: 20px">
+  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#create-gallery-modal" style="margin-left: 3px">
     <i class="icon-plus icon-white"></i> Create Gallery
   </a>
 </div>
@@ -89,51 +99,26 @@
 	  {% if gallery.count > 0 %}
 	  <a href="/gallery/{{ gallery.pk }}/">
 	    {% with first_item=gallery.item_set.all|first %}
-	    {% if profile.portfolio_columns == 3 %}
 	    {% if gallery.thumbnail %}
-	    <img src="{{ gallery.thumbnail_3.url }}">
-	    {% else %}
-	    {% if first_item.is_photo %}
-	    <img src="{{ first_item.photo.thumbnail_3.url }}">
+	    <img src="{{ gallery.thumbnail.url }}" class="thumbnail-img">
+	    {% elif first_item.is_photo %}
+	    <img src="{{ first_item.photo.thumbnail.url }}" class="thumbnail-img">
 	    {% else %}
 	    <!-- Get the video thumbnail here -->
-	    <img class="video-thumbnail-img" src="{{ STATIC_URL }}img/empty_gallery_square.png" data-url="{{ first_item.video.url }}" style="height: {{ SQUARE_THUMBNAIL_DIMENSION }}px; width: {{ SQUARE_THUMBNAIL_DIMENSION }}px">
-	    {% endif %}
-	    {% endif %}
-	    {% else %}
-	    {% if gallery.thumbnail %}
-	    <img src="{{ gallery.thumbnail_1.url }}">
-	    {% else %}
-	    {% if first_item.is_photo %}
-	    <img src="{{ first_item.photo.thumbnail_1.url }}">
-	    {% else %}
-	    <!-- Get the video thumbnail here -->
-	    <img class="video-thumbnail-img" src="{{ STATIC_URL }}img/empty_gallery_wide.png" data-url="{{ first_item.video.url }}" style="height: {{ WIDE_THUMBNAIL_HEIGHT }}px; width: {{ WIDE_THUMBNAIL_WIDTH }}px">
-	    {% endif %}
-	    {% endif %}
+	    <img class="video-thumbnail-img thumbnail-img" src="{{ STATIC_URL }}img/empty_gallery_square.png" data-url="{{ first_item.video.url }}">
 	    {% endif %}
 	    {% endwith %}
             <div class="gallery-title">
 	      <h4 style="color: white">{{ gallery.title }}</h4>
 	    </div>
 	  </a>
-	  {% else %}
-	  {% if profile.portfolio_columns == 3 %}
+	  {% else %} <!-- gallery.count == 0 -->
 	  {% if gallery.thumbnail %}
 	  <a href="/gallery/{{ gallery.pk }}/">
-	    <img src="{{ gallery.thumbnail_3.url }}">
+	    <img src="{{ gallery.thumbnail.url }}" class="thumbnail-img">
 	  {% else %}
 	  <a href="/gallery/{{ gallery.pk }}/">
-	    <img src="{{ STATIC_URL }}img/empty_gallery_square.png">
-	  {% endif %}
-	  {% else %}
-	  {% if gallery.thumbnail %}
-	  <a href="/gallery/{{ gallery.pk }}/">
-	    <img src="{{ gallery.thumbnail_1.url }}">
-	  {% else %}
-	  <a href="/gallery/{{ gallery.pk }}/">
-	    <img src="{{ STATIC_URL }}img/empty_gallery_wide.png">
-	  {% endif %}
+	    <img src="{{ STATIC_URL }}img/empty_gallery_square.png" class="thumbnail-img">
 	  {% endif %}
             <div class="gallery-title"><h4 style="color: white">{{ gallery.title }} (empty)</h4></div>
 	  </a>

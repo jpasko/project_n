@@ -20,6 +20,9 @@
     margin-bottom: 5px;
     margin-top: 5px;
   }
+  .thumbnails > li {
+    margin: 1px 3px 0 3px;
+  }
 </style>
 {% endblock %}
 
@@ -81,7 +84,7 @@ $(document).ready(function(){
   <hr id="thin-divider">
 </div>
 <div class="row-fluid" style="padding-bottom: 25px">
-  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-photo-modal" style="margin-left: 20px">
+  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-photo-modal" style="margin-left: 3px">
     <i class="icon-arrow-up icon-white"></i>Upload Image
   </a>
   <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-video-modal" style="margin-left: 5px">
@@ -166,7 +169,7 @@ $(document).ready(function(){
 	<div style="position: relative; left: 0; top: 0;">
 	  {% if item.is_photo %}
 	  <a href="{{ item.photo.image.url }}" target="_blank">
-	    <img class="gallery-thumbnail" src="{{ item.photo.thumbnail_3.url }}">
+	    <img class="gallery-thumbnail" src="{{ item.photo.thumbnail.url }}">
 	  </a>
 	  {% else %}
 	  <a class="video-thumbnail" href="{{ item.video.url }}" target="_blank">
@@ -190,7 +193,7 @@ $(document).ready(function(){
 <div id="galleria">
   {% for item in gallery.item_set.all %}
   {% if item.is_photo %}
-  <a href="{{ item.photo.image.url }}"><img src="{{ item.photo.thumbnail_3.url }}" data-title="{{ item.caption }}"></a>
+  <a href="{{ item.photo.image.url }}"><img src="{{ item.photo.thumbnail.url }}" data-title="{{ item.caption }}"></a>
   {% else %}
   <a href="{{ item.video.url }}"><span class="video" data-title="{{ item.caption }}"></span></a>
   {% endif %}

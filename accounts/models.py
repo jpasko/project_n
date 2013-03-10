@@ -23,7 +23,7 @@ class UserProfile(models.Model):
     # Required to associate with a unique user.
     user = models.OneToOneField(User)
 
-    photo_count = models.IntegerField(default=0)
+    photo_count = models.PositiveIntegerField(default=0)
 
     allow_contact = models.BooleanField(default=True)
 
@@ -33,13 +33,15 @@ class UserProfile(models.Model):
 
     full_width_navbar = models.BooleanField(default=False)
 
-    page_width = models.IntegerField(default=940)
+    page_width = models.PositiveIntegerField(default=940)
 
-    ga_1 = models.IntegerField(null=True,
-                               blank=True)
-    ga_2 = models.IntegerField(null=True,
-                               blank=True)
+    thumbnail_dimension = models.PositiveIntegerField(default=250)
 
+    ga_1 = models.PositiveIntegerField(null=True,
+                                       blank=True)
+    ga_2 = models.PositiveIntegerField(null=True,
+                                       blank=True)
+    
     copy_text = models.CharField(verbose_name='copyright text',
                                 max_length=100,
                                 blank=True)
@@ -65,13 +67,15 @@ class UserProfile(models.Model):
     text_color_hover = models.CharField(max_length=6,
                                         default='D4D4D4')
 
+    domain = models.CharField(max_length=500, blank=True)
+
     COLUMNS = (
         (3, 'Square'),
         (1, 'Wide'),
     )
-    portfolio_columns = models.IntegerField(verbose_name='Thumbnail style',
-                                            choices=COLUMNS,
-                                            default=3)
+    portfolio_columns = models.PositiveIntegerField(verbose_name='Thumbnail style',
+                                                    choices=COLUMNS,
+                                                    default=3)
 
     website = models.URLField(max_length=500, blank=True)
     blog = models.URLField(max_length=500, blank=True)
@@ -120,9 +124,9 @@ class Customer(StripeCustomer):
         (settings.PREMIUM_IMAGE_LIMIT, str(settings.PREMIUM_IMAGE_LIMIT) + ' image uploads'),
         (settings.PROFESSIONAL_IMAGE_LIMIT, str(settings.PROFESSIONAL_IMAGE_LIMIT) + ' image uploads'),
     )
-    account_limit = models.IntegerField(verbose_name='Account type',
-                                        choices=ACCOUNT_LIMITS,
-                                        default=settings.FREE_IMAGE_LIMIT)
+    account_limit = models.PositiveIntegerField(verbose_name='Account type',
+                                                choices=ACCOUNT_LIMITS,
+                                                default=settings.FREE_IMAGE_LIMIT)
 
     def __unicode__(self):
         return u'Customer record for %s' % self.user.username

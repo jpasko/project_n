@@ -14,6 +14,10 @@ $(function() {
   $("#id_page_width").change(function() {
     $("#id_page_width_display").val($("#id_page_width").val());
   });
+  $("#id_thumbnail_dimension_display").val($("#id_thumbnail_dimension").val());
+  $("#id_thumbnail_dimension").change(function() {
+    $("#id_thumbnail_dimension_display").val($("#id_thumbnail_dimension").val());
+  });
   $('#id_picture').change(function() {
     $('#id_picture_styled').val($(this).val().replace("C:\\fakepath\\", ""));
   });
@@ -76,11 +80,11 @@ $(function() {
     padding: 5px;
     color: #424242;
   }
-  #id_page_width {
+  #id_page_width, #id_thumbnail_dimension {
     display: inline-block;
     width: 152px;
   }
-  #id_page_width_display {
+  #id_page_width_display, #id_thumbnail_dimension_display {
     display: inline-block;
     width: 50px;
     height: 30px;
@@ -177,6 +181,14 @@ $(function() {
       </div>
 
       <div class="control-group">
+	<label class="control-label" for="id_thumbnail_dimension">Thumbnail width (pixels)</label>
+	<div class="controls">
+	  <input id="id_thumbnail_dimension" name="thumbnail_dimension" type="range" value="{{ profile.thumbnail_dimension }}" min="65" max="1200" />
+	  <input id="id_thumbnail_dimension_display" type="text" value="" />
+	</div>
+      </div>
+
+      <div class="control-group">
 	<label class="control-label" for="id_full_width_navbar">Navigation bar</label>
 	<div class="controls">
 	  <input type="hidden" name="full_width_navbar" value="{{ profile.full_width_navbar }}" id="id_full_width_navbar" />
@@ -232,6 +244,7 @@ $(function() {
 	  <p class="form-errors">Enter a valid URL</p>
 	  {% endif %}
 	  {{ form.blog }}
+	  <!--<input type="text" placeholder="Name"/>-->
 	</div>
       </div>
 
