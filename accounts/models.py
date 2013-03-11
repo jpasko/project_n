@@ -31,11 +31,20 @@ class UserProfile(models.Model):
 
     enable_banner = models.BooleanField(default=True)
 
-    full_width_navbar = models.BooleanField(default=False)
-
     page_width = models.PositiveIntegerField(default=940)
 
     thumbnail_dimension = models.PositiveIntegerField(default=250)
+
+    font_size = models.DecimalField(default=1.2,
+                                    max_digits=2,
+                                    decimal_places=1)
+
+    FONT_TYPES = (
+        ('S', 'Sans Serif'),
+        ('E', 'Serif'),
+        ('M', 'Mono'),
+    )
+    font_type = models.CharField(default='S', choices=FONT_TYPES, max_length=1)
 
     ga_1 = models.PositiveIntegerField(null=True,
                                        blank=True)
@@ -46,7 +55,7 @@ class UserProfile(models.Model):
                                 max_length=100,
                                 blank=True)
     fullname = models.CharField(verbose_name='name',
-                                max_length=100,
+                                max_length=30,
                                 blank=True)
     location = models.CharField(verbose_name='location',
                                 max_length=100,
@@ -71,7 +80,7 @@ class UserProfile(models.Model):
 
     website = models.URLField(max_length=500, blank=True)
     blog = models.URLField(max_length=500, blank=True)
-    blog_name = models.CharField(max_length=75, blank=True, default='Blog')
+    blog_name = models.CharField(max_length=15, blank=True)
 
     twitter = models.URLField(max_length=500, blank=True)
     facebook = models.URLField(max_length=500, blank=True)
@@ -87,7 +96,7 @@ class UserProfile(models.Model):
                                   verbose_name='Profile picture')
 
     banner = ProcessedImageField([ResizeToFit(width=500,
-                                              height=36,
+                                              height=76,
                                               upscale=False)],
                                  upload_to=upload_to,
                                  blank=True,

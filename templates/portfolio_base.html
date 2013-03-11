@@ -22,11 +22,14 @@
       }
       .house .house-logo {
         display: none;
-        padding-bottom: 4px;
+      }
+      .brand {
+        font-size: 28px !important;
+        text-shadow: none !important;
       }
       {% if profile.full_width_navbar %}
       .brand {
-        padding-left: 25px !important;
+        padding-left: 15px !important;
       }
       {% endif %}
       .navbar-inverse .nav li.dropdown.open>.dropdown-toggle {
@@ -44,6 +47,22 @@
       }
       .navbar .nav > li > a{
         text-shadow: none !important;
+      }
+      .sizeable-font {
+        font-size: {{ profile.font_size }}em;
+      }
+      body,
+      input,
+      button,
+      select,
+      textarea {
+        {% if profile.font_type == 'S' %}
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        {% elif profile.font_type == 'E' %}
+        font-family: Georgia, "Times New Roman", Times, serif;
+        {% else %}
+        font-family: Menlo, Monaco, "Courier New", monospace;
+        {% endif %}
       }
     </style>
     <!--<link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">-->
@@ -94,9 +113,8 @@
   </head>
 
   <body>
-
     <div class="wrapper">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse">
       <div class="navbar-inner">
 	{% if not profile.full_width_navbar %}
         <div class="container">
@@ -142,21 +160,21 @@
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
 	      {% if profile.allow_about or user.is_authenticated and user.username == username %}
-	      <li><a class="muted" href="/about/">About</a></li>
+	      <li><a class="muted sizeable-font" href="/about/">About</a></li>
 	      {% endif %}
 	      {% if profile.blog %}
 	      <li>
-		<a class="muted" href="{{ profile.blog }}" target="_blank">
+		<a class="muted sizeable-font" href="{{ profile.blog }}" target="_blank">
 		  {% if profile.blog_name %}{{ profile.blog_name }}{% else %}Blog{% endif %}
 		</a>
 	      </li>
 	      {% endif %}
 	      {% if profile.allow_contact or user.is_authenticated and user.username == username %}
-	      <li><a class="muted" href="/contact/">Contact</a></li>
+	      <li><a class="muted sizeable-font" href="/contact/">Contact</a></li>
 	      {% endif %}
 	      {% if user.is_authenticated and user.username == username %}
 	      <li class="dropdown" id="menu1">
-		<a class="dropdown-toggle muted" data-toggle="dropdown" href="#menu1">
+		<a class="dropdown-toggle muted sizeable-font" data-toggle="dropdown" href="#menu1">
 		  tools
 		  <b class="caret"></b>
 		</a>
@@ -179,17 +197,9 @@
       </div>
     </div>
 
-    <div class="container" style="padding-top: 60px; padding-bottom: 5px;">
-      <div class="edges">
-      <div id="left" class="gradient">
-      </div>
-
+    <div class="container" style="padding-bottom: 10px;">
       <h1>{% block header %}{% endblock %}</h1>
       {% block content %}{% endblock %}
-
-      <div id="right" class="gradient">
-      </div>
-      </div>
     </div> <!-- /container -->
 
     <div class="push"></div>

@@ -61,7 +61,7 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-<div class="muted">
+<div class="muted sizeable-font">
   {% if user.is_authenticated and user.username == username %}
   <div class="row-fluid" style="padding-bottom: 20px">
     <div class="span3 offset3">
@@ -87,13 +87,13 @@ $(document).ready(function() {
       <form method="post" action=".">
 	{% csrf_token %}
 
-	<label for="id_sender">Your email (optional)</label>
+	<label for="id_sender" class="sizeable-font">Email (optional)</label>
 	{% if form.sender.errors %}
 	<p class="form-errors"><strong>Error: </strong>this email address isn't valid</p>
 	{% endif %}
 	{{ form.sender }}
 
-	<label for="id_message">Message</label>
+	<label for="id_message" class="sizeable-font">Message</label>
 	{% if form.message.errors %}
 	<p class="form-errors"><strong>Error: </strong>please write a message first</p>
 	{% endif %}

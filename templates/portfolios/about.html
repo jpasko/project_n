@@ -114,7 +114,7 @@ $(document).ready(function(){
 <div class="row-fluid muted">
   <div class="span9">
     {% if user.is_authenticated and username == user.username %}
-    <div class="row-fluid" style="padding-bottom: 10px">
+    <div class="row-fluid sizeable-font" style="padding-bottom: 10px">
       <div class="span2">
 	<p><b>Enable?</b></p>
       </div>
@@ -133,7 +133,7 @@ $(document).ready(function(){
     {% endif %}
 
     {% if user.is_authenticated and username == user.username or profile.about %}
-    <div class="row-fluid">
+    <div class="row-fluid sizeable-font">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-about" href="#"><b>About</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
@@ -165,7 +165,7 @@ $(document).ready(function(){
     {% endif %}
 
     {% if user.is_authenticated and username == user.username or profile.email %}
-    <div class="row-fluid">
+    <div class="row-fluid sizeable-font">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-email" href="#"><b>Email</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
@@ -197,7 +197,7 @@ $(document).ready(function(){
     {% endif %}
 
     {% if user.is_authenticated and username == user.username or profile.phone %}
-    <div class="row-fluid">
+    <div class="row-fluid sizeable-font">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-phone" href="#"><b>Phone</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
@@ -229,7 +229,7 @@ $(document).ready(function(){
     {% endif %}
 
     {% if user.is_authenticated and username == user.username or profile.location %}
-    <div class="row-fluid">
+    <div class="row-fluid sizeable-font">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-location" href="#"><b>Location</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
@@ -261,7 +261,7 @@ $(document).ready(function(){
     {% endif %}
 
     {% if user.is_authenticated and username == user.username or profile.website %}
-    <div class="row-fluid">
+    <div class="row-fluid sizeable-font">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-website" href="#"><b>Website</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
@@ -292,7 +292,7 @@ $(document).ready(function(){
     </div>
     {% endif %}
 
-    <div class="row-fluid">
+    <div class="row-fluid sizeable-font">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username %}
 	<a class="pencil muted" id="trigger-editable-social" href="#"><b>Social</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
