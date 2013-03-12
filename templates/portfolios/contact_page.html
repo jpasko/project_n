@@ -18,99 +18,33 @@
     color: #{{ profile.text_color }};
     text-decoration: none;
   }
+  .centered-box {
+    width: 300px;
+    margin: 0 auto;
+    text-align: left;
+  }
 </style>
 {% endblock %}
 
-{% block script %}
-{% if user.is_authenticated and user.username == username %}
-<script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
-<script>
-$(document).ready(function() {
-  $(".enable-contact").on("click", function() {
-    if (!$(this).hasClass("active")) {
-      $(this).removeClass("btn-default");
-      $(this).addClass("btn-success active");
-      $(".disable-contact").removeClass("btn-danger active");
-      $(".disable-contact").addClass("btn-default");
-
-      $.ajax({
-        type: "POST",
-        url: "/toggle_contact_page/",
-        data: {'enable': 'True'}
-      });
-    }
-  });
-
-  $(".disable-contact").on("click", function() {
-    if (!$(this).hasClass("active")) {
-      $(this).removeClass("btn-default");
-      $(this).addClass("btn-danger active");
-      $(".enable-contact").removeClass("btn-success active");
-      $(".enable-contact").addClass("btn-default");
-
-      $.ajax({
-        type: "POST",
-        url: "/toggle_contact_page/",
-        data: {'enable': 'False'}
-      });
-    }
-  });
-});
-</script>
-{% endif %}
-{% endblock %}
-
 {% block content %}
-<div class="muted sizeable-font">
-  {% if user.is_authenticated and user.username == username %}
-  <div class="row-fluid" style="padding-bottom: 20px">
-    <div class="span3 offset3">
-      <p class="muted" style="float: left; padding-right: 10px"><b>Enable?</b></p>
-      <div class="btn-group" data-toggle="buttons-radio" style="display: inline">
-	{% if profile.allow_contact %}
-	<button type="button" class="btn btn-success enable-contact active" value="True"><i class="icon-ok"></i></button>
-	<button type="button" class="btn btn-default disable-contact" value="False"><i class="icon-remove"></i></button>
-	{% else %}
-	<button type="button" class="btn btn-default enable-contact" value="True"><i class="icon-ok"></i></button>
-	<button type="button" class="btn btn-danger disable-contact active" value="False"><i class="icon-remove"></i></button>
-	{% endif %}
-      </div>
-    </div>
-  </div>
-  {% endif %}
-
+<div class="centered-box muted sizeable-font">
   {% if thanks %}
-  <h3 class="message-success">Your message has been sent</h3>
+  <p class="message-success">Your message has been sent</p>
   {% endif %}
-  <div class="row-fluid marketing">
-    <div class="span3 offset3">
-      <form method="post" action=".">
-	{% csrf_token %}
-
-	<label for="id_sender" class="sizeable-font">Email (optional)</label>
-	{% if form.sender.errors %}
-	<p class="form-errors"><strong>Error: </strong>this email address isn't valid</p>
-	{% endif %}
-	{{ form.sender }}
-
-	<label for="id_message" class="sizeable-font">Message</label>
-	{% if form.message.errors %}
-	<p class="form-errors"><strong>Error: </strong>please write a message first</p>
-	{% endif %}
-	{{ form.message }}
-	<input type="submit" value="Send Message" class="btn-contact" style="display: block" />
-      </form>
-    </div>
-    <div class="span3"  style="padding-left: 30px">
-      {% if profile.email %}
-      <h4>Email</h4>
-      <a id="email-link" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
-      {% endif %}
-      {% if profile.phone %}
-      <h4>Phone</h4>
-      <p>{{ profile.phone }}</p>
-      {% endif %}
-    </div>
-  </div>
+  <form method="post" action=".">
+    {% csrf_token %}
+    
+    {% if form.sender.errors %}
+    <p class="form-errors">This email address isn't valid</p>
+    {% endif %}
+    <input type="text" name="sender" id="id_sender" placeholder="Email"/>
+    <p style="display: inline-block">(optional)</p>
+    
+    {% if form.message.errors %}
+    <p class="form-errors">Please write a message first</p>
+    {% endif %}
+    <textarea id="id_message" rows="8" cols="40" name="message" placeholder="Message" style="width: 100%"></textarea>
+    <input type="submit" value="Send" class="btn btn-default btn-large" style="display: block" />
+  </form>
 </div>
 {% endblock %}

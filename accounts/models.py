@@ -25,7 +25,12 @@ class UserProfile(models.Model):
 
     photo_count = models.PositiveIntegerField(default=0)
 
-    allow_contact = models.BooleanField(default=True)
+    CONTACT_TYPES = (
+        ('N', 'None'),
+        ('E', 'Embed'),
+        ('M', 'Pop-up'),
+    )
+    contact_type = models.CharField(default='M', choices=CONTACT_TYPES, max_length=1)
 
     allow_about = models.BooleanField(default=True)
 

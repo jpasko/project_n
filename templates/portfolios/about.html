@@ -21,9 +21,9 @@
 </style>
 {% endblock %}
 {% block script %}
-{% if user.is_authenticated and user.username == username %}
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
+{% if user.is_authenticated and user.username == username %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/editor.js"></script>
 <script>
 $(document).ready(function(){
@@ -62,12 +62,23 @@ $(document).ready(function(){
       });
     }
   });
-  $('#id_picture').change(function() {
-    $('#id_picture_styled').val($(this).val().replace("C:\\fakepath\\", ""));
-  });
 });
 </script>
 {% endif %}
+<script>
+$(document).ready(function(){
+  $("#send-message-embedded").on("click", function() {
+    $.ajax({
+      type: "POST",
+      url: "/contact_ajax/",
+      data: {'message': $("#id_message-embedded").val(),
+             'sender': $("#id_sender-embedded").val()}
+    });
+    $("#id_message-embedded").val('');
+    $("#id_sender-embedded").val('');
+  });
+});
+</script>
 {% endblock %}
 {% block content %}
 {% if user.is_authenticated and user.username == username %}
@@ -393,6 +404,16 @@ $(document).ready(function(){
       <img src="{{ profile.picture.url }}">
     </div>
     {% endif %}
+
+    {% if profile.contact_type == 'E' %}
+    <div class="row-fluid" style="padding-top: 20px">
+      <p class="sizeable-font"><strong>Contact</strong></p>
+      <input type="text" id="id_sender-embedded" placeholder="Email" style="width: 200px"/>
+      <textarea id="id_message-embedded" rows="3" cols="40" placeholder="Message"  style="width: 200px"></textarea>
+      <button type="submit" class="btn-contact" id="send-message-embedded">Send</button>
+    </div>
+    {% endif %}
+
   </div>
 
 </div>

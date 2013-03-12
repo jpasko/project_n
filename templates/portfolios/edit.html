@@ -55,7 +55,6 @@
     background-color: white;
   }
   .form-title h3, p, b, label {
-    margin: 5px auto auto auto;
     font-size: 1em;
     color: #303030;
   }
@@ -142,6 +141,15 @@ $(function() {
       $(this).siblings().addClass("btn-default");
       $(this).siblings().removeClass("btn-success active");
       $("#id_font_size").val($(this).val());
+    });
+  });
+  $("#contact_type_radio").find(".btn").each(function() {
+    $(this).bind("click", function() {
+      $(this).addClass("btn-success active");
+      $(this).removeClass("btn-default");
+      $(this).siblings().addClass("btn-default");
+      $(this).siblings().removeClass("btn-success active");
+      $("#id_contact_type").val($(this).val());
     });
   });
 });
@@ -323,6 +331,28 @@ $(function() {
 	  {{ form.blog }}
 	  {{ form.blog_name }}
 	  <!--<input type="text" placeholder="Name"/>-->
+	</div>
+      </div>
+
+     <div class="control-group">
+	<label class="control-label" for="id_contact_type">Contact form</label>
+	<div class="controls">
+	  <input type="hidden" name="contact_type" value="{{ profile.contact_type }}" id="id_contact_type" />
+	  <div class="btn-group" data-toggle="buttons-radio" id="contact_type_radio">
+	    {% if profile.contact_type == 'M' %}
+	    <button type="button" class="btn btn-success active" style="width: 73px" value="M"><strong>Pop-up</strong></button>
+	    <button type="button" class="btn btn-default" style="width: 73px" value="E"><strong>Embed</strong></button>
+	    <button type="button" class="btn btn-default" style="width: 73px" value="N"><strong>None</strong></button>
+	    {% elif profile.contact_type == 'E' %}
+	    <button type="button" class="btn btn-default" style="width: 73px" value="M"><strong>Pop-up</strong></button>
+	    <button type="button" class="btn btn-success active" style="width: 73px" value="E"><strong>Embed</strong></button>
+	    <button type="button" class="btn btn-default" style="width: 73px" value="N"><strong>None</strong></button>
+	    {% else %}
+	    <button type="button" class="btn btn-default" style="width: 73px" value="M"><strong>Pop-up</strong></button>
+	    <button type="button" class="btn btn-default" style="width: 73px" value="E"><strong>Embed</strong></button>
+	    <button type="button" class="btn btn-success active" style="width: 73px" value="N"><strong>None</strong></button>
+	    {% endif %}
+	  </div>
 	</div>
       </div>
 

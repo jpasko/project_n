@@ -14,7 +14,6 @@ class UserProfileForm(forms.ModelForm):
         }  
         exclude = ('user',
                    'photo_count',
-                   'allow_contact',
                    'allow_about',
                    'location',
                    'email',
@@ -34,7 +33,7 @@ class ProfilePictureForm(forms.ModelForm):
         model = UserProfile
         exclude = ('user',
                    'photo_count',
-                   'allow_contact',
+                   'contact_type',
                    'allow_about',
                    'enable_banner',
                    'page_width',

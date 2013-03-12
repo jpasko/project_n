@@ -359,9 +359,6 @@ def contact(request):
     username = request.subdomain
     user = get_object_or_404(User, username=username)
     profile = user.get_profile()
-    if not profile.allow_contact:
-        if username != request.user.username or not request.user.is_authenticated():
-            raise Http404
     customer = user.customer
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -389,6 +386,34 @@ def contact(request):
                                'customer': customer,}
                                )
     return render_to_response('portfolios/contact_page.html', variables)
+
+def contact_ajax(request):
+    """
+    Sends an email to the user when someone contacts them via ajax.
+    """
+    username = request.subdomain
+    user = get_object_or_404(User, username=username)
+    results = {'success': False}
+    if request.method == 'POST':
+        if 'message' in request.POST:
+            message = request.POST.get('message')
+            if message != '':
+                body = message
+                if 'name' in request.POST:
+                    name = request.POST.get('name')
+                    if name != '':
+                        body = body + '\n\n-' + name
+                if 'subject' in request.POST:
+                    subject = request.POST.get('subject')
+                    if subject != '':
+                        body = 'Re: ' + subject + '\n\n' + body
+                if 'sender' in request.POST:
+                    sender = request.POST.get('sender')
+                    if sender != '':
+                        body = 'Email: ' + sender + '\n\n' + body
+                send_mail('Someone contacted you!', body, 'submissions@citreo.us', [user.email])
+                results = {'success': True}
+    return HttpResponse(json.dumps(results), mimetype='application/json')
 
 def toggle_contact(request):
     """
