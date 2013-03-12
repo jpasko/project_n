@@ -33,6 +33,8 @@ class UserProfile(models.Model):
 
     page_width = models.PositiveIntegerField(default=940)
 
+    title_size = models.PositiveIntegerField(default=30)
+
     thumbnail_dimension = models.PositiveIntegerField(default=250)
 
     font_size = models.DecimalField(default=1.2,
@@ -96,7 +98,7 @@ class UserProfile(models.Model):
                                   verbose_name='Profile picture')
 
     banner = ProcessedImageField([ResizeToFit(width=500,
-                                              height=76,
+                                              height=80,
                                               upscale=False)],
                                  upload_to=upload_to,
                                  blank=True,

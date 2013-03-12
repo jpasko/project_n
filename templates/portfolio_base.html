@@ -24,7 +24,7 @@
         display: none;
       }
       .brand {
-        font-size: 28px !important;
+        font-size: {{ profile.title_size }}px !important;
         text-shadow: none !important;
       }
       {% if profile.full_width_navbar %}
@@ -125,7 +125,7 @@
             <span class="icon-bar"></span>
           </a>
 	  {% if profile.banner and profile.enable_banner %}
-	  <a class="house brand" style="padding-top: 2px; padding-bottom: 2px" href="/">
+	  <a class="house brand" href="/" style="padding-bottom: 0px; padding-top: 0px">
 	    <img class="banner" src="{{ profile.banner.url }}">
 	    <img class="house-logo" style="padding: 0" src="{{ STATIC_URL }}img/house_light.png">
 	  </a>
@@ -211,11 +211,11 @@
 	<p style="float: right; margin: 0; padding: 0">
 	  <a class="logo" href="http://www.{{ DOMAIN }}/" target="_blank">
 	    <img src="{{ STATIC_URL}}img/small_lemon_dull.png">
-	    <span class="logo-text">Citreo.us</span>
+	    <span class="logo-text" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Citreo.us</span>
 	  </a>
 	</p>
 	{% if profile.copy_text %}
-	<p class="muted" style="float: left; margin: 0; padding: 0">&copy {{ profile.copy_text }}</p>
+	<p class="muted" style="float: left; margin: 0; padding: 0;">&copy {{ profile.copy_text }}</p>
 	{% endif %}
       </div>
     </div>

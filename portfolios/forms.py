@@ -38,6 +38,7 @@ class ProfilePictureForm(forms.ModelForm):
                    'allow_about',
                    'enable_banner',
                    'page_width',
+                   'title_size',
                    'font_size',
                    'font_type',
                    'thumbnail_dimension',
