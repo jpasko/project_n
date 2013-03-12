@@ -301,7 +301,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     <div style="display: inline-block">
 
       <div class="input" style="display: inline-block; padding-left: 15px">
-	<select class="card-expiry-month" style="width: 45px">
+	<select class="card-expiry-month" style="width: 50px">
           {% for month in months %}
           <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
           {% endfor %}
