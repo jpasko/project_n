@@ -74,13 +74,9 @@ $(document).ready(function(){
       type: "POST",
       url: "/contact_ajax/",
       data: {'message': $("#id_message-embedded").val(),
-             'sender': $("#id_sender-embedded").val()},
-      success: function(data) {
-                 if (data.success) {
-                   $("#successful-message").modal('show');
-                 }
-	       }
+             'sender': $("#id_sender-embedded").val()}
     });
+    $("#successful-message").modal('show');
     $("#id_message-embedded").val('');
     $("#id_sender-embedded").val('');
   });

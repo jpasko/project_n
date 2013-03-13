@@ -16,14 +16,13 @@
 {% endblock %}
 {% block content %}
 <div class="jumbotron muted">
-  <h2 style="text-align: center; padding-bottom: 20px">Help &bull; Frequently Asked Questions</h2>
+  <h2 style="text-align: center; padding-bottom: 20px">Frequently Asked Questions</h2>
 </div>
 <div class="centered-box muted">
 <div class="featurette">
   <h3 class="featurette-heading">What can I customize?</h3>
-  <p>You can customize many parts of your portfolio.  Colors, fonts, page dimensions, and many other aspects are
-  customizable.  Explore your options <a href="/customize/">here</a>.</p>
-  <p>Experiment to build the portfolio you want!</p>
+  <p>You can customize many aspects of your portfolio, including colors, fonts, page dimensions, and many others. 
+    Explore your options <a href="/customize/">here</a>.</p>
 </div>
 <div class="featurette">
   <h3 class="featurette-heading">I ran out of uploads.  What are my options?</h3>
@@ -54,7 +53,7 @@
   <h3 class="featurette-heading">How do I enable Google Analytics?</h3>
   <ol>
     <li>Create an account with <a href="http://www.google.com/analytics/index.html" target="_blank">Google Analytics</a>.</li>
-    <li>Add your portfolio's URL to your Google Analytics account's web property setting.</li>
+    <li>Add your portfolio's URL (http://{{ username }}.{{ DOMAIN }}) to your Google Analytics account's web property setting.</li>
     <li>Find your user account number from the Admin tab in your Google Analytics account.  It should look something like <em>UA-12345-1</em>.</li>
     <li>Go to your portfolio's <a href="/customize/">customize</a> page and enter your Google Analytics account number.</li>
   </ol>
@@ -65,7 +64,7 @@
   <p>Go to your <a href="/about/">about</a> page and click on any of the headings to edit its content.  For example, if you want to edit
   the "Location" part of your profile, simply click on "Location" -- this will open an inline editor.  Enter your location and click save.
   You can edit the other fields in a similar manner.</p>
-  <p>Also note that fields which display <em>Currently Empty</em> will not be shown publicly.</p>
+  <p>Note that fields which display <em>Currently Empty</em> will not be shown publicly.</p>
   <p>You can also upload, change, or delete your profile picture.</p>
 </div>
 <div class="featurette">
@@ -77,7 +76,7 @@
 </div>
 <div class="featurette">
   <h3 class="featurette-heading">What if my question isn't answered here?</h3>
-  <p>In that case, feel free to 
+  <p>Feel free to 
     <a href="http://{{ DOMAIN }}/contact/" target="_blank">contact</a> us! 
     We'll get back to you as soon as we can.</p>
   </p>
