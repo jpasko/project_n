@@ -614,6 +614,3 @@ def edit_profile_picture(request):
             form.save()
     return HttpResponseRedirect('/about/')
 
-def error(request):
-    infinity = 1 / 0
-
