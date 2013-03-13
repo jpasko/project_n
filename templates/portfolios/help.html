@@ -5,62 +5,82 @@
   .featurette {
     padding-bottom: 20px;
   }
+  .centered-box {
+    width: 60%;
+    margin: 0 auto;
+  }
+  a:hover {
+    text-decoration: none;
+  }
 </style>
 {% endblock %}
 {% block content %}
 <div class="jumbotron muted">
-  <h3 style="text-align: center">Help &bull; Frequently Asked Questions</h3>
+  <h2 style="text-align: center; padding-bottom: 20px">Help &bull; Frequently Asked Questions</h2>
+</div>
+<div class="centered-box muted">
+<div class="featurette">
+  <h3 class="featurette-heading">What can I customize?</h3>
+  <p>You can customize many parts of your portfolio.  Colors, fonts, page dimensions, and many other aspects are
+  customizable.  Explore your options <a href="/customize/">here</a>.</p>
+  <p>Experiment to build the portfolio you want!</p>
 </div>
 <div class="featurette">
-  <h4 class="featurette-heading muted">What can I customize?</h4>
-  <p class="muted">By doing this</p>
+  <h3 class="featurette-heading">I ran out of uploads.  What are my options?</h3>
+  <ul>
+    <li>It's very easy to obtain additional uploads by <a href="/settings/">upgrading</a> your account.</li>
+    <li>If you don't want to upgrade your account, you can always delete uploads to make room for others.</li>
+    <li>If you're already using our professional account and need even more uploads, please <a href="http://{{ DOMAIN }}/contact/">contact</a>
+      us.</li>
+  </ul>
+</div>
+<div class="featurette">
+  <h3 class="featurette-heading">How do I upload an image or video?</h3>
+  <p>Simply click on the gallery you'd like to upload an image or video into.  Then click on the "Upload Image" or
+  "Upload Video" button.</p>
+</div>
+<div class="featurette">
+  <h3 class="featurette-heading">How do I change the order of my images, videos, or galleries?</h3>
+  <p>You can drag and drop galleries, images, or videos to rearrange them.  Your changes will be stored automatically.</p>
 
 </div>
 <div class="featurette">
-  <h4 class="featurette-heading muted">I ran out of uploads.  What are my options?</h4>
-  <p class="muted">If you're out of uploads, you can delete some items or upgrade your account.</p>
-
+  <h3 class="featurette-heading">What is Google Analytics?</h3>
+  <p><a href="http://www.google.com/analytics/index.html" target="_blank">Google Analytics</a> allows you to track how many times your 
+    profile has been viewed, among other statistics.  It can be a very useful tool if you're curious or concerned about how
+    many people have seen your work.</p>
 </div>
 <div class="featurette">
-  <h4 class="featurette-heading muted">How do I upload an image?</h4>
-  <p class="muted">By doing this</p>
-
+  <h3 class="featurette-heading">How do I enable Google Analytics?</h3>
+  <ol>
+    <li>Create an account with <a href="http://www.google.com/analytics/index.html" target="_blank">Google Analytics</a>.</li>
+    <li>Add your portfolio's URL to your Google Analytics account's web property setting.</li>
+    <li>Find your user account number from the Admin tab in your Google Analytics account.  It should look something like UA-12345-1.</li>
+    <li>Go to your portfolio's <a href="/customize/">customize</a> page and enter your Google Analytics account number.</li>
+  </ol>
+  <p>Your portfolio should now have Google Analytics enabled.  You can track your portfolio's statistics using your Google Analytics account.</li>
 </div>
 <div class="featurette">
-  <h4 class="featurette-heading muted">How do I upload a video?</h4>
-  <p class="muted">By doing this</p>
-
+  <h3 class="featurette-heading">How do I edit my <em>About</em> page?</h3>
+  <p>Go to your <a href="/about/">about</a> page and click on any of the headings to edit its content.  For example, if you want to edit
+  the "Location" part of your profile, simply click on "Location" -- this will open an inline editor.  Enter your location and click save.
+  You can edit the other fields in a similar manner.</p>
+  <p>Also note that fields which display <em>Currently Empty</em> will not be shown publicly.</p>
+  <p>You can also upload, change, or delete your profile picture.</p>
 </div>
 <div class="featurette">
-  <h4 class="featurette-heading muted">How do I change the order of my images, videos, or galleries?</h4>
-  <p class="muted">By doing this</p>
-
+  <h3 class="featurette-heading">How do I enable or disable my <em>Blog</em> or <em>Contact</em> page?</h3>
+  <ul>
+    <li>Enable your <em>Blog</em> by entering its URL in the <a href="/customize/">customize</a> form.  Disable it by clearing its URL in the form.</li>
+    <li>Your <em>Contact</em> form is enabled by default.  You can change its settings within the  <a href="/customize/">customize</a> form as well.</li>
+  </ul>
 </div>
 <div class="featurette">
-  <h4 class="featurette-heading muted">What is Google Analytics?</h4>
-  <p class="muted">Google Analytics allows you to track how many times your profile has been viewed.</p>
-
-</div>
-<div class="featurette">
-  <h4 class="featurette-heading muted">How do I enable Google Analytics?</h4>
-  <p class="muted">First, you need to create an account.</p>
-
-</div>
-<div class="featurette">
-  <h4 class="featurette-heading muted">How do I edit my <em>About</em> page?</h4>
-  <p class="muted">By doing this</p>
-
-</div>
-<div class="featurette">
-  <h4 class="featurette-heading muted">How do I enable or disable my <em>About</em>, <em>Blog</em>, or <em>Contact</em> page?</h4>
-  <p class="muted">By doing this</p>
-
-</div>
-<div class="featurette">
-  <h4 class="featurette-heading muted">What if my question isn't answered here?</h4>
-  <p class="muted">In that case, feel free to 
-    <a href="http://{{ DOMAIN }}/contact/" target="_blank" style="text-decoration: none">contact</a> us!
-    Tell us about your problem and we'll get back to you as soon as we can.
+  <h3 class="featurette-heading">What if my question isn't answered here?</h3>
+  <p>In that case, feel free to 
+    <a href="http://{{ DOMAIN }}/contact/" target="_blank">contact</a> us! 
+    We'll get back to you as soon as we can.</p>
   </p>
+</div>
 </div>
 {% endblock %}
