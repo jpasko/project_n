@@ -406,11 +406,11 @@ $(document).ready(function(){
     {% endif %}
 
     {% if profile.contact_type == 'E' %}
-    <div class="row-fluid" style="padding-top: 20px">
+    <div class="row-fluid" style="padding-top: 15px">
       <p class="sizeable-font"><strong>Contact</strong></p>
-      <input type="text" id="id_sender-embedded" placeholder="Email" style="width: 200px"/>
-      <textarea id="id_message-embedded" rows="3" cols="40" placeholder="Message"  style="width: 200px"></textarea>
-      <button type="submit" class="btn-contact" id="send-message-embedded">Send</button>
+      <input type="text" id="id_sender-embedded" placeholder="Email" style="width: 185px; display: block"/>
+      <textarea id="id_message-embedded" rows="3" cols="40" placeholder="Message"  style="width: 185px; display: block"></textarea>
+      <button type="submit" class="btn-contact" id="send-message-embedded" style="display: block">Send</button>
     </div>
     {% endif %}
 

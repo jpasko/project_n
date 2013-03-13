@@ -82,12 +82,12 @@ $(document).ready(function(){
   </h4>
   <h4 class="muted" style="display: inline-block; margin-left: 10px; margin-right: 10px">&bull;</h4>
   <h4 class="muted" style="display: inline-block">
-    {% if gallery.thumbnail %}<img id="thumbnail-img" src="{{ gallery.thumbnail.url }}" style="padding-right: 20px">{% else %}No thumbnail{% endif %}
+    {% if gallery.thumbnail %}<img id="thumbnail-img" src="{{ gallery.thumbnail.url }}" style="padding-right: 20px">{% else %}Default thumbnail{% endif %}
   </h4>
-  <a class="btn-green btn-green-link" href="/gallery/{{ gallery.pk }}/edit/" style="margin-left: 10px">
-    <i class="icon-edit icon-white"></i>Edit
+  <a class="btn btn-default" href="/gallery/{{ gallery.pk }}/edit/" style="margin-left: 10px">
+    <i class="icon-edit"></i><strong>Edit</strong>
   </a>
-  <a class="btn btn-danger" role="button" data-toggle="modal" href="#delete-gallery-modal" style="margin-left: 10px">
+  <a class="btn btn-danger" role="button" data-toggle="modal" href="#delete-gallery-modal">
     <i class="icon-remove icon-white"></i>
   </a>
   <hr id="thin-divider">

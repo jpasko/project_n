@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     # The contact page containing a contact form.
     url(r'^contact/$', 'portfolios.views.contact'),
 
-    # An view handling ajax contact posts.
+    # A view handling ajax contact posts.
     url(r'^contact_ajax/$', 'portfolios.views.contact_ajax'),
 
     # Users can customize their portfolio.
