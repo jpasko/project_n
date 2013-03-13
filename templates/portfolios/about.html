@@ -65,6 +65,8 @@ $(document).ready(function(){
 });
 </script>
 {% endif %}
+
+{% if profile.contact_type == 'E' %}
 <script>
 $(document).ready(function(){
   $("#send-message-embedded").on("click", function() {
@@ -72,13 +74,20 @@ $(document).ready(function(){
       type: "POST",
       url: "/contact_ajax/",
       data: {'message': $("#id_message-embedded").val(),
-             'sender': $("#id_sender-embedded").val()}
+             'sender': $("#id_sender-embedded").val()},
+      success: function(data) {
+                 if (data.success) {
+                   $("#successful-message").modal('show');
+                 }
+	       }
     });
     $("#id_message-embedded").val('');
     $("#id_sender-embedded").val('');
   });
 });
 </script>
+{% endif %}
+
 {% endblock %}
 {% block content %}
 {% if user.is_authenticated and user.username == username %}
@@ -120,8 +129,20 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
-<!-- End modal -->
 {% endif %}
+{% if profile.contact_type == 'E' %}
+<!-- Modal to show on message sending -->
+<div class="modal hide fade" role="dialog" tabindex="-1" id="successful-message" arialabelledby="successful-message-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="successful-message-heading" style="color: #424242">Your message has been sent.</h3>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-large" data-dismiss="modal">Close</button>
+  </div>
+</div>
+{% endif %}
+<!-- End modal -->
 <div class="row-fluid muted">
   <div class="span9">
     {% if user.is_authenticated and username == user.username %}
