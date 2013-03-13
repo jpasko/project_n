@@ -62,6 +62,9 @@ $(document).ready(function(){
       });
     }
   });
+  $('#id_picture').change(function() {
+    $('#id_picture_styled').val($(this).val().replace("C:\\fakepath\\", ""));
+  });
 });
 </script>
 {% endif %}
@@ -405,7 +408,7 @@ $(document).ready(function(){
   <div class="span3">
     {% if user.is_authenticated and username == user.username %}
     <div class="row-fluid" style="padding-bottom: 10px">
-      <a href="#profile-picture-modal" role="button" data-toggle="modal" class="btn btn-success">
+      <a href="#profile-picture-modal" role="button" data-toggle="modal" class="btn btn-info">
 	<i class="icon-plus icon-white"></i><strong>Profile picture</strong>
       </a>
       {% if profile.picture %}
