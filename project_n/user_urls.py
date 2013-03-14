@@ -84,6 +84,9 @@ urlpatterns = patterns('',
     # POST to this URL to toggle the display of the about page.
     url(r'^toggle_about_page/$', 'portfolios.views.toggle_about'),
 
+    # POST here to disable the "Getting Started" modal on home view.
+    url(r'^disable_get_started_modal/$', 'portfolios.views.disable_get_started_modal'),
+
     # POST to this URL to update the profile with AJAX.
     url(r'^update/$', 'portfolios.views.update_profile'),
 

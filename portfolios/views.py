@@ -614,3 +614,19 @@ def edit_profile_picture(request):
             form.save()
     return HttpResponseRedirect('/about/')
 
+def disable_get_started_modal(request):
+    """
+    Disables the display of the Getting Started modal.
+    """
+    username = request.subdomain
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    results = {'success': False}
+    if request.method == 'POST':
+        if 'disable' in request.POST:
+            disable = request.POST.get('disable') == 'false'
+            profile.show_get_started = disable
+            profile.save()
+            results = {'success': True}
+    return HttpResponse(json.dumps(results), mimetype='application/json')

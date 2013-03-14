@@ -113,7 +113,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
       $('#username-popover').popover('destroy');
       $('#portfolio-url-popover').popover('destroy');
       if ($('#id_username').val()) {
-        var url = $('#id_username').val() + ".{{ DOMAIN }}";
+        var url = "URL: " + $('#id_username').val() + ".{{ DOMAIN }}";
         $('#portfolio-url-popover').popover({content: url});
         $('#portfolio-url-popover').popover('show');
       }

@@ -36,9 +36,11 @@ class UserProfile(models.Model):
 
     enable_banner = models.BooleanField(default=True)
 
+    show_get_started = models.BooleanField(default=True)
+
     page_width = models.PositiveIntegerField(default=940)
 
-    title_size = models.PositiveIntegerField(default=30)
+    title_size = models.PositiveIntegerField(default=50)
 
     thumbnail_dimension = models.PositiveIntegerField(default=250)
 

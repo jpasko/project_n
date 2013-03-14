@@ -9,8 +9,7 @@
 {% endif %}
 <script>
   $(document).ready(function(){
-  $(".darken").hover(
-    function() {
+    $(".darken").hover(function() {
       var image = $(this).find("img");
       var title = $(this).find(".gallery-title");
       var left = (image.width() - title.outerWidth()) / 2;
@@ -25,20 +24,28 @@
       });
       image.fadeTo(75, 0.6);
       title.show();
-    },
-    function() {
+    }, function() {
       $(this).find("img").fadeTo(10, 1);
       $(this).find(".gallery-title").hide();
-    }
-  );
-  $('#id_thumbnail').change(function() {
-    $('#id_thumbnail_styled').val($(this).val().replace("C:\\fakepath\\", ""));
+    });
+    $('#id_thumbnail').change(function() {
+      $('#id_thumbnail_styled').val($(this).val().replace("C:\\fakepath\\", ""));
+    });
+    $('#gallery-form').submit(function(event) {
+      $('#create-gallery').prop('disabled', true);
+      return true;
+    });
+    {% if user.is_authenticated and user.username == username and profile.show_get_started %}
+    $('#get-started-modal').modal('show');
+    $('#disable-get-started-modal').click(function() {
+      $.ajax({
+        type: "POST",
+        url: "/disable_get_started_modal/",
+        data: {'disable': !!$(this).is(':checked')}
+      });
+    });
+    {% endif %}
   });
-  $('#gallery-form').submit(function(event) {
-    $('#create-gallery').prop('disabled', true);
-    return true;
-  });
-});
 </script>
 {% endblock %}
 {% block head %}
@@ -83,12 +90,33 @@
 	<a class="btn btn-default" onclick="$('#id_thumbnail').click();" style="margin-bottom: 10px"><b>Browse</b></a>
       </div>
       <div style="padding-top: 15px">
-	   <input type="submit" value="Create" class="btn btn-primary btn-large" id="create-gallery">
-	   <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>
+	<input type="submit" value="Create" class="btn btn-primary btn-large" id="create-gallery">
+	<button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>
       </div>
     </form>
   </div>
 </div>
+{% if profile.show_get_started %}
+<!-- Get-started modal -->
+<div class="modal hide fade" role="dialog" tabindex="-1" id="get-started-modal" arialabelledby="get-started-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="create-gallery-heading" style="color: #424242">Getting Started</h3>
+  </div>
+  <div class="modal-body">
+    <h4 style="color: #424242">Start showcasing your work!</h4>
+    <ul style="color: #424242; padding-bottom: 20px">
+      <li>Make sure you check out the <a href="/customize/">customization</a> options.</li>
+      <li>Edit your portfolio's <a href="/about/">about</a> page.</li>
+      <li>Visit the <a href="/help/">FAQs</a> page for any questions you have.</li>
+    </ul>
+    <input type="checkbox" id="disable-get-started-modal" style="margin: 0 2px 2px 0">Don't show this again</input>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+{% endif %}
 {% endif %}
 <div class="row-fluid muted">
   <div class="span12">

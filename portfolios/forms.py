@@ -36,6 +36,7 @@ class ProfilePictureForm(forms.ModelForm):
                    'contact_type',
                    'allow_about',
                    'enable_banner',
+                   'show_get_started',
                    'page_width',
                    'title_size',
                    'font_size',
