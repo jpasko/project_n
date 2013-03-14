@@ -41,6 +41,8 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError(u'Please try a different username')
         if not re.search(r'^\w+$', username):
             raise forms.ValidationError(u'Username can only contain alphanumeric characters')
+        if not username.islower():
+            raise forms.ValidationError(u'Username can only contain lowercase characters')
         try:
             User.objects.get(username=username)
         except ObjectDoesNotExist:
