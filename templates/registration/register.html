@@ -243,17 +243,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
       {{ user_form.username }}
       <span class="inline-popover" id="portfolio-url-popover" data-toggle="popover"></span>
       {% if user_form.username.errors %}
-      <span class="inline-popover" id="username-popover" data-toggle="popover" data-content="That one's taken"></span>
+      <span class="inline-popover" id="username-popover" data-toggle="popover" data-content="{{ user_form.username.errors.as_text }}"></span>
       {% endif %}
 
       {{ user_form.email }}
       {% if user_form.email.errors %}
-      <span class="inline-popover" id="email-popover" data-toggle="popover" data-content="This email won't work"></span>
+      <span class="inline-popover" id="email-popover" data-toggle="popover" data-content="{{ user_form.email.errors.as_text }}"></span>
       {% endif %}
 
       {{ user_form.password1 }}
       {% if user_form.password1.errors or user_form.password2.errors or user_form.non_field_errors %}
-      <span class="inline-popover" id="password-popover" data-toggle="popover" data-content="These passwords must match"></span>
+      <span class="inline-popover" id="password-popover" data-toggle="popover" data-content="* These passwords must match!"></span>
       {% endif %}
       {{ user_form.password2 }}
     </div>

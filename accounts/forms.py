@@ -28,26 +28,26 @@ class RegistrationForm(forms.Form):
         if password1 and password2:
             # Only do something if both fields are valid so far.
             if password1 != password2:
-                raise forms.ValidationError('Passwords must match.')
+                raise forms.ValidationError('These passwords must match!')
             # Always return the full collection of cleaned data.
             return cleaned_data
 
     def clean_username(self):
         """
         Checks that the username is valid and unique.
+        Since the username doubles as a subdomain, it must contain only
+        alphanumerics (lowercase) and the hyphen (-).
         """
         username = self.cleaned_data['username']
         if username in settings.RESERVED_TERMS:
-            raise forms.ValidationError(u'Please try a different username')
-        if not re.search(r'^\w+$', username):
-            raise forms.ValidationError(u'Username can only contain alphanumeric characters')
-        if not username.islower():
-            raise forms.ValidationError(u'Username can only contain lowercase characters')
+            raise forms.ValidationError(u'That one\'s taken!')
+        if not re.search(r'^(?!-)[a-z0-9\-]*(?<!-)$', username):
+            raise forms.ValidationError(u'Lowercase alphanumerics only!')
         try:
             User.objects.get(username=username)
         except ObjectDoesNotExist:
             return username
-        raise forms.ValidationError(u'%s already taken' % username)
+        raise forms.ValidationError(u'That one\'s taken!')
 
     def clean_email(self):
         """
@@ -58,7 +58,7 @@ class RegistrationForm(forms.Form):
             User.objects.get(email=email)
         except ObjectDoesNotExist:
             return email
-        raise forms.ValidationError('Email already taken')
+        raise forms.ValidationError(u'That one\'s taken!')
 
 class CardForm(forms.Form):
     """
