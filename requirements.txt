@@ -10,6 +10,7 @@ django-imagekit==2.0.2
 django-ses==0.4.1
 django-storages==1.1.6
 django-zebra==0.4.3
+gunicorn==0.17.2
 psycopg2==2.4.6
 requests==0.13.2
 stripe==1.7.8
