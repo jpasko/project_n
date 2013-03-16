@@ -220,111 +220,113 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   </div>
 </div>
 <!-- End modals -->
-<div class="signup-title muted">
-  {% if not paid %}
-  <h3 style="display: inline-block; color: #575757"><span style="font-size: 1.5em">20</span> uploads. For free. 
-    <a href="/register/" style="text-decoration: none; color: 1369be">Want more?</a>
-  </h3>
-  {% elif account_type == "premium" %}
-  <h3 style="color: #575757"><span style="font-size: 1.5em">500</span> uploads &bull; $6 <span style="font-size: 0.7em">per month</span></h3>
-  {% else %}
-  <h3 style="color: #575757"><span style="font-size: 1.5em">1500</span> uploads &bull; $9 <span style="font-size: 0.7em">per month</span></h3>
-  {% endif %}
-</div>
-<div class="centered-box">
-  <form method="POST" action="" id="payment-form" style="width: 400px;">
-    {% csrf_token %}
-    <div class="form-title">
-      <h3>Your Account</h3>
-    </div>
-
-    <div class="form-body" style="padding-bottom: 20px">
-
-      {{ user_form.username }}
-      <span class="inline-popover" id="portfolio-url-popover" data-toggle="popover"></span>
-      {% if user_form.username.errors %}
-      <span class="inline-popover" id="username-popover" data-toggle="popover" data-content="{{ user_form.username.errors.as_text }}"></span>
-      {% endif %}
-
-      {{ user_form.email }}
-      {% if user_form.email.errors %}
-      <span class="inline-popover" id="email-popover" data-toggle="popover" data-content="{{ user_form.email.errors.as_text }}"></span>
-      {% endif %}
-
-      {{ user_form.password1 }}
-      {% if user_form.password1.errors or user_form.password2.errors or user_form.non_field_errors %}
-      <span class="inline-popover" id="password-popover" data-toggle="popover" data-content="* These passwords must match!"></span>
-      {% endif %}
-      {{ user_form.password2 }}
-    </div>
-
-    {% if paid %}
-    <div class="form-title">
-      <h3>Billing Information</h3>
-    </div>
-    <div style="margin: 0 auto; width: 300px">
-      <div style="overflow: hidden; display: inline-block">
-	<img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-amex grayscale">
-      </div>
-      <div style="overflow: hidden; display: inline-block">
-	<img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-visa grayscale">
-      </div>
-      <div style="overflow: hidden; display: inline-block">
-	<img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-mastercard grayscale">
-      </div>
-      <div style="overflow: hidden; display: inline-block">
-	<img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-discover grayscale">
-      </div>
-      <div style="overflow: hidden; display: inline-block">
-	<img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-jcb grayscale">
-      </div>
-      <div style="overflow: hidden; display: inline-block">
-	<img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-diners grayscale">
-      </div>
-    </div>
-    <p style="text-align: center; padding-top: 10px"><i class="icon-ok"></i><em> We accept all major credit cards</em></p>
-
-    <div class="form-body" style="padding-top: 20px">
-
-    <input type="text" placeholder="Cardholder's Name" id="id_name"/>
-
-    <p class="payment-errors" style="display: none"></p>
-    {% if error %}
-    <p class="processing-errors">{{ error }}</p>
+<div class="container" style="padding: 30px 0">
+  <div class="signup-title muted">
+    {% if not paid %}
+    <h3 style="display: inline-block; color: #575757"><span style="font-size: 1.5em">35</span> uploads. For free. 
+      <a href="/register/" style="text-decoration: none; color: 1369be">Want more?</a>
+    </h3>
+    {% elif account_type == "premium" %}
+    <h3 style="color: #575757"><span style="font-size: 1.5em">500</span> uploads &bull; $6 <span style="font-size: 0.7em">per month</span></h3>
+    {% else %}
+    <h3 style="color: #575757"><span style="font-size: 1.5em">1500</span> uploads &bull; $9 <span style="font-size: 0.7em">per month</span></h3>
     {% endif %}
-
-    <input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" placeholder="Card Number"/>
-    <div style="overflow: hidden">
-      <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 135px" placeholder="CVC (security code)"/>
-      <img src="{{ STATIC_URL }}img/cvc.png" class="cvc-image">
-    </div>
-    <div style="display: inline-block">
-
-      <div class="input" style="display: inline-block; padding-left: 15px">
-	<select class="card-expiry-month" style="width: 50px">
-          {% for month in months %}
-          <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
-          {% endfor %}
-	</select>
-	<select class="card-expiry-year" style="width: 70px">
-          {% for year in years %}
-          <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
-          {% endfor %}
-	</select>
+  </div>
+  <div class="centered-box">
+    <form method="POST" action="" id="payment-form" style="width: 400px;">
+      {% csrf_token %}
+      <div class="form-title">
+	<h3>Your Account</h3>
       </div>
-      <label for="expiry_date" style="display: inline-block; font-size: 1.2em">Expiration Date</label>
-    </div>
-    </div>
-    <!-- End if paid -->
-    {% endif %}
-    <hr style="border-top: none; border-bottom: 1px solid #d6d6d6; width: 100%">
-    <div style="text-align: center">
-      <input type="checkbox" id="terms-of-service" style="display: inline; margin: 0">
-      <p style="display: inline">I agree to the <a href="/terms/" target="_blank">Terms of Service</a></p>
-    </div>
-    <button type="submit" class="submit-button btn btn-primary btn-large" style="display: block; margin: 20px auto; border-radius: 2px">
-      Get Started Now!
-    </button>
-  </form>
+
+      <div class="form-body" style="padding-bottom: 20px">
+
+	{{ user_form.username }}
+	<span class="inline-popover" id="portfolio-url-popover" data-toggle="popover"></span>
+	{% if user_form.username.errors %}
+	<span class="inline-popover" id="username-popover" data-toggle="popover" data-content="{{ user_form.username.errors.as_text }}"></span>
+	{% endif %}
+
+	{{ user_form.email }}
+	{% if user_form.email.errors %}
+	<span class="inline-popover" id="email-popover" data-toggle="popover" data-content="{{ user_form.email.errors.as_text }}"></span>
+	{% endif %}
+
+	{{ user_form.password1 }}
+	{% if user_form.password1.errors or user_form.password2.errors or user_form.non_field_errors %}
+	<span class="inline-popover" id="password-popover" data-toggle="popover" data-content="* These passwords must match!"></span>
+	{% endif %}
+	{{ user_form.password2 }}
+      </div>
+
+      {% if paid %}
+      <div class="form-title">
+	<h3>Billing Information</h3>
+      </div>
+      <div style="margin: 0 auto; width: 300px">
+	<div style="overflow: hidden; display: inline-block">
+	  <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-amex grayscale">
+	</div>
+	<div style="overflow: hidden; display: inline-block">
+	  <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-visa grayscale">
+	</div>
+	<div style="overflow: hidden; display: inline-block">
+	  <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-mastercard grayscale">
+	</div>
+	<div style="overflow: hidden; display: inline-block">
+	  <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-discover grayscale">
+	</div>
+	<div style="overflow: hidden; display: inline-block">
+	  <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-jcb grayscale">
+	</div>
+	<div style="overflow: hidden; display: inline-block">
+	  <img src="{{ STATIC_URL }}img/credit_cards_stacked.png" class="card-images-diners grayscale">
+	</div>
+      </div>
+      <p style="text-align: center; padding-top: 10px"><i class="icon-ok"></i><em> We accept all major credit cards</em></p>
+
+      <div class="form-body" style="padding-top: 20px">
+
+	<input type="text" placeholder="Cardholder's Name" id="id_name"/>
+
+	<p class="payment-errors" style="display: none"></p>
+	{% if error %}
+	<p class="processing-errors">{{ error }}</p>
+	{% endif %}
+
+	<input type="text" size="20" autocomplete="off" class="card-number" id="card-number-id" placeholder="Card Number"/>
+	<div style="overflow: hidden">
+	  <input type="text" size="4" autocomplete="off" class="card-cvc" id="cvc-id" style="width: 135px" placeholder="CVC (security code)"/>
+	  <img src="{{ STATIC_URL }}img/cvc.png" class="cvc-image">
+	</div>
+	<div style="display: inline-block">
+
+	  <div class="input" style="display: inline-block; padding-left: 15px">
+	    <select class="card-expiry-month" style="width: 50px">
+              {% for month in months %}
+              <option value="{{ month }}"{% if soon.month == month %} selected{% endif %}>{{ month }}</option>
+              {% endfor %}
+	    </select>
+	    <select class="card-expiry-year" style="width: 70px">
+              {% for year in years %}
+              <option value="{{ year }}"{% if soon.year == year %} selected{% endif %}>{{ year }}</option>
+              {% endfor %}
+	    </select>
+	  </div>
+	  <label for="expiry_date" style="display: inline-block; font-size: 1.2em">Expiration Date</label>
+	</div>
+      </div>
+      <!-- End if paid -->
+      {% endif %}
+      <hr style="border-top: none; border-bottom: 1px solid #d6d6d6; width: 100%">
+      <div style="text-align: center">
+	<input type="checkbox" id="terms-of-service" style="display: inline; margin: 0">
+	<p style="display: inline">I agree to the <a href="/terms/" target="_blank">Terms of Service</a></p>
+      </div>
+      <button type="submit" class="submit-button btn btn-primary btn-large" style="display: block; margin: 20px auto; border-radius: 2px">
+	Get Started Now!
+      </button>
+    </form>
+  </div>
 </div>
 {% endblock %}

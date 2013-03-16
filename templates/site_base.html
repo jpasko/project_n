@@ -10,7 +10,7 @@
     <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/site_style.css" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:500,700" rel="stylesheet" type="text/css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     {% block head %}{% endblock %}
@@ -25,28 +25,28 @@
 
     <div class="wrapper">
 
-      <div class="container" style="padding-top: 10px">
+      <div class="container top-banner">
 	<div class="masthead">
-          <ul class="nav nav-pills pull-right">
+          <ul class="nav nav-pills pull-right" style="margin-right: 20px">
 	    {% if not user.is_authenticated %}
-	    <li><a href="/register/">sign up</a></li>
-	    <li><a href="/login/">login</a></li>
+	    <li><a href="/register/" class="nav-link">sign up</a></li>
+	    <li><a href="/login/" class="nav-link">login</a></li>
             {% else %}
-	    <li><a href="http://{{ user.username }}.{{ DOMAIN }}/">profile</a></li>
-	    <li><a href="/logout/">logout</a></li>
+	    <li><a href="http://{{ user.username }}.{{ DOMAIN }}/" class="nav-link">profile</a></li>
+	    <li><a href="/logout/" class="nav-link">logout</a></li>
             {% endif %}
           </ul>
-          <h1 style="padding-left: 40px">
+          <h2 style="margin-left: 30px; font-weight: 500">
 	    <a href="/" class="logo">
-	      Citreo<img src="{{ STATIC_URL }}img/lemon.png" style="padding-left: 0px">s
+	      Citreo<img src="{{ STATIC_URL }}img/small_lemon.png" style="padding-left: 0px">s
 	    </a>
-	  </h1>
-	  <hr>
+	  </h2>
 	</div>
       </div>
-      
 
+      <div class="content">
       {% block content %}{% endblock %}
+      </div>
 
       
       <div class="push"></div>

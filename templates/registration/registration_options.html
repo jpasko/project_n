@@ -7,7 +7,7 @@
     margin: 0 auto;
   }
   .price-box:hover {
-    box-shadow: 0 0 3px #b1d6fb, 0 0 8px 2px #d8ebfd, 0 0 15px 3px #e6f2fe, 0 0 29px 10px #fbfcfe; 0 0 40px 15px #f0f7ff;
+    box-shadow: 0 0 3px #566b81, 0 0 10px 4px #97a6b4, 0 0 15px 3px #e0e3e5;
   }
   .icon-dull {
     opacity : 0.4;
@@ -16,44 +16,46 @@
 </style>
 {% endblock %}
 {% block content %}
-<div class="row-fluid">
-  <div class="span2 offset3">
-    <a href="/register/basic/" class="btn btn-large btn-default price-box">
-      <h3>Basic</h3>
-      <h4>20 uploads</h4>
-      <p><i class="icon-thumbs-up"></i> Free</p>
-    </a>
+<div class="container" style="padding-top: 30px">
+  <div class="row-fluid">
+    <div class="span2 offset3">
+      <a href="/register/basic/" class="btn btn-large btn-default price-box">
+	<h3>Basic</h3>
+	<h4>35 uploads</h4>
+	<p><i class="icon-thumbs-up"></i> Free</p>
+      </a>
+    </div>
+    <div class="span2">
+      <a href="/register/premium/" class="btn btn-large btn-default price-box" style="padding-bottom: 40px">
+	<h3>Premium</h3>
+	<h4>500 uploads</h4>
+	<p>$6 <span style="font-size: 0.8em">per month</span></p>
+      </a>
+    </div>
+    <div class="span2">
+      <a href="/register/professional/" class="btn btn-large btn-primary price-box" style="padding-bottom: 30px">
+	<h3>Professional</h3>
+	<h4>1500 uploads</h4>
+	<p>$9 <span style="font-size: 0.8em">per month</span></p>
+	<p style="padding-top: 15px"><i class="icon-star icon-white"></i> Best value <i class="icon-star icon-white"></i></p>
+      </a>
+    </div>
   </div>
-  <div class="span2">
-    <a href="/register/premium/" class="btn btn-large btn-default price-box" style="padding-bottom: 40px">
-      <h3>Premium</h3>
-      <h4>500 uploads</h4>
-      <p>$6 <span style="font-size: 0.8em">per month</span></p>
-    </a>
+  <div class="row-fluid muted" style="padding: 20px 0 10px 0">
+    <div class="span6 offset3">
+      <p><i class="icon-thumbs-up icon-dull"></i> You can easily upgrade (or downgrade) later.  Cancel at any time.</p>
+    </div>
   </div>
-  <div class="span2">
-    <a href="/register/professional/" class="btn btn-large btn-primary price-box" style="padding-bottom: 30px">
-      <h3>Professional</h3>
-      <h4>1500 uploads</h4>
-      <p>$9 <span style="font-size: 0.8em">per month</span></p>
-      <p style="padding-top: 15px"><i class="icon-star icon-white"></i> Best value <i class="icon-star icon-white"></i></p>
-    </a>
-  </div>
-</div>
-<div class="row-fluid muted" style="padding: 20px 0 10px 0">
-  <div class="span6 offset3">
-    <p><i class="icon-thumbs-up icon-dull"></i> You can easily upgrade (or downgrade) later.  Cancel at any time.</p>
-  </div>
-</div>
-<div class="row-fluid muted">
-  <div class="span6 offset3">
-    <hr style="padding: 0; margin: 0">
-    <h2>Features</h2>
-    <p><i class="icon-ok icon-dull"></i><em> Upload images and video from YouTube, Vimeo, and Dailymotion</em></p>
-    <p><i class="icon-ok icon-dull"></i><em> Full profile including links to your social pages and blog</em></p>
-    <p><i class="icon-ok icon-dull"></i><em> Easy contact page designed to combat spam</em></p>
-    <p><i class="icon-ok icon-dull"></i><em> Fully customizable portfolio with Galleria viewer</em></p>
-    <p><i class="icon-ok icon-dull"></i><em> Integration with Google Analytics to track your portfolio views</em></p>
+  <div class="row-fluid muted">
+    <div class="span6 offset3">
+      <hr style="padding: 0; margin: 0">
+      <h2>Features</h2>
+      <p><i class="icon-ok icon-dull"></i><em> Upload images and video from YouTube, Vimeo, and Dailymotion</em></p>
+      <p><i class="icon-ok icon-dull"></i><em> Full profile including links to your social pages and blog</em></p>
+      <p><i class="icon-ok icon-dull"></i><em> Easy contact page designed to combat spam</em></p>
+      <p><i class="icon-ok icon-dull"></i><em> Fully customizable portfolio with Galleria viewer</em></p>
+      <p><i class="icon-ok icon-dull"></i><em> Integration with Google Analytics to track your portfolio views</em></p>
+    </div>
   </div>
 </div>
 {% endblock %}
