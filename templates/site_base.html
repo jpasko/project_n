@@ -11,6 +11,7 @@
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/site_style.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Raleway:500,700" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Strait' rel='stylesheet' type='text/css'>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     {% block head %}{% endblock %}
@@ -27,7 +28,7 @@
 
       <div class="container top-banner">
 	<div class="masthead">
-          <ul class="nav nav-pills pull-right" style="margin-right: 20px">
+          <ul class="nav nav-pills pull-right" style="margin-right: 20px; padding-top: 3px">
 	    {% if not user.is_authenticated %}
 	    <li><a href="/register/" class="nav-link">sign up</a></li>
 	    <li><a href="/login/" class="nav-link">login</a></li>
@@ -36,9 +37,9 @@
 	    <li><a href="/logout/" class="nav-link">logout</a></li>
             {% endif %}
           </ul>
-          <h2 style="margin-left: 30px; font-weight: 500">
+          <h2 style="margin-left: 30px">
 	    <a href="/" class="logo">
-	      Citreo<img src="{{ STATIC_URL }}img/small_lemon.png" style="padding-left: 0px">s
+	      Citreo<img src="{{ STATIC_URL }}img/small_lemon.png" style="padding-left: 0px; opacity: 0.9;">s
 	    </a>
 	  </h2>
 	</div>

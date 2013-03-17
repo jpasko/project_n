@@ -52,24 +52,26 @@ ul {
     text-decoration: none !important;
 }
 .dull-link:hover {
-    color: #0088CC !important;
+    color: white !important;
 }
 .top-banner {
     width: 100%;
     height: 60px;
-    background-color: #374553;
-}
-.content {
-
+    background-color: #29333d;//#374553;
+    border-bottom: 2px solid #ababab;
 }
 .splash {
     padding: 70px 0;
     background-image: url('http://s3.amazonaws.com/citreous/static/img/seattle.png');
     background-size: 75%;
     background-repeat: no-repeat;
-    background-color: #374553;
+    background-color: #29333d;//#374553;
     border-bottom: 2px solid #909090;
     //border-top: 1px solid #737ea5;
+}
+.star {
+    color: white;
+    text-shadow: 0px 0px 1px white, 0px 0px 2px white, 0px 0px 3px white, 0px 0px 4px white;
 }
 .signup-btn {
     background-color: white;
@@ -85,22 +87,30 @@ ul {
 .examples {
     padding-top: 20px;
     width: 100%;
-    background-color: #374553;
+    background-color: #29333d;
     border-top: 2px solid #909090;
     border-bottom: 2px solid #909090;
 }
+.bottom-links {
+    padding-top: 20px;
+    width: 100%;
+    background-color: #29333d;
+    border-top: 2px solid #909090;
+    padding-bottom: 10px;
+}
 .colored {
-    color: #374553;
+    color: #29333d;
 }
 .logo {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Strait', sans-serif;
     text-decoration: none !important;
     color: white;
-    text-shadow: 1px 1px 1px #4d4d4d;
+    text-shadow: 2px 2px 2px black;
 }
 .logo:hover {
     color: white;
     text-decoration: none;
+    text-shadow: 0 0 1px #d5dbe1, 0 0 2px #b9c4cf, 0 0 3px #4e6174;
 }
 .nav-link {
     color: white;

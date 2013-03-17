@@ -27,20 +27,59 @@ $(document).ready(function(){
 <style>
   .darken {
     position: relative;
-    background-color: white;
+    background-color: black;
   }
   .thumbnail-title {
     position: absolute;
     color: white;
+  }
+  .top-banner {
+    border: none !important;
   }
 </style>
 {% endblock %}
 {% block content %}
 <div class="splash">
   <div class="jumbotron" style="margin-bottom: 0">
-    <h1 style="font-family: 'Raleway', sans-serif; color: white; font-weight: 500">Your online portfolio</h1>
+    <h1 style="font-family: 'Raleway', sans-serif; color: white; font-weight: 500; font-size: 6em">Your online portfolio</h1>
     <p class="lead" style="font-family: 'Raleway', sans-serif; color: white; font-weight: 700">No HTML &bull; No CSS &bull; No installation</p>
     <a class="btn btn-large signup-btn" href="/register/basic/"><strong>Sign up &bull; Free</strong></a>
+  </div>
+  <div style="position: absolute; left: 75%; top: 100px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 15%; top: 140px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 35%; top: 15px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 80%; top: 7px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 85%; top: 150px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 95%; top: 80px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 80%; top: 250px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 65%; top: 70px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 68%; top: 300px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 90%; top: 270px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 20%; top: 70px">
+    <p class="star">.</p>
+  </div>
+  <div style="position: absolute; left: 50%; top: 60px">
+    <p class="star">.</p>
   </div>
 </div>
 
@@ -70,10 +109,16 @@ $(document).ready(function(){
 <div class="examples">
   <div class="container">
     <ul class="thumbnails">
-      <li class="span12">
+      <li class="span6">
 	<a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
 	  <img src="{{ STATIC_URL }}img/seattle.png" alt="">
-	  <div class="thumbnail-title hide"><h1>Visit James Pasko's portfolio</h1></div>
+	  <div class="thumbnail-title hide"><h2>Visit James Pasko's portfolio</h2></div>
+	</a>
+      </li>
+      <li class="span6">
+	<a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
+	  <img src="{{ STATIC_URL }}img/seattle.png" alt="">
+	  <div class="thumbnail-title hide"><h2>Visit James Pasko's portfolio</h2></div>
 	</a>
       </li>
       <li class="span6">
@@ -126,37 +171,40 @@ $(document).ready(function(){
 </div>
 -->
 
+
 <div class="container">
   <div class="featurette">
-    <h2 class="featurette-heading">Beauty, Simplified. <span class="muted">A stunning portfolio.</span></h2>
+    <h2 class="featurette-heading colored">Beauty, Simplified. <span class="muted">A stunning portfolio.</span></h2>
     <p class="lead"></p>
   </div>
 
   <hr class="featurette-divider">
   <div class="featurette">
-    <h2 class="featurette-heading" style="text-align: right">Never Any Ads. <span class="muted">That's a promise.</span></h2>
+    <h2 class="featurette-heading colored" style="text-align: right">Never Any Ads. <span class="muted">That's a promise.</span></h2>
     <p class="lead"></p>
   </div>
 
   <hr class="featurette-divider">
   <div class="featurette">
-    <h2 class="featurette-heading">Free. <span class="muted">And you get <em>all</em> the features.</span></h2>
-  </div>
-
-  <div class="jumbotron" style="padding: 30px 0">
-    <a class="btn btn-large btn-primary" style="border-radius: 2px" href="/register/">Sign up</a>
+    <h2 class="featurette-heading colored">Free. <span class="muted">And you get <em>all</em> the features.</span></h2>
   </div>
 </div>
 
-<div class="muted hero-unit" style="text-align: center">
-  <p style="font-size: 2em">
-    <a href="http://twitter.com/citreo_us" class="dull-link muted" target="_blank">@citreo_us</a>
-    <span style="color: #0756A2; padding-right: 30px; padding-left: 30px">&bull;</span>
-    <a href="http://facebook.com/citreous" class="dull-link muted" target="_blank">facebook</a>
-    <span style="color: #0756A2; padding-right: 30px; padding-left: 30px">&bull;</span>
-    <a href="/contact/" class="dull-link muted">contact</a>
-    <span style="color: #0756A2; padding-right: 30px; padding-left: 30px">&bull;</span>
-    <a href="/about/" class="dull-link muted">about</a>
-  </p>
+<div class="bottom-links">
+  <div class="jumbotron" style="padding: 30px 0">
+    <a class="btn btn-large signup-btn" href="/register/" style="width: 470px"><strong>Sign up</strong></a>
+  </div>
+
+  <div class="muted" style="text-align: center">
+    <p style="font-size: 1.4em">
+      <a href="http://twitter.com/citreo_us" class="dull-link muted" target="_blank">@citreo_us</a>
+      <span style="color: #374553; padding-right: 30px; padding-left: 30px">&bull;</span>
+      <a href="http://facebook.com/citreous" class="dull-link muted" target="_blank">facebook</a>
+      <span style="color: #374553; padding-right: 30px; padding-left: 30px">&bull;</span>
+      <a href="/contact/" class="dull-link muted">contact</a>
+      <span style="color: #374553; padding-right: 30px; padding-left: 30px">&bull;</span>
+      <a href="/about/" class="dull-link muted">about</a>
+    </p>
+  </div>
 </div>
 {% endblock %}
