@@ -130,24 +130,20 @@ def register_user(request, account_type):
             # Accessing the stripe_customer attribute creates the stripe customer
             stripe_customer = customer.stripe_customer
             stripe_customer.email = user.email
-            # Now, subscribe the customer to the appropriate stripe plan
             if account_type != settings.FREE_ACCOUNT_NAME:
-                card = card_form.cleaned_data['stripe_token']
-                stripe_customer.update_subscription(plan=account_type, card=card)
-            else:
-                stripe_customer.update_subscription(plan=account_type)
+                stripe_customer.card = card_form.cleaned_data['stripe_token']
             # If there's an error with the credit card, delete everything
             # and display the error message on the form.  Clearly a hacky way
             # to do this, and something I'll clean up later.
             error = save_stripe_customer(stripe_customer)
             if error is None:
+                stripe_customer.update_subscription(plan=account_type)
                 customer.save()
                 user = authenticate(username=request.POST['username'],
                                     password=request.POST['password1'])
                 login(request, user)
                 return HttpResponseRedirect('/accounts/profile/')
             else:
-                stripe_customer.cancel_subscription()
                 stripe_customer.delete()
                 user.delete()
     else:
