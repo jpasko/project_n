@@ -187,7 +187,7 @@ def change_settings(request):
         password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
         if password_change_form.is_valid():
             password_change_form.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect("http://{0}.{1}".format(request.user.username, settings.DOMAIN))
     else:
         password_change_form = PasswordChangeForm(user=request.user)
     profile = request.user.get_profile()
@@ -221,14 +221,14 @@ def change_account(request, new_account_type):
             customer.account_limit = settings.PREMIUM_IMAGE_LIMIT
             customer.save()
         else:
-            return HttpResponseRedirect('/accounts/' + new_account_type + '/payment/')
+            return HttpResponseRedirect("https://{0}.{1}/accounts/{2}/payment/".format(request.user.username, settings.DOMAIN, new_account_type))
     elif new_account_type == settings.PROFESSIONAL_ACCOUNT_NAME:
         if stripe_customer.active_card:
             stripe_customer.update_subscription(plan=new_account_type, prorate=False)
             customer.account_limit = settings.PROFESSIONAL_IMAGE_LIMIT
             customer.save()
         else:
-            return HttpResponseRedirect('/accounts/' + new_account_type + '/payment/')
+            return HttpResponseRedirect("https://{0}.{1}/accounts/{2}/payment/".format(request.user.username, settings.DOMAIN, new_account_type))
     else:
         raise Http404
     variables = RequestContext(request,
