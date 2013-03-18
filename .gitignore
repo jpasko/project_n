@@ -25,3 +25,5 @@ locals.py
 # Ignore SSL keys
 server.csr
 server.key
+server.crt
+server.orig.key
