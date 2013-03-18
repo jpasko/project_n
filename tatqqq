@@ -1,0 +1,42 @@
+diff --git a/templates/registration/login.html b/templates/registration/login.html
+index c4bfae8..4851dcf 100644
+--- a/templates/registration/login.html
++++ b/templates/registration/login.html
+@@ -29,7 +29,7 @@
+       <label for="id_username">Username or Email</label>
+ 	{{ form.username }}
+       <label for="id_password" style="float: left">Password</label>
+-      <span style="padding-left: 3px">(<a href="/accounts/password/reset/">forgot?</a>)</span>
++      <span style="padding-left: 3px">(<a href="https://www.{{ DOMAIN }}/accounts/password/reset/">forgot?</a>)</span>
+ 	{{ form.password }}
+       <input type="hidden" name="next" value="{{ next }}" />
+       <input type="submit" value="Sign in" class="btn btn-large btn-default" />
+diff --git a/templates/registration/registration_options.html b/templates/registration/registration_options.html
+index 0085f95..63e2f90 100644
+--- a/templates/registration/registration_options.html
++++ b/templates/registration/registration_options.html
+@@ -3,21 +3,21 @@
+ {% block content %}
+ <div class="row-fluid" style="padding-top: 30px">
+   <div class="span2 offset3">
+-    <a href="/register/basic/" class="btn btn-large btn-default price-box">
++    <a href="https://www.{{ DOMAIN }}/register/basic/" class="btn btn-large btn-default price-box">
+       <h3>Basic</h3>
+       <h4>35 uploads</h4>
+       <p><i class="icon-thumbs-up"></i> Free</p>
+     </a>
+   </div>
+   <div class="span2">
+-    <a href="/register/premium/" class="btn btn-large btn-default price-box" style="padding-bottom: 40px;">
++    <a href="https://www.{{ DOMAIN }}/register/premium/" class="btn btn-large btn-default price-box" style="padding-bottom: 40px;">
+       <h3>Premium</h3>
+       <h4>500 uploads</h4>
+       <p>$6 <span style="font-size: 0.8em">per month</span></p>
+     </a>
+   </div>
+   <div class="span2">
+-    <a href="/register/professional/" class="btn btn-large btn-primary price-box" style="padding-bottom: 30px;">
++    <a href="https://www.{{ DOMAIN }}/register/professional/" class="btn btn-large btn-primary price-box" style="padding-bottom: 30px;">
+       <h3>Professional</h3>
+       <h4>1500 uploads</h4>
+       <p>$9 <span style="font-size: 0.8em">per month</span></p>
