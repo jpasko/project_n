@@ -14,6 +14,15 @@
     <link href='http://fonts.googleapis.com/css?family=Strait' rel='stylesheet' type='text/css'>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('.logo').hover(function () {
+          $(this).find('img').prop('src', '{{ STATIC_URL }}img/small_lemon.png');
+        }, function () {
+          $(this).find('img').prop('src', '{{ STATIC_URL }}img/small_lemon_dull.png');
+        });
+      });
+    </script>
     {% block head %}{% endblock %}
     {% block script %}{% endblock %}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -38,9 +47,9 @@
             {% endif %}
           </ul>
           <h2 style="margin-left: 30px">
-	    <a href="/" class="logo">
-	      Citreo<img src="{{ STATIC_URL }}img/small_lemon.png" style="padding-left: 0px; opacity: 0.9;">s
-	    </a>
+	    <p>
+	      <a href="/" class="logo">Citreo<img src="{{ STATIC_URL }}img/small_lemon_dull.png" style="padding-left: 0px">s</a>
+	    </p>
 	  </h2>
 	</div>
       </div>

@@ -1,20 +1,5 @@
 {% extends "site_base.html" %}
 {% block title %}Sign up{% endblock %}
-{% block head %}
-<style>
-  .price-box {
-    width: 150px;
-    margin: 0 auto;
-  }
-  .price-box:hover {
-    box-shadow: 0 0 3px #566b81, 0 0 10px 4px #97a6b4, 0 0 15px 3px #e0e3e5;
-  }
-  .icon-dull {
-    opacity : 0.4;
-    filter: alpha(opacity=40);
-  }
-</style>
-{% endblock %}
 {% block content %}
 <div class="row-fluid" style="padding-top: 30px">
   <div class="span2 offset3">
@@ -32,7 +17,7 @@
     </a>
   </div>
   <div class="span2">
-    <a href="/register/professional/" class="btn btn-large btn-info price-box" style="padding-bottom: 30px;">
+    <a href="/register/professional/" class="btn btn-large btn-primary price-box" style="padding-bottom: 30px;">
       <h3>Professional</h3>
       <h4>1500 uploads</h4>
       <p>$9 <span style="font-size: 0.8em">per month</span></p>

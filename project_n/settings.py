@@ -170,13 +170,13 @@ PREMIUM_ACCOUNT_NAME = 'premium'
 PROFESSIONAL_ACCOUNT_NAME = 'professional'
 
 # The storage limits for free accounts
-FREE_IMAGE_LIMIT = 20
+FREE_IMAGE_LIMIT = 35
 
 # The storage limits for premium accounts
-PREMIUM_IMAGE_LIMIT = 150
+PREMIUM_IMAGE_LIMIT = 500
 
 # The storage limits for professional accounts
-PROFESSIONAL_IMAGE_LIMIT = 1000
+PROFESSIONAL_IMAGE_LIMIT = 1500
 
 # Redirect to this URL after login, and use request.user to redirect to the
 # user's profile within the view.

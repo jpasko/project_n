@@ -14,7 +14,7 @@ $(document).ready(function(){
         left: left,
         top: (image.height() - title.outerHeight()) / 2
       });
-      image.fadeTo(500, 0.6);
+      image.fadeTo(200, 0.2);
       title.show();
     }, function() {
       $(this).find("img").fadeTo(10, 1);
@@ -25,14 +25,6 @@ $(document).ready(function(){
 {% endblock %}
 {% block head %}
 <style>
-  .darken {
-    position: relative;
-    background-color: black;
-  }
-  .thumbnail-title {
-    position: absolute;
-    color: white;
-  }
   .top-banner {
     border: none !important;
   }
@@ -45,40 +37,40 @@ $(document).ready(function(){
     <p class="lead" style="font-family: 'Raleway', sans-serif; color: white; font-weight: 700">No HTML &bull; No CSS &bull; No installation</p>
     <a class="btn btn-large signup-btn" href="/register/basic/"><strong>Sign up &bull; Free</strong></a>
   </div>
-  <div style="position: absolute; left: 75%; top: 100px">
+  <div style="position: absolute; left: 964px; top: 100px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 15%; top: 140px">
+  <div style="position: absolute; left: 193px; top: 140px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 35%; top: 15px">
+  <div style="position: absolute; left: 450px; top: 15px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 80%; top: 7px">
+  <div style="position: absolute; left: 1029px; top: 7px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 85%; top: 150px">
+  <div style="position: absolute; left: 1093px; top: 150px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 95%; top: 80px">
+  <div style="position: absolute; left: 1220px; top: 80px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 80%; top: 250px">
+  <div style="position: absolute; left: 1029px; top: 250px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 65%; top: 70px">
+  <div style="position: absolute; left: 836px; top: 70px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 68%; top: 300px">
+  <div style="position: absolute; left: 874px; top: 300px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 90%; top: 270px">
+  <div style="position: absolute; left: 1157px; top: 270px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 20%; top: 70px">
+  <div style="position: absolute; left: 257px; top: 70px">
     <p class="star">.</p>
   </div>
-  <div style="position: absolute; left: 50%; top: 60px">
+  <div style="position: absolute; left: 643px; top: 60px">
     <p class="star">.</p>
   </div>
 </div>
@@ -86,54 +78,56 @@ $(document).ready(function(){
 <div class="below-splash">
   <div class="container">
     <div style="text-align: center">
-      <div class="row-fluid marketing">
-	<div class="span3 offset1">
-	  <h2 class="colored">Classy</h2>
-	  <p class="colored">An online portfolio should never compete with its content.</p>
+      <div class="row-fluid marketing" style="margin: 0">
+	<div class="span3 offset1" style="padding: 40px 0">
+	  <h2 class="colored" style="font-family: Raleway', sans-serif;">Classy</h2>
+	  <p class="colored">A portfolio should never compete with its content.  We provide you with a sleek, modern look that
+	    puts the emphasis on your work.</p>
 	</div>
 
-	<div class="span4">
-	  <h2 class="colored">Simple</h2>
-	  <p class="colored">It's easy to customize your portfolio and upload images and videos.</p>
+	<div class="span4" style="border-left: 1px solid #ededed; border-right: 1px solid #ededed; padding: 40px 20px">
+	  <h2 class="colored" style="font-family: Raleway', sans-serif;">Simple</h2>
+	  <p class="colored">It's a breeze to customize your portfolio and upload images and video.  You can change colors, fonts, and even the layout.  
+	  All without touching a drop of HTML or CSS.</p>
 	</div>
 
-	<div class="span3">
-	  <h2 class="colored">Quick</h2>
-	  <p class="colored">Create a portfolio in minutes.</p>
+	<div class="span3" style="padding: 40px 0">
+	  <h2 class="colored" style="font-family: Raleway', sans-serif;">Free</h2>
+	  <p class="colored">The free version is fully-featured.  Pay only when you want more space.  There are no commitments.  You can
+	  upgrade or downgrade at any time.</p>
 	</div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="examples">
+<div class="examples" id="id_examples">
   <div class="container">
+    <hr style="padding-bottom: 30px; margin: 0">
+    <!--<h1 class="colored" style="text-align: center">Examples</h1>-->
     <ul class="thumbnails">
-      <li class="span6">
+      <li class="span4">
 	<a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
-	  <img src="{{ STATIC_URL }}img/seattle.png" alt="">
-	  <div class="thumbnail-title hide"><h2>Visit James Pasko's portfolio</h2></div>
+	  <img src="{{ STATIC_URL }}img/sunset.jpg" alt="">
+	  <div class="thumbnail-title hide"><h3>James Pasko's portfolio</h3></div>
 	</a>
       </li>
-      <li class="span6">
+      <li class="span4">
 	<a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
-	  <img src="{{ STATIC_URL }}img/seattle.png" alt="">
-	  <div class="thumbnail-title hide"><h2>Visit James Pasko's portfolio</h2></div>
+	  <img src="{{ STATIC_URL }}img/vesper.jpg" alt="">
+	  <div class="thumbnail-title hide"><h3>James Pasko's portfolio</h3></div>
 	</a>
       </li>
-      <li class="span6">
+      <li class="span4">
 	<a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
-	  <img src="{{ STATIC_URL }}img/seattle.png" alt="">
-	  <div class="thumbnail-title hide"><h2>Visit James Pasko's portfolio</h2></div>
-	</a>
-      </li>
-      <li class="span6">
-	<a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
-	  <img src="{{ STATIC_URL }}img/seattle.png" alt="">
-	  <div class="thumbnail-title hide"><h2>Visit James Pasko's portfolio</h2></div>
+	  <img src="{{ STATIC_URL }}img/sunrise.jpg" alt="">
+	  <div class="thumbnail-title hide"><h3>James Pasko's portfolio</h3></div>
 	</a>
       </li>
     </ul>
+    <div class="jumbotron" style="padding: 0">
+      <a class="btn signup-btn" href="/examples/"><strong>More examples</strong></a>
+    </div>
   </div>
 </div>
 <!--
@@ -172,27 +166,32 @@ $(document).ready(function(){
 -->
 
 
-<div class="container">
+<div class="container-narrow" style="font-family: Raleway', sans-serif;">
   <div class="featurette">
-    <h2 class="featurette-heading colored">Beauty, Simplified. <span class="muted">A stunning portfolio.</span></h2>
-    <p class="lead"></p>
+    <h3 class="featurette-heading">Free. <span class="muted">And you get <em>all</em> the features.</span></h3>
+    <div style="padding-left: 25px" class="muted">
+      <p><i class="icon-ok icon-dull"></i><em> Upload images and video from YouTube, Vimeo, and Dailymotion</em></p>
+      <p><i class="icon-ok icon-dull"></i><em> Full profile including links to your social pages and blog</em></p>
+      <p><i class="icon-ok icon-dull"></i><em> Easy contact page designed to combat spam</em></p>
+      <p><i class="icon-ok icon-dull"></i><em> Fully customizable portfolio with Galleria viewer</em></p>
+      <p><i class="icon-ok icon-dull"></i><em> Integration with Google Analytics to track your portfolio views</em></p>
+    </div>
   </div>
-
   <hr class="featurette-divider">
   <div class="featurette">
-    <h2 class="featurette-heading colored" style="text-align: right">Never Any Ads. <span class="muted">That's a promise.</span></h2>
+    <h3 class="featurette-heading colored" style="text-align: right">Beauty, Simplified. <span class="muted">A stunning portfolio.</span></h3>
     <p class="lead"></p>
   </div>
-
   <hr class="featurette-divider">
   <div class="featurette">
-    <h2 class="featurette-heading colored">Free. <span class="muted">And you get <em>all</em> the features.</span></h2>
+    <h3 class="featurette-heading colored">Never Any Ads. <span class="muted">That's a promise.</span></h3>
+    <p class="lead"></p>
   </div>
 </div>
 
 <div class="bottom-links">
   <div class="jumbotron" style="padding: 30px 0">
-    <a class="btn btn-large signup-btn" href="/register/" style="width: 470px"><strong>Sign up</strong></a>
+    <a class="btn btn-large signup-btn" href="/register/" style="width: 40%"><strong>Sign up</strong></a>
   </div>
 
   <div class="muted" style="text-align: center">

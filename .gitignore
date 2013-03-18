@@ -21,3 +21,7 @@ dev_settings.py
 
 # Ignore secret local variables
 locals.py
+
+# Ignore SSL keys
+server.csr
+server.key

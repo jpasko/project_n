@@ -63,7 +63,7 @@ ul {
 .splash {
     padding: 70px 0;
     background-image: url('http://s3.amazonaws.com/citreous/static/img/seattle.png');
-    background-size: 75%;
+    background-size: 950px;
     background-repeat: no-repeat;
     background-color: #29333d;//#374553;
     border-bottom: 2px solid #909090;
@@ -81,15 +81,20 @@ ul {
 .signup-btn:hover {
     box-shadow: 0px 0px 20px white;
 }
-.below-splash {
-
+.darken {
+    position: relative;
+    background-color: black;
+}
+.thumbnail-title {
+    position: absolute;
+    color: white;
 }
 .examples {
-    padding-top: 20px;
     width: 100%;
-    background-color: #29333d;
-    border-top: 2px solid #909090;
-    border-bottom: 2px solid #909090;
+    background-color: none;//#29333d;
+    border-top: none;//2px solid #909090;
+    border-bottom: none;//2px solid #909090;
+    padding-bottom: 40px;
 }
 .bottom-links {
     padding-top: 20px;
@@ -133,4 +138,15 @@ ul {
     background-image: -ms-linear-gradient(top, #cfd7dd, #87959c);
     background-image: -o-linear-gradient(top, #cfd7dd, #87959c);
     background-image: linear-gradient(top, #cfd7dd, #87959c);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#cfd7dd, endColorstr=#87959c);
+}
+.price-box {
+    width: 150px;
+    margin: 0 auto;
+}
+.price-box:hover {
+    box-shadow: 0 0 3px #566b81, 0 0 10px 4px #97a6b4, 0 0 15px 3px #e0e3e5;
+}
+.icon-dull {
+    opacity : 0.4;
+    filter: alpha(opacity=40);
 }

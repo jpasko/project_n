@@ -55,6 +55,9 @@ urlpatterns = patterns('',
     # About page.
     url(r'^about/$', direct_to_template, {'template': 'about_page.html'}),
 
+    # Examples page.
+    url(r'^examples/$', direct_to_template, {'template': 'examples_page.html'}),
+
     # Contact page.
     url(r'^contact/$', 'accounts.views.contact'),
 

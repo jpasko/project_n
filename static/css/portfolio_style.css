@@ -15,6 +15,7 @@ html, body {
 }
 .logo {
     text-decoration: none !important;
+    font-family: 'Strait', sans-serif;
 }
 .logo-text {
     color: #808080;

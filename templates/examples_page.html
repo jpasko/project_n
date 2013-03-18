@@ -1,0 +1,70 @@
+{% extends "site_base.html" %}
+{% block title %}About{% endblock %}
+{% block script %}
+<script>
+$(document).ready(function(){
+    $(".darken").hover(function() {
+      var image = $(this).find("img");
+      var title = $(this).find(".thumbnail-title");
+      var left = (image.width() - title.outerWidth()) / 2;
+      title.css({
+        left: left,
+        top: (image.height() - title.outerHeight()) / 2
+      });
+      image.fadeTo(200, 0.2);
+      title.show();
+    }, function() {
+      $(this).find("img").fadeTo(10, 1);
+      $(this).find(".thumbnail-title").hide();
+    });
+});
+</script>
+{% endblock %}
+{% block content %}
+<div class="container" style="padding-top: 30px">
+  <ul class="thumbnails">
+    <li class="span4">
+      <a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
+	<img src="{{ STATIC_URL }}img/sunset.jpg" alt="">
+	<div class="thumbnail-title hide"><h3>James Pasko's portfolio</h3></div>
+      </a>
+    </li>
+    <li class="span4">
+      <a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
+	<img src="{{ STATIC_URL }}img/vesper.jpg" alt="">
+	<div class="thumbnail-title hide"><h3>James Pasko's portfolio</h3></div>
+      </a>
+    </li>
+    <li class="span4">
+      <a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
+	<img src="{{ STATIC_URL }}img/sunrise.jpg" alt="">
+	<div class="thumbnail-title hide"><h3>James Pasko's portfolio</h3></div>
+      </a>
+    </li>
+    <li class="span4">
+      <a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
+	<img src="{{ STATIC_URL }}img/sunset.jpg" alt="">
+	<div class="thumbnail-title hide"><h3>James Pasko's portfolio</h3></div>
+      </a>
+    </li>
+    <li class="span4">
+      <a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
+	<img src="{{ STATIC_URL }}img/vesper.jpg" alt="">
+	<div class="thumbnail-title hide"><h3>James Pasko's portfolio</h3></div>
+      </a>
+    </li>
+    <li class="span4">
+      <a href="http://jpasko.{{ DOMAIN }}/" target="_blank" class="thumbnail darken">
+	<img src="{{ STATIC_URL }}img/sunrise.jpg" alt="">
+	<div class="thumbnail-title hide"><h3>James Pasko's portfolio</h3></div>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="bottom-links" style="padding-bottom: 20px">
+  <div class="jumbotron" style="padding: 0">
+    <a class="btn btn-large signup-btn" href="/register/" style="margin-right: 10px"><strong>Sign up</strong></a>
+    <a class="btn signup-btn" href="/#id_examples"><strong>Back</strong></a>
+  </div>
+</div>
+{% endblock %}
