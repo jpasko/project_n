@@ -39,8 +39,8 @@
 	<div class="masthead">
           <ul class="nav nav-pills pull-right" style="margin-right: 20px; padding-top: 3px">
 	    {% if not user.is_authenticated %}
-	    <li><a href="/register/" class="nav-link">sign up</a></li>
-	    <li><a href="/login/" class="nav-link">login</a></li>
+	    <li><a href="https://www.{{ DOMAIN }}/register/" class="nav-link">sign up</a></li>
+	    <li><a href="https://www.{{ DOMAIN }}/login/" class="nav-link">login</a></li>
             {% else %}
 	    <li><a href="http://{{ user.username }}.{{ DOMAIN }}/" class="nav-link">profile</a></li>
 	    <li><a href="/logout/" class="nav-link">logout</a></li>
