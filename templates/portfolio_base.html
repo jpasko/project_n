@@ -159,17 +159,17 @@
             <span class="icon-bar"></span>
           </a>
 	  {% if profile.banner and profile.enable_banner %}
-	  <a class="house brand" href="/" style="padding-bottom: 0px; padding-top: 0px">
+	  <a class="house brand" href="http://{{ username }}.{{ DOMAIN }}/" style="padding-bottom: 0px; padding-top: 0px">
 	    <img class="banner" src="{{ profile.banner.url }}">
 	    <img class="house-logo" style="padding: 0" src="{{ STATIC_URL }}img/house_light.png">
 	  </a>
 	  {% elif profile.fullname %}
-	  <a class="house brand muted" href="/" style="margin-bottom: -1px">
+	  <a class="house brand muted" href="http://{{ username }}.{{ DOMAIN }}/" style="margin-bottom: -1px">
 	    {{ profile.fullname }}
 	    <img class="house-logo" src="{{ STATIC_URL }}img/house_light.png">
 	  </a>
 	  {% else %}
-	  <a class="house brand muted" href="/" style="margin-bottom: -1px">
+	  <a class="house brand muted" href="http://{{ username }}.{{ DOMAIN }}/" style="margin-bottom: -1px">
 	    {{ username }}
 	    <img class="house-logo" src="{{ STATIC_URL }}img/house_light.png">
 	  </a>
@@ -189,14 +189,14 @@
 	    (currently using {{ profile.photo_count }} of {{ account_limit }} uploads | 
 	  {% endif %}
 	  {% endwith %}
-	  <a href="/settings/" style="text-decoration: none">upgrade</a>)
+	  <a href="https://{{ username }}.{{ DOMAIN }}/settings/" style="text-decoration: none">upgrade</a>)
 	  </p>
 	  {% endif %}
 
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
 	      {% if profile.allow_about or user.is_authenticated and user.username == username %}
-	      <li><a class="muted sizeable-font" href="/about/">About</a></li>
+	      <li><a class="muted sizeable-font" href="http://{{ username }}.{{ DOMAIN }}/about/">About</a></li>
 	      {% endif %}
 	      {% if profile.blog %}
 	      <li>
@@ -215,9 +215,9 @@
 		  <b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu">
-		  <li><a href="/customize/">Customize</a></li>
+		  <li><a href="http://{{ username }}.{{ DOMAIN }}/customize/">Customize</a></li>
 		  <li><a href="https://{{ username }}.{{ DOMAIN }}/settings/">Manage account</a></li>
-		  <li><a href="/help/">FAQs</a></li>
+		  <li><a href="http://{{ username }}.{{ DOMAIN }}/help/">FAQs</a></li>
 		  <li class="divider"></li>
 		  <li><a href="/logout_view/">Logout & View</a></li>
 		  <!--
