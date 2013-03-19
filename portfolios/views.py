@@ -368,7 +368,7 @@ def contact(request):
             body = message
             if sender:
                 body = body + '\n\nSender: ' + sender
-            send_mail('Someone contacted you!', body, 'submissions@citreo.us', [user.email])
+            send_mail('Someone contacted you!', body, 'submissions@folio24.com', [user.email])
             variables = RequestContext(request,
                                        {'form': ContactForm(),
                                         'username': username,
@@ -411,7 +411,7 @@ def contact_ajax(request):
                     sender = request.POST.get('sender')
                     if sender != '':
                         body = 'Email: ' + sender + '\n\n' + body
-                send_mail('Someone contacted you!', body, 'submissions@citreo.us', [user.email])
+                send_mail('Someone contacted you!', body, 'submissions@folio24.com', [user.email])
                 results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')
 

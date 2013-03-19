@@ -47,7 +47,7 @@ USE_L10N = True
 USE_TZ = True
 
 # AWS settings.
-AWS_STORAGE_BUCKET_NAME = 'citreous'
+AWS_STORAGE_BUCKET_NAME = 'folio24'
 DEFAULT_FILE_STORAGE = 'project_n.s3utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE = 'project_n.s3utils.StaticRootS3BotoStorage'
 
@@ -199,17 +199,17 @@ THUMBNAIL_WIDTH = 500
 THUMBNAIL_HEIGHT = 500
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
-DEFAULT_FROM_EMAIL = 'support@citreo.us'
+DEFAULT_FROM_EMAIL = 'support@folio24.com'
 AWS_SES_AUTO_THROTTLE = None
 
 # [TEST] Stripe publishable API key
 STRIPE_PUBLISHABLE = 'pk_test_dyJgXQH2KaYvS3jBYyVRdJa5'
 
 # Allow user sessions to exist across subdomains
-SESSION_COOKIE_DOMAIN = '.citreo.us'
+SESSION_COOKIE_DOMAIN = '.folio24.com'
 
 # The domain name to use in templates.
-DOMAIN = 'citreo.us'
+DOMAIN = 'folio24.com'
 
 # The different URLs to use for the main content and the user subdomains.
 MAIN_URLS = 'project_n.urls'
