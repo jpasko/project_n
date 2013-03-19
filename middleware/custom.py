@@ -13,6 +13,7 @@ class SubdomainURLs:
         domain = request.META.get('HTTP_HOST') or request.META.get('SERVER_NAME')
         pieces = domain.split('.')
         subdomain = ".".join(pieces[:-2])
+        request.domain = ".".join(pieces[-2:])
         if subdomain != 'www' and subdomain != '' and subdomain is not None:
             request.subdomain = subdomain
             request.urlconf = settings.USER_URLS
