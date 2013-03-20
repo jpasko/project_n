@@ -353,6 +353,7 @@ def edit_gallery(request, gallery_id):
                                 'profile': profile})
     return render_to_response('portfolios/edit_gallery.html', variables)
 
+@csrf_exempt
 def contact(request):
     """
     Sends an email to the user when someone submits the form.
