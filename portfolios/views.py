@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.core.mail import send_mail
 from django.core.validators import validate_email, URLValidator
 from django.core.exceptions import ValidationError
+from django.views.decorators.csrf import csrf_exempt
 
 from portfolios.models import Item, Photo, Video, Gallery
 from portfolios.forms import *
@@ -387,6 +388,7 @@ def contact(request):
                                )
     return render_to_response('portfolios/contact_page.html', variables)
 
+@csrf_exempt
 def contact_ajax(request):
     """
     Sends an email to the user when someone contacts them via ajax.
