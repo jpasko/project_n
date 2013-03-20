@@ -30,8 +30,8 @@ class ParseURLs:
         folio24 = request.META.get('SERVER_NAME')
         pieces = folio24.split('.')
         subdomain = ".".join(pieces[:-2])
-        domain = request.META.get('HTTP_HOST')
-        if domain == 'www.jamespasko.com':
+        if subdomain == 'domains':
+            # domain = request.META.get('HTTP_HOST')
             request.subdomain = 'jpasko'
             request.urlconf = settings.USER_URLS
         elif subdomain != 'www' and subdomain != '' and subdomain is not None:
