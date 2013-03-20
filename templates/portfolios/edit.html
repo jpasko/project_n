@@ -357,6 +357,16 @@ $(function() {
       </div>
 
       <div class="control-group">
+	<label class="control-label" for="id_domain">Custom domain</label>
+	<div class="controls">
+	  {% if form.domain.errors %}
+	  <p class="form-errors">Invalid; try again</p>
+	  {% endif %}
+	  {{ form.domain }}
+	</div>
+      </div>
+
+      <div class="control-group">
 	<label class="control-label" for="id_copy_text">Copyright text</label>
 	<div class="controls">
 	  {% if form.copy_text.errors %}

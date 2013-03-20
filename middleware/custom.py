@@ -25,11 +25,11 @@ class ParseURLs:
     """
 
     def process_request(self, request):
-        domain = request.get_host().split(':')[0]
+        domain = request.get_host()
         pieces = domain.split('.')
         subdomain = ".".join(pieces[:-2])
         root = ".".join(pieces[-2:])
-        if root != 'folio24.com':
+        if root != settings.DOMAIN:
             request.subdomain = 'jpasko'
             request.urlconf = settings.USER_URLS
         elif subdomain != 'www' and subdomain != '' and subdomain is not None:

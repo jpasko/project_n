@@ -9,7 +9,8 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         widgets = { 
-            'blog': forms.TextInput(attrs={'placeholder': 'URL'}),
+            'domain': forms.TextInput(attrs={'placeholder': 'yourdomain.com (without \'www\')'}),
+            'blog': forms.TextInput(attrs={'placeholder': 'URL (include http://)'}),
             'blog_name': forms.TextInput(attrs={'placeholder': 'Name'}),
         }  
         exclude = ('user',
