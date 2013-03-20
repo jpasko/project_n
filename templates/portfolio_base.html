@@ -87,7 +87,7 @@
         $("#send-message").on("click", function() {
           $.ajax({
             type: "POST",
-            url: "http://{{ username }}.{{ DOMAIN }}/contact_ajax/",
+            url: "/contact_ajax/",
             data: {'message': $("#id_message").val(),
                    'sender': $("#id_sender").val(),
                    'name': $("#id_name").val(),
