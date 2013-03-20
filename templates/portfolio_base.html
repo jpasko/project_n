@@ -245,13 +245,17 @@
 
     <div class="container">
       <div class="footer">
+	{% if profile.copy_text or customer.account_limit < 1500 %}
 	<hr style="margin: 0; border-top: none; border-bottom: solid 1px rgba(150, 150, 150, .1)">
+	{% endif %}
+	{% if customer.account_limit < 1500 %}
 	<p style="float: right; margin: 0; padding: 0">
 	  <a class="logo" href="http://www.{{ DOMAIN }}/" target="_blank">
 	    <img src="{{ STATIC_URL}}img/small_lemon_dull.png" style="height: 17px">
 	    <span class="logo-text">Folio24</span>
 	  </a>
 	</p>
+	{% endif %}
 	{% if profile.copy_text %}
 	<p class="muted" style="float: left; margin: 0; padding: 0;">&copy {{ profile.copy_text }}</p>
 	{% endif %}

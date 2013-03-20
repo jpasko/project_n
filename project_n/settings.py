@@ -216,10 +216,11 @@ MAIN_URLS = 'project_n.urls'
 USER_URLS = 'project_n.user_urls'
 
 # A list of reserved terms.
-RESERVED_TERMS = ['login', 'accounts', 'register', 'logout', 'welcome',
-                  'password_change', 'delete', 'privacy', 'terms', 'spindrift',
-                  'admin', 'reorder_galleries', 'reorder_photos', 'about',
-                  'contact', 'None']
+# RESERVED_TERMS = ['login', 'accounts', 'register', 'logout', 'welcome',
+#                  'password_change', 'delete', 'privacy', 'terms', 'spindrift',
+#                  'admin', 'reorder_galleries', 'reorder_photos', 'about',
+#                  'contact', 'None', 'domains', 'invalid']
+RESERVED_TERMS = ['domains', 'invalid']
 
 # Custom backend to allow users to log in with their email addresses as well.
 # Requires that email addresses uniquely identify a user.
