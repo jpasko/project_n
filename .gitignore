@@ -26,4 +26,5 @@ locals.py
 server.csr
 server.key
 server.crt
+server.old.crt
 server.orig.key
