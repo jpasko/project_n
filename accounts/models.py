@@ -126,6 +126,11 @@ class UserProfile(models.Model):
         except: pass
         super(UserProfile, self).save(*args, **kwargs)
 
+# Model associating domain names with users
+class Domains(models.Model):
+    user = models.OneToOneField(User)
+    domain = models.CharField(max_length=255)
+
 # Create a Customer entry whenever a User is created.
 class Customer(StripeCustomer):
     # Required to associate with a unique user.

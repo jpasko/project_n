@@ -356,6 +356,7 @@ $(function() {
 	</div>
       </div>
 
+     {% if customer.account_limit > 35 %}
       <div class="control-group">
 	<label class="control-label" for="id_domain">Custom domain</label>
 	<div class="controls">
@@ -365,6 +366,7 @@ $(function() {
 	  {{ form.domain }}
 	</div>
       </div>
+      {% endif %}
 
       <div class="control-group">
 	<label class="control-label" for="id_copy_text">Copyright text</label>
