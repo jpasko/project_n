@@ -12,6 +12,9 @@
   a:hover {
     text-decoration: none;
   }
+  td {
+    padding: 3px;
+  }
 </style>
 {% endblock %}
 {% block content %}
@@ -20,9 +23,48 @@
 </div>
 <div class="centered-box muted">
 <div class="featurette">
-  <h3 class="featurette-heading">What can I customize?</h3>
-  <p>You can customize many aspects of your portfolio, including colors, fonts, page dimensions, and many others. 
-    Explore your options <a href="/customize/">here</a>.</p>
+  <h3 class="featurette-heading">How do I set up a custom domain name for my portfolio?</h3>
+  <p>In order to use a custom domain name, you must first be a paying user.  If you would like to upgrade your account, please
+    go <a href="/settings/">here</a>.</p>
+  <p>Once you're a paying user, you can proceed.  Here are the steps:</p>
+  <ol>
+    <li><p>Purchase a domain name from a domain registrar such as <a href="http://www.namecheap.com" target="_blank">NameCheap</a> or
+	<a href="http://www.godaddy.com" target="_blank">GoDaddy</a>.
+	You can also use a domain name you already own.</p>
+    </li>
+    <li><p>Create the following records using your domain registrar.  This example is taken from NameCheap:</p>
+      <table border="1">
+	<tr>
+	  <td>Host Name</td>
+	  <td>IP Address/URL</td>
+	  <td>Record Type</td>
+	</tr>
+	<tr>
+	  <td>@</td>
+	  <td>http://www.YourDomainName.com/</td>
+	  <td>URL Redirect</td>
+	</tr>
+	<tr>
+	  <td>www</td>
+	  <td>domains.folio24.com.</td>
+	  <td>CNAME</td>
+	</tr>
+      </table>
+      <p><br>The URL Redirect record may already exist.  Ensure that the CNAME record exists and hit "save".</p>
+    </li>
+    <li>
+      <p>Under the "tools" menu, click "Custom domain".</p>
+    </li>
+    <li>
+      <p>In the box that pops up, enter your domain (e.g. <strong>mywebsite.com</strong>).  You must not enter "www" or anything
+	other than <strong>mywebsite.com</strong>.
+    </li>
+    <li>
+      <p>Click "save".  You must wait up to 72 hours for the changes to take effect.</p>
+      <p>If you've waited and your domain still doesn't work, double-check that you entered your domain name correctly and that you
+	added the CNAME record as stated above.  Feel free to <a href="http://www.folio24.com/contact/">contact</a> us for support.</p>
+    </li>
+  </ol>
 </div>
 <div class="featurette">
   <h3 class="featurette-heading">I ran out of uploads.  What are my options?</h3>
