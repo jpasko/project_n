@@ -9,7 +9,7 @@ from django.template import RequestContext
 from django.core.mail import send_mail
 
 from accounts.forms import RegistrationForm, ChangeAccountForm, ContactForm, CardForm
-from accounts.models import Customer
+from accounts.models import Customer, Domains
 
 import json
 
@@ -215,6 +215,13 @@ def change_account(request, new_account_type):
         stripe_customer.update_subscription(plan=new_account_type, prorate=False)
         customer.account_limit = settings.FREE_IMAGE_LIMIT
         customer.save()
+        # Delete the domain name record.
+        try:
+            domain = Domains.objects.get(user=user)
+        except Domains.DoesNotExist:
+            pass
+        else:
+            domain.delete()
     elif new_account_type == settings.PREMIUM_ACCOUNT_NAME:
         if stripe_customer.active_card:
             stripe_customer.update_subscription(plan=new_account_type, prorate=False)
