@@ -97,6 +97,13 @@
           $("#id_sender").val('');
         });
         {% if user.is_authenticated and user.username == username %}
+        $.ajax({
+          type: "GET",
+          url: "/custom_domain/",
+          success: function(data) {
+                     $("#id_domain").val(data.domain);
+                   }
+        });
         $("#submit-custom-domain").on("click", function() {
           $.ajax({
             type: "POST",

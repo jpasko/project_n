@@ -656,4 +656,11 @@ def custom_domain(request):
                 domain.domain = request.POST.get('domain')
                 domain.save()
             results = {'success': True}
+    elif request.method == 'GET':
+        try:
+            domain = Domains.objects.get(user=user)
+        except Domains.DoesNotExist:
+            results = {'domain': ''}
+        else:
+            results = {'domain': domain.domain}
     return HttpResponse(json.dumps(results), mimetype='application/json')
