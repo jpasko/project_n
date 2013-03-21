@@ -9,7 +9,6 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         widgets = { 
-            'domain': forms.TextInput(attrs={'placeholder': 'yourdomain.com (without \'www\')'}),
             'blog': forms.TextInput(attrs={'placeholder': 'URL (include http://)'}),
             'blog_name': forms.TextInput(attrs={'placeholder': 'Name'}),
         }  
@@ -54,7 +53,6 @@ class ProfilePictureForm(forms.ModelForm):
                    'background_color',
                    'text_color',
                    'text_color_hover',
-                   'domain',
                    'website',
                    'blog',
                    'blog_name',

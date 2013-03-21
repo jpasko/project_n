@@ -90,6 +90,9 @@ urlpatterns = patterns('',
     # POST to this URL to update the profile with AJAX.
     url(r'^update/$', 'portfolios.views.update_profile'),
 
+    # POST to this URL to add/edit custom domain names.
+    url(r'^custom_domain/$', 'portfolios.views.custom_domain'),
+
     # A help page.
     url(r'^help/$', 'portfolios.views.help'),
 

@@ -96,6 +96,16 @@
           $("#id_message").val('');
           $("#id_sender").val('');
         });
+        {% if user.is_authenticated and user.username == username %}
+        $("#submit-custom-domain").on("click", function() {
+          $.ajax({
+            type: "POST",
+            url: "/custom_domain/",
+            dataType: "text",
+            data: {'domain': $("#id_domain").val()}
+          });
+        });
+        {% endif %}
       });
     </script>
 
@@ -141,6 +151,33 @@
       </div>
       <div class="modal-footer">
 	<button class="btn btn-primary btn-large" data-dismiss="modal" id="send-message">Send</button>
+	<button class="btn btn-default btn-large" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- End modal -->
+    {% endif %}
+
+    {% if user.is_authenticated and user.username == username %}
+    <!-- Custom domain modal -->
+    <div class="modal hide" role="dialog" tabindex="-1" id="custom-domain-form" arialabelledby="custom-domain-form-heading">
+      <div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3>Custom domain name</h3>
+      </div>
+      <div class="modal-body">
+	{% if customer.account_limit > 35 %}
+	<input type="text" id="id_domain" placeholder="yourdomain.com (without the 'www')" style="width: 97%" maxlength="255"/>
+	<p>You must also point a CNAME record to "domains.folio24.com".
+	Your domain registrar will have directions on how to do this.</p>
+	<p>See our <a href="/help/">FAQs</a> page for more information.</p>
+	{% else %}
+	<p><a href="https://{{ username }}.{{ DOMAIN }}/settings/">Upgrade</a> to unlock this feature</p>
+	{% endif %}
+      </div>
+      <div class="modal-footer">
+	{% if customer.account_limit > 35 %}
+	<button class="btn btn-primary btn-large" data-dismiss="modal" id="submit-custom-domain">Save</button>
+	{% endif %}
 	<button class="btn btn-default btn-large" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -217,6 +254,7 @@
 		<ul class="dropdown-menu">
 		  <li><a href="http://{{ username }}.{{ DOMAIN }}/customize/">Customize</a></li>
 		  <li><a href="https://{{ username }}.{{ DOMAIN }}/settings/">Manage account</a></li>
+		  <li><a {% if customer.account_limit < 500 %}style="color: #ababab"{% endif %} href="#custom-domain-form" role="button" data-toggle="modal">Custom domain</a></li>
 		  <li><a href="http://{{ username }}.{{ DOMAIN }}/help/">FAQs</a></li>
 		  <li class="divider"></li>
 		  <li><a href="/logout_view/">Logout & View</a></li>

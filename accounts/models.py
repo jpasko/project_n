@@ -85,8 +85,6 @@ class UserProfile(models.Model):
     text_color_hover = models.CharField(max_length=6,
                                         default='D4D4D4')
 
-    domain = models.CharField(max_length=500, blank=True)
-
     website = models.URLField(max_length=500, blank=True)
     blog = models.URLField(max_length=500, blank=True)
     blog_name = models.CharField(max_length=15, blank=True)

@@ -13,6 +13,7 @@ from portfolios.models import Item, Photo, Video, Gallery
 from portfolios.forms import *
 
 from accounts.forms import ContactForm
+from accounts.models import Domains
 
 import json
 
@@ -631,5 +632,28 @@ def disable_get_started_modal(request):
             disable = request.POST.get('disable') == 'false'
             profile.show_get_started = disable
             profile.save()
+            results = {'success': True}
+    return HttpResponse(json.dumps(results), mimetype='application/json')
+
+@csrf_exempt
+def custom_domain(request):
+    """
+    Allows the user to enter a custom domain name.
+    """
+    username = request.subdomain
+    user = request.user
+    if username != user.username or not user.is_authenticated():
+        raise Http404
+    results = {'success': False}
+    if request.method == 'POST':
+        if 'domain' in request.POST:
+            try:
+                domain = Domains.objects.get(user=user)
+            except Domains.DoesNotExist:
+                new_domain = Domains(user=request.user, domain=request.POST.get('domain'))
+                new_domain.save()
+            else:
+                domain.domain = request.POST.get('domain')
+                domain.save()
             results = {'success': True}
     return HttpResponse(json.dumps(results), mimetype='application/json')
