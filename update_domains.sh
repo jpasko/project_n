@@ -1,2 +1,2 @@
 #!/bin/bash
-python manage.py get_new_domains | xargs heroku domains:add
+heroku run python manage.py get_new_domains | grep ^* | xargs heroku domains:add
