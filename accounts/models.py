@@ -128,6 +128,9 @@ class UserProfile(models.Model):
 class Domains(models.Model):
     user = models.OneToOneField(User)
     domain = models.CharField(max_length=255)
+    pending = models.BooleanField(default=True)
+    # not used at the moment
+    remove = models.BooleanField(default=False)
 
 # Create a Customer entry whenever a User is created.
 class Customer(StripeCustomer):
