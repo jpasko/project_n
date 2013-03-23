@@ -45,3 +45,18 @@ class ParseURLs:
         else:
             request.subdomain = None
             request.urlconf = settings.MAIN_URLS
+
+class RedirectToCustomDomain:
+    """
+    Redirects the un-authenticated user to the custom domain, if it exists.
+    """
+
+    def process_request(self, request):
+        return
+        #if not request.user.is_authenticated():
+        #    try:
+        #        user_domain = Domains.objects.get(username=request.subdomain)
+        #    except Domains.DoesNotExist:
+        #        pass
+        #    else:
+        #        return HttpResponseRedirect(http://www.user_domain/ + path)

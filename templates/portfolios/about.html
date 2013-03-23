@@ -144,13 +144,13 @@ $(document).ready(function(){
 <!-- End modal -->
 <div class="row-fluid muted">
   <div class="span9">
-    {% if user.is_authenticated and username == user.username %}
+    {% if user.is_authenticated and username == user.username and profile.edit_mode %}
     <div class="row-fluid sizeable-font" style="padding-bottom: 10px">
       <div class="span2">
 	<p><b>Enable?</b></p>
       </div>
       <div class="span7">
-	<div class="btn-group" data-toggle="buttons-radio" style="display: inline">
+	<div class="btn-group" style="display: inline">
 	  {% if profile.allow_about %}
 	  <button type="button" class="btn btn-success enable-about active" value="True"><i class="icon-ok"></i></button>
 	  <button type="button" class="btn btn-default disable-about" value="False"><i class="icon-remove"></i></button>
@@ -163,10 +163,10 @@ $(document).ready(function(){
     </div>
     {% endif %}
 
-    {% if user.is_authenticated and username == user.username or profile.about %}
+    {% if user.is_authenticated and username == user.username and profile.edit_mode or profile.about %}
     <div class="row-fluid sizeable-font">
       <div class="span2">
-	{% if user.is_authenticated and username == user.username %}
+	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<a class="pencil muted" id="trigger-editable-about" href="#"><b>About</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.about %}
 	<p><b>About</b></p>
@@ -195,10 +195,10 @@ $(document).ready(function(){
     </div>
     {% endif %}
 
-    {% if user.is_authenticated and username == user.username or profile.email %}
+    {% if user.is_authenticated and username == user.username and profile.edit_mode or profile.email %}
     <div class="row-fluid sizeable-font">
       <div class="span2">
-	{% if user.is_authenticated and username == user.username %}
+	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<a class="pencil muted" id="trigger-editable-email" href="#"><b>Email</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.email %}
 	<p><b>Email</b></p>
@@ -227,10 +227,10 @@ $(document).ready(function(){
     </div>
     {% endif %}
 
-    {% if user.is_authenticated and username == user.username or profile.phone %}
+    {% if user.is_authenticated and username == user.username and profile.edit_mode or profile.phone %}
     <div class="row-fluid sizeable-font">
       <div class="span2">
-	{% if user.is_authenticated and username == user.username %}
+	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<a class="pencil muted" id="trigger-editable-phone" href="#"><b>Phone</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.phone %}
 	<p><b>Phone</b></p>
@@ -259,10 +259,10 @@ $(document).ready(function(){
     </div>
     {% endif %}
 
-    {% if user.is_authenticated and username == user.username or profile.location %}
+    {% if user.is_authenticated and username == user.username and profile.edit_mode or profile.location %}
     <div class="row-fluid sizeable-font">
       <div class="span2">
-	{% if user.is_authenticated and username == user.username %}
+	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<a class="pencil muted" id="trigger-editable-location" href="#"><b>Location</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% elif profile.location %}
 	<p><b>Location</b></p>
@@ -327,12 +327,12 @@ $(document).ready(function(){
 
     <div class="row-fluid sizeable-font">
       <div class="span2">
-	{% if user.is_authenticated and username == user.username %}
+	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<a class="pencil muted" id="trigger-editable-social" href="#"><b>Social</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
 	{% endif %}
       </div>
       <div class="span10">
-	{% if user.is_authenticated and username == user.username %}
+	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<span id="twitter-img" class="hide">{{ STATIC_URL }}img/twitter.png</span>
 	<span id="facebook-img" class="hide">{{ STATIC_URL }}img/facebook.png</span>
 	<span id="google_plus-img" class="hide">{{ STATIC_URL }}img/gplus.png</span>
@@ -406,7 +406,7 @@ $(document).ready(function(){
   </div>
 
   <div class="span3">
-    {% if user.is_authenticated and username == user.username %}
+    {% if user.is_authenticated and username == user.username and profile.edit_mode %}
     <div class="row-fluid" style="padding-bottom: 10px">
       <a href="#profile-picture-modal" role="button" data-toggle="modal" class="btn btn-info">
 	<i class="icon-plus icon-white"></i><strong>Profile picture</strong>

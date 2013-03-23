@@ -109,6 +109,8 @@ class UserProfile(models.Model):
                                  blank=True,
                                  null=True,
                                  verbose_name='Banner')
+
+    edit_mode = models.BooleanField(default=True)
     
     def __unicode__(self):
         return u'Profile for %s' % self.user.username

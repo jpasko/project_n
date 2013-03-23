@@ -84,6 +84,9 @@ urlpatterns = patterns('',
     # POST to this URL to toggle the display of the about page.
     url(r'^toggle_about_page/$', 'portfolios.views.toggle_about'),
 
+    # POST to this URL to toggle the edit/view modes.
+    url(r'^toggle_edit_mode/$', 'portfolios.views.toggle_edit_mode'),
+
     # POST here to disable the "Getting Started" modal on home view.
     url(r'^disable_get_started_modal/$', 'portfolios.views.disable_get_started_modal'),
 

@@ -221,7 +221,7 @@ USER_URLS = 'project_n.user_urls'
 #                  'password_change', 'delete', 'privacy', 'terms', 'spindrift',
 #                  'admin', 'reorder_galleries', 'reorder_photos', 'about',
 #                  'contact', 'None', 'domains', 'invalid']
-RESERVED_TERMS = ['domains', 'invalid']
+RESERVED_TERMS = ['domains', 'invalid', 'anonymous']
 
 # Custom backend to allow users to log in with their email addresses as well.
 # Requires that email addresses uniquely identify a user.

@@ -74,7 +74,7 @@ $(document).ready(function(){
 {% endif %}
 {% endif %}
 
-{% if user.is_authenticated and username == user.username %}
+{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 <!-- Edit mode -->
 <div class="row-fluid" style="padding-bottom: 20px">
   <h4 class="muted" style="display: inline-block; margin-left: 15px">

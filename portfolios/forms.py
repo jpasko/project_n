@@ -23,7 +23,8 @@ class UserProfileForm(forms.ModelForm):
                    'twitter',
                    'facebook',
                    'google_plus',
-                   'linkedin',)
+                   'linkedin',
+                   'edit_mode',)
 
 class ProfilePictureForm(forms.ModelForm):
     """
@@ -60,7 +61,8 @@ class ProfilePictureForm(forms.ModelForm):
                    'facebook',
                    'google_plus',
                    'linkedin',
-                   'banner',)
+                   'banner',
+                   'edit_mode',)
 
 class UploadItemForm(forms.ModelForm):
     """

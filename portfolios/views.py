@@ -664,3 +664,21 @@ def custom_domain(request):
         else:
             results = {'domain': domain.domain}
     return HttpResponse(json.dumps(results), mimetype='application/json')
+
+@csrf_exempt
+def toggle_edit_mode(request):
+    """
+    Toggles the edit/view modes.
+    """
+    username = request.subdomain
+    if username != request.user.username or not request.user.is_authenticated():
+        raise Http404
+    profile = request.user.get_profile()
+    results = {'success': False}
+    if request.method == 'POST':
+        if 'edit_mode' in request.POST:
+            enable_edit_mode = request.POST.get('edit_mode') == 'True'
+            profile.edit_mode = enable_edit_mode
+            profile.save()
+            results = {'success': True}
+    return HttpResponse(json.dumps(results), mimetype='application/json')
