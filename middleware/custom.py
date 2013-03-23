@@ -54,7 +54,7 @@ class RedirectToCustomDomain:
     """
 
     def process_request(self, request):
-        if not request.user.is_authenticated() and request.domain is None:
+        if request.urlconf == settings.USER_URLS and not request.user.is_authenticated() and request.domain is None:
             try:
                 domain = Domains.objects.get(username=request.subdomain)
             except Domains.DoesNotExist:
