@@ -54,5 +54,5 @@ class RedirectToCustomDomain:
     """
 
     def process_request(self, request):
-        if request.domain:
+        if request.domain and not request.user.is_authenticated():
             return HttpResponseRedirect('http://www.' + request.domain + request.path)
