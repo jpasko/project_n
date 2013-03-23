@@ -129,7 +129,7 @@ class UserProfile(models.Model):
 # Model associating domain names with users
 class Domains(models.Model):
     user = models.OneToOneField(User)
-    username = models.CharField()
+    username = models.CharField(max_length=30)
     domain = models.CharField(max_length=255)
     pending = models.BooleanField(default=True)
     # not used at the moment
