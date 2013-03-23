@@ -33,11 +33,13 @@ class ParseURLs:
         pieces = domain.split('.')
         subdomain = ".".join(pieces[:-2])
         root = ".".join(pieces[-2:])
+        request.domain = None
         if root != settings.DOMAIN:
             # Look up the user associated with this domain, and hijack the
             # subdomain attribute of the request.  Poorly named, I know...
             user_domain = get_object_or_404(Domains, domain=root)
             request.subdomain = user_domain.user.username
+            request.domain = user_domain.domain
             request.urlconf = settings.USER_URLS
         elif subdomain != 'www' and subdomain != '' and subdomain is not None:
             request.subdomain = subdomain
@@ -52,11 +54,5 @@ class RedirectToCustomDomain:
     """
 
     def process_request(self, request):
-        return
-        #if not request.user.is_authenticated():
-        #    try:
-        #        user_domain = Domains.objects.get(username=request.subdomain)
-        #    except Domains.DoesNotExist:
-        #        pass
-        #    else:
-        #        return HttpResponseRedirect(http://www.user_domain/ + path)
+        if request.domain:
+            return HttpResponseRedirect('http://www.' + request.domain + request.path)

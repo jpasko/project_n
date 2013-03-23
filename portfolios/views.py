@@ -650,7 +650,7 @@ def custom_domain(request):
             try:
                 domain = Domains.objects.get(user=user)
             except Domains.DoesNotExist:
-                new_domain = Domains(user=request.user, domain=request.POST.get('domain'))
+                new_domain = Domains(user=request.user, username=username, domain=request.POST.get('domain'))
                 new_domain.save()
             else:
                 domain.domain = request.POST.get('domain')
