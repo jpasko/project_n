@@ -60,4 +60,5 @@ class RedirectToCustomDomain:
             except Domains.DoesNotExist:
                 pass
             else:
-                return HttpResponseRedirect('http://www.' + domain.domain + request.path)
+                if domain.domain:
+                    return HttpResponseRedirect('http://www.' + domain.domain + request.path)
