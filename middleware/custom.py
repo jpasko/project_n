@@ -54,5 +54,10 @@ class RedirectToCustomDomain:
     """
 
     def process_request(self, request):
-        if request.domain and not request.user.is_authenticated() and not request.path.startswith(settings.MEDIA_URL):
-            return HttpResponseRedirect('http://www.' + request.domain + request.path)
+        if not request.user.is_authenticated() and request.domain is None:
+            try:
+                domain = Domains.objects.get(username=request.subdomain)
+            except Domains.DoesNotExist:
+                pass
+            else:
+                return HttpResponseRedirect('http://www.' + domain.domain + request.path)
