@@ -178,55 +178,56 @@ $(document).ready(function(){
   </div>
 </div>
 <!-- end modals -->
-<div class="row-fluid" style="padding-bottom: 20px">
-  <h4 class="muted" style="display: inline-block; margin-left: 15px">
-    {% if gallery.title %}{{ gallery.title }}{% else %}No title{% endif %}
-  </h4>
-  <h4 class="muted" style="display: inline-block; margin-left: 10px; margin-right: 10px">&bull;</h4>
-  <h4 class="muted" style="display: inline-block">
-    {% if gallery.thumbnail %}<img id="thumbnail-img" src="{{ gallery.thumbnail.url }}" style="padding-right: 20px">{% else %}Default thumbnail{% endif %}
-  </h4>
-  <a class="btn btn-default" href="/gallery/{{ gallery.pk }}/edit/" style="margin-left: 10px">
-    <i class="icon-edit"></i><strong>Edit</strong>
-  </a>
-  <a class="btn btn-danger" role="button" data-toggle="modal" href="#delete-gallery-modal">
-    <i class="icon-remove icon-white"></i><strong>Delete</strong>
-  </a>
-  <hr id="thin-divider">
-</div>
-<div class="row-fluid" style="padding-bottom: 25px">
-  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-photo-modal" style="margin-left: 3px">
-    <i class="icon-arrow-up icon-white"></i>Upload Image
-  </a>
-  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-video-modal" style="margin-left: 5px">
-    <i class="icon-arrow-up icon-white"></i>Upload Video
-  </a>
-</div>
 <div class="row-fluid">
-  <div class="span12">
-    <ul class="thumbnails sortable-items">
-      {% for item in gallery.item_set.all %}
-      <li id="items_{{ item.pk }}">
-	<div style="position: relative; left: 0; top: 0;" class="item-div">
-	  {% if item.is_photo %}
-	  <a href="#">
-	    <img class="gallery-thumbnail" src="{{ item.photo.thumbnail.url }}">
-	  </a>
-	  {% else %}
-	  <a class="video-thumbnail" href="{{ item.video.url }}" target="_blank">
-	    <img class="gallery-thumbnail" src="{{ STATIC_URL }}img/empty_gallery_square.png">
-	  </a>
-	  {% endif %}
-	  <a class="delete-img hide" href="/item/{{ item.pk }}/delete/">
-	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0">
-	  </a>
-	  <a class="edit-img hide data-to-modal" role="button" data-toggle="modal" data-pk="{{ item.pk }}" href="#edit-item-modal">
-	    <img src="{{ STATIC_URL }}img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
-	  </a>
-	</div>
-      </li>
-      {% endfor %}
-    </ul>
+  <div class="span9">
+    <div class="row-fluid" style="padding-bottom: 25px">
+      <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-photo-modal" style="margin-left: 3px">
+	<i class="icon-arrow-up icon-white"></i>Upload Image
+      </a>
+      <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-video-modal" style="margin-left: 5px">
+	<i class="icon-arrow-up icon-white"></i>Upload Video
+      </a>
+    </div>
+    <div class="row-fluid">
+      <ul class="thumbnails sortable-items">
+	{% for item in gallery.item_set.all %}
+	<li id="items_{{ item.pk }}">
+	  <div style="position: relative; left: 0; top: 0;" class="item-div">
+	    {% if item.is_photo %}
+	    <a href="#">
+	      <img class="gallery-thumbnail" src="{{ item.photo.thumbnail.url }}">
+	    </a>
+	    {% else %}
+	    <a class="video-thumbnail" href="{{ item.video.url }}" target="_blank">
+	      <img class="gallery-thumbnail" src="{{ STATIC_URL }}img/empty_gallery_square.png">
+	    </a>
+	    {% endif %}
+	    <a class="delete-img hide" href="/item/{{ item.pk }}/delete/">
+	      <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0">
+	    </a>
+	    <a class="edit-img hide data-to-modal" role="button" data-toggle="modal" data-pk="{{ item.pk }}" href="#edit-item-modal">
+	      <img src="{{ STATIC_URL }}img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
+	    </a>
+	  </div>
+	</li>
+	{% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="span3">
+    <div class="row-fluid" style="padding-bottom: 20px">
+      <p class="muted" style="display: inline-block; margin-left: 15px">{% if gallery.title %}{{ gallery.title }}{% else %}No title{% endif %}</p>
+      <p class="muted" style="display: inline-block; margin-left: 10px; margin-right: 10px">&bull;</p>
+      <p class="muted" style="display: inline-block">
+	{% if gallery.thumbnail %}<img id="thumbnail-img" src="{{ gallery.thumbnail.url }}" style="padding-right: 20px">{% else %}Default thumbnail{% endif %}
+      </p>
+      <a class="btn btn-default" href="/gallery/{{ gallery.pk }}/edit/" style="margin-left: 10px">
+	<i class="icon-edit"></i><strong>Edit</strong>
+      </a>
+      <a class="btn btn-danger" role="button" data-toggle="modal" href="#delete-gallery-modal">
+	<i class="icon-remove icon-white"></i><strong>Delete</strong>
+      </a>
+    </div>
   </div>
 </div>
 {% elif profile.photo_count <= customer.account_limit %}
