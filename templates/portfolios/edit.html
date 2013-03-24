@@ -176,7 +176,7 @@ $(function() {
       <div class="control-group">
 	<label class="control-label" for="id_title_size">Title size (pixels)</label>
 	<div class="controls">
-	  <input id="id_title_size" name="title_size" type="range" value="{{ profile.title_size }}" min="20" max="60" />
+	  <input id="id_title_size" name="title_size" type="range" value="{{ profile.title_size }}" min="20" max="60" step="5" />
 	  <input id="id_title_size_display" type="text" value="" />
 	</div>
       </div>
@@ -255,7 +255,7 @@ $(function() {
       <div class="control-group">
 	<label class="control-label" for="id_page_width">Page width (pixels)</label>
 	<div class="controls">
-	  <input id="id_page_width" name="page_width" type="range" value="{{ profile.page_width }}" min="800" max="1200" />
+	  <input id="id_page_width" name="page_width" type="range" value="{{ profile.page_width }}" min="800" max="1200" step="10" />
 	  <input id="id_page_width_display" type="text" value="" />
 	</div>
       </div>
@@ -263,7 +263,7 @@ $(function() {
       <div class="control-group">
 	<label class="control-label" for="id_thumbnail_dimension">Thumbnail size (pixels)</label>
 	<div class="controls">
-	  <input id="id_thumbnail_dimension" name="thumbnail_dimension" type="range" value="{{ profile.thumbnail_dimension }}" min="65" max="590" />
+	  <input id="id_thumbnail_dimension" name="thumbnail_dimension" type="range" value="{{ profile.thumbnail_dimension }}" min="65" max="590" step="5" />
 	  <input id="id_thumbnail_dimension_display" type="text" value="" />
 	</div>
       </div>
