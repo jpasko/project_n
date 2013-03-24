@@ -16,9 +16,9 @@
   .galleria-counter {
     color: #{{ profile.text_color }};
   }
-body .galleria-image-nav-left, body .galleria-image-nav-right {
+  body .galleria-image-nav-left, body .galleria-image-nav-right {
     background-image: url({{ STATIC_URL }}js/galleria/themes/classic/dark-arrows.png);
-}
+  }
   #thumbnail-img {
     width: 40px;
     height: 40px;
@@ -54,6 +54,21 @@ $(document).ready(function(){
     $('#submit-video').prop('disabled', true);
     return true;
   });
+  $('.item-div').hover(
+    function() {
+      $(this).find('.edit-img').removeClass('hide');
+      $(this).find('.delete-img').removeClass('hide');
+    },
+    function() {
+      $(this).find('.edit-img').addClass('hide');
+      $(this).find('.delete-img').addClass('hide');
+    }
+  );
+  $('.data-to-modal').on("click", function() {
+    var pk = $(this).data('pk');
+    var action = "/item/" + pk + "/edit/";
+    $('#edit-item-form').attr("action", action);
+  });
 });
 </script>
 {% endif %}
@@ -76,35 +91,11 @@ $(document).ready(function(){
 
 {% if user.is_authenticated and username == user.username and profile.edit_mode %}
 <!-- Edit mode -->
-<div class="row-fluid" style="padding-bottom: 20px">
-  <h4 class="muted" style="display: inline-block; margin-left: 15px">
-    {% if gallery.title %}{{ gallery.title }}{% else %}No title{% endif %}
-  </h4>
-  <h4 class="muted" style="display: inline-block; margin-left: 10px; margin-right: 10px">&bull;</h4>
-  <h4 class="muted" style="display: inline-block">
-    {% if gallery.thumbnail %}<img id="thumbnail-img" src="{{ gallery.thumbnail.url }}" style="padding-right: 20px">{% else %}Default thumbnail{% endif %}
-  </h4>
-  <a class="btn btn-default" href="/gallery/{{ gallery.pk }}/edit/" style="margin-left: 10px">
-    <i class="icon-edit"></i><strong>Edit</strong>
-  </a>
-  <a class="btn btn-danger" role="button" data-toggle="modal" href="#delete-gallery-modal">
-    <i class="icon-remove icon-white"></i>
-  </a>
-  <hr id="thin-divider">
-</div>
-<div class="row-fluid" style="padding-bottom: 25px">
-  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-photo-modal" style="margin-left: 3px">
-    <i class="icon-arrow-up icon-white"></i>Upload Image
-  </a>
-  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-video-modal" style="margin-left: 5px">
-    <i class="icon-arrow-up icon-white"></i>Upload Video
-  </a>
-</div>
 <!-- Upload modals -->
 <!-- Delete gallery -->
 <div class="modal hide" role="dialog" tabindex="-1" id="delete-gallery-modal" arialabelledby="delete-gallery-heading">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3 id="delete-gallery-heading" style="color: #424242">Delete this gallery?</h3>
   </div>
   <div class="modal-body">
@@ -120,7 +111,7 @@ $(document).ready(function(){
 <!-- Upload photo -->
 <div class="modal hide" role="dialog" tabindex="-1" id="upload-photo-modal" arialabelledby="upload-photo-heading">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3 id="upload-photo-heading" style="color: #424242">Upload Image</h3>
   </div>
   <div class="modal-body">
@@ -148,7 +139,7 @@ $(document).ready(function(){
 <!-- Upload video -->
 <div class="modal hide" role="dialog" tabindex="-1" id="upload-video-modal" arialabelledby="upload-video-heading">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3 id="upload-video-heading" style="color: #424242">Upload Video</h3>
   </div>
   <div class="modal-body">
@@ -169,15 +160,56 @@ $(document).ready(function(){
     {% endif %}
   </div>
 </div>
+<!-- Edit item modal -->
+<div class="modal hide" role="dialog" tabindex="-1" id="edit-item-modal" arialabelledby="edit-item-heading">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="edit-item-heading" style="color: #424242">Edit this item</h3>
+  </div>
+  <div class="modal-body">
+    <form method="post" action="/item/{{ item.pk }}/edit/" id="edit-item-form">
+      {% csrf_token %}
+      <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+      <div style="padding-top: 15px">
+	<input type="submit" value="Save" class="btn btn-primary btn-large" id="submit-item-edit">
+	<button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
 <!-- end modals -->
+<div class="row-fluid" style="padding-bottom: 20px">
+  <h4 class="muted" style="display: inline-block; margin-left: 15px">
+    {% if gallery.title %}{{ gallery.title }}{% else %}No title{% endif %}
+  </h4>
+  <h4 class="muted" style="display: inline-block; margin-left: 10px; margin-right: 10px">&bull;</h4>
+  <h4 class="muted" style="display: inline-block">
+    {% if gallery.thumbnail %}<img id="thumbnail-img" src="{{ gallery.thumbnail.url }}" style="padding-right: 20px">{% else %}Default thumbnail{% endif %}
+  </h4>
+  <a class="btn btn-default" href="/gallery/{{ gallery.pk }}/edit/" style="margin-left: 10px">
+    <i class="icon-edit"></i><strong>Edit</strong>
+  </a>
+  <a class="btn btn-danger" role="button" data-toggle="modal" href="#delete-gallery-modal">
+    <i class="icon-remove icon-white"></i><strong>Delete</strong>
+  </a>
+  <hr id="thin-divider">
+</div>
+<div class="row-fluid" style="padding-bottom: 25px">
+  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-photo-modal" style="margin-left: 3px">
+    <i class="icon-arrow-up icon-white"></i>Upload Image
+  </a>
+  <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-video-modal" style="margin-left: 5px">
+    <i class="icon-arrow-up icon-white"></i>Upload Video
+  </a>
+</div>
 <div class="row-fluid">
   <div class="span12">
     <ul class="thumbnails sortable-items">
       {% for item in gallery.item_set.all %}
       <li id="items_{{ item.pk }}">
-	<div style="position: relative; left: 0; top: 0;">
+	<div style="position: relative; left: 0; top: 0;" class="item-div">
 	  {% if item.is_photo %}
-	  <a href="{{ item.photo.image.url }}" target="_blank">
+	  <a href="#">
 	    <img class="gallery-thumbnail" src="{{ item.photo.thumbnail.url }}">
 	  </a>
 	  {% else %}
@@ -185,10 +217,10 @@ $(document).ready(function(){
 	    <img class="gallery-thumbnail" src="{{ STATIC_URL }}img/empty_gallery_square.png">
 	  </a>
 	  {% endif %}
-	  <a href="/item/{{ item.pk }}/delete/">
+	  <a class="delete-img hide" href="/item/{{ item.pk }}/delete/">
 	    <img src="{{ STATIC_URL }}img/delete.png" style="position: absolute; top: 0; left: 0">
 	  </a>
-	  <a href="/item/{{ item.pk }}/edit/">
+	  <a class="edit-img hide data-to-modal" role="button" data-toggle="modal" data-pk="{{ item.pk }}" href="#edit-item-modal">
 	    <img src="{{ STATIC_URL }}img/edit.png" style="position: absolute; bottom: 0; left: 0;"/>
 	  </a>
 	</div>
