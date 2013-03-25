@@ -95,6 +95,8 @@ class UserProfile(models.Model):
     linkedin = models.URLField(max_length=500, blank=True, verbose_name="LinkedIn")
     orkut = models.URLField(max_length=500, blank=True)
     myspace = models.URLField(max_length=500, blank=True)
+    #pinterest = models.URLField(max_length=500, blank=True)
+    #weibo = models.URLField(max_length=500, blank=True)
 
     picture = ProcessedImageField([ResizeToFit(width=200,
                                                height=250,

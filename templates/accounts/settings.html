@@ -75,12 +75,16 @@
   <div class="span6">
     <h3>Upgrade your account</h3>
     <p style="margin-bottom: 20px">You can also downgrade your account</p>
-    <p><a href="#upgrade-account"  role="button" data-toggle="modal" class="btn-green btn-green-link btn-large">Upgrade</a></p>
+    <a href="#upgrade-account"  role="button" data-toggle="modal" class="btn btn-info btn-large" style="border-radius: 2px">
+      <strong>Upgrade</strong>
+    </a>
   </div>
   <div class="span6">
     <h3>Update your credit card</h3>
     <p style="margin-bottom: 20px">Add a credit card or change your active card</p>
-    <a href="https://{{ username }}.{{ DOMAIN }}/accounts/change/" class="btn-green btn-green-link btn-large">Update</a>
+    <a href="https://{{ username }}.{{ DOMAIN }}/accounts/change/" class="btn btn-info btn-large" style="border-radius: 2px">
+      <strong>Update</strong>
+    </a>
   </div>
 </div>
 
@@ -104,12 +108,14 @@
 	<input type="password" name="new_password1" id="id_new_password1" placeholder="New password" style="display: block"/>
 	<input type="password" name="new_password2" id="id_new_password2" placeholder="New password (again)" style="display: block"/>
       </div>
-      <input type="submit" value="Change" class="btn-green btn-large">
+      <input type="submit" value="Change" class="btn btn-info btn-large" style="border-radius: 2px; font-weight: bold">
     </form>
   </div>
   <div class="span6">
     <h3>Delete your account</h3>
-    <a href="#delete-account" role="button" data-toggle="modal" class="btn btn-default btn-large" style="border-radius: 10px">Delete</a>
+    <a href="#delete-account" role="button" data-toggle="modal" class="btn btn-default btn-large" style="border-radius: 2px">
+      <strong>Delete</strong>
+    </a>
   </div>
 </div>
 {% endblock %}
