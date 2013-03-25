@@ -512,24 +512,60 @@ def update_profile(request):
                     profile.website = url
                     profile.save()
                     results['success'] = True
-            if 'twitter' in request.POST:
-                url = request.POST.get('twitter')
+            if 'blogger' in request.POST:
+                url = request.POST.get('blogger')
                 try:
                     validate(url)
                 except ValidationError:
                     if url == '':
-                        profile.twitter = ''
+                        profile.blogger = ''
                         profile.save()
                         if not results['message']:
-                            results['success'] = True
+                            results ['success'] = True
                     else:
                         results['success'] = False
-                        results['message'] = results['message'] + 'Invalid Twitter URL.  Begin URL with \"http://\" or \"https://\".\n'
+                        results['message'] = results['message'] + 'Invalid Blogger URL.  Begin URL with \"http://\" or \"https://\".\n'
                 else:
-                    profile.twitter = url
+                    profile.blogger = url
                     profile.save()
                     if not results['message']:
-                        results['success'] = True
+                        results ['success'] = True
+            if 'deviantart' in request.POST:
+                url = request.POST.get('deviantart')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.deviantart = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid deviantART URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.deviantart = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'digg' in request.POST:
+                url = request.POST.get('digg')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.digg = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Digg URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.digg = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
             if 'facebook' in request.POST:
                 url = request.POST.get('facebook')
                 try:
@@ -545,6 +581,24 @@ def update_profile(request):
                         results['message'] = results['message'] + 'Invalid Facebook URL.  Begin URL with \"http://\" or \"https://\".\n'
                 else:
                     profile.facebook = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'flickr' in request.POST:
+                url = request.POST.get('flickr')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.flickr = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Flickr URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.flickr = url
                     profile.save()
                     if not results['message']:
                         results ['success'] = True
@@ -581,6 +635,132 @@ def update_profile(request):
                         results['message'] = results['message'] + 'Invalid LinkedIn URL.  Begin URL with \"http://\" or \"https://\".'
                 else:
                     profile.linkedin = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'myspace' in request.POST:
+                url = request.POST.get('myspace')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.myspace = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Myspace URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.myspace = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'orkut' in request.POST:
+                url = request.POST.get('orkut')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.orkut = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Orkut URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.orkut = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'pinterest' in request.POST:
+                url = request.POST.get('pinterest')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.pinterest = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Pinterest URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.pinterest = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'tumblr' in request.POST:
+                url = request.POST.get('tumblr')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.tumblr = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Tumblr URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.tumblr = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'twitter' in request.POST:
+                url = request.POST.get('twitter')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.twitter = ''
+                        profile.save()
+                        if not results['message']:
+                            results['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Twitter URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.twitter = url
+                    profile.save()
+                    if not results['message']:
+                        results['success'] = True
+            if 'wordpress' in request.POST:
+                url = request.POST.get('wordpress')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.wordpress = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid Wordpress URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.wordpress = url
+                    profile.save()
+                    if not results['message']:
+                        results ['success'] = True
+            if 'youtube' in request.POST:
+                url = request.POST.get('youtube')
+                try:
+                    validate(url)
+                except ValidationError:
+                    if url == '':
+                        profile.youtube = ''
+                        profile.save()
+                        if not results['message']:
+                            results ['success'] = True
+                    else:
+                        results['success'] = False
+                        results['message'] = results['message'] + 'Invalid YouTube URL.  Begin URL with \"http://\" or \"https://\".\n'
+                else:
+                    profile.youtube = url
                     profile.save()
                     if not results['message']:
                         results ['success'] = True

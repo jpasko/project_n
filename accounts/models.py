@@ -89,14 +89,20 @@ class UserProfile(models.Model):
     blog = models.URLField(max_length=500, blank=True)
     blog_name = models.CharField(max_length=15, blank=True)
 
-    twitter = models.URLField(max_length=500, blank=True)
+    blogger = models.URLField(max_length=500, blank=True)
+    deviantart = models.URLField(max_length=500, blank=True)
+    digg = models.URLField(max_length=500, blank=True)
     facebook = models.URLField(max_length=500, blank=True)
-    google_plus = models.URLField(max_length=500, blank=True, verbose_name="Google+")
-    linkedin = models.URLField(max_length=500, blank=True, verbose_name="LinkedIn")
-    orkut = models.URLField(max_length=500, blank=True)
+    flickr = models.URLField(max_length=500, blank=True)
+    google_plus = models.URLField(max_length=500, blank=True)
+    linkedin = models.URLField(max_length=500, blank=True)
     myspace = models.URLField(max_length=500, blank=True)
-    #pinterest = models.URLField(max_length=500, blank=True)
-    #weibo = models.URLField(max_length=500, blank=True)
+    orkut = models.URLField(max_length=500, blank=True)
+    pinterest = models.URLField(max_length=500, blank=True)
+    tumblr = models.URLField(max_length=500, blank=True)
+    twitter = models.URLField(max_length=500, blank=True)
+    wordpress = models.URLField(max_length=500, blank=True)
+    youtube = models.URLField(max_length=500, blank=True)
 
     picture = ProcessedImageField([ResizeToFit(width=200,
                                                height=250,

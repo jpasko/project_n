@@ -278,13 +278,25 @@ $(document).ready(function(){
     });
 
     $("#trigger-editable-social").on("click", function() {
-	if ($("#valid-social-twitter").length) {
-	    $("#valid-social-twitter").hide();
-	    $("#twitter-input").val($("#valid-social-twitter").attr('href'));
+	if ($("#valid-social-blogger").length) {
+	    $("#valid-social-blogger").hide();
+	    $("#blogger-input").val($("#valid-social-blogger").attr('href'));
+	}
+	if ($("#valid-social-deviantart").length) {
+	    $("#valid-social-deviantart").hide();
+	    $("#deviantart-input").val($("#valid-social-deviantart").attr('href'));
+	}
+	if ($("#valid-social-digg").length) {
+	    $("#valid-social-digg").hide();
+	    $("#digg-input").val($("#valid-social-digg").attr('href'));
 	}
 	if ($("#valid-social-facebook").length) {
 	    $("#valid-social-facebook").hide();
 	    $("#facebook-input").val($("#valid-social-facebook").attr('href'));
+	}
+	if ($("#valid-social-flickr").length) {
+	    $("#valid-social-flickr").hide();
+	    $("#flickr-input").val($("#valid-social-flickr").attr('href'));
 	}
 	if ($("#valid-social-google_plus").length) {
 	    $("#valid-social-google_plus").hide();
@@ -294,54 +306,103 @@ $(document).ready(function(){
 	    $("#valid-social-linkedin").hide();
 	    $("#linkedin-input").val($("#valid-social-linkedin").attr('href'));
 	}
+	if ($("#valid-social-myspace").length) {
+	    $("#valid-social-myspace").hide();
+	    $("#myspace-input").val($("#valid-social-myspace").attr('href'));
+	}
+	if ($("#valid-social-orkut").length) {
+	    $("#valid-social-orkut").hide();
+	    $("#orkut-input").val($("#valid-social-orkut").attr('href'));
+	}
+	if ($("#valid-social-pinterest").length) {
+	    $("#valid-social-pinterest").hide();
+	    $("#pinterest-input").val($("#valid-social-pinterest").attr('href'));
+	}
+	if ($("#valid-social-tumblr").length) {
+	    $("#valid-social-tumblr").hide();
+	    $("#tumblr-input").val($("#valid-social-tumblr").attr('href'));
+	}
+	if ($("#valid-social-twitter").length) {
+	    $("#valid-social-twitter").hide();
+	    $("#twitter-input").val($("#valid-social-twitter").attr('href'));
+	}
+	if ($("#valid-social-wordpress").length) {
+	    $("#valid-social-wordpress").hide();
+	    $("#wordpress-input").val($("#valid-social-wordpress").attr('href'));
+	}
+	if ($("#valid-social-youtube").length) {
+	    $("#valid-social-youtube").hide();
+	    $("#youtube-input").val($("#valid-social-youtube").attr('href'));
+	}
 	if ($("#empty-social").length){
 	    $("#empty-social").hide()
 	}
-	$("#twitter-group").show();
-	$("#facebook-group").show();
-	$("#google_plus-group").show();
-	$("#linkedin-group").show();
+	$("#all-social-inputs").show();
 	$("#save-social").show();
 	$("#cancel-social").show();
     });
     $("#cancel-social").on("click", function() {
-	$("#twitter-group").hide();
-	$("#facebook-group").hide();
-	$("#google_plus-group").hide();
-	$("#linkedin-group").hide();
+	$("#all-social-inputs").hide();
 	$("#save-social").hide();
 	$("#cancel-social").hide();
 	$("#editable-social").find("p").show();
 	$("#editable-social").find("a").show();
     });
     $("#save-social").on("click", function() {
-	$("#twitter-group").hide();
-	$("#facebook-group").hide();
-	$("#google_plus-group").hide();
-	$("#linkedin-group").hide();
+	$("#all-social-inputs").hide();
 	$("#save-social").hide();
 	$("#cancel-social").hide();
-	var twitter, facebook, google_plus, linkedin;
-	if ($("#twitter-input").val()) {
+	var blogger, deviantart, digg, facebook ,flickr, google_plus, linkedin,
+	    myspace, orkut, pinterest, tumblr ,twitter, wordpress, youtube;
+
+	if ($("#blogger-input").val()) {
 	    if ($("#empty-social").length) {
 		$("#empty-social").remove();
 	    }
-	    if (!$("#valid-social-twitter").length) {
-		$("#editable-social").append('<a id="valid-social-twitter" target="_blank" style="margin-right: 15px"><img id="appended-twitter"></a>');
+	    if (!$("#valid-social-blogger").length) {
+		$("#editable-social").append('<a id="valid-social-blogger" target="_blank"><img id="appended-blogger"></a>');
 	    }
-	    $("#valid-social-twitter").show();
-	    $("#valid-social-twitter").attr('href', $("#twitter-input").val());
-	    $("#appended-twitter").attr('src', $("#twitter-img").text());
-	    twitter = $("#twitter-input").val();
+	    $("#valid-social-blogger").show();
+	    $("#valid-social-blogger").attr('href', $("#blogger-input").val());
+	    $("#appended-blogger").attr('src', $("#blogger-img").text());
+	    blogger = $("#blogger-input").val();
 	} else {
-	    twitter = '';
+	    blogger = '';
+	}
+	if ($("#deviantart-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-deviantart").length) {
+		$("#editable-social").append('<a id="valid-social-deviantart" target="_blank"><img id="appended-deviantart"></a>');
+	    }
+	    $("#valid-social-deviantart").show();
+	    $("#valid-social-deviantart").attr('href', $("#deviantart-input").val());
+	    $("#appended-deviantart").attr('src', $("#deviantart-img").text());
+	    deviantart = $("#deviantart-input").val();
+	} else {
+	    deviantart = '';
+	}
+	if ($("#digg-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-digg").length) {
+		$("#editable-social").append('<a id="valid-social-digg" target="_blank"><img id="appended-digg"></a>');
+	    }
+	    $("#valid-social-digg").show();
+	    $("#valid-social-digg").attr('href', $("#digg-input").val());
+	    $("#appended-digg").attr('src', $("#digg-img").text());
+	    digg = $("#digg-input").val();
+	} else {
+	    digg = '';
 	}
 	if ($("#facebook-input").val()) {
 	    if ($("#empty-social").length) {
 		$("#empty-social").remove();
 	    }
 	    if (!$("#valid-social-facebook").length) {
-		$("#editable-social").append('<a id="valid-social-facebook" target="_blank" style="margin-right: 15px"><img id="appended-facebook"></a>');
+		$("#editable-social").append('<a id="valid-social-facebook" target="_blank"><img id="appended-facebook"></a>');
 	    }
 	    $("#valid-social-facebook").show();
 	    $("#valid-social-facebook").attr('href', $("#facebook-input").val());
@@ -350,12 +411,26 @@ $(document).ready(function(){
 	} else {
 	    facebook = '';
 	}
+	if ($("#flickr-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-flickr").length) {
+		$("#editable-social").append('<a id="valid-social-flickr" target="_blank"><img id="appended-flickr"></a>');
+	    }
+	    $("#valid-social-flickr").show();
+	    $("#valid-social-flickr").attr('href', $("#flickr-input").val());
+	    $("#appended-flickr").attr('src', $("#flickr-img").text());
+	    flickr = $("#flickr-input").val();
+	} else {
+	    flickr = '';
+	}
 	if ($("#google_plus-input").val()) {
 	    if ($("#empty-social").length) {
 		$("#empty-social").remove();
 	    }
 	    if (!$("#valid-social-google_plus").length) {
-		$("#editable-social").append('<a id="valid-social-google_plus" target="_blank" style="margin-right: 15px"><img id="appended-google_plus"></a>');
+		$("#editable-social").append('<a id="valid-social-google_plus" target="_blank"><img id="appended-google_plus"></a>');
 	    }
 	    $("#valid-social-google_plus").show();
 	    $("#valid-social-google_plus").attr('href', $("#google_plus-input").val());
@@ -378,15 +453,126 @@ $(document).ready(function(){
 	} else {
 	    linkedin = '';
 	}
-	if (!$("#twitter-input").val() && !$("#facebook-input").val() && !$("#google_plus-input").val() && !$("#linkedin-input").val()) {
+	if ($("#myspace-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-myspace").length) {
+		$("#editable-social").append('<a id="valid-social-myspace" target="_blank"><img id="appended-myspace"></a>');
+	    }
+	    $("#valid-social-myspace").show();
+	    $("#valid-social-myspace").attr('href', $("#myspace-input").val());
+	    $("#appended-myspace").attr('src', $("#myspace-img").text());
+	    myspace = $("#myspace-input").val();
+	} else {
+	    myspace = '';
+	}
+	if ($("#orkut-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-orkut").length) {
+		$("#editable-social").append('<a id="valid-social-orkut" target="_blank"><img id="appended-orkut"></a>');
+	    }
+	    $("#valid-social-orkut").show();
+	    $("#valid-social-orkut").attr('href', $("#orkut-input").val());
+	    $("#appended-orkut").attr('src', $("#orkut-img").text());
+	    orkut = $("#orkut-input").val();
+	} else {
+	    orkut = '';
+	}
+	if ($("#pinterest-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-pinterest").length) {
+		$("#editable-social").append('<a id="valid-social-pinterest" target="_blank"><img id="appended-pinterest"></a>');
+	    }
+	    $("#valid-social-pinterest").show();
+	    $("#valid-social-pinterest").attr('href', $("#pinterest-input").val());
+	    $("#appended-pinterest").attr('src', $("#pinterest-img").text());
+	    pinterest = $("#pinterest-input").val();
+	} else {
+	    pinterest = '';
+	}
+	if ($("#tumblr-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-tumblr").length) {
+		$("#editable-social").append('<a id="valid-social-tumblr" target="_blank"><img id="appended-tumblr"></a>');
+	    }
+	    $("#valid-social-tumblr").show();
+	    $("#valid-social-tumblr").attr('href', $("#tumblr-input").val());
+	    $("#appended-tumblr").attr('src', $("#tumblr-img").text());
+	    tumblr = $("#tumblr-input").val();
+	} else {
+	    tumblr = '';
+	}
+	if ($("#twitter-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-twitter").length) {
+		$("#editable-social").append('<a id="valid-social-twitter" target="_blank"><img id="appended-twitter"></a>');
+	    }
+	    $("#valid-social-twitter").show();
+	    $("#valid-social-twitter").attr('href', $("#twitter-input").val());
+	    $("#appended-twitter").attr('src', $("#twitter-img").text());
+	    twitter = $("#twitter-input").val();
+	} else {
+	    twitter = '';
+	}
+	if ($("#wordpress-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-wordpress").length) {
+		$("#editable-social").append('<a id="valid-social-wordpress" target="_blank"><img id="appended-wordpress"></a>');
+	    }
+	    $("#valid-social-wordpress").show();
+	    $("#valid-social-wordpress").attr('href', $("#wordpress-input").val());
+	    $("#appended-wordpress").attr('src', $("#wordpress-img").text());
+	    wordpress = $("#wordpress-input").val();
+	} else {
+	    wordpress = '';
+	}
+	if ($("#youtube-input").val()) {
+	    if ($("#empty-social").length) {
+		$("#empty-social").remove();
+	    }
+	    if (!$("#valid-social-youtube").length) {
+		$("#editable-social").append('<a id="valid-social-youtube" target="_blank"><img id="appended-youtube"></a>');
+	    }
+	    $("#valid-social-youtube").show();
+	    $("#valid-social-youtube").attr('href', $("#youtube-input").val());
+	    $("#appended-youtube").attr('src', $("#youtube-img").text());
+	    youtube = $("#youtube-input").val();
+	} else {
+	    youtube = '';
+	}
+
+	if (!$("#blogger-input").val() && !$("#deviantart-input").val() && !$("#digg-input").val() && !$("#facebook-input").val() &&
+	    !$("#flickr-input").val() && !$("#google_plus-input").val() && !$("#linkedin-input").val() && !$("#myspace-input").val() &&
+	    !$("#orkut-input").val() && !$("#pinterest-input").val() && !$("#tumblr-input").val() && !$("#twitter-input").val() &&
+	    !$("#wordpress-input").val() && !$("#youtube-input").val()) {
 	    if (!$("#empty-social").length) {
 		$("#editable-social").append('<p id="empty-social"><em>Currently empty</em></p>');
 	    }
-	    if ($("#valid-social-twitter").length) {
-		$("#valid-social-twitter").remove();
+	    if ($("#valid-social-blogger").length) {
+		$("#valid-social-blogger").remove();
+	    }
+	    if ($("#valid-social-deviantart").length) {
+		$("#valid-social-deviantart").remove();
+	    }
+	    if ($("#valid-social-digg").length) {
+		$("#valid-social-digg").remove();
 	    }
 	    if ($("#valid-social-facebook").length) {
 		$("#valid-social-facebook").remove();
+	    }
+	    if ($("#valid-social-flickr").length) {
+		$("#valid-social-flickr").remove();
 	    }
 	    if ($("#valid-social-google_plus").length) {
 		$("#valid-social-google_plus").remove();
@@ -394,15 +580,46 @@ $(document).ready(function(){
 	    if ($("#valid-social-linkedin").length) {
 		$("#valid-social-linkedin").remove();
 	    }
+	    if ($("#valid-social-myspace").length) {
+		$("#valid-social-myspace").remove();
+	    }
+	    if ($("#valid-social-orkut").length) {
+		$("#valid-social-orkut").remove();
+	    }
+	    if ($("#valid-social-pinterest").length) {
+		$("#valid-social-pinterest").remove();
+	    }
+	    if ($("#valid-social-tumblr").length) {
+		$("#valid-social-tumblr").remove();
+	    }
+	    if ($("#valid-social-twitter").length) {
+		$("#valid-social-twitter").remove();
+	    }
+	    if ($("#valid-social-wordpress").length) {
+		$("#valid-social-wordpress").remove();
+	    }
+	    if ($("#valid-social-youtube").length) {
+		$("#valid-social-youtube").remove();
+	    }
 	    $("#empty-social").show();
 	}
 	$.ajax({
 	    type: "POST",
 	    url: "/update/",
-	    data: {'twitter': twitter,
+	    data: {'blogger': blogger,
+		   'deviantart': deviantart,
+		   'digg': digg,
 		   'facebook': facebook,
+		   'flickr': flickr,
 		   'google_plus': google_plus,
-		   'linkedin': linkedin},
+		   'linkedin': linkedin,
+		   'myspace': myspace,
+		   'orkut': orkut,
+		   'pinterest': pinterest,
+		   'tumblr': tumblr,
+		   'twitter': twitter,
+		   'wordpress': wordpress,
+		   'youtube': youtube},
 	    success: function(data) {
 		$("#ajax-alert > p").remove();
 		if (!data.success) {

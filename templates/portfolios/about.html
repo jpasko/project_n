@@ -333,19 +333,44 @@ $(document).ready(function(){
       </div>
       <div class="span10">
 	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
-	<span id="twitter-img" class="hide">{{ STATIC_URL }}img/social/twitter.png</span>
+	<span id="blogger-img" class="hide">{{ STATIC_URL }}img/social/blogger.png</span>
+	<span id="deviantart-img" class="hide">{{ STATIC_URL }}img/social/deviantart.png</span>
+	<span id="digg-img" class="hide">{{ STATIC_URL }}img/social/digg.png</span>
 	<span id="facebook-img" class="hide">{{ STATIC_URL }}img/social/facebook.png</span>
+	<span id="flickr-img" class="hide">{{ STATIC_URL }}img/social/flickr.png</span>
 	<span id="google_plus-img" class="hide">{{ STATIC_URL }}img/social/gplus2.png</span>
 	<span id="linkedin-img" class="hide">{{ STATIC_URL }}img/social/linkedin.png</span>
+	<span id="myspace-img" class="hide">{{ STATIC_URL }}img/social/myspace.png</span>
+	<span id="orkut-img" class="hide">{{ STATIC_URL }}img/social/orkut.png</span>
+	<span id="pinterest-img" class="hide">{{ STATIC_URL }}img/social/pinterest.png</span>
+	<span id="tumblr-img" class="hide">{{ STATIC_URL }}img/social/tumblr.png</span>
+	<span id="twitter-img" class="hide">{{ STATIC_URL }}img/social/twitter.png</span>
+	<span id="wordpress-img" class="hide">{{ STATIC_URL }}img/social/wordpress.png</span>
+	<span id="youtube-img" class="hide">{{ STATIC_URL }}img/social/youtube.png</span>
 	<div id="editable-social">
-	  {% if profile.twitter %}
-	  <a id="valid-social-twitter" href="{{ profile.twitter }}" target="_blank">
-	    <img src="{{ STATIC_URL }}img/social/twitter.png">
+	  {% if profile.blogger %}
+	  <a id="valid-social-blogger" href="{{ profile.blogger }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/blogger.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.deviantart %}
+	  <a id="valid-social-deviantart" href="{{ profile.deviantart }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/deviantart.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.digg %}
+	  <a id="valid-social-digg" href="{{ profile.digg }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/digg.png">
 	  </a>
 	  {% endif %}
 	  {% if profile.facebook %}
 	  <a id="valid-social-facebook" href="{{ profile.facebook }}" target="_blank">
 	    <img src="{{ STATIC_URL }}img/social/facebook.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.flickr %}
+	  <a id="valid-social-flickr" href="{{ profile.flickr }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/flickr.png">
 	  </a>
 	  {% endif %}
 	  {% if profile.google_plus %}
@@ -358,27 +383,108 @@ $(document).ready(function(){
 	    <img src="{{ STATIC_URL }}img/social/linkedin.png">
 	  </a>
 	  {% endif %}
-	  {% if not profile.twitter and not profile.facebook and not profile.google_plus and not profile.linkedin %}
+	  {% if profile.myspace %}
+	  <a id="valid-social-myspace" href="{{ profile.myspace }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/myspace.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.orkut %}
+	  <a id="valid-social-orkut" href="{{ profile.orkut }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/orkut.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.pinterest %}
+	  <a id="valid-social-pinterest" href="{{ profile.pinterest }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/pinterest.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.tumblr %}
+	  <a id="valid-social-tumblr" href="{{ profile.tumblr }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/tumblr.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.twitter %}
+	  <a id="valid-social-twitter" href="{{ profile.twitter }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/twitter.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.wordpress %}
+	  <a id="valid-social-wordpress" href="{{ profile.wordpress }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/wordpress.png">
+	  </a>
+	  {% endif %}
+	  {% if profile.youtube %}
+	  <a id="valid-social-youtube" href="{{ profile.youtube }}" target="_blank">
+	    <img src="{{ STATIC_URL }}img/social/youtube.png">
+	  </a>
+	  {% endif %}
+
+	  {% if not profile.blogger and not profile.deviantart and not profile.digg and not profile.facebook %}
+	  {% if not profile.flickr and not profile.linkedin and not profile.google_plus and not profile.myspace %}
+	  {% if not profile.orkut and not profile.pinterest and not profile.tumblr and not profile.twitter %}
+	  {% if not profile.wordpress and not profile.youtube %}
 	  <p id="empty-social"><em>Currently empty</em></p>
 	  {% endif %}
-	  <div class="hide" id="twitter-group">
-	    <label for="twitter-input" class="control-label">Twitter</label>
-	    <input id="twitter-input" type="text" maxlength="500" placeholder="Twitter"></input>
-	  </div>
-
-	  <div class="hide" id="facebook-group">
-	    <label for="facebook-input" class="control-label">Facebook</label>
-	    <input id="facebook-input" type="text" maxlength="500" placeholder="Facebook"></input>
-	  </div>
-
-	  <div class="hide" id="google_plus-group">
-	    <label for="google_plus_input" class="control-label">Google+</label>
-	    <input id="google_plus-input" type="text" maxlength="500" placeholder="Google+"></input>
-	  </div>
-
-	  <div class="hide" id="linkedin-group">
-	    <label for="linkedin-input" class="control-label">LinkedIn</label>
-	    <input id="linkedin-input" type="text" maxlength="500" placeholder="LinkedIn"></input>
+	  {% endif %}
+	  {% endif %}
+	  {% endif %}
+	  <div class="hide" id="all-social-inputs">
+	    <div id="blogger-group">
+	      <label for="blogger-input" class="control-label">Blogger</label>
+	      <input id="blogger-input" type="text" maxlength="500" placeholder="Blogger"></input>
+	    </div>
+	    <div id="deviantart-group">
+	      <label for="deviantart-input" class="control-label">deviantART</label>
+	      <input id="deviantart-input" type="text" maxlength="500" placeholder="deviantART"></input>
+	    </div>
+	    <div id="digg-group">
+	      <label for="digg-input" class="control-label">Digg</label>
+	      <input id="digg-input" type="text" maxlength="500" placeholder="Digg"></input>
+	    </div>
+	    <div id="facebook-group">
+	      <label for="facebook-input" class="control-label">Facebook</label>
+	      <input id="facebook-input" type="text" maxlength="500" placeholder="Facebook"></input>
+	    </div>
+	    <div id="flickr-group">
+	      <label for="flickr-input" class="control-label">Flickr</label>
+	      <input id="flickr-input" type="text" maxlength="500" placeholder="Flickr"></input>
+	    </div>
+	    <div id="google_plus-group">
+	      <label for="google_plus_input" class="control-label">Google+</label>
+	      <input id="google_plus-input" type="text" maxlength="500" placeholder="Google+"></input>
+	    </div>
+	    <div id="linkedin-group">
+	      <label for="linkedin-input" class="control-label">LinkedIn</label>
+	      <input id="linkedin-input" type="text" maxlength="500" placeholder="LinkedIn"></input>
+	    </div>
+	    <div id="myspace-group">
+	      <label for="myspace-input" class="control-label">Myspace</label>
+	      <input id="myspace-input" type="text" maxlength="500" placeholder="Myspace"></input>
+	    </div>
+	    <div id="orkut-group">
+	      <label for="orkut-input" class="control-label">Orkut</label>
+	      <input id="orkut-input" type="text" maxlength="500" placeholder="Orkut"></input>
+	    </div>
+	    <div id="pinterest-group">
+	      <label for="pinterest-input" class="control-label">Pinterest</label>
+	      <input id="pinterest-input" type="text" maxlength="500" placeholder="Pinterest"></input>
+	    </div>
+	    <div id="tumblr-group">
+	      <label for="tumblr-input" class="control-label">Tumblr</label>
+	      <input id="tumblr-input" type="text" maxlength="500" placeholder="Tumblr"></input>
+	    </div>
+	    <div id="twitter-group">
+	      <label for="twitter-input" class="control-label">Twitter</label>
+	      <input id="twitter-input" type="text" maxlength="500" placeholder="Twitter"></input>
+	    </div>
+	    <div id="wordpress-group">
+	      <label for="wordpress-input" class="control-label">Wordpress</label>
+	      <input id="wordpress-input" type="text" maxlength="500" placeholder="Wordpress"></input>
+	    </div>
+	    <div id="youtube-group">
+	      <label for="youtube-input" class="control-label">YouTube</label>
+	      <input id="youtube-input" type="text" maxlength="500" placeholder="YouTube"></input>
+	    </div>
 	  </div>
 	</div>
 	<button type="button" class="btn btn-success" id="save-social" style="display: none; margin-bottom: 10px">
@@ -388,11 +494,21 @@ $(document).ready(function(){
 	  <i class="icon-remove"></i>
 	</button>
 	{% else %}
-	{% if profile.twitter %}
-	<a href="{{ profile.twitter }}" target="_blank"><img src="{{ STATIC_URL }}img/social/twitter.png"></a>
+
+	{% if profile.blogger %}
+	<a href="{{ profile.blogger }}" target="_blank"><img src="{{ STATIC_URL }}img/social/blogger.png"></a>
+	{% endif %}
+	{% if profile.deviantart %}
+	<a href="{{ profile.deviantart }}" target="_blank"><img src="{{ STATIC_URL }}img/social/deviantart.png"></a>
+	{% endif %}
+	{% if profile.digg %}
+	<a href="{{ profile.digg }}" target="_blank"><img src="{{ STATIC_URL }}img/social/digg.png"></a>
 	{% endif %}
 	{% if profile.facebook %}
 	<a href="{{ profile.facebook }}" target="_blank"><img src="{{ STATIC_URL }}img/social/facebook.png"></a>
+	{% endif %}
+	{% if profile.flickr %}
+	<a href="{{ profile.flickr }}" target="_blank"><img src="{{ STATIC_URL }}img/social/flickr.png"></a>
 	{% endif %}
 	{% if profile.google_plus %}
 	<a href="{{ profile.google_plus }}" target="_blank"><img src="{{ STATIC_URL }}img/social/gplus2.png"></a>
@@ -400,6 +516,28 @@ $(document).ready(function(){
 	{% if profile.linkedin %}
 	<a href="{{ profile.linkedin }}" target="_blank"><img src="{{ STATIC_URL }}img/social/linkedin.png"></a>
 	{% endif %}
+	{% if profile.myspace %}
+	<a href="{{ profile.myspace }}" target="_blank"><img src="{{ STATIC_URL }}img/social/myspace.png"></a>
+	{% endif %}
+	{% if profile.orkut %}
+	<a href="{{ profile.orkut }}" target="_blank"><img src="{{ STATIC_URL }}img/social/orkut.png"></a>
+	{% endif %}
+	{% if profile.pinterest %}
+	<a href="{{ profile.pinterest }}" target="_blank"><img src="{{ STATIC_URL }}img/social/pinterest.png"></a>
+	{% endif %}
+	{% if profile.tumblr %}
+	<a href="{{ profile.tumblr }}" target="_blank"><img src="{{ STATIC_URL }}img/social/tumblr.png"></a>
+	{% endif %}
+	{% if profile.twitter %}
+	<a href="{{ profile.twitter }}" target="_blank"><img src="{{ STATIC_URL }}img/social/twitter.png"></a>
+	{% endif %}
+	{% if profile.wordpress %}
+	<a href="{{ profile.wordpress }}" target="_blank"><img src="{{ STATIC_URL }}img/social/wordpress.png"></a>
+	{% endif %}
+	{% if profile.youtube %}
+	<a href="{{ profile.youtube }}" target="_blank"><img src="{{ STATIC_URL }}img/social/youtube.png"></a>
+	{% endif %}
+
 	{% endif %}
       </div>
     </div>
