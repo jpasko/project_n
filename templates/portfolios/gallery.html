@@ -30,7 +30,7 @@
     margin-top: 5px;
   }
   .thumbnails > li {
-    margin: 1px 3px 0 3px;
+    margin: 2px;
   }
 </style>
 {% endblock %}
@@ -180,12 +180,12 @@ $(document).ready(function(){
 <!-- end modals -->
 <div class="row-fluid">
   <div class="span9">
-    <div class="row-fluid" style="padding-bottom: 25px">
-      <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-photo-modal" style="margin-left: 3px">
-	<i class="icon-arrow-up icon-white"></i>Upload Image
+    <div class="row-fluid" style="padding-bottom: 20px">
+      <a class="btn btn-info btn-large" role="button" data-toggle="modal" href="#upload-photo-modal" style="margin-left: 3px; border-radius: 2px">
+	<i class="icon-picture icon-white"></i><strong> Upload image</strong>
       </a>
-      <a class="btn-green btn-green-link btn-large" role="button" data-toggle="modal" href="#upload-video-modal" style="margin-left: 5px">
-	<i class="icon-arrow-up icon-white"></i>Upload Video
+      <a class="btn btn-info btn-large" role="button" data-toggle="modal" href="#upload-video-modal" style="border-radius: 2px">
+	<i class="icon-film icon-white"></i><strong> Upload video</strong>
       </a>
     </div>
     <div class="row-fluid">
@@ -214,18 +214,20 @@ $(document).ready(function(){
       </ul>
     </div>
   </div>
-  <div class="span3">
-    <div class="row-fluid" style="padding-bottom: 20px">
-      <p class="muted" style="display: inline-block; margin-left: 15px">{% if gallery.title %}{{ gallery.title }}{% else %}No title{% endif %}</p>
-      <p class="muted" style="display: inline-block; margin-left: 10px; margin-right: 10px">&bull;</p>
-      <p class="muted" style="display: inline-block">
-	{% if gallery.thumbnail %}<img id="thumbnail-img" src="{{ gallery.thumbnail.url }}" style="padding-right: 20px">{% else %}Default thumbnail{% endif %}
+  <div class="span3" style="border: 2px solid #{{ profile.text_color }}; border-radius: 5px; padding-left: 8px; margin-left: 10px; padding-top: 5px">
+    <div class="row-fluid muted" style="padding-bottom: 10px">
+      <p>
+	<strong>Title:</strong> {% if gallery.title %}{{ gallery.title }}{% else %}None{% endif %}
       </p>
-      <a class="btn btn-default" href="/gallery/{{ gallery.pk }}/edit/" style="margin-left: 10px">
-	<i class="icon-edit"></i><strong>Edit</strong>
+      <p>
+	<strong>Thumbnail:</strong>
+	{% if gallery.thumbnail %}<img id="thumbnail-img" src="{{ gallery.thumbnail.url }}">{% else %}Default{% endif %}
+      </p>
+      <a class="btn btn-info" href="/gallery/{{ gallery.pk }}/edit/">
+	<i class="icon-edit icon-white"></i><strong>Edit</strong>
       </a>
       <a class="btn btn-danger" role="button" data-toggle="modal" href="#delete-gallery-modal">
-	<i class="icon-remove icon-white"></i><strong>Delete</strong>
+	<strong>Delete</strong>
       </a>
     </div>
   </div>
