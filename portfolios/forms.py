@@ -24,6 +24,8 @@ class UserProfileForm(forms.ModelForm):
                    'facebook',
                    'google_plus',
                    'linkedin',
+                   'orkut',
+                   'myspace',
                    'edit_mode',)
 
 class ProfilePictureForm(forms.ModelForm):
@@ -61,6 +63,8 @@ class ProfilePictureForm(forms.ModelForm):
                    'facebook',
                    'google_plus',
                    'linkedin',
+                   'orkut',
+                   'myspace',
                    'banner',
                    'edit_mode',)
 

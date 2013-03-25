@@ -93,6 +93,8 @@ class UserProfile(models.Model):
     facebook = models.URLField(max_length=500, blank=True)
     google_plus = models.URLField(max_length=500, blank=True, verbose_name="Google+")
     linkedin = models.URLField(max_length=500, blank=True, verbose_name="LinkedIn")
+    orkut = models.URLField(max_length=500, blank=True)
+    myspace = models.URLField(max_length=500, blank=True)
 
     picture = ProcessedImageField([ResizeToFit(width=200,
                                                height=250,

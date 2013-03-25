@@ -230,6 +230,9 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Grab some settings from config vars in the prod environment.
 try:
     STRIPE_SECRET = os.environ['STRIPE_SECRET']
