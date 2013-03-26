@@ -35,7 +35,7 @@ $(document).ready(function(){
   $(".enable-about").on("click", function() {
     if (!$(this).hasClass("active")) {
       $(this).removeClass("btn-default");
-      $(this).addClass("btn-success active");
+      $(this).addClass("btn-info active");
       $(".disable-about").removeClass("btn-danger active");
       $(".disable-about").addClass("btn-default");
 
@@ -51,7 +51,7 @@ $(document).ready(function(){
     if (!$(this).hasClass("active")) {
       $(this).removeClass("btn-default");
       $(this).addClass("btn-danger active");
-      $(".enable-about").removeClass("btn-success active");
+      $(".enable-about").removeClass("btn-info active");
       $(".enable-about").addClass("btn-default");
 
       $.ajax({
@@ -151,7 +151,7 @@ $(document).ready(function(){
       <div class="span7">
 	<div class="btn-group" style="display: inline">
 	  {% if profile.allow_about %}
-	  <button type="button" class="btn btn-success enable-about active" value="True"><i class="icon-ok"></i></button>
+	  <button type="button" class="btn btn-info enable-about active" value="True"><i class="icon-ok"></i></button>
 	  <button type="button" class="btn btn-default disable-about" value="False"><i class="icon-remove"></i></button>
 	  {% else %}
 	  <button type="button" class="btn btn-default enable-about" value="True"><i class="icon-ok"></i></button>
@@ -546,7 +546,7 @@ $(document).ready(function(){
     {% if user.is_authenticated and username == user.username and profile.edit_mode %}
     <div class="row-fluid" style="padding-bottom: 10px">
       <a href="#profile-picture-modal" role="button" data-toggle="modal" class="btn btn-info">
-	<i class="icon-plus icon-white"></i><strong>Profile picture</strong>
+	<i class="icon-plus icon-white"></i><strong> Profile picture</strong>
       </a>
       {% if profile.picture %}
       <a href="#delete-profile-picture" role="button" data-toggle="modal" class="btn btn-danger">

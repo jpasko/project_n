@@ -119,37 +119,37 @@ $(function() {
   });
   $("#font_type_radio").find(".btn").each(function() {
     $(this).bind("click", function() {
-      $(this).addClass("btn-success active");
+      $(this).addClass("btn-info active");
       $(this).removeClass("btn-default");
       $(this).siblings().addClass("btn-default");
-      $(this).siblings().removeClass("btn-success active");
+      $(this).siblings().removeClass("btn-info active");
       $("#id_font_type").val($(this).val());
     });
   });
   $("#enable_banner_radio").find(".btn").each(function() {
     $(this).bind("click", function() {
-      $(this).addClass("btn-success active");
+      $(this).addClass("btn-info active");
       $(this).removeClass("btn-default");
       $(this).siblings().addClass("btn-default");
-      $(this).siblings().removeClass("btn-success active");
+      $(this).siblings().removeClass("btn-info active");
       $("#id_enable_banner").val($(this).val());
     });
   });
   $("#font_size_radio").find(".btn").each(function() {
     $(this).bind("click", function() {
-      $(this).addClass("btn-success active");
+      $(this).addClass("btn-info active");
       $(this).removeClass("btn-default");
       $(this).siblings().addClass("btn-default");
-      $(this).siblings().removeClass("btn-success active");
+      $(this).siblings().removeClass("btn-info active");
       $("#id_font_size").val($(this).val());
     });
   });
   $("#contact_type_radio").find(".btn").each(function() {
     $(this).bind("click", function() {
-      $(this).addClass("btn-success active");
+      $(this).addClass("btn-info active");
       $(this).removeClass("btn-default");
       $(this).siblings().addClass("btn-default");
-      $(this).siblings().removeClass("btn-success active");
+      $(this).siblings().removeClass("btn-info active");
       $("#id_contact_type").val($(this).val());
     });
   });
@@ -209,11 +209,11 @@ $(function() {
 	  <input type="hidden" name="enable_banner" value="{{ profile.enable_banner }}" id="id_enable_banner" />
 	  <div class="btn-group" data-toggle="buttons-radio" id="enable_banner_radio">
 	    {% if profile.enable_banner %}
-	    <button type="button" class="btn btn-success active" value="True" style="width: 111px"><strong>Banner</strong></button>
+	    <button type="button" class="btn btn-info active" value="True" style="width: 111px"><strong>Banner</strong></button>
 	    <button type="button" class="btn btn-default" style="width: 111px" value="False"><strong>Title</strong></button>
 	    {% else %}
 	    <button type="button" class="btn btn-default" value="True" style="width: 111px"><strong>Banner</strong></button>
-	    <button type="button" class="btn btn-success active" style="width: 111px" value="False"><strong>Title</strong></button>
+	    <button type="button" class="btn btn-info active" style="width: 111px" value="False"><strong>Title</strong></button>
 	    {% endif %}
 	  </div>
 	</div>
@@ -280,17 +280,17 @@ $(function() {
 	  <input type="hidden" name="font_type" value="{{ profile.font_type }}" id="id_font_type" />
 	  <div class="btn-group" data-toggle="buttons-radio" id="font_type_radio">
 	    {% if profile.font_type == 'S' %}
-	    <button type="button" class="btn btn-success active" value="S"><strong>Sans-serif</strong></button>
+	    <button type="button" class="btn btn-info active" value="S"><strong>Sans-serif</strong></button>
 	    <button type="button" class="btn btn-default" value="E"><strong>Serif</strong></button>
 	    <button type="button" class="btn btn-default" value="M"><strong>Mono</strong></button>
 	    {% elif profile.font_type == 'E' %}
 	    <button type="button" class="btn btn-default" value="S"><strong>Sans-serif</strong></button>
-	    <button type="button" class="btn btn-success active" value="E"><strong>Serif</strong></button>
+	    <button type="button" class="btn btn-info active" value="E"><strong>Serif</strong></button>
 	    <button type="button" class="btn btn-default" value="M"><strong>Mono</strong></button>
 	    {% else %}
 	    <button type="button" class="btn btn-default" value="S"><strong>Sans-serif</strong></button>
 	    <button type="button" class="btn btn-default" value="E"><strong>Serif</strong></button>
-	    <button type="button" class="btn btn-success active" value="M"><strong>Mono</strong></button>
+	    <button type="button" class="btn btn-info active" value="M"><strong>Mono</strong></button>
 	    {% endif %}
 	  </div>
 	</div>
@@ -302,17 +302,17 @@ $(function() {
 	  <input type="hidden" name="font_size" value="{{ profile.font_size }}" id="id_font_size" />
 	  <div class="btn-group" data-toggle="buttons-radio" id="font_size_radio">
 	    {% if profile.font_size < 1.1 %}
-	    <button type="button" class="btn btn-success active" style="width: 73px" value="1.0"><strong>S</strong></button>
+	    <button type="button" class="btn btn-info active" style="width: 73px" value="1.0"><strong>S</strong></button>
 	    <button type="button" class="btn btn-default" style="width: 73px" value="1.2"><strong>M</strong></button>
 	    <button type="button" class="btn btn-default" style="width: 73px" value="1.4"><strong>L</strong></button>
 	    {% elif profile.font_size < 1.3 %}
 	    <button type="button" class="btn btn-default" style="width: 73px" value="1.0"><strong>S</strong></button>
-	    <button type="button" class="btn btn-success active" style="width: 73px" value="1.2"><strong>M</strong></button>
+	    <button type="button" class="btn btn-info active" style="width: 73px" value="1.2"><strong>M</strong></button>
 	    <button type="button" class="btn btn-default" style="width: 73px" value="1.4"><strong>L</strong></button>
 	    {% else %}
 	    <button type="button" class="btn btn-default" style="width: 73px" value="1.0"><strong>S</strong></button>
 	    <button type="button" class="btn btn-default" style="width: 73px" value="1.2"><strong>M</strong></button>
-	    <button type="button" class="btn btn-success active" style="width: 73px" value="1.4"><strong>L</strong></button>
+	    <button type="button" class="btn btn-info active" style="width: 73px" value="1.4"><strong>L</strong></button>
 	    {% endif %}
 	  </div>
 	</div>
@@ -341,17 +341,17 @@ $(function() {
 	  <input type="hidden" name="contact_type" value="{{ profile.contact_type }}" id="id_contact_type" />
 	  <div class="btn-group" data-toggle="buttons-radio" id="contact_type_radio">
 	    {% if profile.contact_type == 'M' %}
-	    <button type="button" class="btn btn-success active" style="width: 73px" value="M"><strong>Pop-up</strong></button>
+	    <button type="button" class="btn btn-info active" style="width: 73px" value="M"><strong>Pop-up</strong></button>
 	    <button type="button" class="btn btn-default" style="width: 73px" value="E"><strong>Embed</strong></button>
 	    <button type="button" class="btn btn-default" style="width: 73px" value="N"><strong>None</strong></button>
 	    {% elif profile.contact_type == 'E' %}
 	    <button type="button" class="btn btn-default" style="width: 73px" value="M"><strong>Pop-up</strong></button>
-	    <button type="button" class="btn btn-success active" style="width: 73px" value="E"><strong>Embed</strong></button>
+	    <button type="button" class="btn btn-info active" style="width: 73px" value="E"><strong>Embed</strong></button>
 	    <button type="button" class="btn btn-default" style="width: 73px" value="N"><strong>None</strong></button>
 	    {% else %}
 	    <button type="button" class="btn btn-default" style="width: 73px" value="M"><strong>Pop-up</strong></button>
 	    <button type="button" class="btn btn-default" style="width: 73px" value="E"><strong>Embed</strong></button>
-	    <button type="button" class="btn btn-success active" style="width: 73px" value="N"><strong>None</strong></button>
+	    <button type="button" class="btn btn-info active" style="width: 73px" value="N"><strong>None</strong></button>
 	    {% endif %}
 	  </div>
 	</div>
@@ -394,8 +394,8 @@ $(function() {
 
     <hr style="border-top: none; border-bottom: 1px solid #d6d6d6; width: 100%">
     <div style="width: 100%; margin: 0 auto; text-align: center; margin-bottom: 20px">
-      <input type="submit" value="Apply Changes" class="btn btn-large btn-success">
-      <a class="btn btn-default btn-large" href="/">Cancel</a>
+      <input type="submit" value="Apply Changes" class="btn btn-large btn-info" style="border-radius: 2px">
+      <a class="btn btn-default btn-large" href="/" style="border-radius: 2px">Cancel</a>
     </div>
   </form>
 </div>
