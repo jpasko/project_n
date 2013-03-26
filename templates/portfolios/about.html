@@ -21,7 +21,6 @@
 </style>
 {% endblock %}
 {% block script %}
-<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/csrf.js"></script>
 {% if user.is_authenticated and user.username == username %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/editor.js"></script>
