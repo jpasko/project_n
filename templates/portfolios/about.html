@@ -164,7 +164,7 @@ $(document).ready(function(){
     {% endif %}
 
     {% if user.is_authenticated and username == user.username and profile.edit_mode or profile.about %}
-    <div class="row-fluid sizeable-font">
+    <div class="row-fluid sizeable-font" style="padding-bottom: 10px">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<a class="pencil muted" id="trigger-editable-about" href="#"><b>About</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
@@ -196,7 +196,7 @@ $(document).ready(function(){
     {% endif %}
 
     {% if user.is_authenticated and username == user.username and profile.edit_mode or profile.email %}
-    <div class="row-fluid sizeable-font">
+    <div class="row-fluid sizeable-font" style="padding-bottom: 10px">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<a class="pencil muted" id="trigger-editable-email" href="#"><b>Email</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
@@ -228,7 +228,7 @@ $(document).ready(function(){
     {% endif %}
 
     {% if user.is_authenticated and username == user.username and profile.edit_mode or profile.phone %}
-    <div class="row-fluid sizeable-font">
+    <div class="row-fluid sizeable-font" style="padding-bottom: 10px">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<a class="pencil muted" id="trigger-editable-phone" href="#"><b>Phone</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
@@ -260,7 +260,7 @@ $(document).ready(function(){
     {% endif %}
 
     {% if user.is_authenticated and username == user.username and profile.edit_mode or profile.location %}
-    <div class="row-fluid sizeable-font">
+    <div class="row-fluid sizeable-font" style="padding-bottom: 10px">
       <div class="span2">
 	{% if user.is_authenticated and username == user.username and profile.edit_mode %}
 	<a class="pencil muted" id="trigger-editable-location" href="#"><b>Location</b><img src="{{ STATIC_URL }}img/pencil_dull.png"></a>
