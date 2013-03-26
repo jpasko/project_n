@@ -133,14 +133,18 @@ def upload_image(request, gallery_id):
                 item=item,
                 image=request.FILES['image'],
                 )
-            photo.save()
-            # Update the photo count on the user
-            profile.photo_count += 1
-            profile.save()
-            # Update the photo count on the gallery
-            gallery.count += 1
-            gallery.save()
-            return HttpResponseRedirect('/gallery/' + gallery_id + '/')
+            try:
+                photo.save()
+            except Exception as e:
+                item.delete()
+            else:
+                # Update the photo count on the user
+                profile.photo_count += 1
+                profile.save()
+                # Update the photo count on the gallery
+                gallery.count += 1
+                gallery.save()
+                return HttpResponseRedirect('/gallery/' + gallery_id + '/')
     else:
         item_form = UploadItemForm()
         photo_form = UploadPhotoForm()

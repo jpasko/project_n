@@ -54,8 +54,8 @@ $(function() {
       <a class="btn btn-default" onclick="$('#id_image').click();" style="margin-bottom: 10px"><b>Browse</b></a>
     </div>
     <div style="display: block">
-      <input type="submit" value="Upload" class="btn-green" id="submit-image">
-      <a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/">Cancel</a>
+      <input type="submit" value="Upload" class="btn btn-info btn-large" style="border-radius: 2px; font-weight: bold" id="submit-image">
+      <a class="btn btn-default btn-large" style="border-radius: 2px" href="/gallery/{{ gallery_id }}/"><strong>Cancel</strong></a>
     </div>
   </form>
   {% endif %}
@@ -70,8 +70,8 @@ $(function() {
     <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
     <input type="text" name="url" id="id_url" placeholder="YouTube, Vimeo, or Dailymotion URL" style="width: 286px"/>
     <div style="display: block">
-      <input type="submit" value="Upload" class="btn-green" id="submit-video">
-      <a class="btn-contact btn-link" href="/gallery/{{ gallery_id }}/">Cancel</a>
+      <input type="submit" value="Upload" class="btn btn-info btn-large" style="border-radius: 2px; font-weight: bold" id="submit-video">
+      <a class="btn btn-default btn-large" style="border-radius: 2px" href="/gallery/{{ gallery_id }}/"><strong>Cancel</strong></a>
     </div>
   </form>
   {% endif %}
