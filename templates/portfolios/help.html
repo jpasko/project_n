@@ -41,7 +41,7 @@
 	</tr>
 	<tr>
 	  <td>@</td>
-	  <td>http://www.YourDomainName.com/</td>
+	  <td>http://www.yourdomainname.com/</td>
 	  <td>URL Redirect</td>
 	</tr>
 	<tr>
@@ -52,19 +52,33 @@
       </table>
       <p><br>The URL Redirect record may already exist.  Ensure that the CNAME record exists and hit "save".</p>
     </li>
+    <li><p>Check that you entered the records correctly.  To do this, type <strong>yourdomainname.com</strong> (without the "www") 
+      into your browser's address bar.  A generic "not found" page should come up, depending on your browser.  <strong>Verify that
+	"www.yourdomainname.com" appears in the address bar (with the "www").</strong> You may have to wait up to 24 hours 
+      for DNS records to propagate.</p>
+    </li>
     <li>
       <p>Under the "tools" menu of your portfolio, click "Custom domain".</p>
     </li>
     <li>
-      <p>In the box that pops up, enter your domain (e.g. <strong>mywebsite.com</strong>).  You must not enter "www" or anything
-	other than <strong>mywebsite.com</strong>.
+      <p>In the box that pops up, enter your domain (e.g. <strong>yourdomainname.com</strong>).  You must not enter "www" or anything
+	other than <strong>yourdomainname.com</strong>.
     </li>
     <li>
       <p>Click "save".  You must wait up to 72 hours for the changes to take effect.</p>
       <p>If you've waited and your domain still doesn't work, double-check that you entered your domain name correctly and that you
-	added the CNAME record as stated above.  Feel free to <a href="http://www.folio24.com/contact/">contact us</a> for support.</p>
+	added the CNAME record as stated above.
+      </p>
+      <p>Feel free to <a href="http://www.folio24.com/contact/">contact us</a> for support.</p>
     </li>
   </ol>
+  <p><strong>NOTE:</strong> If you <strong>log out</strong> and visit your portfolio while your new domain name is being processed, 
+    you should see a "Heroku | No such app" page.
+    You should also see <strong>www.yourdomainname.com</strong> in the address bar.  If you see anything else, such as a "page not found" message,
+    double-check your domain registrar's settings.</p>
+  <p>
+    <strong>NOTE:</strong> You can still access your portfolio during this stage by signing in.
+  </p>
 </div>
 <div class="featurette">
   <h3 class="featurette-heading">My portfolio isn't working correctly.  My edits aren't saved and it looks weird.  What gives?</h3>
