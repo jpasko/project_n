@@ -52,24 +52,26 @@ $(function() {
   {% endif %}
   <form method="post" action="." enctype="multipart/form-data">
     {% csrf_token %}
-    <input id="id_title" type="text" name="title" maxlength="75" placeholder="Title (optional)" style="width: 286px" {% if gallery.title %}value="{{ gallery.title }}"{% endif %}/>
+    <input id="id_title" type="text" name="title" maxlength="75" placeholder="Title (optional)" style="width: 243px" {% if gallery.title %}value="{{ gallery.title }}"{% endif %}/>
 
     <input type="file" name="thumbnail" id="id_thumbnail" class="hide"/>
     <input tyle="hidden" name="delete_current_thumbnail" id="input-delete-current" class="hide" value="False" />
 
     {% if gallery.thumbnail %}
     <div class="pretty_file_input">
-      <input id="id_thumbnail_styled" type="text" onclick="$('#id_thumbnail').click();" placeholder="Change thumbnail (optional)" style="width: 202px">
+      <input id="id_thumbnail_styled" type="text" onclick="$('#id_thumbnail').click();" placeholder="Change thumbnail" style="width: 160px">
       <a class="btn btn-default" onclick="$('#id_thumbnail').click();" style="margin-bottom: 10px"><b>Change</b></a>
     </div>
     <div style="margin-bottom: 10px">
-      <p style="display: inline-block"><strong>(Currently) </strong></p>
+      <p style="display: inline-block"><strong>Currently: </strong></p>
       <img id="thumbnail-img" src="{{ gallery.thumbnail.url }}">
-      <button type="button" class="btn btn-default" id="delete-current"><i class="icon-remove"></i></button>
+      <button type="button" class="btn btn-default" id="delete-current">
+	<i class="icon-remove"></i><strong> Delete</strong>
+      </button>
     </div>
     {% else %}
     <div class="pretty_file_input">
-      <input id="id_thumbnail_styled" type="text" onclick="$('#id_thumbnail').click();" placeholder="Thumbnail (optional)" style="width: 204px">
+      <input id="id_thumbnail_styled" type="text" onclick="$('#id_thumbnail').click();" placeholder="Thumbnail (optional)" style="width: 162px">
       <a class="btn btn-default" onclick="$('#id_thumbnail').click();" style="margin-bottom: 10px"><b>Browse</b></a>
     </div>
     {% endif %}
