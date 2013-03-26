@@ -122,7 +122,7 @@ $(document).ready(function(){
     {% else %}
     <form method="post" action="/upload/image/{{ gallery.pk }}/" enctype="multipart/form-data" id="image-form">
       {% csrf_token %}
-      <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+      <input id="id_caption" type="text" name="caption" maxlength="200" placeholder="Caption (optional)" style="width: 286px"/>
       <input type="file" name="image" id="id_image" class="hide"/>
       <div class="pretty_file_input">
 	<input id="id_image_styled" type="text" onclick="$('#id_image').click();" placeholder="Image">
@@ -150,7 +150,7 @@ $(document).ready(function(){
     {% else %}
     <form method="post" action="/upload/video/{{ gallery.pk }}/" id="video-form">
       {% csrf_token %}
-      <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+      <input id="id_caption" type="text" name="caption" maxlength="200" placeholder="Caption (optional)" style="width: 286px"/>
       <input type="text" name="url" id="id_url" placeholder="YouTube, Vimeo, or Dailymotion URL" style="width: 286px"/>
       <div style="padding-top: 15px">
 	<input type="submit" value="Upload" class="btn btn-primary btn-large" id="submit-video">
@@ -169,7 +169,7 @@ $(document).ready(function(){
   <div class="modal-body">
     <form method="post" action="/item/{{ item.pk }}/edit/" id="edit-item-form">
       {% csrf_token %}
-      <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+      <input id="id_caption" type="text" name="caption" maxlength="200" placeholder="Caption (optional)" style="width: 286px"/>
       <div style="padding-top: 15px">
 	<input type="submit" value="Save" class="btn btn-primary btn-large" id="submit-item-edit">
 	<button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true">Close</button>

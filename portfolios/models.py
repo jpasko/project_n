@@ -55,7 +55,7 @@ class Gallery(models.Model):
 class Item(models.Model):
     gallery = models.ForeignKey(Gallery)
     is_photo = models.BooleanField(default=True)
-    caption = models.CharField(max_length=100, blank=True)
+    caption = models.CharField(max_length=200, blank=True)
     order = models.IntegerField(default=9999, blank=True)
 
     class Meta:

@@ -14,9 +14,9 @@
   <form method="post" action=".">
     {% csrf_token %}
     {% if item.caption %}
-    <input id="id_caption" type="text" name="caption" maxlength="100" value="{{ item.caption }}" style="width: 286px"/>
+    <input id="id_caption" type="text" name="caption" maxlength="200" value="{{ item.caption }}" style="width: 286px"/>
     {% else %}
-    <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
+    <input id="id_caption" type="text" name="caption" maxlength="200" placeholder="Caption (optional)" style="width: 286px"/>
     {% endif %}
     <input type="submit" value="Save" class="btn-green">
     <a class="btn-contact btn-link" href="/gallery/{{ item.gallery.pk }}/">Cancel</a>
