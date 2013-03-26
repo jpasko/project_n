@@ -118,6 +118,7 @@ def upload_image(request, gallery_id):
         raise Http404
     profile = request.user.get_profile()
     customer = request.user.customer
+    error = None
     if request.method == 'POST':
         photo_form = UploadPhotoForm(request.POST, request.FILES)
         item_form = UploadItemForm(request.POST)
@@ -137,6 +138,7 @@ def upload_image(request, gallery_id):
                 photo.save()
             except Exception as e:
                 item.delete()
+                error = 'Image too large or corrupted'
             else:
                 # Update the photo count on the user
                 profile.photo_count += 1
@@ -154,6 +156,7 @@ def upload_image(request, gallery_id):
                                 'video_form': None,
                                 'gallery_id': gallery_id,
                                 'username': username,
+                                'error': error,
                                 'customer': customer,
                                 'profile': profile})
     return render_to_response('portfolios/upload.html', variables)
@@ -198,6 +201,7 @@ def upload_video(request, gallery_id):
                                 'video_form': video_form,
                                 'gallery_id': gallery_id,
                                 'username': username,
+                                'error': None,
                                 'customer': customer,
                                 'profile': profile})
     return render_to_response('portfolios/upload.html', variables)
