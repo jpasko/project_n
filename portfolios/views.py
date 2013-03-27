@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.core.mail import send_mail
 from django.core.validators import validate_email, URLValidator
 from django.core.exceptions import ValidationError
+from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 
 from portfolios.models import Item, Photo, Video, Gallery
@@ -123,30 +124,34 @@ def upload_image(request, gallery_id):
         photo_form = UploadPhotoForm(request.POST, request.FILES)
         item_form = UploadItemForm(request.POST)
         if photo_form.is_valid() and item_form.is_valid():
-            gallery = get_object_or_404(Gallery, pk=gallery_id)
-            item = Item(
-                gallery=gallery,
-                caption=item_form.cleaned_data['caption'],
-                is_photo=True
-                )
-            item.save()
-            photo = Photo(
-                item=item,
-                image=request.FILES['image'],
-                )
-            try:
-                photo.save()
-            except Exception as e:
-                item.delete()
-                error = 'Image too large or corrupted'
+            image=request.FILES['image']
+            if image.size > settings.MAX_FILE_SIZE:
+                error = 'Image too large!  Images must be less than 4 MB.'
             else:
-                # Update the photo count on the user
-                profile.photo_count += 1
-                profile.save()
-                # Update the photo count on the gallery
-                gallery.count += 1
-                gallery.save()
-                return HttpResponseRedirect('/gallery/' + gallery_id + '/')
+                gallery = get_object_or_404(Gallery, pk=gallery_id)
+                item = Item(
+                    gallery=gallery,
+                    caption=item_form.cleaned_data['caption'],
+                    is_photo=True,
+                    )
+                item.save()
+                photo = Photo(
+                    item=item,
+                    image=image,
+                    )
+                try:
+                    photo.save()
+                except Exception as e:
+                    item.delete()
+                    error = 'This image is corrupted!'
+                else:
+                    # Update the photo count on the user
+                    profile.photo_count += 1
+                    profile.save()
+                    # Update the photo count on the gallery
+                    gallery.count += 1
+                    gallery.save()
+                    return HttpResponseRedirect('/gallery/' + gallery_id + '/')
     else:
         item_form = UploadItemForm()
         photo_form = UploadPhotoForm()

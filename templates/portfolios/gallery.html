@@ -4,7 +4,7 @@
 {% endblock %}
 {% block head %}
 <style>
-  #galleria{ width: 100%; height: 550px }
+  #galleria{ width: 100%; height: 600px }
   body .galleria-container{ background:#{{ profile.background_color }}; }
   .gallery-thumbnail {
     height: {{ GALLERY_THUMBNAIL_DIMENSION }}px;
@@ -44,7 +44,7 @@
 <script>
 $(document).ready(function(){
   $('#id_image').change(function() {
-    if(this.files && this.files[0].size && this.files[0].size > {{ MAX_FILE_SIZE }}) {
+    if(false && this.files && this.files[0].size && this.files[0].size > {{ MAX_FILE_SIZE }}) {
       $('#submit-image').prop('disabled', true);
       $('#file-too-large-modal').modal('show');
     }
@@ -276,7 +276,8 @@ $(document).ready(function(){
     lightbox: true,
     lightboxTransitionSpeed: 150,
     lightboxFadeSpeed: 150,
-    maxScaleRatio: 1
+    maxScaleRatio: 1,
+    maxVideoSize: 900
 });
 </script>
 {% endif %}
