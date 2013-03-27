@@ -44,7 +44,7 @@
 <script>
 $(document).ready(function(){
   $('#id_image').change(function() {
-    if(false && this.files && this.files[0].size && this.files[0].size > {{ MAX_FILE_SIZE }}) {
+    if(this.files && this.files[0].size && this.files[0].size > {{ MAX_FILE_SIZE }}) {
       $('#submit-image').prop('disabled', true);
       $('#file-too-large-modal').modal('show');
     }
