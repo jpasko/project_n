@@ -242,14 +242,14 @@ $(document).ready(function(){
       <p>
 	<strong>Title:</strong> {% if gallery.title %}{{ gallery.title }}{% else %}None{% endif %}
       </p>
-      <p>
+      <p style="padding-bottom: 10px">
 	<strong>Thumbnail:</strong>
 	{% if gallery.thumbnail %}<img id="thumbnail-img" src="{{ gallery.thumbnail.url }}">{% else %}Default{% endif %}
       </p>
-      <a class="btn btn-info" href="/gallery/{{ gallery.pk }}/edit/">
+      <a class="btn btn-info" href="/gallery/{{ gallery.pk }}/edit/" style="border-radius: 2px">
 	<i class="icon-edit icon-white"></i><strong>Edit</strong>
       </a>
-      <a class="btn btn-danger" role="button" data-toggle="modal" href="#delete-gallery-modal">
+      <a class="btn btn-danger" role="button" data-toggle="modal" href="#delete-gallery-modal" style="border-radius: 2px">
 	<strong>Delete</strong>
       </a>
     </div>
