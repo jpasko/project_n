@@ -20,7 +20,16 @@
 <script>
 $(function() {
   $('#id_image').change(function() {
+    if(this.files && this.files[0].size && this.files[0].size > {{ MAX_FILE_SIZE }}) {
+      $('#submit-image').prop('disabled', true);
+      $('#file-too-large-modal').modal('show');
+    }
     $('#id_image_styled').val($(this).val().replace("C:\\fakepath\\", ""));
+  });
+  $('#restore-upload').on('click', function() {
+    $('#id_image').val('');
+    $('#id_image_styled').val('');
+    $('#submit-image').prop('disabled', false);
   });
   $('#image-form').submit(function(event) {
     $('#submit-image').prop('disabled', true);
@@ -34,6 +43,19 @@ $(function() {
 </script>
 {% endblock %}
 {% block content %}
+<!-- Modals -->
+<div id="file-too-large-modal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="too-large-header" aria-hidden="true">
+  <div class="modal-header">
+    <h3 id="too-large-header">This file is too large!</h3>
+  </div>
+  <div class="modal-body">
+    <p>Image uploads are restricted to files less than <strong>4 MBs</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-large" data-dismiss="modal" aria-hidden="true" id="restore-upload">Close</button>
+  </div>
+</div>
+<!-- End modals -->
 {% if profile.photo_count >= customer.account_limit %}
 <h3 class="muted">You've reached your upload limit!</h3>
 <p class="muted"><em>Either <a href="/settings/">upgrade</a> your account or delete photos</em></p>
@@ -57,7 +79,7 @@ $(function() {
       <a class="btn btn-default" onclick="$('#id_image').click();" style="margin-bottom: 10px"><b>Browse</b></a>
     </div>
     <div style="display: block">
-      <input type="submit" value="Upload" class="btn btn-info btn-large" style="border-radius: 2px; font-weight: bold" id="submit-image">
+      <input type="submit" value="Upload" class="btn btn-info btn-large" style="border-radius: 2px; font-weight: bold; width: 195px" id="submit-image">
       <a class="btn btn-default btn-large" style="border-radius: 2px" href="/gallery/{{ gallery_id }}/"><strong>Cancel</strong></a>
     </div>
   </form>
@@ -73,7 +95,7 @@ $(function() {
     <input id="id_caption" type="text" name="caption" maxlength="100" placeholder="Caption (optional)" style="width: 286px"/>
     <input type="text" name="url" id="id_url" placeholder="YouTube, Vimeo, or Dailymotion URL" style="width: 286px"/>
     <div style="display: block">
-      <input type="submit" value="Upload" class="btn btn-info btn-large" style="border-radius: 2px; font-weight: bold" id="submit-video">
+      <input type="submit" value="Upload" class="btn btn-info btn-large" style="border-radius: 2px; font-weight: bold; width: 195px" id="submit-video">
       <a class="btn btn-default btn-large" style="border-radius: 2px" href="/gallery/{{ gallery_id }}/"><strong>Cancel</strong></a>
     </div>
   </form>

@@ -95,7 +95,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'context_processors.custom.domain',
-    'context_processors.custom.thumbnail_dimensions',
+    'context_processors.custom.sizes_and_dimensions',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -198,6 +198,9 @@ IMAGE_WIDTH = 1200
 IMAGE_HEIGHT = 1200
 THUMBNAIL_WIDTH = 500
 THUMBNAIL_HEIGHT = 500
+
+# The maximum file size (validated client-side when possible)
+MAX_FILE_SIZE = 4 * 1024 * 1024
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
 DEFAULT_FROM_EMAIL = 'support@folio24.com'
